@@ -270,5 +270,11 @@ main.o: main.cpp \
  options/../sde/FinModels.hpp options/CFOptionPricer.cpp \
  options/../stats/DensityBase.hpp \
  options/../stats/../traits/OPOE_traits.hpp options/CFOptionPricer.hpp \
- options/FFTOptionPricer.hpp options/../utils/FFTW.hpp \
- options/../utils/../traits/OPOE_traits.hpp
+ options/FFTOptionPricer.hpp \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/Splines \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/Splines/SplineFwd.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/Splines/Spline.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/Splines/SplineFwd.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/Splines/SplineFitting.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/QR \
+ options/../utils/FFTW.hpp options/../utils/../traits/OPOE_traits.hpp

@@ -44,7 +44,13 @@ public:
      * @param underlying_price The final price (S_T) of the underlying asset.
      * @return The calculated payoff value.
      */
-    virtual T evaluate(T underlying_price) const = 0;
+    virtual T evaluate(T underlying_price) const = 0;   
+    
+    /**
+     * @brief Returns the type of the option (Call or Put).
+     * @return The type of the option as an enum value.
+     */
+    virtual traits::OptionType type() const = 0;
 
     /**
      * @brief Creates a copy of the payoff object.
@@ -81,6 +87,14 @@ public:
         if (strike_price < static_cast<T>(0.0)) {
             throw std::invalid_argument("Strike price cannot be negative.");
         }
+    }
+
+    /**
+     * @brief Returns the type of the option (Call).
+     * @return The type of the option as traits::OptionType::Call.
+     */
+    traits::OptionType type() const override {
+        return traits::OptionType::Call; // Return the type of the option
     }
 
     /**
@@ -135,6 +149,14 @@ public:
          if (strike_price < static_cast<T>(0.0)) {
             throw std::invalid_argument("Strike price cannot be negative.");
         }
+    }
+
+    /**
+     * @brief Returns the type of the option (Put).
+     * @return The type of the option as traits::OptionType::Put.
+     */
+    traits::OptionType type() const override {
+        return traits::OptionType::Put;
     }
 
     /**

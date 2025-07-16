@@ -213,8 +213,9 @@ public:
     }
 
     inline void characteristic_fn(T t, const SDEVector& x0, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
+        // Verificare se post x. array in parentesi vada mu. DEVO VEDERE OVUNQUE
+        charact_out = t * ( (-params_.sigma * params_.sigma * x.array().square()) * static_cast<T>(0.5) + ImaginaryUnit<> * x.array() * ( - params_.sigma * params_.sigma * static_cast<T>(0.5)));
 
-        charact_out = t * (-params_.sigma * -params_.sigma * x.array().square()) * static_cast<T>(0.5) + ImaginaryUnit<>*(params_.mu - params_.sigma * -params_.sigma * static_cast<T>(0.5));
         charact_out = charact_out.array().exp();
     }
 

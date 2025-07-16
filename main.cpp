@@ -44,10 +44,9 @@ int main() {
     T, K, r, x0,
     std::move(payoff),
     model,  // must be a shared_ptr, not a raw reference
-    20,
+    10,
     100
 );
-    price2 ->price();
 
 
 
@@ -55,6 +54,8 @@ int main() {
 
 
     std::cout << "Monte Carlo Call Price: " << pricer->price() << std::endl;
+    std::cout << "Monte Carlo Call Price: " << price2->price() << std::endl;
+
 
     
 }
