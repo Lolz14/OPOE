@@ -8,12 +8,14 @@
 #include "../sde/FinModels.hpp"
 
 namespace options {
+    using Array = traits::DataType::StoringArray;
+
     template <typename R = traits::DataType::PolynomialField>
     class BaseOptionPricer {
 
         public:
 
-            BaseOptionPricer(R ttm, R strike, R rate, R initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
+            BaseOptionPricer(R ttm, R strike, R rate, Array initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
                 : ttm_(ttm), strike_(strike), rate_(rate), x0_(initial_price), payoff_(std::move(payoff)), sde_model_(sde_model) {}
 
             virtual ~BaseOptionPricer() = default;
@@ -27,7 +29,7 @@ namespace options {
         R ttm_;
         R strike_;
         R rate_;
-        R x0_;
+        Array x0_;
         std::unique_ptr<IPayoff<R>> payoff_;
         std::shared_ptr<SDE::ISDEModel<R>> sde_model_;
 

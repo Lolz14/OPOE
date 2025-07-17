@@ -18,7 +18,7 @@ namespace options
         using Base = BaseOptionPricer<R>;
     
         public:
-            FFTPricer(R ttm, R strike, R rate, R initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 20, unsigned int A = 1200)
+            FFTPricer(R ttm, R strike, R rate, Array initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 20, unsigned int A = 1200)
             : Base(ttm, strike, rate, initial_price, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {}
 
             R price() const override {
@@ -40,20 +40,27 @@ namespace options
             // Prepare container for characteristic function results
             ComplexStoringVector res(N);
 
+
             // Evaluate characteristic function at v - i (imag unit)
             this->sde_model_->characteristic_fn(
                 this->ttm_, 
-                Array::Ones(1) * this->x0_, 
+                this->x0_, 
                 v - SDE::ImaginaryUnit<R>,  // Make sure ImaginaryUnit<R>() returns std::complex<R>(0,1)
                 res
             );
 
+            auto initial_value = this->x0_.size() == 1 ? std::exp(this->x0_(0)) : std::exp(this->x0_(1));
+
+            std::cout << "Characteristic function values: " << res.transpose() << std::endl;
+            
             // Compute Z_k per Carr-Madan or similar formula
             auto exp_term = (SDE::ImaginaryUnit<R> * this->rate_ * v * this->ttm_).exp();
 
             auto numerator = res.array() - std::complex<R>(1.0, 0.0);
             auto denominator = SDE::ImaginaryUnit<R> * v * (v * SDE::ImaginaryUnit<R> + std::complex<R>(1.0, 0.0));
             auto Z_k = exp_term * numerator.cwiseQuotient(denominator);
+
+            std::cout << "Z_k values: " << Z_k.transpose() << std::endl;
 
             // Weights for trapezoidal rule
             Array w = Array::Ones(N);
@@ -69,10 +76,10 @@ namespace options
             auto z_k = fft_result.real();
 
             // Transform z_k to C
-            Array C = this->x0_ * (z_k + (1.0 - (k_real - this->rate_ * this->ttm_).array().exp()).cwiseMax(0.0));
+            Array C = initial_value * (z_k + (1.0 - (k_real - this->rate_ * this->ttm_).array().exp()).cwiseMax(0.0));
 
             // Convert log-strikes to strikes
-            Array K = this->x0_ * k_real.array().exp();
+            Array K = initial_value * k_real.array().exp();
 
 
 
@@ -81,14 +88,12 @@ namespace options
 
 
             R result = spline(this->strike_)(0);
-        
-            std::cout << "Result: " << result << std::endl;
-
+      
             switch (this->payoff_->type()) {
             case traits::OptionType::Call:
                 return result;  // Direct from FFT/interpolation
             case traits::OptionType::Put:
-                return result - this->x0_ + this->strike_ * std::exp(-this->rate_ * this->ttm_);
+                return result - initial_value + this->strike_ * std::exp(-this->rate_ * this->ttm_);
             default:
                 throw std::runtime_error("Unsupported payoff type");
             }

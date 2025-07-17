@@ -458,7 +458,6 @@ public:
         SDEComplexVector d = ((Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()).square()
                             + Base::params_.sv_sigma * Base::params_.sv_sigma * (x.array() * (x.array() + ImaginaryUnit<>))).matrix();
         SDEComplexVector gamma = d.array().sqrt().matrix();
-
         // Step 2: A (exp1 + exp2)
         SDEComplexVector exp1 = ((Base::params_.sv_kappa * Base::params_.sv_theta * (Base::params_.sv_kappa - ImaginaryUnit<> * 
             Base::params_.correlation * Base::params_.sv_sigma * x.array()))
