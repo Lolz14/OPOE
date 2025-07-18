@@ -50,8 +50,6 @@ namespace options
             );
 
             auto initial_value = this->x0_.size() == 1 ? std::exp(this->x0_(0)) : std::exp(this->x0_(1));
-
-            std::cout << "Characteristic function values: " << res.transpose() << std::endl;
             
             // Compute Z_k per Carr-Madan or similar formula
             auto exp_term = (SDE::ImaginaryUnit<R> * this->rate_ * v * this->ttm_).exp();
@@ -59,8 +57,6 @@ namespace options
             auto numerator = res.array() - std::complex<R>(1.0, 0.0);
             auto denominator = SDE::ImaginaryUnit<R> * v * (v * SDE::ImaginaryUnit<R> + std::complex<R>(1.0, 0.0));
             auto Z_k = exp_term * numerator.cwiseQuotient(denominator);
-
-            std::cout << "Z_k values: " << Z_k.transpose() << std::endl;
 
             // Weights for trapezoidal rule
             Array w = Array::Ones(N);

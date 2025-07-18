@@ -33,21 +33,19 @@ int main() {
     auto r = 0.05;
     Array x0(2);
     x0 << 0.04, std::log(100.0);  // Initial price in log scale
-    heston_model.characteristic_fn(1.0, x0, SDEComplexVector::Ones(1) * std::complex<double>(0.5, 0.5), v);
 
-    std::cout << v;
 
     auto payoff = std::make_unique<options::EuropeanCallPayoff<double>>(K);
     std::shared_ptr<SDE::GeometricBrownianMotionSDE<double>> model = std::make_shared<SDE::GeometricBrownianMotionSDE<double>>(0.05, 0.20);
-    std::shared_ptr<SDE::HestonModelSDE<double>> heston_model_ptr = std::make_shared<SDE::HestonModelSDE<double>>(0.05, 2.0, 0.1, 0.3, -0.7);
+    std::shared_ptr<SDE::HestonModelSDE<double>> heston_model_ptr = std::make_shared<SDE::HestonModelSDE<double>>(0.05, 2.0, 0.04, 0.3, -0.7);
 
 
     auto price2 = std::make_unique<options::FFTPricer<double>>(
     T, K, r, x0,
     std::move(payoff),
     heston_model_ptr,  // must be a shared_ptr, not a raw reference
-    2,
-    10
+    10,
+    800
 );
 
 

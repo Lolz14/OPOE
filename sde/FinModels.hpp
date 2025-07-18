@@ -458,30 +458,58 @@ public:
         SDEComplexVector d = ((Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()).square()
                             + Base::params_.sv_sigma * Base::params_.sv_sigma * (x.array() * (x.array() + ImaginaryUnit<>))).matrix();
         SDEComplexVector gamma = d.array().sqrt().matrix();
-        // Step 2: A (exp1 + exp2)
-        SDEComplexVector exp1 = ((Base::params_.sv_kappa * Base::params_.sv_theta * (Base::params_.sv_kappa - ImaginaryUnit<> * 
-            Base::params_.correlation * Base::params_.sv_sigma * x.array()))
-                                / (Base::params_.sv_sigma * Base::params_.sv_sigma) * t).matrix();
-        SDEComplexVector exp2 = (ImaginaryUnit<> * x.array() * (Base::params_.asset_drift_const * t + x0(1))).matrix();
 
-        SDEComplexVector A = (exp1 + exp2).array().exp().matrix();
+                // Step 2: A (exp1 + exp2)
 
-        // Step 3: B
-        SDEComplexVector gamma_t_half = (gamma.array() * (T(0.5) * t)).matrix();
-        SDEComplexVector ch = (gamma_t_half.array().cosh()
-                            + ((Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()) / gamma.array()) * gamma_t_half.array().sinh()).matrix();
-        SDEComplexVector B = ch.array().pow(T(2.0 * Base::params_.sv_kappa * Base::params_.sv_theta / (Base::params_.sv_sigma * Base::params_.sv_sigma))).matrix();
+        SDEComplexVector exp1 = gamma.array() + Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array();
+        SDEComplexVector exp2 = gamma.array() - Base::params_.sv_kappa + ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array();
+        SDEComplexVector A = (Base::params_.sv_kappa * Base::params_.sv_theta / (Base::params_.sv_sigma * Base::params_.sv_sigma)) * ((Base::params_.sv_kappa - gamma.array() -
+                            ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()) * t - 2 *((exp1.array() + exp2.array() * (-gamma.array() * t).exp())/
+                            (exp1.array() + exp2.array())).log()).matrix();
 
-        // Step 4: C
-        SDEComplexVector gamma_tanh = (gamma.array() * (T(0.5) * t)).tanh().matrix();
-        SDEComplexVector denom = (gamma.array().cwiseQuotient(gamma_tanh.array()) + Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()).matrix(); 
 
-        SDEComplexVector C = (-(x.array() * x.array() + ImaginaryUnit<> * x.array()) * x0(0) / denom.array()).exp().matrix();
 
-        // Final result
-        charact_out = A.cwiseQuotient(B).cwiseProduct(C);
+        SDEComplexVector B_func_out;
+        {
+
+            // Numerator: (x*x + i*x) * (exp(gamma*t) - 1)
+            SDEComplexVector numerator = (x.array().square() + ImaginaryUnit<> * x.array()) * 
+                                        ((gamma.array() * t).exp() - T(1.0));
+
+            // Denominator: (gamma + k - i*rho*sigma*x)*(exp(gamma*t) - 1) + 2*gamma
+            SDEComplexVector den_term1 = (gamma.array() + Base::params_.sv_kappa - 
+                                        ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array());
+            SDEComplexVector den_term2 = (gamma.array() * t).exp() - T(1.0);
+            SDEComplexVector denominator = den_term1.array() * den_term2.array() + T(2.0) * gamma.array();
+
+            B_func_out = numerator.cwiseQuotient(denominator);
+
+            // Fallback for numerical stability (e.g., when t is very small)
+            // This corresponds to the case where the denominator in the primary formula is zero.
+            // The fallback is the limit as T -> 0.
+
+            for (int i = 0; i < B_func_out.size(); ++i) {
+
+                if (std::isinf(B_func_out(i).real()) || std::isinf(B_func_out(i).imag()) ||
+                    std::isnan(B_func_out(i).real()) || std::isnan(B_func_out(i).imag())) {
+
+                    SDEComplexVector fallback_numerator = x.array().square() + ImaginaryUnit<> * x.array();
+                    SDEComplexVector fallback_denominator = gamma.array() + Base::params_.sv_kappa - 
+                                                            ImaginaryUnit<> * Base::params_.correlation * 
+                                                            Base::params_.sv_sigma * x.array();
+
+                    B_func_out(i) = fallback_numerator(i) / fallback_denominator(i);
+
+                }
+
+            }
+
+        }
+
+        charact_out = (A.array() - B_func_out.array() * x0(0)).exp().matrix();
 
     }
+        
 
 };
 
