@@ -18,8 +18,8 @@ namespace options
         using Base = BaseOptionPricer<R>;
     
         public:
-            FFTPricer(R ttm, R strike, R rate, Array initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 20, unsigned int A = 1200)
-            : Base(ttm, strike, rate, initial_price, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {}
+            FFTPricer(R ttm, R strike, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 20, unsigned int A = 1200)
+            : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {}
 
             R price() const override {
             // FFT grid size
@@ -44,24 +44,23 @@ namespace options
             // Evaluate characteristic function at v - i (imag unit)
             this->sde_model_->characteristic_fn(
                 this->ttm_, 
-                this->x0_, 
                 v - SDE::ImaginaryUnit<R>,  // Make sure ImaginaryUnit<R>() returns std::complex<R>(0,1)
                 res
             );
 
-            auto initial_value = this->x0_.size() == 1 ? std::exp(this->x0_(0)) : std::exp(this->x0_(1));
+            auto initial_value = this->sde_model_->m_x0.size() == 1 ? std::exp(this->sde_model_->m_x0(0)) : std::exp(this->sde_model_->m_x0(1));
             
             // Compute Z_k per Carr-Madan or similar formula
             auto exp_term = (SDE::ImaginaryUnit<R> * this->rate_ * v * this->ttm_).exp();
 
-            auto numerator = res.array() - std::complex<R>(1.0, 0.0);
-            auto denominator = SDE::ImaginaryUnit<R> * v * (v * SDE::ImaginaryUnit<R> + std::complex<R>(1.0, 0.0));
+            auto numerator = res.array() - std::complex<R>(R(1.0), R(0.0));
+            auto denominator = SDE::ImaginaryUnit<R> * v * (v * SDE::ImaginaryUnit<R> + std::complex<R>(R(1.0), R(0.0)));
             auto Z_k = exp_term * numerator.cwiseQuotient(denominator);
 
             // Weights for trapezoidal rule
             Array w = Array::Ones(N);
-            w(0) = 0.5;
-            w(N - 1) = 0.5;
+            w(0) = R(0.5);
+            w(N - 1) = R(0.5);
 
             // Compose vector for FFT input
             ComplexArray linspaced = Array::LinSpaced(N, 0, N - 1).template cast<std::complex<R>>();
@@ -72,18 +71,18 @@ namespace options
             auto z_k = fft_result.real();
 
             // Transform z_k to C
-            Array C = initial_value * (z_k + (1.0 - (k_real - this->rate_ * this->ttm_).array().exp()).cwiseMax(0.0));
+            Array C = initial_value * (z_k + (R(1.0) - (k_real - this->rate_ * this->ttm_).array().exp()).cwiseMax(R(0.0)));
 
             // Convert log-strikes to strikes
             Array K = initial_value * k_real.array().exp();
 
-
-
-            
+            // Prepare for spline interpolation
             Eigen::Spline<R, 1> spline = Eigen::SplineFitting<Eigen::Spline<R, 1>>::Interpolate(C.transpose(), 3, K.transpose());
 
 
             R result = spline(this->strike_)(0);
+
+
       
             switch (this->payoff_->type()) {
             case traits::OptionType::Call:
@@ -95,12 +94,87 @@ namespace options
             }
           
         }
+        // --- FFT Greeks: central differences as member functions ---
 
+        R delta() const  {
+
+            R p_plus = bumped_S0(+bump_size).price();
+            R p_minus = bumped_S0(-bump_size).price();
+            return (p_plus - p_minus) / (2 * bump_size);
+
+        }
+
+        R gamma() const  {
+
+            R p_plus = bumped_S0(+bump_size).price();
+            R p_0    = this->price();
+            R p_minus= bumped_S0(-bump_size).price();
+            return (p_plus - 2*p_0 + p_minus) / (bump_size * bump_size);
+
+        }
+
+        R vega() const  {
+
+            R v_plus = bumped_vol(+bump_size).price();
+            R v_minus= bumped_vol(-bump_size).price();
+            return (v_plus - v_minus) / (2 * bump_size);
+
+        }
+
+        R rho() const  {
+
+            R r_plus = bumped_r(+bump_size).price();
+            R r_minus= bumped_r(-bump_size).price();
+            return (r_plus - r_minus) / (2 * bump_size);
+
+        }
+
+        R theta() const  {
+
+        R t_plus = bumped_T(+bump_size).price();
+        R t_minus= bumped_T(-bump_size).price();
+
+        // Negative sign ensures theta is "decay" per finance convention
+        return -(t_plus - t_minus) / (2 * bump_size); 
+        }
+        
 
 
         
 
         private:
+
+            FFTPricer bumped_S0(R bump) const { FFTPricer t(this->ttm_,
+            this->strike_,
+            this->rate_,
+            this->payoff_->clone(),
+            this->sde_model_->clone(),
+            this->Npow_,
+            this->A_);; t.sde_model_->bump_S0(std::log(1.0 + bump)); return t; }
+            FFTPricer bumped_vol(R bump) const { FFTPricer t(this->ttm_,
+            this->strike_,
+            this->rate_,
+            this->payoff_->clone(),
+            this->sde_model_->clone(),
+            this->Npow_,
+            this->A_);; t.sde_model_->bump_volatility(bump); return t; }
+            FFTPricer bumped_r(R bump) const { FFTPricer t(this->ttm_,
+            this->strike_,
+            this->rate_,
+            this->payoff_->clone(),
+            this->sde_model_->clone(),
+            this->Npow_,
+            this->A_);; t.rate_ += bump; return t; }
+            FFTPricer bumped_T(R bump) const { FFTPricer t(this->ttm_,
+            this->strike_,
+            this->rate_,
+            this->payoff_->clone(),
+            this->sde_model_->clone(),
+            this->Npow_,
+            this->A_);; t.ttm_ += bump; return t; }
+
+            static constexpr R bump_size = 1e-4;
+
             unsigned int Npow_;
             unsigned int A_;
 

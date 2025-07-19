@@ -25,37 +25,52 @@
 int main() {
     using namespace options;
     using namespace SDE;
-    GeometricBrownianMotionSDE gbm_model(0.05, 0.2);
-    HestonModelSDE heston_model(0.05, 2.0, 0.04, 0.3, -0.7);
-    SDEComplexVector v(2);
-    auto T = 1;
-    auto K = 100;
-    auto r = 0.05;
-    Array x0(2);
-    x0 << 0.04, std::log(100.0);  // Initial price in log scale
+    using R = double;
+    
+    R S0 = 100.0;     // Spot price
+    R K = 100.0;      // Strike
+    R r = 0.05;       // Risk-free rate
+    R T = 1.0;        // Time to maturity
+    R sigma = 0.2;    // Volatility
 
+    // Log spot for compatibility with CF framework
+    options::Array initial_log_price = options::Array::Constant(1, std::log(S0));
 
-    auto payoff = std::make_unique<options::EuropeanCallPayoff<double>>(K);
-    std::shared_ptr<SDE::GeometricBrownianMotionSDE<double>> model = std::make_shared<SDE::GeometricBrownianMotionSDE<double>>(0.05, 0.20);
-    std::shared_ptr<SDE::HestonModelSDE<double>> heston_model_ptr = std::make_shared<SDE::HestonModelSDE<double>>(0.05, 2.0, 0.04, 0.3, -0.7);
+    // GBM model (no need to configure beyond placeholder here)
+    auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
 
+    // Test Call Option
+    {
+        auto call_payoff = std::make_unique<options::EuropeanCallPayoff<R>>(K);
+        options::CFPricer<R> call_pricer(T, K, r, std::move(call_payoff), gbm_model);
 
-    auto price2 = std::make_unique<options::FFTPricer<double>>(
-    T, K, r, x0,
-    std::move(payoff),
-    heston_model_ptr,  // must be a shared_ptr, not a raw reference
-    10,
-    80
-);
+        std::cout << "European Call Option:\n";
+        std::cout << "  Price: " << call_pricer.price() << "\n";
+        std::cout << "  Delta: " << call_pricer.delta() << "\n";
+        std::cout << "  Gamma: " << call_pricer.gamma() << "\n";
+        std::cout << "  Vega:  " << call_pricer.vega() << "\n";
+        std::cout << "  Theta: " << call_pricer.theta() << "\n";
+        std::cout << "  Rho:   " << call_pricer.rho() << "\n";
+        std::cout << "\n";
+    }
 
+    options::FFTPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), gbm_model, 10, 50);
 
-
-
-
-
-    std::cout << "Monte Carlo Call Price: " << price2->price() << std::endl;
+    std::cout << "FFT Pricer for European Call Option:\n"<<std::endl;
+    std::cout << "  Price: " << fft_pricer.price() << std::endl;
+    std::cout << "  Delta: " << fft_pricer.delta() << std::endl;
+    std::cout << "  Gamma: " << fft_pricer.gamma() << std::endl;
+    std::cout << "  Vega:  " << fft_pricer.vega() << std::endl;
+    std::cout << "  Theta: " << fft_pricer.theta() << std::endl;
+    std::cout << "  Rho:   " << fft_pricer.rho() << std::endl;
 
     return 0;
+
+
+
+
+
+   
 
 
     

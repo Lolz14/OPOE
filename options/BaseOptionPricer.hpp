@@ -15,10 +15,26 @@ namespace options {
 
         public:
 
-            BaseOptionPricer(R ttm, R strike, R rate, Array initial_price, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
-                : ttm_(ttm), strike_(strike), rate_(rate), x0_(initial_price), payoff_(std::move(payoff)), sde_model_(sde_model) {}
+            BaseOptionPricer(R ttm, R strike, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
+                : ttm_(ttm), strike_(strike), rate_(rate), payoff_(std::move(payoff)), sde_model_(sde_model) {}
 
             virtual ~BaseOptionPricer() = default;
+
+            // Copy constructor
+            BaseOptionPricer(const BaseOptionPricer& other)
+                : payoff_(other.payoff_ ? other.payoff_->clone() : nullptr) {}
+
+            // Copy assignment
+            BaseOptionPricer& operator=(const BaseOptionPricer& other) {
+                if (this != &other) {
+                    payoff_ = other.payoff_ ? other.payoff_->clone() : nullptr;
+                }
+                return *this;
+            }
+
+            // Move constructor/assignment
+            BaseOptionPricer(BaseOptionPricer&&) noexcept = default;
+            BaseOptionPricer& operator=(BaseOptionPricer&&) noexcept = default;
 
             // The common pricing interface for all methods
 
@@ -29,7 +45,6 @@ namespace options {
         R ttm_;
         R strike_;
         R rate_;
-        Array x0_;
         std::unique_ptr<IPayoff<R>> payoff_;
         std::shared_ptr<SDE::ISDEModel<R>> sde_model_;
 

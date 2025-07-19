@@ -79,50 +79,68 @@ class ISDEModel {
 
 public:
 
-    virtual ~ISDEModel() = default; // Important for proper cleanup
-    // Pure virtual functions defining the SDE
-    virtual void drift(T t, const SDEVector& x, SDEVector& mu_out) const = 0;
-    virtual void diffusion(T t, const SDEVector& x, SDEMatrix& sigma_out) const = 0;
-
-    // Essential for some numerical schemes (e.g., Milstein)
-    // These could be optional or provide default (e.g., zero) implementations if not always needed
-    // Or, better, have specialized interfaces for models that support these
-
-    virtual void drift_derivative_x(T t, const SDEVector& x, SDEVector& deriv_out) const {
+        virtual ~ISDEModel() = default; // Important for proper cleanup
+        virtual std::shared_ptr<ISDEModel<T>> clone() const = 0;
         
-        // Default implementation: numerical differentiation or throw not_implemented
-        throw std::logic_error("Drift derivative not implemented for this model.");
+        // Pure virtual functions defining the SDE
+        virtual void drift(T t, const SDEVector& x, SDEVector& mu_out) const = 0;
+        virtual void diffusion(T t, const SDEVector& x, SDEMatrix& sigma_out) const = 0;
 
-    }
+        // Essential for some numerical schemes (e.g., Milstein)
+        // These could be optional or provide default (e.g., zero) implementations if not always needed
+        // Or, better, have specialized interfaces for models that support these
 
+        virtual void drift_derivative_x(T t, const SDEVector& x, SDEVector& deriv_out) const {
+            
+            // Default implementation: numerical differentiation or throw not_implemented
+            throw std::logic_error("Drift derivative not implemented for this model.");
 
-    virtual void diffusion_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
-
-        throw std::logic_error("Diffusion derivative not implemented for this model.");
-
-    }
-
-    virtual void diffusion_second_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
-
-        throw std::logic_error("Diffusion derivative not implemented for this model.");
-
-    }
-
-    virtual T generator_fn(T t, const SDEVector& x, const T df, const T ddf) const {
-
-        // Default implementation: throw not_implemented
-        throw std::logic_error("Generator function not implemented for this model.");
-
-    }
-    virtual void characteristic_fn(T /*t*/, const SDEVector& x0, const SDEComplexVector& x, SDEComplexVector& charact_out) const {
-
-        // Default implementation: throw not_implemented
-        throw std::logic_error("Characteristic function not implemented for this model.");
-
-    }
+        }
 
 
-    virtual unsigned int get_wiener_dimension() const = 0;
+        virtual void diffusion_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
+
+            throw std::logic_error("Diffusion derivative not implemented for this model.");
+
+        }
+
+        virtual void diffusion_second_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
+
+            throw std::logic_error("Diffusion derivative not implemented for this model.");
+
+        }
+
+        virtual T generator_fn(T t, const SDEVector& x, const T df, const T ddf) const {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Generator function not implemented for this model.");
+
+        }
+        virtual void characteristic_fn(T /*t*/,  const SDEComplexVector& x, SDEComplexVector& charact_out) const {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Characteristic function not implemented for this model.");
+
+        }
+
+        virtual void bump_volatility(T /*bump*/) {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Bump volatility not implemented for this model.");
+
+        }
+
+        virtual void bump_S0(T /*bump*/) {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Bump S0 not implemented for this model.");
+
+        }
+
+
+        virtual unsigned int get_wiener_dimension() const = 0;
+
+        SDEVector m_x0; // Initial state vector, can be used in characteristic functions or other calculations
 
 
 };
@@ -147,12 +165,16 @@ private:
 
 public:
 
-    GeometricBrownianMotionSDE(T mu, T sigma) : params_(Parameters{mu, sigma}) {
+    GeometricBrownianMotionSDE(T mu, T sigma, T x0) : params_(Parameters{mu, sigma}) {
+        this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
 
         if (params_.sigma < 0.0) {
             throw std::invalid_argument("Volatility cannot be negative.");
         }
 
+    }
+    std::shared_ptr<ISDEModel<T>> clone() const override {
+        return std::make_shared<GeometricBrownianMotionSDE<T>>(*this);
     }
 
     unsigned int get_wiener_dimension() const override { return WIENER_DIM; }
@@ -212,11 +234,29 @@ public:
         return (params_.mu - params_.sigma * params_.sigma * static_cast<T>(0.5)) * df + static_cast<T>(0.5) * params_.sigma * params_.sigma * ddf;
     }
 
-    inline void characteristic_fn(T t, const SDEVector& x0, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
+    inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
         // Verificare se post x. array in parentesi vada mu. DEVO VEDERE OVUNQUE
         charact_out = t * ( (-params_.sigma * params_.sigma * x.array().square()) * static_cast<T>(0.5) + ImaginaryUnit<> * x.array() * ( - params_.sigma * params_.sigma * static_cast<T>(0.5)));
 
         charact_out = charact_out.array().exp();
+    }
+
+    void bump_volatility(T bump) override {
+
+        // Bump the volatility parameter
+        params_.sigma += bump;
+
+        if (params_.sigma < 0.0) {
+            throw std::invalid_argument("Volatility cannot be negative after bump.");
+        }
+
+    }
+
+    void bump_S0(T bump) override {
+
+        // Bump the initial state (log-price)
+        this->m_x0(0) += bump;
+
     }
 
 };
@@ -236,6 +276,8 @@ public:
 
 template<typename T = traits::DataType::PolynomialField>
 class GenericSVModelSDE : public ISDEModel<T> {
+        using Base = ISDEModel<T>;
+
 
 public:
 
@@ -258,7 +300,9 @@ protected:
 
 public:
 
-    GenericSVModelSDE(const Parameters& params) : params_(params) {
+    GenericSVModelSDE(const Parameters& params, const SDEVector x0) : params_(params) {
+
+        this->m_x0 = x0;
 
         // Parameter validation
 
@@ -405,6 +449,25 @@ public:
         return (params_.asset_drift_const - static_cast<T>(0.5) * effective_variance_term) * df + static_cast<T>(0.5) * effective_variance_term * ddf;
     }
 
+    void bump_volatility(T bump) override {
+
+        // Bump the volatility parameter
+        Base::m_x0(0) += bump;
+
+        if (Base::m_x0(0) < 0.0) {
+            throw std::invalid_argument("Volatility cannot be negative after bump.");
+        }
+
+    }
+
+    void bump_S0(T bump) override {
+
+        // Bump the initial state (log-price)
+        this->m_x0(1) += bump;
+
+    }
+        
+
     inline T get_p() const noexcept {
         return params_.asset_vol_exponent; // p in the model
     }
@@ -441,7 +504,8 @@ public:
                    T sv_kappa,
                    T sv_theta,
                    T sv_sigma,
-                   T correlation)
+                   T correlation,
+                   SDEVector x0)
         : Base(Parameters{
             asset_drift_const,
             sv_kappa,
@@ -450,9 +514,9 @@ public:
             correlation,
             static_cast<T>(0.5), // asset_vol_exponent p
             static_cast<T>(0.5)  // sv_vol_exponent q
-        }) {}
+        }, x0) {}
 
-    inline void characteristic_fn(T t, const SDEVector& x0, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
+    inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
 
             // Step 1: gamma
         SDEComplexVector d = ((Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()).square()
@@ -508,10 +572,11 @@ public:
         }
 
 
-        charact_out = (A.array() - B_func_out.array() * x0(0)).exp().matrix();
+        charact_out = (A.array() - B_func_out.array() * Base::m_x0(0)).exp().matrix();
 
     }
-        
+
+
 
 };
 
