@@ -470,41 +470,43 @@ public:
 
 
         SDEComplexVector B_func_out;
+
         {
+        const auto& x_arr = x.array();
+        const auto& gamma_arr = gamma.array();
+        const T one = T(1.0);
+        const T two = T(2.0);
 
-            // Numerator: (x*x + i*x) * (exp(gamma*t) - 1)
-            SDEComplexVector numerator = (x.array().square() + ImaginaryUnit<> * x.array()) * 
-                                        ((gamma.array() * t).exp() - T(1.0));
+        const auto& kappa = Base::params_.sv_kappa;
+        const auto& rho = Base::params_.correlation;
+        const auto& sigma = Base::params_.sv_sigma;
 
-            // Denominator: (gamma + k - i*rho*sigma*x)*(exp(gamma*t) - 1) + 2*gamma
-            SDEComplexVector den_term1 = (gamma.array() + Base::params_.sv_kappa - 
-                                        ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array());
-            SDEComplexVector den_term2 = (gamma.array() * t).exp() - T(1.0);
-            SDEComplexVector denominator = den_term1.array() * den_term2.array() + T(2.0) * gamma.array();
+        auto i_x = ImaginaryUnit<> * x_arr;
+        auto x_sq = x_arr.square();
+        auto exp_gamma_t = (gamma_arr * t).exp();
+        auto exp_gamma_t_minus1 = exp_gamma_t - one;
 
-            B_func_out = numerator.cwiseQuotient(denominator);
+        // Numerator and denominator
+        auto numerator = (x_sq + i_x) * exp_gamma_t_minus1;
+        auto den_term1 = gamma_arr + kappa - ImaginaryUnit<> * rho * sigma * x_arr;
+        auto denominator = den_term1 * exp_gamma_t_minus1 + two * gamma_arr;
 
-            // Fallback for numerical stability (e.g., when t is very small)
-            // This corresponds to the case where the denominator in the primary formula is zero.
-            // The fallback is the limit as T -> 0.
+        B_func_out = numerator / denominator;
 
-            for (int i = 0; i < B_func_out.size(); ++i) {
+        // Fallback correction mask: detect NaN or Inf using Eigen’s select expression
+        Eigen::Array<bool, Eigen::Dynamic, 1> mask = 
+            (!((B_func_out.array().real().isFinite()) && (B_func_out.array().imag().isFinite())));
 
-                if (std::isinf(B_func_out(i).real()) || std::isinf(B_func_out(i).imag()) ||
-                    std::isnan(B_func_out(i).real()) || std::isnan(B_func_out(i).imag())) {
+        if (mask.any()) {
+            // Precompute fallback only for required entries
+            auto fallback_num = x_sq + i_x;
+            auto fallback_den = gamma_arr + kappa - ImaginaryUnit<> * rho * sigma * x_arr;
 
-                    SDEComplexVector fallback_numerator = x.array().square() + ImaginaryUnit<> * x.array();
-                    SDEComplexVector fallback_denominator = gamma.array() + Base::params_.sv_kappa - 
-                                                            ImaginaryUnit<> * Base::params_.correlation * 
-                                                            Base::params_.sv_sigma * x.array();
-
-                    B_func_out(i) = fallback_numerator(i) / fallback_denominator(i);
-
-                }
-
+            // Apply fallback using Eigen::select
+            B_func_out = mask.select(fallback_num / fallback_den, B_func_out);
             }
-
         }
+
 
         charact_out = (A.array() - B_func_out.array() * x0(0)).exp().matrix();
 

@@ -45,7 +45,7 @@ int main() {
     std::move(payoff),
     heston_model_ptr,  // must be a shared_ptr, not a raw reference
     10,
-    800
+    80
 );
 
 
