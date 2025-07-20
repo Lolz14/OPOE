@@ -123,17 +123,31 @@ public:
 
         }
 
-        virtual void bump_volatility(T /*bump*/) {
+        virtual T get_x0() const {
 
             // Default implementation: throw not_implemented
             throw std::logic_error("Bump volatility not implemented for this model.");
 
         }
 
-        virtual void bump_S0(T /*bump*/) {
+        virtual void set_x0(const T& /*x0*/) {
 
             // Default implementation: throw not_implemented
-            throw std::logic_error("Bump S0 not implemented for this model.");
+            throw std::logic_error("Set x0 not implemented for this model.");
+
+        }
+
+        virtual T get_v0() const {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Bump volatility not implemented for this model.");
+
+        }
+
+        virtual void set_v0(const T& /*v0*/) {
+
+            // Default implementation: throw not_implemented
+            throw std::logic_error("Set v0 not implemented for this model.");
 
         }
 
@@ -241,23 +255,17 @@ public:
         charact_out = charact_out.array().exp();
     }
 
-    void bump_volatility(T bump) override {
-
-        // Bump the volatility parameter
-        params_.sigma += bump;
-
-        if (params_.sigma < 0.0) {
-            throw std::invalid_argument("Volatility cannot be negative after bump.");
-        }
-
+    inline T get_x0() const override {
+        // Return the initial state vector
+        return this->m_x0(0);
     }
 
-    void bump_S0(T bump) override {
-
-        // Bump the initial state (log-price)
-        this->m_x0(0) += bump;
-
+    inline void set_x0(const T& x0) override {
+        // Set the initial state vector
+        this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
     }
+
+
 
 };
 
@@ -449,24 +457,23 @@ public:
         return (params_.asset_drift_const - static_cast<T>(0.5) * effective_variance_term) * df + static_cast<T>(0.5) * effective_variance_term * ddf;
     }
 
-    void bump_volatility(T bump) override {
-
-        // Bump the volatility parameter
-        Base::m_x0(0) += bump;
-
-        if (Base::m_x0(0) < 0.0) {
-            throw std::invalid_argument("Volatility cannot be negative after bump.");
-        }
-
+    inline T get_x0() const override {
+        // Return the initial state vector
+        return this->m_x0(1);
     }
 
-    void bump_S0(T bump) override {
-
-        // Bump the initial state (log-price)
-        this->m_x0(1) += bump;
-
+    inline void set_x0(const T& x0) override {
+        // Set the initial state vector
+        this->m_x0(1) = x0;
     }
-        
+
+    inline T get_v0() const noexcept {
+        return this->m_x0(0); // Return the initial variance (x(1))
+    }
+
+    inline void set_v0(const T& v0) noexcept {
+        this->m_x0(0) = v0; // Set the initial variance (x(1))
+    }
 
     inline T get_p() const noexcept {
         return params_.asset_vol_exponent; // p in the model
@@ -515,6 +522,10 @@ public:
             static_cast<T>(0.5), // asset_vol_exponent p
             static_cast<T>(0.5)  // sv_vol_exponent q
         }, x0) {}
+
+    std::shared_ptr<ISDEModel<T>> clone() const override {
+        return std::make_shared<HestonModelSDE<T>>(*this);
+    }
 
     inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
 

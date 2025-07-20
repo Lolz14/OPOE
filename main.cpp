@@ -36,8 +36,12 @@ int main() {
     // Log spot for compatibility with CF framework
     options::Array initial_log_price = options::Array::Constant(1, std::log(S0));
 
+    Eigen::VectorXd x0(2);
+    x0 << 0.04, std::log(100.0);
+
     // GBM model (no need to configure beyond placeholder here)
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
+    auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.04, 0.3, -0.7, x0);
 
     // Test Call Option
     {
@@ -54,7 +58,7 @@ int main() {
         std::cout << "\n";
     }
 
-    options::FFTPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), gbm_model, 10, 50);
+    options::FFTPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), heston_model, 10, 100);
 
     std::cout << "FFT Pricer for European Call Option:\n"<<std::endl;
     std::cout << "  Price: " << fft_pricer.price() << std::endl;

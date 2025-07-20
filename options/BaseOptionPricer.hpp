@@ -40,6 +40,15 @@ namespace options {
 
             virtual R price() const = 0;
 
+            inline void set_ttm(R ttm) noexcept { ttm_ = ttm; }
+            inline R get_ttm() const noexcept { return ttm_; }
+
+            inline void set_strike(R strike) noexcept { strike_ = strike; }
+            inline R get_strike() const noexcept { return strike_; }
+
+            inline void set_rate(R rate) noexcept { rate_ = rate; }
+            inline R get_rate() const noexcept { return rate_; }
+
         protected:
 
         R ttm_;
