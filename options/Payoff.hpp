@@ -33,6 +33,9 @@
 
 namespace options {
 
+using StoringVector = traits::DataType::StoringVector;
+using Array = traits::DataType::StoringArray;
+
 template <typename T = traits::DataType::PolynomialField>
 class IPayoff {
 public:
@@ -45,6 +48,14 @@ public:
      * @return The calculated payoff value.
      */
     virtual T evaluate(T underlying_price) const = 0;   
+
+    /**
+     * @brief Evaluates the payoff for a given vector of final underlying asset prices.
+     * @param underlying_prices The final prices (S_T) of the underlying asset.
+     * @return The calculated payoff value for each underlying.
+     */
+    virtual StoringVector evaluate(StoringVector underlying_prices) const = 0;   
+    
     
     /**
      * @brief Returns the type of the option (Call or Put).
@@ -68,6 +79,17 @@ public:
         // Default implementation converts log-price to price
         // Derived classes can override if a more direct calculation exists
         return evaluate(std::exp(log_underlying_price));
+    }
+
+    /**
+     * @brief Evaluates the payoff for a vector of final log-prices of the underlying.
+     * @param log_underlying_prices The final log-prices (x_T = ln(S_T)) of the underlying asset.
+     * @return A vector of calculated payoffs for each log-price.
+     */
+    virtual StoringVector evaluate_from_log(StoringVector log_underlying_prices) const {
+        // Default implementation converts log-prices to prices
+        // Derived classes can override if a more direct calculation exists
+        return evaluate(log_underlying_prices.array().exp());
     }
 };
 
@@ -104,6 +126,19 @@ public:
      */
     T evaluate(T underlying_price) const override {
         return std::max(underlying_price - strike_price_, static_cast<T>(0.0));
+    }
+
+    /**
+     * @brief Evaluates the call payoff for a vector of underlying prices.
+     * @param underlying_prices The final prices (S_T) of the underlying asset.
+     * @return A vector of calculated call payoffs for each underlying price.
+     */
+    StoringVector evaluate(StoringVector underlying_prices) const override {
+        // Vectorized evaluation for multiple underlying prices
+        StoringVector payoffs(underlying_prices.size());
+        
+        payoffs = (underlying_prices.array() - strike_price_).cwiseMax(static_cast<T>(0.0));
+        return payoffs;
     }
 
      /**
@@ -166,6 +201,18 @@ public:
      */
     T evaluate(T underlying_price) const override {
         return std::max(strike_price_ - underlying_price, static_cast<T>(0.0));
+    }
+    
+    /**
+     * @brief Evaluates the put payoff for a vector of underlying prices.
+     * @param underlying_prices The final prices (S_T) of the underlying asset.
+     * @return A vector of calculated put payoffs for each underlying price.
+     */
+    StoringVector evaluate(StoringVector underlying_prices) const override {
+        // Vectorized evaluation for multiple underlying prices
+        StoringVector payoffs(underlying_prices.size());
+        payoffs = (strike_price_ - underlying_prices.array()).cwiseMax(static_cast<T>(0.0));
+        return payoffs;
     }
 
     /**

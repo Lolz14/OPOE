@@ -14,9 +14,9 @@
 #include "sde/SDE.hpp"
 #include "options/Payoff.hpp"
 #include "options/CFOptionPricer.hpp"
-#include "options/FFTOptionPricer.hpp"
+#include "options/MCOptionPricer.hpp"
 
-// Implementare MC, Ackerer in OptionPricer
+// Implementare MC (SDE senza template, MCpricer senza template), Ackerer in OptionPricer
 // Calibrazione
 // Python
 // Done
@@ -58,15 +58,12 @@ int main() {
         std::cout << "\n";
     }
 
-    options::FFTPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), heston_model, 10, 100);
+    options::MCPricer<R, EulerMaruyamaSolver<HestonModelSDE<R>>, HestonModelSDE<R>> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), *heston_model);
 
     std::cout << "FFT Pricer for European Call Option:\n"<<std::endl;
     std::cout << "  Price: " << fft_pricer.price() << std::endl;
-    std::cout << "  Delta: " << fft_pricer.delta() << std::endl;
-    std::cout << "  Gamma: " << fft_pricer.gamma() << std::endl;
-    std::cout << "  Vega:  " << fft_pricer.vega() << std::endl;
-    std::cout << "  Theta: " << fft_pricer.theta() << std::endl;
-    std::cout << "  Rho:   " << fft_pricer.rho() << std::endl;
+
+    
 
     return 0;
 

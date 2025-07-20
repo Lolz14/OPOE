@@ -265,6 +265,14 @@ public:
         this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
     }
 
+    inline T get_v0() const noexcept {
+        return this->params_.sigma; // Return the initial variance (x(1))
+    }
+
+    inline void set_v0(const T& v0) noexcept {
+        this->params_.sigma = v0; // Set the initial variance (x(1))
+    }
+
 
 
 };

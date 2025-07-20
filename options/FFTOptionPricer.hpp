@@ -155,7 +155,7 @@ namespace options
                 }
             }
 
-            static constexpr R bump_size_ = 1e-4;
+            static constexpr R bump_size_ = 1e-6;
 
             // FFT parameters
             unsigned int Npow_, A_;
