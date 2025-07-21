@@ -16,7 +16,8 @@
 #include "options/CFOptionPricer.hpp"
 #include "options/MCOptionPricer.hpp"
 
-// Implementare MC (SDE senza template, MCpricer senza template), Ackerer in OptionPricer
+// Implementare Ackerer in OptionPricer
+// Test MC (nan) e efficientare FFT
 // Calibrazione
 // Python
 // Done
@@ -42,6 +43,12 @@ int main() {
     // GBM model (no need to configure beyond placeholder here)
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
     auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.04, 0.3, -0.7, x0);
+    auto solver = std::make_shared<MilsteinSolver<SDE::GeometricBrownianMotionSDE<R>>>(*gbm_model);
+    auto solver_func = [solver](const Eigen::VectorXd& x0, double t0, double t1, int steps, int paths) {
+        return solver->solve(x0, t0, t1, steps, paths);
+};
+
+
 
     // Test Call Option
     {
@@ -58,7 +65,7 @@ int main() {
         std::cout << "\n";
     }
 
-    options::MCPricer<R, EulerMaruyamaSolver<HestonModelSDE<R>>, HestonModelSDE<R>> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), *heston_model);
+    options::MCPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), gbm_model, solver_func);
 
     std::cout << "FFT Pricer for European Call Option:\n"<<std::endl;
     std::cout << "  Price: " << fft_pricer.price() << std::endl;

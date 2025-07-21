@@ -154,6 +154,8 @@ public:
 
         virtual unsigned int get_wiener_dimension() const = 0;
 
+        virtual unsigned int get_state_dim() const = 0;
+
         SDEVector m_x0; // Initial state vector, can be used in characteristic functions or other calculations
 
 
@@ -192,6 +194,7 @@ public:
     }
 
     unsigned int get_wiener_dimension() const override { return WIENER_DIM; }
+    unsigned int get_state_dim() const override { return STATE_DIM;}
     const Parameters& get_parameters() const { return params_; }
     void set_parameters(const Parameters& params) {
         params_ = params;
@@ -351,6 +354,8 @@ public:
     }
 
     unsigned int get_wiener_dimension() const override { return WIENER_DIM; }
+    unsigned int get_state_dim() const override { return STATE_DIM;}
+
     const Parameters& get_parameters() const { return params_; }
 
     inline void drift(T /*t*/, const SDEVector& x, SDEVector& mu_out) const override 
