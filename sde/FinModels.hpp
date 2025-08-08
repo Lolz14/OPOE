@@ -90,7 +90,7 @@ public:
         // These could be optional or provide default (e.g., zero) implementations if not always needed
         // Or, better, have specialized interfaces for models that support these
 
-        virtual void drift_derivative_x(T t, const SDEVector& x, SDEVector& deriv_out) const {
+        virtual void drift_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEVector& /*deriv_out*/) const {
             
             // Default implementation: numerical differentiation or throw not_implemented
             throw std::logic_error("Drift derivative not implemented for this model.");
@@ -98,25 +98,25 @@ public:
         }
 
 
-        virtual void diffusion_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
+        virtual void diffusion_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEMatrix& /*deriv_out*/) const {
 
             throw std::logic_error("Diffusion derivative not implemented for this model.");
 
         }
 
-        virtual void diffusion_second_derivative_x(T t, const SDEVector& x, SDEMatrix& deriv_out) const {
+        virtual void diffusion_second_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEMatrix& /*deriv_out*/) const {
 
             throw std::logic_error("Diffusion derivative not implemented for this model.");
 
         }
 
-        virtual T generator_fn(T t, const SDEVector& x, const T df, const T ddf) const {
+        virtual T generator_fn(T /*t*/, const SDEVector& /*x*/,  const T /*df*/, const T /*ddf*/) const {
 
             // Default implementation: throw not_implemented
             throw std::logic_error("Generator function not implemented for this model.");
 
         }
-        virtual void characteristic_fn(T /*t*/,  const SDEComplexVector& x, SDEComplexVector& charact_out) const {
+        virtual void characteristic_fn(T /*t*/,  const SDEComplexVector& /*x*/, SDEComplexVector& /*charact_out*/) const {
 
             // Default implementation: throw not_implemented
             throw std::logic_error("Characteristic function not implemented for this model.");
@@ -206,14 +206,14 @@ public:
 
 
 
-    inline void drift(T /*t*/, const SDEVector& x, SDEVector& mu_out) const override {
+    inline void drift([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& mu_out) const override {
 
         // Drift of X_t is mu
         mu_out = (params_.mu - params_.sigma * params_.sigma * static_cast<T>(0.5)) * SDEVector::Ones(STATE_DIM);
 
     }
 
-    inline void diffusion(T /*t*/, const SDEVector& x, SDEMatrix& sigma_out) const override {
+    inline void diffusion([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& sigma_out) const override {
 
         // Diffusion of X_t is sigma
         sigma_out = params_.sigma * SDEMatrix::Identity(STATE_DIM, WIENER_DIM);
@@ -225,26 +225,26 @@ public:
     // Diffusion term b(t,S) = sigma*S. Derivative w.r.t S is sigma.
     // Since we are considering log-price, then all the derivatives are 0.
 
-    inline void drift_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEVector& deriv_out) const override {
+    inline void drift_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& deriv_out) const override {
 
         deriv_out.setZero();
 
     }
 
 
-    inline void diffusion_derivative_x(T /*t*/, const SDEVector& x, SDEMatrix& deriv_out) const override {
+    inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
         
         deriv_out.setZero();
         
     }
 
-    inline void diffusion_second_derivative_x(T /*t*/, const SDEVector& x, SDEMatrix& deriv_out) const override {
+    inline void diffusion_second_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
         // For GBM, the second derivative of diffusion is zero
         deriv_out.setZero();
 
     }
 
-    inline T generator_fn(T /*t*/, const SDEVector& x, const T df, const T ddf) const override {
+    inline T generator_fn([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, const T df, const T ddf) const override {
         // Generator for GBM: a(t,S) + 0.5 * b(t,S)^2
         // Here, a(t,S) = mu, b(t,S) = sigma
         // So, generator = mu + 0.5 * (sigma)^2
@@ -268,11 +268,11 @@ public:
         this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
     }
 
-    inline T get_v0() const noexcept {
+    inline T get_v0() const noexcept override{
         return this->params_.sigma; // Return the initial variance (x(1))
     }
 
-    inline void set_v0(const T& v0) noexcept {
+    inline void set_v0(const T& v0) noexcept override{
         this->params_.sigma = v0; // Set the initial variance (x(1))
     }
 
@@ -358,7 +358,7 @@ public:
 
     const Parameters& get_parameters() const { return params_; }
 
-    inline void drift(T /*t*/, const SDEVector& x, SDEVector& mu_out) const override 
+    inline void drift([[maybe_unused]] T t, const SDEVector& x, SDEVector& mu_out) const override 
     {
         T asset_vol_term_squared;
 
@@ -387,7 +387,7 @@ public:
 
     }
 
-    inline void diffusion(T /*t*/, const SDEVector& x, SDEMatrix& sigma_out) const override {
+    inline void diffusion([[maybe_unused]] T t, const SDEVector& x, SDEMatrix& sigma_out) const override {
 
         const T sv_factor = x(0); // The stochastic volatility factor
 
@@ -430,30 +430,35 @@ public:
 
 
     }
-    inline void drift_derivative_x(T /*t*/, const SDEVector& x, SDEVector& deriv_out) const override {
+    inline void drift_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& deriv_out) const override {
         // Derivative of drift w.r.t. x(0) and x(1)
         deriv_out(0) = params_.sv_kappa; // Derivative of drift w.r.t. x(0)
         deriv_out(1) = 0.0;
         }
     
     // Derivative of diffusion w.r.t. x(1) (state log-price)
-    inline void diffusion_derivative_x(T /*t*/, const SDEVector& x, SDEMatrix& deriv_out) const override {
-        //deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * std::pow(x(0), params_.sv_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ
+    inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
+
+        // deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * std::pow(x(0), params_.sv_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ
+
         //deriv_out(0, 1) = 0.0; // Derivative of diffusion w.r.t. x(0) for dW_uncorr
+
         //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * std::pow(x(0), params_.asset_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ_unc
-        //deriv_out(1, 1) = 0.0;\
+
+        //deriv_out(1, 1) = 0.0;
+
         deriv_out.setZero();
 
     }
 
-    inline void diffusion_second_derivative_x(T /*t*/, const SDEVector& x, SDEMatrix& deriv_out) const override {
+    inline void diffusion_second_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
         // For GenericSVModel, the second derivative of diffusion is zero
         deriv_out.setZero();
         //deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * (params_.sv_vol_exponent - 1.0) * std::pow(x(0), params_.sv_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ
         //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * (params_.asset_vol_exponent - 1.0) * std::pow(x(0), params_.asset_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ_unc
     }
 
-    inline T generator_fn(T /*t*/, const SDEVector& x, const T df, const T ddf) const override {
+    inline T generator_fn([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, const T df, const T ddf) const override {
             
         T effective_variance_term;
 
@@ -470,21 +475,21 @@ public:
         return (params_.asset_drift_const - static_cast<T>(0.5) * effective_variance_term) * df + static_cast<T>(0.5) * effective_variance_term * ddf;
     }
 
-    inline T get_x0() const override {
+    inline T get_x0() const noexcept override  {
         // Return the initial state vector
         return this->m_x0(1);
     }
 
-    inline void set_x0(const T& x0) override {
+    inline void set_x0(const T& x0) noexcept override  {
         // Set the initial state vector
         this->m_x0(1) = x0;
     }
 
-    inline T get_v0() const noexcept {
+    inline T get_v0() const noexcept override{
         return this->m_x0(0); // Return the initial variance (x(1))
     }
 
-    inline void set_v0(const T& v0) noexcept {
+    inline void set_v0(const T& v0) noexcept override{
         this->m_x0(0) = v0; // Set the initial variance (x(1))
     }
 
@@ -511,6 +516,43 @@ public:
     inline T get_sigma_v() const noexcept {
         return params_.sv_sigma; // Volatility of the variance process
     }
+
+    inline SDEVector M_T(T ttm, T dt, const SDEMatrix& y_t, const SDEMatrix& w_t) {
+        const auto n = y_t.cols();
+        const auto k = y_t.rows();
+
+        // Quick sanity check
+        assert(w_t.cols() == n && w_t.rows() == k && "y_t and w_t must have same shape");
+
+        // Precompute .matrix() view once
+        const auto& y_mat = y_t.matrix();
+        const auto& w_mat = w_t.matrix();
+
+        // Precompute powers
+        auto y_t_asset = y_mat.array().pow(params_.asset_vol_exponent).matrix();
+        auto y_t_vol   = y_mat.array().pow(params_.sv_vol_exponent).matrix();
+
+        // 1. Trapezoidal rule
+        auto trap_block1 = y_t_asset.block(0, 0, k - 1, n);
+        auto trap_block2 = y_t_asset.block(1, 0, k - 1, n);
+        auto trap = -static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).colwise().sum();
+
+        // 2. Vanilla stochastic integral
+        auto stoch = params_.correlation * y_t.cwiseProduct(w_t).colwise().sum();
+
+        // 3. IJK term
+        auto w_sq_minus_dt = w_mat.array().square() - dt;
+        auto ijk = params_.correlation * static_cast<T>(0.5) * params_.sv_sigma
+                * y_t_vol.cwiseProduct(w_sq_minus_dt.matrix()).colwise().sum();
+
+
+        // Final result
+        auto result = get_x0()
+                    + params_.asset_drift_const * ttm
+                    + trap.array() + stoch.array() + ijk.array();
+
+        return result;
+    };
 
 };
 
@@ -647,7 +689,6 @@ public:
             static_cast<T>(1.0)  // sv_vol_exponent q
         }) {}
 };
-
 
 template<typename T = traits::DataType::PolynomialField>
 class JacobiModelSDE : public GenericSVModelSDE<T> {

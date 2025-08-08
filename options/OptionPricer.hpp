@@ -7,11 +7,35 @@
 #include "../stats/MixtureDensity.hpp"
 #include "../traits/OPOE_traits.hpp"
 #include "Payoff.hpp"
+#include "BaseOptionPricer.hpp"
 #include <variant>
 #include <stdexcept>
 #include <string>
 #include <utility>
 #include <cmath>
+
+namespace options {
+
+template <typename R = traits::DataType::PolynomialField>
+class OPEPricer : public BaseOptionPricer<R> {
+
+    using StoringVector = traits::DataType::StoringVector;
+    using StoringMatrix = traits::DataType::StoringMatrix;
+    using Array = traits::DataType::StoringArray;
+
+    using Base = BaseOptionPricer<R>;
+    
+    public:
+        OPEPricer(R ttm, R strike, R rate,
+                std::unique_ptr<IPayoff<R>> payoff,
+                std::shared_ptr<SDE::ISDEModel<R>> sde_model
+                )
+            : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)){}
+            
+
+    };
+}
+
 
 namespace options {
 

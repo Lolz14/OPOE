@@ -73,6 +73,7 @@
         "dense": "cpp",
         "unordered_set": "cpp",
         "orderingmethods": "cpp",
-        "matrixfunctions": "cpp"
+        "matrixfunctions": "cpp",
+        "splines": "cpp"
     }
 }

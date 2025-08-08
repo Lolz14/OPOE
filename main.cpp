@@ -8,30 +8,24 @@
 #include <cassert>
 #include <algorithm>
 #include <type_traits>  
+#include "utils/FileReader.hpp"
 #include <unsupported/Eigen/MatrixFunctions>
-#include "quadrature/QuadratureRuleHolder.hpp" // Assume this includes the QuadratureRuleHolder definition
 #include "sde/FinModels.hpp"
 #include "sde/SDE.hpp"
 #include "options/Payoff.hpp"
 #include "options/CFOptionPricer.hpp"
 #include "options/MCOptionPricer.hpp"
 
-// Implementare Ackerer in OptionPricer
-// Test MC (nan) e efficientare FFT
-// Calibrazione
-// Python
-// Done
-
 
 int main() {
     using namespace options;
     using namespace SDE;
     using R = double;
-    
+
     R S0 = 100.0;     // Spot price
-    R K = 100.0;      // Strike
+    // R K = 100.0;      // Strike
     R r = 0.05;       // Risk-free rate
-    R T = 1.0;        // Time to maturity
+    // R T = 1.0;        // Time to maturity
     R sigma = 0.2;    // Volatility
 
     // Log spot for compatibility with CF framework
@@ -43,10 +37,39 @@ int main() {
     // GBM model (no need to configure beyond placeholder here)
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
     auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.04, 0.3, -0.7, x0);
-    auto solver = std::make_shared<MilsteinSolver<SDE::GeometricBrownianMotionSDE<R>>>(*gbm_model);
-    auto solver_func = [solver](const Eigen::VectorXd& x0, double t0, double t1, int steps, int paths) {
-        return solver->solve(x0, t0, t1, steps, paths);
+
+    
+ // Example sizes: k = rows (factors/assets), n = cols (time steps)
+    int k = 2; // number of rows (factors/assets)
+    int n = 5; // number of columns (time points)
+
+    // Create sample data
+    double eps = 1e-6;
+    SDEMatrix y_t = ((SDEMatrix::Random(k, n).array() + 1.0) / 2.0) + eps;
+    SDEMatrix w_t = ((SDEMatrix::Random(k, n).array() + 1.0) / 2.0) + eps;
+
+
+    // Small positive dt
+    R dt = 0.01;
+    R ttm = 1.0;
+
+
+    // Call the function
+    SDEVector result = heston_model->M_T(ttm, dt, y_t, w_t);
+
+    // Print the result
+    std::cout << "\nResult:\n" << result.transpose() << "\n";
+    
+    
+    
 };
+
+
+
+
+
+
+/* 
 
 
 
@@ -84,7 +107,7 @@ int main() {
     
 }
 
-
+*/
 
 
 

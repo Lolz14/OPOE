@@ -1,5 +1,5 @@
-main.o: main.cpp \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/MatrixFunctions \
+main.o: main.cpp utils/FileReader.hpp utils/../traits/OPOE_traits.hpp \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Dense \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Core \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Core/util/Macros.h \
@@ -114,7 +114,6 @@ main.o: main.cpp \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Core/GlobalFunctions.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/LU \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Core \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/misc/Kernel.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/misc/Image.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/LU/FullPivLU.h \
@@ -122,29 +121,27 @@ main.o: main.cpp \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/LU/Determinant.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/LU/InverseImpl.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/LU/arch/Inverse_SSE.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Eigenvalues \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Cholesky \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Jacobi \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Jacobi/Jacobi.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Cholesky/LLT.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Cholesky/LDLT.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/QR \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Householder \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Householder/Householder.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Householder/HouseholderSequence.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Householder/BlockHouseholder.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/LU \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Geometry \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/SVD \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/QR \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/QR/HouseholderQR.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/QR/FullPivHouseholderQR.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/QR/ColPivHouseholderQR.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/SVD \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/misc/RealSvd2x2.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/SVD/UpperBidiagonalization.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/SVD/SVDBase.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/SVD/JacobiSVD.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/SVD/BDCSVD.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Geometry \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/OrthoMethods.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/EulerAngles.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/Homogeneous.h \
@@ -160,6 +157,7 @@ main.o: main.cpp \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/AlignedBox.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/Umeyama.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Eigenvalues \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/./HessenbergDecomposition.h \
@@ -176,16 +174,6 @@ main.o: main.cpp \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/./RealQZ.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixExponential.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/StemFunction.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixFunction.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixSquareRoot.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixLogarithm.h \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixPower.h \
- quadrature/QuadratureRuleHolder.hpp quadrature/QuadratureWrappers.hpp \
- quadrature/QuadratureRule.hpp traits/OPOE_traits.hpp \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Dense \
- /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Eigenvalues \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Sparse \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/SparseCore \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/SparseCore/SparseUtil.h \
@@ -261,12 +249,21 @@ main.o: main.cpp \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h \
  /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h \
- quadrature/QuadratureRuleAbstract.hpp \
- quadrature/../traits/OPOE_traits.hpp sde/FinModels.hpp sde/SDE.hpp \
- sde/../traits/OPOE_traits.hpp sde/../utils/Utils.hpp \
- sde/../utils/../traits/OPOE_traits.hpp sde/SDE.hpp options/Payoff.hpp \
- options/../traits/OPOE_traits.hpp options/CFOptionPricer.hpp \
- options/BaseOptionPricer.hpp options/Payoff.hpp \
- options/../sde/FinModels.hpp options/../stats/DensityBase.hpp \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/MatrixFunctions \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Core \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/LU \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Eigenvalues \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixExponential.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/StemFunction.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixFunction.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixSquareRoot.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixLogarithm.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixPower.h \
+ sde/FinModels.hpp sde/SDE.hpp sde/../traits/OPOE_traits.hpp \
+ sde/../utils/Utils.hpp sde/../utils/../traits/OPOE_traits.hpp \
+ sde/SDE.hpp options/Payoff.hpp options/../traits/OPOE_traits.hpp \
+ options/CFOptionPricer.hpp options/BaseOptionPricer.hpp \
+ options/Payoff.hpp options/../sde/FinModels.hpp \
+ options/../stats/DensityBase.hpp \
  options/../stats/../traits/OPOE_traits.hpp options/MCOptionPricer.hpp \
  options/../sde/SDE.hpp
