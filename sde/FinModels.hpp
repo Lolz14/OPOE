@@ -554,6 +554,28 @@ public:
         return result;
     };
 
+    inline SDEVector C_T([[maybe_unused]] T ttm, T dt, const SDEMatrix& y_t) {
+        const auto n = y_t.cols();
+        const auto k = y_t.rows();
+
+
+        // Precompute .matrix() view once
+        const auto& y_mat = y_t.matrix();
+
+        // Precompute powers
+        auto y_t_asset = y_mat.array().pow(params_.asset_vol_exponent).matrix();
+
+        // 1. Trapezoidal rule
+        auto trap_block1 = y_t_asset.block(0, 0, k - 1, n);
+        auto trap_block2 = y_t_asset.block(1, 0, k - 1, n);
+        auto trap = -static_cast<T>(0.25) * dt * (trap_block1 + trap_block2).colwise().sum();
+
+        // Final result
+        auto result = (1 - params_.correlation*params_.correlation) * trap.array();
+
+        return result;
+    };
+
 };
 
 template<typename T = traits::DataType::PolynomialField>
@@ -656,7 +678,8 @@ public:
                    T sv_kappa,
                    T sv_theta,
                    T sv_sigma,
-                   T correlation)
+                   T correlation,
+                    SDEVector x0)
         : Base(Parameters{
             asset_drift_const,
             sv_kappa,
@@ -665,20 +688,27 @@ public:
             correlation,
             static_cast<T>(1.0), // asset_vol_exponent p
             static_cast<T>(0.0)  // sv_vol_exponent q
-        }) {}
+        }, x0) {}
+
+    std::shared_ptr<ISDEModel<T>> clone() const override {
+        return std::make_shared<SteinSteinModelSDE<T>>(*this);
+    }
+
+
 };
 
 template<typename T = traits::DataType::PolynomialField>
-class HullWhiteSVModelSDE : public GenericSVModelSDE<T> {
+class HullWhiteModelSDE : public GenericSVModelSDE<T> {
 public:
     using Base = GenericSVModelSDE<T>;
     using Parameters = typename Base::Parameters;
 
-    HullWhiteSVModelSDE(T asset_drift_const,
+    HullWhiteModelSDE(T asset_drift_const,
                    T sv_kappa,
                    T sv_theta,
                    T sv_sigma,
-                   T correlation)
+                   T correlation,
+                   SDEVector x0)
         : Base(Parameters{
             asset_drift_const,
             sv_kappa,
@@ -687,7 +717,12 @@ public:
             correlation,
             static_cast<T>(1.0), // asset_vol_exponent p
             static_cast<T>(1.0)  // sv_vol_exponent q
-        }) {}
+        }, x0) {}
+    
+    std::shared_ptr<ISDEModel<T>> clone() const override {
+        return std::make_shared<HullWhiteModelSDE<T>>(*this);
+    }
+
 };
 
 template<typename T = traits::DataType::PolynomialField>
@@ -708,7 +743,7 @@ private:
     T q_denominator_sq_; // (sqrt(y_max) - sqrt(y_min))^2
 
     // Helper for Q(y)
-    inline T Q_func(T y) const {
+    inline T Q_func(const T y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; // Avoid division by zero if y_max approx y_min
 
@@ -720,7 +755,31 @@ private:
 
     }
 
-    inline T Q_func_der1(T y) const {
+    
+    template<typename Derived>
+    Eigen::Array<typename Derived::Scalar,
+                Derived::RowsAtCompileTime,
+                Derived::ColsAtCompileTime>
+    Q_func(const Eigen::MatrixBase<Derived>& y) const
+    {
+        using R = typename Derived::Scalar;
+        using ReturnType = Eigen::Array<R, Derived::RowsAtCompileTime, Derived::ColsAtCompileTime>;
+
+        if (q_denominator_sq_ <= R(0)) {
+            // materialize the Zero() expression to the concrete ReturnType
+            return ReturnType::Zero(y.rows(), y.cols()).eval();
+        }
+
+        // work in array-space for broadcasting with scalars
+        ReturnType y_arr = y.array().template cast<R>().eval();
+        ReturnType y_clamped = y_arr.min(R(y_max_)).max(R(y_min_)).eval();
+        
+        std::cout << "JacobiModelSDE: Q_func called with y_clamped = " << y_clamped << std::endl;
+        std::cout << "Size of y_clamped: " << ((y_clamped - R(y_min_)) * (R(y_max_) - y_clamped) / R(q_denominator_sq_)).eval().size() << std::endl;
+        return ((y_clamped - R(y_min_)) * (R(y_max_) - y_clamped) / R(q_denominator_sq_)).eval();
+    }
+
+    inline T Q_func_der1(const T y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; 
 
@@ -731,7 +790,7 @@ private:
 
     }
 
-    inline T Q_func_der2(T y) const {
+    inline T Q_func_der2(const T  y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; 
 
@@ -744,13 +803,14 @@ private:
 public:
 
     JacobiModelSDE(T asset_drift_const, 
-               T sv_kappa,
-               T sv_theta,
-               T sv_sigma,
-               T correlation,
-               T y_min,
-               T y_max)
-    : Base(Parameters{asset_drift_const, sv_kappa, sv_theta, sv_sigma, correlation, static_cast<T>(1.0), static_cast<T>(1.0)}),
+            T sv_kappa,
+            T sv_theta,
+            T sv_sigma,
+            T correlation,
+            T y_min,
+            T y_max,
+            SDEVector x0)
+    : Base(Parameters{asset_drift_const, sv_kappa, sv_theta, sv_sigma, correlation, static_cast<T>(1.0), static_cast<T>(1.0)}, x0),
       y_min_(y_min),y_max_(y_max)
         {
         if (Base::params_.correlation < -1.0 || Base::params_.correlation > 1.0) {
@@ -793,7 +853,7 @@ public:
 
     // State x: x(0) = X_t (log-price), x(1) = Y_t (variance process)
 
-    inline void drift(T /*t*/, const SDEVector& x_state, SDEVector& mu_out) const override {
+    inline void drift([[maybe_unused]] T t, const SDEVector& x_state, SDEVector& mu_out) const override {
 
         const T Y_t = x_state(0);
 
@@ -807,7 +867,7 @@ public:
 
     }
 
-    inline void diffusion(T /*t*/, const SDEVector& x_state, SDEMatrix& sigma_out) const override {
+    inline void diffusion([[maybe_unused]] T t, const SDEVector& x_state, SDEMatrix& sigma_out) const override {
 
         const T Y_t = x_state(0); // Current variance process value
 
@@ -838,11 +898,70 @@ public:
 
     }
 
-
-    inline T generator_fn(T /*t*/, const SDEVector& x, const T df, const T ddf) const override {
+    inline T generator_fn([[maybe_unused]] T t, const SDEVector& x, const T df, const T ddf) const override {
             
     return (Base::params_.asset_drift_const  - x(0) * static_cast<T>(0.5) ) * df + static_cast<T>(0.5) * Base::params_.sv_sigma * Base::params_.sv_sigma * Q_func(x(0)) *ddf;
     }
+
+    std::shared_ptr<ISDEModel<T>> clone() const override {
+        return std::make_shared<JacobiModelSDE<T>>(*this);
+    }
+    inline SDEVector M_T(T ttm, T dt, const SDEMatrix& y_t, const SDEMatrix& w_t) {
+            const auto n = y_t.cols();
+            const auto k = y_t.rows();
+
+            // Quick sanity check
+            assert(w_t.cols() == n && w_t.rows() == k && "y_t and w_t must have same shape");
+
+            // Precompute .matrix() view once
+            const auto& y_mat = y_t.matrix();
+            const auto& w_mat = w_t.matrix();
+
+            // Precompute powers
+            auto y_t_asset = y_mat.array().pow(Base::params_.asset_vol_exponent).matrix();
+            auto y_t_vol   = Q_func(y_mat).matrix().eval(); // Use eval to get rid of lazy evaluation
+ 
+            // 1. Trapezoidal rule
+            auto trap_block1 = y_t_asset.block(0, 0, k - 1, n);
+            auto trap_block2 = y_t_asset.block(1, 0, k - 1, n);
+            auto trap = -static_cast<T>(0.25) * dt * (trap_block1 + trap_block2).colwise().sum();
+
+            // 2. Vanilla stochastic integral
+            auto stoch = Base::params_.correlation * y_t.cwiseProduct(w_t).colwise().sum();
+
+            // 3. IJK term
+            auto w_sq_minus_dt = w_mat.array().square() - dt;
+            auto ijk = Base::params_.correlation * static_cast<T>(0.5) * Base::params_.sv_sigma
+                    * y_t_vol.cwiseProduct(w_sq_minus_dt.matrix()).colwise().sum();
+
+            // Final result
+            auto result = Base::get_x0()
+                        + Base::params_.asset_drift_const * ttm
+                        + trap.array() + stoch.array() + ijk.array();
+
+            return result;
+        };
+
+    inline SDEVector C_T([[maybe_unused]] T ttm, T dt, const SDEMatrix& y_t) {
+        const auto n = y_t.cols();
+        const auto k = y_t.rows();
+
+        // Precompute .matrix() view once
+        const auto& y_mat = y_t.matrix();
+
+        // Precompute powers
+        auto y_t_asset = y_mat - Base::params_.correlation * Base::params_.correlation * Q_func(y_mat).matrix(); // Use Q_func for variance process
+
+        // 1. Trapezoidal rule
+        auto trap_block1 = y_t_asset.block(0, 0, k - 1, n);
+        auto trap_block2 = y_t_asset.block(1, 0, k - 1, n);
+        auto trap = -static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).colwise().sum();
+
+        // Final result
+        auto result = trap.array();
+
+        return result;
+    };
 
 };
 

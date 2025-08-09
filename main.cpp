@@ -37,6 +37,8 @@ int main() {
     // GBM model (no need to configure beyond placeholder here)
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
     auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.04, 0.3, -0.7, x0);
+    auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.04, 0.3, -0.7, x0);
+    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.04, 0.3, -0.7, 0.1, 1.0 , x0);
 
     
  // Example sizes: k = rows (factors/assets), n = cols (time steps)
@@ -55,11 +57,15 @@ int main() {
 
 
     // Call the function
-    SDEVector result = heston_model->M_T(ttm, dt, y_t, w_t);
+    SDEVector result = hull_model->M_T(ttm, dt, y_t, w_t);
+
+    SDEVector result2 = hull_model->C_T(ttm, dt, y_t);
+
 
     // Print the result
     std::cout << "\nResult:\n" << result.transpose() << "\n";
-    
+    std::cout << "\nResult C:\n" << result2.transpose() << "\n";
+
     
     
 };
