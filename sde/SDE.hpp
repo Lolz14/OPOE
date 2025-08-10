@@ -9,6 +9,7 @@
 #include <stdexcept>    // For std::invalid_argument, std::runtime_error
 #include <vector>       
 #include <thread>       // For std::this_thread::get_id
+#include <optional>       // For high_resolution_clock
 #include "../traits/OPOE_traits.hpp"
 #include "../utils/Utils.hpp"
 
@@ -172,6 +173,7 @@ public:
         const int num_wiener = SdeType::WIENER_DIM;
         const double sqrt_dt = std::sqrt(dt);
 
+
         #pragma omp parallel for
         for (int w = 0; w < num_wiener; ++w) {
             // Unique seed per Wiener dimension (you can make this more robust if needed)
@@ -183,6 +185,8 @@ public:
 
             // Write the block into the correct location of dW_out
             dW_out.block(w * num_paths, 0, num_paths, num_steps) = block;
+            std::cout << dW_out << std::endl;
+
         }
 }
     /**
@@ -197,7 +201,8 @@ public:
      */
 
     void solve(const SDEVector& initial_x, double t_start, double t_end, int num_steps, int num_paths,
-           const std::function<void(unsigned int, const SDEVector&)>& observer) const {
+           const std::function<void(unsigned int, const SDEVector&)>& observer, 
+           const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
 
         if (initial_x.size() != SdeType::STATE_DIM) 
             throw std::invalid_argument("initial_x must have STATE_DIM");
@@ -218,12 +223,25 @@ public:
         SDEVector next_x(num_paths * SdeType::STATE_DIM);
 
         // dW is matrix: (num_paths * WIENER_DIM, num_steps)
-        SDEMatrix dW(num_paths * SdeType::WIENER_DIM, num_steps);
+        SDEMatrix dW;
 
+    
+        if (dW_opt.has_value()) {
+
+            assert(dW_opt->rows() == num_paths * SdeType::WIENER_DIM && dW_opt->cols() == num_steps);
+            
+            dW = dW_opt.value();
+
+
+        } else {
+
+            dW.resize(num_paths * SdeType::WIENER_DIM, num_steps);
+
+            generate_wiener_increments(dt, dW, num_steps, num_paths);
+
+        }
         
         
-        generate_wiener_increments(dt, dW, num_steps, num_paths);
-
         
 
         double current_t = t_start;
@@ -245,17 +263,12 @@ public:
      * @return Vector of state vectors at each time step (size num_steps + 1).
      */
 
-    SDEMatrix solve(const SDEVector& initial_x, double t_start, double t_end, int num_steps, int num_paths) const {
+    SDEMatrix solve(const SDEVector& initial_x, double t_start, double t_end, int num_steps, int num_paths,
+                    const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
         SDEMatrix path_flat(num_paths * SdeType::STATE_DIM, num_steps + 1);
-
-        
-
         solve(initial_x, t_start, t_end, num_steps, num_paths,
-            [&path_flat](unsigned int idx, const SDEVector& x) {
-                path_flat.col(idx) = x;
-
-            });
-
+            [&path_flat](unsigned int idx, const SDEVector& x) { path_flat.col(idx) = x; },
+            dW_opt);
         return path_flat;
     }
 
@@ -308,19 +321,33 @@ void step(
             // Map current and next state slices
             Eigen::Map<const SDEVector> x_p(current_x.data() + offset, state_dim);
             Eigen::Map<SDEVector> next_x_p(next_x.data() + offset, state_dim);
+            
+            // Full Truncation to ensure non-negativity
 
             // Compute drift and diffusion
             this->sde_ref_.drift(t, x_p, mu);
             this->sde_ref_.diffusion(t, x_p, sigma);
+
 
             // Map dW for this path, spaced by num_paths per Wiener dimension
             Eigen::Map<const SDEVector, 0, Eigen::InnerStride<>> dW_p(dW_t.data() + p, wiener_dim, Eigen::InnerStride<>(num_paths));
 
             // Euler-Maruyama update
             next_x_p.noalias() = x_p + mu * dt + sigma * dW_p;
+
+
+
         }
     }
+    // Full truncation to ensure non-negativity
+    next_x = next_x.cwiseMax(1e-4);
+
+
+
     }
+
+
+
 };
 
 
@@ -361,6 +388,8 @@ public:
 
             Eigen::Map<const SDEVector> x_p(current_x.data() + offset, state_dim);
             Eigen::Map<SDEVector> next_x_p(next_x.data() + offset, state_dim);
+
+
 
             this->sde_ref_.drift(t, x_p, mu);
             this->sde_ref_.diffusion(t, x_p, sigma);
@@ -440,6 +469,8 @@ public:
 
         }
     }
+
+    next_x = next_x.cwiseMax(1e-4); // Full truncation to ensure non-negativity
 };
 };
 
@@ -466,10 +497,9 @@ public:
         
         // Fallback to Euler-Maruyama as this is a placeholder.
         // For a real IKJ, this step would be very different and model-specific.
-        const int state_dim = SdeType::STATE_DIM;
-        const int wiener_dim = SdeType::WIENER_DIM;
         EulerMaruyamaSolver<SdeType> euler_solver(this->sde_ref_, this->rng_engine_ref_);
         euler_solver.step(t_current, current_x, dt, dW_t, num_paths, next_x);
+
 
         if constexpr (Milstein2DSVSDEModel<SdeType>) {
             const double pEXP = this->sde_ref_.get_p();
@@ -481,7 +511,8 @@ public:
 
             // Map to Eigen views
             Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_curr(current_x.data(), num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));        
-            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_next(next_x.data(), num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));        
+            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_next(next_x.data(), num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));    
+    
             Eigen::Map<const SDEArray> dW0(dW_t.data(), num_paths);
             Eigen::Map<const SDEArray> dW1(dW_t.data() + num_paths, num_paths);
 
@@ -503,6 +534,7 @@ public:
 
             
             Eigen::Map<SDEArray, 0, Eigen::InnerStride<>> x_next(next_x.data() + 1, num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));   
+      
             x_next += correction_ijk;
 
     }

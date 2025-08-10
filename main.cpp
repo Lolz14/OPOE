@@ -32,13 +32,13 @@ int main() {
     options::Array initial_log_price = options::Array::Constant(1, std::log(S0));
 
     Eigen::VectorXd x0(2);
-    x0 << 0.04, std::log(100.0);
+    x0 << 0.20, std::log(100.0);
 
     // GBM model (no need to configure beyond placeholder here)
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
-    auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.04, 0.3, -0.7, x0);
-    auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.04, 0.3, -0.7, x0);
-    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.04, 0.3, -0.7, 0.1, 1.0 , x0);
+    auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.20, 0.3, -0.7, x0);
+    auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, x0);
+    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, 0.1, 1.0 , x0);
 
     
  // Example sizes: k = rows (factors/assets), n = cols (time steps)
@@ -56,15 +56,70 @@ int main() {
     R ttm = 1.0;
 
 
-    // Call the function
-    SDEVector result = hull_model->M_T(ttm, dt, y_t, w_t);
 
-    SDEVector result2 = hull_model->C_T(ttm, dt, y_t);
+    QuantizationGrid<double> grid = readQuantizationGrid<double>(4, 2, "quantized_grids");
+
+    std::cout << "Quantization Grid:\n";
+    std::cout << "Coordinates:\n" << grid.coordinates << "\n";
+    std::cout << "Weights:\n" << grid.weights.transpose() << "\n";
+
+    SDEMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
+    dw << grid.coordinates, grid.coordinates;
+
+    std::cout << "Wiener increments (dW):\n" << dw << "\n";
+    std::cout << "Number of paths: " << dw.rows() << "\n";
+
+
+
+
+    EulerMaruyamaSolver<HestonModelSDE<double>> solver(*heston_model);
+
+
+    // Simulation settings
+    double T = 1.0;
+    int num_steps = 2;
+    int num_paths = 4;
+
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+    auto paths = solver.solve(x0, 0.0, T, num_steps, num_paths, std::optional<SDEMatrix>(dw));
+    auto end_time = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_time = end_time - start_time;
+    std::cout << "Simulation completed in " << elapsed_time.count() << " seconds." << std::endl;
+
+
+    std::cout << "Simulated paths (first 5 paths):\n";
+    // Output results
+    std::cout<< "Paths" << paths << std::endl;
+// paths: (state_dim * num_paths) x num_steps
+Eigen::Map<const SDEMatrix, 0, Eigen::OuterStride<>> vol_view(
+
+    paths.data(),                           // start at row 0, col 0
+
+    num_paths,                              // number of selected rows (e.g., 4)
+
+    paths.cols(),                           // all columns
+
+    Eigen::OuterStride<>(2 * paths.outerStride())  // jump two rows each step
+
+);
+
+
+    // Call the function
+    SDEVector result = heston_model->M_T(ttm, dt, vol_view, grid.coordinates);
+
+    SDEVector result2 = heston_model->C_T(ttm, dt, vol_view);
 
 
     // Print the result
     std::cout << "\nResult:\n" << result.transpose() << "\n";
     std::cout << "\nResult C:\n" << result2.transpose() << "\n";
+
+
+    std::cout << "Volatility view (first 5 paths):\n" << vol_view << std::endl;
+
+
+    return 0;
 
     
     
@@ -184,33 +239,7 @@ int main() {
         // Create initial state vector: all paths start at initial_state
         SDE::SDEVector initial_x = SDE::SDEVector::Ones(1) * initial_state;
         // Parameters
-    double mu = 0.21;
-    double kappa = 2;
-    double theta = 0.20;
-    double sigma_v = 0.35;
-    double rho = -0.7;
-
-    JacobiModelSDE heston(mu, kappa, theta, sigma_v, rho, 0.1, 0.9);
-    EulerMaruyamaSolver<JacobiModelSDE<double>> solver(heston);
-
-
-    // Simulation settings
-    double T = 1.0;
-    int num_steps = 252;
-    int num_paths = 10000;
-
-    VectorXd x0(2);
-    x0 <<  0.25,std::log(100.0); // Initial [S, v]
-    auto start_time = std::chrono::high_resolution_clock::now();
-    auto paths = solver.solve(x0, 0.0, T, num_steps, num_paths);
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_time = end_time - start_time;
-    std::cout << "Simulation completed in " << elapsed_time.count() << " seconds." << std::endl;
-
-
-    std::cout << "Simulated paths (first 5 paths):\n";
-    // Output results
-    std::cout<< "Paths" << paths << std::endl;
+    
 
     bool found_nan = false;
 
