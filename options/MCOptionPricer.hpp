@@ -18,7 +18,7 @@ public:
 
     
     using SolverFunc = std::function<StoringMatrix(
-        const StoringVector&, R, R, int, int)>;
+    R, R, int, int)>;
 
     MCPricer(R ttm, R strike, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
@@ -33,12 +33,8 @@ public:
     {}
 
     R price() const override {
-        StoringVector x0 = this->sde_model_->m_x0;
 
-        auto all_paths = solver_func_(x0, 0.0, this->ttm_, num_steps_, num_paths_);
-
-        std::cout << "Simulated " << num_paths_ << " paths with " << num_steps_ << " steps each.\n";
-        std::cout << "Paths shape: " << all_paths << std::endl;
+        auto all_paths = solver_func_(0.0, this->ttm_, num_steps_, num_paths_);
 
         int state_dim = this->sde_model_->get_state_dim();
         StoringVector terminal_column = all_paths.col(num_steps_);
@@ -55,13 +51,10 @@ public:
             );
         }
 
-        std::cout << "Terminal log-prices shape: " << terminal_logS.size() << std::endl;
-        std::cout << "First 5 terminal log-prices: " << terminal_logS.head(5).transpose() << std::endl;
+
 
         auto payoffs = this->payoff_->evaluate_from_log(terminal_logS);
 
-        std::cout << "Payoffs shape: " << payoffs.size() << std::endl;
-        std::cout << "First 5 payoffs: " << payoffs.head(5).transpose() << std::endl;
 
         return std::exp(-this->rate_ * this->ttm_) * payoffs.mean();
     }

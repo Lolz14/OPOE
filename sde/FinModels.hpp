@@ -773,9 +773,7 @@ private:
         // work in array-space for broadcasting with scalars
         ReturnType y_arr = y.array().template cast<R>().eval();
         ReturnType y_clamped = y_arr.min(R(y_max_)).max(R(y_min_)).eval();
-        
-        std::cout << "JacobiModelSDE: Q_func called with y_clamped = " << y_clamped << std::endl;
-        std::cout << "Size of y_clamped: " << ((y_clamped - R(y_min_)) * (R(y_max_) - y_clamped) / R(q_denominator_sq_)).eval().size() << std::endl;
+
         return ((y_clamped - R(y_min_)) * (R(y_max_) - y_clamped) / R(q_denominator_sq_)).eval();
     }
 
@@ -917,7 +915,7 @@ public:
             const auto& w_mat = w_t.matrix();
 
             // Precompute powers
-            auto y_t_vol   = Q_func(y_mat).matrix().sqrt().eval(); // Use eval to get rid of lazy evaluation
+            auto y_t_vol   = Q_func(y_mat).array().sqrt().matrix().eval(); // Use eval to get rid of lazy evaluation
  
             // 1. Trapezoidal rule
             auto trap_block1 = y_mat.array().block(0, 0, k, n - 1);
@@ -947,12 +945,21 @@ public:
         // Precompute .matrix() view once
         const auto& y_mat = y_t.matrix();
 
+
         // Precompute powers
-        auto y_t_asset = y_mat - Base::params_.correlation * Base::params_.correlation * Q_func(y_mat).matrix(); // Use Q_func for variance process
+        auto y_t_asset = (y_mat - Base::params_.correlation * Base::params_.correlation * Q_func(y_mat).matrix()).eval(); // Use Q_func for variance process
+
+        std::cout << "y_t_asset:\n" << Q_func(y_mat) << std::endl;
 
         // 1. Trapezoidal rule
         auto trap_block1 = y_t_asset.block(0, 0, k, n - 1);
         auto trap_block2 = y_t_asset.block(0, 1, k, n - 1);
+        std::cout << "n = " << n << ", k = " << k << "\n";
+        std::cout << "trap_block1:\n" << trap_block1 << "\n";
+        std::cout << "trap_block2:\n" << trap_block2 << "\n";
+
+
+
         auto trap = static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).rowwise().sum();
 
         // Final result

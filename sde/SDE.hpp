@@ -185,7 +185,6 @@ public:
 
             // Write the block into the correct location of dW_out
             dW_out.block(w * num_paths, 0, num_paths, num_steps) = block;
-            std::cout << dW_out << std::endl;
 
         }
 }
@@ -200,11 +199,11 @@ public:
      * @param observer Callback function with signature void(double time, const SDEVector& state).
      */
 
-    void solve(const SDEVector& initial_x, double t_start, double t_end, int num_steps, int num_paths,
+    void solve(double t_start, double t_end, int num_steps, int num_paths,
            const std::function<void(unsigned int, const SDEVector&)>& observer, 
            const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
-
-        if (initial_x.size() != SdeType::STATE_DIM) 
+            
+        if (sde_ref_.m_x0.size() != SdeType::STATE_DIM) 
             throw std::invalid_argument("initial_x must have STATE_DIM");
 
         if (num_steps <= 0 || t_end <= t_start)
@@ -216,7 +215,7 @@ public:
         SDEVector current_x(num_paths * SdeType::STATE_DIM);
 
         // initial_x is a column vector: [0.25, 100]
-        SDEMatrix initial_states = initial_x.transpose().replicate(num_paths, 1); 
+        SDEMatrix initial_states = sde_ref_.m_x0.transpose().replicate(num_paths, 1); 
         current_x = Eigen::Map<SDEVector>(initial_states.data(), initial_states.size());
 
                 
@@ -263,10 +262,10 @@ public:
      * @return Vector of state vectors at each time step (size num_steps + 1).
      */
 
-    SDEMatrix solve(const SDEVector& initial_x, double t_start, double t_end, int num_steps, int num_paths,
+    SDEMatrix solve(double t_start, double t_end, int num_steps, int num_paths,
                     const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
         SDEMatrix path_flat(num_paths * SdeType::STATE_DIM, num_steps + 1);
-        solve(initial_x, t_start, t_end, num_steps, num_paths,
+        solve(t_start, t_end, num_steps, num_paths,
             [&path_flat](unsigned int idx, const SDEVector& x) { path_flat.col(idx) = x; },
             dW_opt);
         return path_flat;

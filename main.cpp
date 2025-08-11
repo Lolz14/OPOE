@@ -16,6 +16,7 @@
 #include "options/CFOptionPricer.hpp"
 #include "options/MCOptionPricer.hpp"
 
+// TODO: Add n = 1 case for Ackerer Pricing
 
 int main() {
     using namespace options;
@@ -40,19 +41,18 @@ int main() {
     auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, x0);
     auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, 0.1, 1.0 , x0);
 
-    
- // Example sizes: k = rows (factors/assets), n = cols (time steps)
-    int k = 2; // number of rows (factors/assets)
-    int n = 5; // number of columns (time points)
+    MCPricer<R> mc_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), gbm_model, [gbm_model](R t0, R ttm, int num_steps, int num_paths) {
+        // Placeholder for the solver function, replace with actual implementation
+        return SDE::EulerMaruyamaSolver<SDE::GeometricBrownianMotionSDE<R>>(*gbm_model).solve(t0, ttm, num_steps, num_paths);
+    });
 
-    // Create sample data
-    double eps = 1e-6;
-    SDEMatrix y_t = ((SDEMatrix::Random(k, n).array() + 1.0) / 2.0) + eps;
-    SDEMatrix w_t = ((SDEMatrix::Random(k, n).array() + 1.0) / 2.0) + eps;
+    // Print the price of the option
+    std::cout << "European Call Option Price: " << mc_pricer.price() << std::endl;
+
 
 
     // Small positive dt
-    R dt = 0.01;
+    R dt = 0.5;
     R ttm = 1.0;
 
 
@@ -72,7 +72,7 @@ int main() {
 
 
 
-    EulerMaruyamaSolver<HestonModelSDE<double>> solver(*heston_model);
+    EulerMaruyamaSolver<HullWhiteModelSDE<R>> solver(*hull_model);
 
 
     // Simulation settings
@@ -82,7 +82,7 @@ int main() {
 
 
     auto start_time = std::chrono::high_resolution_clock::now();
-    auto paths = solver.solve(x0, 0.0, T, num_steps, num_paths, std::optional<SDEMatrix>(dw));
+    auto paths = solver.solve(0.0, T, num_steps, num_paths, std::optional<SDEMatrix>(dw));
     auto end_time = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed_time = end_time - start_time;
     std::cout << "Simulation completed in " << elapsed_time.count() << " seconds." << std::endl;
@@ -106,9 +106,9 @@ Eigen::Map<const SDEMatrix, 0, Eigen::OuterStride<>> vol_view(
 
 
     // Call the function
-    SDEVector result = heston_model->M_T(ttm, dt, vol_view, grid.coordinates);
+    SDEVector result = hull_model->M_T(ttm, dt, vol_view, grid.coordinates);
 
-    SDEVector result2 = heston_model->C_T(ttm, dt, vol_view);
+    SDEVector result2 = hull_model->C_T(ttm, dt, vol_view);
 
 
     // Print the result

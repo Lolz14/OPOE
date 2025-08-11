@@ -1,7 +1,7 @@
 #ifndef OPTION_PRICER_HPP
 #define OPTION_PRICER_HPP
 
-
+#include "../utils/FileReader.hpp"
 #include "../quadrature/Projector.hpp"
 #include "../quadrature/QuadratureRuleHolder.hpp"
 #include "../stats/MixtureDensity.hpp"
@@ -16,7 +16,8 @@
 
 namespace options {
 
-template <typename R = traits::DataType::PolynomialField>
+template <typename R = traits::DataType::PolynomialField,
+unsigned int PolynomialBaseDegree>
 class OPEPricer : public BaseOptionPricer<R> {
 
     using StoringVector = traits::DataType::StoringVector;
@@ -28,10 +29,31 @@ class OPEPricer : public BaseOptionPricer<R> {
     public:
         OPEPricer(R ttm, R strike, R rate,
                 std::unique_ptr<IPayoff<R>> payoff,
-                std::shared_ptr<SDE::ISDEModel<R>> sde_model
+                std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
+                unsigned int num_paths = 100
                 )
-            : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)){}
+            : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)),
+                num_paths_(num_paths) {}
+
+        void buildMixtureDensity() {
+            // Build the mixture density Weighted-MC simulation described in the paper
+            // "Option Pricing with the Orthonormal Polynomial Expansion Method" by Ackerer et al.
+                QuantizationGrid<R> grid = readQuantizationGrid<R>(num_paths_, PolynomialBaseDegree, "quantized_grids");
+
+                StoringMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
+                dw << grid.coordinates, grid.coordinates;
+
+
             
+
+
+           
+        }
+        
+            
+    
+    private:
+        unsigned int num_paths_;
 
     };
 }
