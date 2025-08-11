@@ -18,7 +18,7 @@ public:
 
     
     using SolverFunc = std::function<StoringMatrix(
-    R, R, int, int)>;
+    R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
 
     MCPricer(R ttm, R strike, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
@@ -26,7 +26,7 @@ public:
              SolverFunc solver_func,
              unsigned int num_paths = 10,
              unsigned int num_steps = 3)
-        : BaseOptionPricer<R>(ttm, strike, rate, std::move(payoff), sde_model),
+        : BaseOptionPricer<R>(ttm, strike, rate, std::move(payoff), std::move(sde_model)),
           solver_func_(std::move(solver_func)),
           num_paths_(num_paths),
           num_steps_(num_steps)
@@ -34,7 +34,7 @@ public:
 
     R price() const override {
 
-        auto all_paths = solver_func_(0.0, this->ttm_, num_steps_, num_paths_);
+        auto all_paths = solver_func_(0.0, this->ttm_, num_steps_, num_paths_, std::nullopt);
 
         int state_dim = this->sde_model_->get_state_dim();
         StoringVector terminal_column = all_paths.col(num_steps_);

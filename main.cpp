@@ -8,12 +8,11 @@
 #include <cassert>
 #include <algorithm>
 #include <type_traits>  
-#include "utils/FileReader.hpp"
 #include <unsupported/Eigen/MatrixFunctions>
 #include "sde/FinModels.hpp"
 #include "sde/SDE.hpp"
 #include "options/Payoff.hpp"
-#include "options/CFOptionPricer.hpp"
+#include "options/OPEOptionPricer.hpp"
 #include "options/MCOptionPricer.hpp"
 
 // TODO: Add n = 1 case for Ackerer Pricing
@@ -41,82 +40,22 @@ int main() {
     auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, x0);
     auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, 0.1, 1.0 , x0);
 
-    MCPricer<R> mc_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), gbm_model, [gbm_model](R t0, R ttm, int num_steps, int num_paths) {
+    MCPricer<R> mc_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), gbm_model, [gbm_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
         // Placeholder for the solver function, replace with actual implementation
-        return SDE::EulerMaruyamaSolver<SDE::GeometricBrownianMotionSDE<R>>(*gbm_model).solve(t0, ttm, num_steps, num_paths);
+        return SDE::EulerMaruyamaSolver<SDE::GeometricBrownianMotionSDE<R>>(*gbm_model).solve(t0, ttm, num_steps, num_paths, dW_opt);
     });
 
     // Print the price of the option
     std::cout << "European Call Option Price: " << mc_pricer.price() << std::endl;
 
-
-
-    // Small positive dt
-    R dt = 0.5;
-    R ttm = 1.0;
-
-
-
-    QuantizationGrid<double> grid = readQuantizationGrid<double>(4, 2, "quantized_grids");
-
-    std::cout << "Quantization Grid:\n";
-    std::cout << "Coordinates:\n" << grid.coordinates << "\n";
-    std::cout << "Weights:\n" << grid.weights.transpose() << "\n";
-
-    SDEMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
-    dw << grid.coordinates, grid.coordinates;
-
-    std::cout << "Wiener increments (dW):\n" << dw << "\n";
-    std::cout << "Number of paths: " << dw.rows() << "\n";
+    OPEOptionPricer<R, 2> ope_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
+        // Placeholder for the solver function, replace with actual implementation
+        return EulerMaruyamaSolver<HullWhiteModelSDE<R>>(*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);
+    });
 
 
 
 
-    EulerMaruyamaSolver<HullWhiteModelSDE<R>> solver(*hull_model);
-
-
-    // Simulation settings
-    double T = 1.0;
-    int num_steps = 2;
-    int num_paths = 4;
-
-
-    auto start_time = std::chrono::high_resolution_clock::now();
-    auto paths = solver.solve(0.0, T, num_steps, num_paths, std::optional<SDEMatrix>(dw));
-    auto end_time = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_time = end_time - start_time;
-    std::cout << "Simulation completed in " << elapsed_time.count() << " seconds." << std::endl;
-
-
-    std::cout << "Simulated paths (first 5 paths):\n";
-    // Output results
-    std::cout<< "Paths" << paths << std::endl;
-// paths: (state_dim * num_paths) x num_steps
-Eigen::Map<const SDEMatrix, 0, Eigen::OuterStride<>> vol_view(
-
-    paths.data(),                           // start at row 0, col 0
-
-    num_paths,                              // number of selected rows (e.g., 4)
-
-    paths.cols(),                           // all columns
-
-    Eigen::OuterStride<>(2 * paths.outerStride())  // jump two rows each step
-
-);
-
-
-    // Call the function
-    SDEVector result = hull_model->M_T(ttm, dt, vol_view, grid.coordinates);
-
-    SDEVector result2 = hull_model->C_T(ttm, dt, vol_view);
-
-
-    // Print the result
-    std::cout << "\nResult:\n" << result.transpose() << "\n";
-    std::cout << "\nResult C:\n" << result2.transpose() << "\n";
-
-
-    std::cout << "Volatility view (first 5 paths):\n" << vol_view << std::endl;
 
 
     return 0;

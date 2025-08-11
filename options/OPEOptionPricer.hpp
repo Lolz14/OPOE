@@ -17,43 +17,74 @@
 namespace options {
 
 template <typename R = traits::DataType::PolynomialField,
-unsigned int PolynomialBaseDegree>
-class OPEPricer : public BaseOptionPricer<R> {
+unsigned int PolynomialBaseDegree = 3>
+class OPEOptionPricer : public BaseOptionPricer<R> {
 
     using StoringVector = traits::DataType::StoringVector;
     using StoringMatrix = traits::DataType::StoringMatrix;
     using Array = traits::DataType::StoringArray;
+    using SolverFunc = std::function<StoringMatrix(
+    R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
 
     using Base = BaseOptionPricer<R>;
     
     public:
-        OPEPricer(R ttm, R strike, R rate,
+        OPEOptionPricer(R ttm, R strike, R rate,
                 std::unique_ptr<IPayoff<R>> payoff,
                 std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
-                unsigned int num_paths = 100
+                SolverFunc solver_func,
+                unsigned int num_paths = 4
                 )
             : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)),
-                num_paths_(num_paths) {}
+                num_paths_(num_paths), solver_func_(solver_func) {
+                    buildMixtureDensity();
+                }
 
         void buildMixtureDensity() {
             // Build the mixture density Weighted-MC simulation described in the paper
             // "Option Pricing with the Orthonormal Polynomial Expansion Method" by Ackerer et al.
-                QuantizationGrid<R> grid = readQuantizationGrid<R>(num_paths_, PolynomialBaseDegree, "quantized_grids");
+            QuantizationGrid<R> grid = readQuantizationGrid<R>(num_paths_, PolynomialBaseDegree, "quantized_grids");
 
-                StoringMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
-                dw << grid.coordinates, grid.coordinates;
+            auto gen_sde_model = std::dynamic_pointer_cast<SDE::GenericSVModelSDE<R>>(this->sde_model_);
+            if (!gen_sde_model) {
+                throw std::runtime_error("SDE model must be GenericSVModelSDE to call M_T and C_T");
+            }
 
 
-            
+            StoringMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
+            dw << grid.coordinates, grid.coordinates;
+
+            auto paths = solver_func_(0.0, this->ttm_, PolynomialBaseDegree, num_paths_, std::optional<StoringMatrix>(dw));
+
+            Eigen::Map<const StoringMatrix, 0, Eigen::OuterStride<>> vol_view(
+            paths.data(),                           // start at row 0, col 0
+            num_paths_,                              // number of selected rows (e.g., 4)
+            paths.cols(),                           // all columns
+            Eigen::OuterStride<>(2 * paths.outerStride())  // jump two rows each step
+
+            );
+
+            // Call the function
+            StoringVector result = gen_sde_model->M_T(this->ttm_, this->ttm_/PolynomialBaseDegree, vol_view, grid.coordinates);
+            StoringVector result2 = gen_sde_model->C_T(this->ttm_, this->ttm_/PolynomialBaseDegree, vol_view);
+
+                // Print the result
+            std::cout << "\nResult:\n" << result.transpose() << "\n";
+            std::cout << "\nResult C:\n" << result2.transpose() << "\n";
 
 
            
         }
-        
-            
+
+        R price() const override {
+            // Get the terminal log prices from the solver function
+        }        
+
     
     private:
         unsigned int num_paths_;
+        SolverFunc solver_func_;
+
 
     };
 }
