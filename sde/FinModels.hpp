@@ -521,10 +521,6 @@ public:
         const auto n = y_t.cols();
         const auto k = y_t.rows();
 
-        std::cout << "M_T called with ttm: " << ttm << ", dt: " << dt << ", n: " << n << ", k: " << k << std::endl;
-        std::cout << "y_t shape: " << y_t.rows() << "x" << y_t.cols() << std::endl;
-        std::cout << "w_t shape: " << w_t.rows() << "x" << w_t.cols() << std::endl;
-
         // Quick sanity check
         assert(w_t.cols() == n - 1 && w_t.rows() == k && "y_t and w_t must have the same number of rows and w_t must have one less column than y_t");
 
@@ -921,15 +917,15 @@ public:
             const auto& w_mat = w_t.matrix();
 
             // Precompute powers
-            auto y_t_vol   = Q_func(y_mat).matrix().eval(); // Use eval to get rid of lazy evaluation
+            auto y_t_vol   = Q_func(y_mat).matrix().sqrt().eval(); // Use eval to get rid of lazy evaluation
  
             // 1. Trapezoidal rule
-            auto trap_block1 = y_mat.array().square().block(0, 0, k, n - 1);
-            auto trap_block2 = y_mat.array().square().block(0, 1, k, n - 1);
+            auto trap_block1 = y_mat.array().block(0, 0, k, n - 1);
+            auto trap_block2 = y_mat.array().block(0, 1, k, n - 1);
             auto trap = -static_cast<T>(0.25) * dt * (trap_block1 + trap_block2).rowwise().sum();
 
             // 2. Vanilla stochastic integral
-            auto stoch = Base::params_.correlation * y_mat.block(0, 0, k, n - 1).cwiseProduct(w_t).rowwise().sum();
+            auto stoch = Base::params_.correlation * y_t_vol.block(0, 0, k, n - 1).cwiseProduct(w_t).rowwise().sum();
 
             // 3. IJK term
             auto w_sq_minus_dt = w_mat.array().square() - dt;
