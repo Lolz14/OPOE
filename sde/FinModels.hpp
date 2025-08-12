@@ -74,16 +74,23 @@ using SDEVector = SDE::SDEVector;
 using SDEComplexVector = SDE::SDEComplexVector; 
 using SDEMatrix = SDE::SDEMatrix; 
 
+
+static constexpr long key(int m, int n) noexcept {
+        return (static_cast<long>(m) << 32) | static_cast<unsigned int>(n);
+    }
+
 template<typename T = traits::DataType::PolynomialField>
 class ISDEModel {
 
 public:
 
         virtual ~ISDEModel() = default; // Important for proper cleanup
+        
         virtual std::shared_ptr<ISDEModel<T>> clone() const = 0;
         
         // Pure virtual functions defining the SDE
         virtual void drift(T t, const SDEVector& x, SDEVector& mu_out) const = 0;
+        
         virtual void diffusion(T t, const SDEVector& x, SDEMatrix& sigma_out) const = 0;
 
         // Essential for some numerical schemes (e.g., Milstein)
@@ -91,12 +98,9 @@ public:
         // Or, better, have specialized interfaces for models that support these
 
         virtual void drift_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEVector& /*deriv_out*/) const {
-            
             // Default implementation: numerical differentiation or throw not_implemented
             throw std::logic_error("Drift derivative not implemented for this model.");
-
         }
-
 
         virtual void diffusion_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEMatrix& /*deriv_out*/) const {
 
@@ -110,12 +114,6 @@ public:
 
         }
 
-        virtual T generator_fn(T /*t*/, const SDEVector& /*x*/,  const T /*df*/, const T /*ddf*/) const {
-
-            // Default implementation: throw not_implemented
-            throw std::logic_error("Generator function not implemented for this model.");
-
-        }
         virtual void characteristic_fn(T /*t*/,  const SDEComplexVector& /*x*/, SDEComplexVector& /*charact_out*/) const {
 
             // Default implementation: throw not_implemented
@@ -151,13 +149,11 @@ public:
 
         }
 
-
         virtual unsigned int get_wiener_dimension() const = 0;
 
         virtual unsigned int get_state_dim() const = 0;
 
         SDEVector m_x0; // Initial state vector, can be used in characteristic functions or other calculations
-
 
 };
 
@@ -189,13 +185,17 @@ public:
         }
 
     }
+    
     std::shared_ptr<ISDEModel<T>> clone() const override {
         return std::make_shared<GeometricBrownianMotionSDE<T>>(*this);
     }
 
     unsigned int get_wiener_dimension() const override { return WIENER_DIM; }
+
     unsigned int get_state_dim() const override { return STATE_DIM;}
+
     const Parameters& get_parameters() const { return params_; }
+
     void set_parameters(const Parameters& params) {
         params_ = params;
         if (params_.sigma < 0.0) { 
@@ -203,8 +203,6 @@ public:
         }
 
     }
-
-
 
     inline void drift([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& mu_out) const override {
 
@@ -220,35 +218,18 @@ public:
 
     }
 
-    // Derivatives for dS_t = mu*S_t*dt + sigma*S_t*dW_t
-    // Drift term a(t,S) = mu*S. Derivative w.r.t S is mu.
-    // Diffusion term b(t,S) = sigma*S. Derivative w.r.t S is sigma.
-    // Since we are considering log-price, then all the derivatives are 0.
-
     inline void drift_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& deriv_out) const override {
-
         deriv_out.setZero();
-
     }
-
-
-    inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
-        
-        deriv_out.setZero();
-        
+ 
+    inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {    
+        deriv_out.setZero();  
     }
 
     inline void diffusion_second_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
         // For GBM, the second derivative of diffusion is zero
         deriv_out.setZero();
 
-    }
-
-    inline T generator_fn([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, const T df, const T ddf) const override {
-        // Generator for GBM: a(t,S) + 0.5 * b(t,S)^2
-        // Here, a(t,S) = mu, b(t,S) = sigma
-        // So, generator = mu + 0.5 * (sigma)^2
-        return (params_.mu - params_.sigma * params_.sigma * static_cast<T>(0.5)) * df + static_cast<T>(0.5) * params_.sigma * params_.sigma * ddf;
     }
 
     inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
@@ -276,8 +257,6 @@ public:
         this->params_.sigma = v0; // Set the initial variance (x(1))
     }
 
-
-
 };
 
 // As defined in Fast strong approximation Monte-Carlo schemes for stochastic volatility models
@@ -296,7 +275,6 @@ public:
 template<typename T = traits::DataType::PolynomialField>
 class GenericSVModelSDE : public ISDEModel<T> {
         using Base = ISDEModel<T>;
-
 
 public:
 
@@ -354,6 +332,7 @@ public:
     }
 
     unsigned int get_wiener_dimension() const override { return WIENER_DIM; }
+    
     unsigned int get_state_dim() const override { return STATE_DIM;}
 
     const Parameters& get_parameters() const { return params_; }
@@ -430,13 +409,13 @@ public:
 
 
     }
+    
     inline void drift_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& deriv_out) const override {
         // Derivative of drift w.r.t. x(0) and x(1)
         deriv_out(0) = params_.sv_kappa; // Derivative of drift w.r.t. x(0)
         deriv_out(1) = 0.0;
         }
     
-    // Derivative of diffusion w.r.t. x(1) (state log-price)
     inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
 
         // deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * std::pow(x(0), params_.sv_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ
@@ -458,22 +437,73 @@ public:
         //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * (params_.asset_vol_exponent - 1.0) * std::pow(x(0), params_.asset_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ_unc
     }
 
-    inline T generator_fn([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, const T df, const T ddf) const override {
-            
-        T effective_variance_term;
+    StoringMatrix generator_G(int N, T mu, T sigma) const {
 
-        if (params_.asset_vol_exponent == static_cast<T>(0.5)) {
-            effective_variance_term = x(0); // x(1)^(2*0.5) = x(1)
-        } 
-        else if (params_.asset_vol_exponent == static_cast<T>(1.0)) {
-            effective_variance_term = x(0) * x(0); // x(1)^(2*1) = x(1)^2
-        } 
-        else {
-            effective_variance_term = std::pow(x(0), static_cast<T>(2.0) * params_.asset_vol_exponent);
+        auto E = Utils::enumerate_basis(N);
+        const int M = static_cast<int>(E.size());
+
+        // Fast index lookup
+        Utils::IndexMap idx;
+        idx.reserve(M);
+        for (int i = 0; i < M; ++i) {
+            const auto& [m, n] = E[i];
+            idx.emplace(key(m, n), i);
         }
 
-        return (params_.asset_drift_const - static_cast<T>(0.5) * effective_variance_term) * df + static_cast<T>(0.5) * effective_variance_term * ddf;
-    }
+        SDEMatrix G = SDEMatrix::Zero(M, M);
+
+        const auto q = params_.sv_vol_exponent;
+        const auto p = params_.asset_vol_exponent;
+        const auto kappa = params_.sv_kappa;
+        const auto theta = params_.sv_theta;
+        const auto rho = params_.correlation;
+        const auto r = params_.asset_drift_const;
+        const auto sigma_v = params_.sv_sigma;
+
+        auto add_entry = [&](int row_m, int row_n, int col, double value) {
+            if (row_m < 0 || row_n < 0) return;
+            if (row_m + row_n > N) return; // out of basis range
+            auto it = idx.find(key(row_m, row_n));
+            if (it != idx.end()) {
+                G(it->second, col) = value;
+            }
+        };
+
+        for (int col = 0; col < M; ++col) {
+            const auto [m, n] = E[col];
+            const double alpha_n = (n >= 1) ? std::sqrt(static_cast<double>(n)) / sigma : 0.0;
+
+            // 1) h_{m-2, n}
+            if (m >= 2 + 2 * q) {
+                add_entry(m-2 + 2 * q, n, col, -sigma_v * sigma_v * 0.5 * m * (m - 1));
+            }
+            // 2) h_{m-1, n-1}
+            if (m >= 1 && n >= 1) {
+                add_entry(m-1, n-1, col, -rho * sigma * m * std::sqrt((double)n) / sigma * vmax*vmin / C);
+            }
+            // 3) h_{m-1, n}
+            if (m >= 1) {
+                add_entry(m-1, n, col, m*kappa*theta + sigma*sigma * m*(m-1) * (vmax+vmin) / (2.0*C));
+            }
+            // 4) h_{m, n-1}
+            if (n >= 1) {
+                add_entry(m, n-1, col, std::sqrt((double)n)/sigma * ((r - delta) + m*rho*sigma*(vmax+vmin)/C));
+            }
+            // 5) h_{m+1, n-2}
+            if (n >= 2) {
+                add_entry(m+1, n-2, col, std::sqrt((double)n*(n-1)) / (2.0*sigma*sigma));
+            }
+            // 6) h_{m, n}
+            add_entry(m, n, col, -m*kappa - sigma*sigma*m*(m-1) / (2.0*C));
+            // 7) h_{m+1, n-1}
+            if (n >= 1) {
+                add_entry(m+1, n-1, col, -std::sqrt((double)n) / (2.0*sigma) - rho*sigma*m*std::sqrt((double)n) / (sigma*C));
+            }
+        }
+
+        return G;
+
+    }; 
 
     inline T get_x0() const noexcept override  {
         // Return the initial state vector
@@ -604,6 +634,7 @@ public:
         return std::make_shared<HestonModelSDE<T>>(*this);
     }
 
+
     inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
 
             // Step 1: gamma
@@ -663,6 +694,7 @@ public:
         charact_out = (A.array() - B_func_out.array() * Base::m_x0(0)).exp().matrix();
 
     }
+
 
 
 
@@ -896,9 +928,78 @@ public:
 
     }
 
-    inline T generator_fn([[maybe_unused]] T t, const SDEVector& x, const T df, const T ddf) const override {
-            
-    return (Base::params_.asset_drift_const  - x(0) * static_cast<T>(0.5) ) * df + static_cast<T>(0.5) * Base::params_.sv_sigma * Base::params_.sv_sigma * Q_func(x(0)) *ddf;
+    SDEMatrix generator_G(int N) const {
+        auto E = Utils::enumerate_basis(N);
+        const int M = static_cast<int>(E.size());
+
+        // Fast index lookup
+        Utils::IndexMap idx;
+        idx.reserve(M);
+        for (int i = 0; i < M; ++i) {
+            const auto& [m, n] = E[i];
+            idx.emplace(key(m, n), i);
+        }
+
+        SDEMatrix G = SDEMatrix::Zero(M, M);
+        
+        const double sigma_w_ = Base::params_.sv_sigma;
+
+        const double C = q_denominator_sq_;
+        const double vmin = y_min_;
+        const double vmax = y_max_;
+        const double kappa = Base::params_.sv_kappa;
+        const double theta = Base::params_.sv_theta;
+        const double r = Base::params_.asset_drift_const;
+        const double delta = 0.0; // set dividend yield if needed
+        const double sigma = Base::params_.sv_sigma;
+        const double rho = Base::params_.correlation;
+
+        const double q2 = -1.0 / C;
+        const double q1 = (vmax + vmin) / C;
+        const double q0 = -vmax * vmin / C;
+
+        auto add_entry = [&](int row_m, int row_n, int col, double value) {
+            if (row_m < 0 || row_n < 0) return;
+            if (row_m + row_n > N) return; // out of basis range
+            auto it = idx.find(key(row_m, row_n));
+            if (it != idx.end()) {
+                G(it->second, col) = value;
+            }
+        };
+
+        for (int col = 0; col < M; ++col) {
+            const auto [m, n] = E[col];
+            const double alpha_n = (n >= 1) ? std::sqrt(static_cast<double>(n)) / sigma_w_ : 0.0;
+
+            // 1) h_{m-2, n}
+            if (m >= 2) {
+                add_entry(m-2, n, col, -sigma*sigma * m*(m-1) * vmax*vmin / (2.0*C));
+            }
+            // 2) h_{m-1, n-1}
+            if (m >= 1 && n >= 1) {
+                add_entry(m-1, n-1, col, -rho * sigma * m * std::sqrt((double)n) / sigma_w_ * vmax*vmin / C);
+            }
+            // 3) h_{m-1, n}
+            if (m >= 1) {
+                add_entry(m-1, n, col, m*kappa*theta + sigma*sigma * m*(m-1) * (vmax+vmin) / (2.0*C));
+            }
+            // 4) h_{m, n-1}
+            if (n >= 1) {
+                add_entry(m, n-1, col, std::sqrt((double)n)/sigma_w_ * ((r - delta) + m*rho*sigma*(vmax+vmin)/C));
+            }
+            // 5) h_{m+1, n-2}
+            if (n >= 2) {
+                add_entry(m+1, n-2, col, std::sqrt((double)n*(n-1)) / (2.0*sigma_w_*sigma_w_));
+            }
+            // 6) h_{m, n}
+            add_entry(m, n, col, -m*kappa - sigma*sigma*m*(m-1) / (2.0*C));
+            // 7) h_{m+1, n-1}
+            if (n >= 1) {
+                add_entry(m+1, n-1, col, -std::sqrt((double)n) / (2.0*sigma_w_) - rho*sigma*m*std::sqrt((double)n) / (sigma_w_*C));
+            }
+        }
+
+        return G;
     }
 
     std::shared_ptr<ISDEModel<T>> clone() const override {

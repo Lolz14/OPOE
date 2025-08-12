@@ -17,7 +17,10 @@
 
 #include <cmath>
 #include <random>
-#include <tuple>       
+#include <tuple>
+#include <unordered_map>
+#include <vector>
+#include <utility>       
 #include <type_traits>
 #include "../traits/OPOE_traits.hpp" 
 
@@ -26,6 +29,13 @@ namespace Utils
 // Forward declaration of Polynomial class
 template <unsigned int N, typename R = traits::DataType::PolynomialField> 
 class Polynomial;
+
+/**
+ * @brief Type alias for a map that associates a long key (m, n) to an integer index.
+ *
+ * This map is used to efficiently store and retrieve indices based on polynomial degree and exponent.
+ */
+using IndexMap = std::unordered_map<long, int>;
 
 /**
  * @brief Template structure to compute powers of a Polynomial at compile time.
@@ -258,6 +268,30 @@ T calculate_overall_distortion(
 
     return std::numeric_limits<T>::infinity(); // Return infinity if no valid samples
 }
+
+
+/**
+ * @brief Enumerates all pairs (m, n) such that m + n <= N.
+ * 
+ * This function generates a vector of pairs representing the indices of the basis functions
+ * for a polynomial basis of degree N. Each pair corresponds to the indices of the monomials
+ * in the polynomial expansion.
+ *
+ * @param N The maximum degree of the polynomial basis.
+ * @return A vector of pairs (m, n) where m + n <= N.
+ */
+static std::vector<std::pair<int,int>> enumerate_basis(int N) {
+    std::vector<std::pair<int,int>> E;
+    E.reserve((N+1)*(N+2)/2);
+    for (int m = 0; m <= N; ++m) {
+        for (int n = 0; n <= N - m; ++n) {
+            E.emplace_back(m, n);
+        }
+    }
+    return E;
+}
+
+
 
 } // namespace Utils
 

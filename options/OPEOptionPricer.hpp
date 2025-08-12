@@ -13,81 +13,115 @@
 #include <string>
 #include <utility>
 #include <cmath>
+#include <execution>
 
 namespace options {
 
 template <typename R = traits::DataType::PolynomialField,
 unsigned int PolynomialBaseDegree = 3>
+requires (PolynomialBaseDegree >= 2 && std::is_integral_v<decltype(PolynomialBaseDegree)>) 
+// Ensure the polynomial degree is at least 2, since approximation of the wiener motion with only 1 point is trivial (0, with 100% probability);
+// Moreover, PolynomialBaseDegree must be an integral type
 class OPEOptionPricer : public BaseOptionPricer<R> {
+    static_assert(PolynomialBaseDegree >= 2, 
+                  "PolynomialBaseDegree must be >= 2");
 
     using StoringVector = traits::DataType::StoringVector;
     using StoringMatrix = traits::DataType::StoringMatrix;
     using Array = traits::DataType::StoringArray;
     using SolverFunc = std::function<StoringMatrix(
-    R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
+        R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
 
     using Base = BaseOptionPricer<R>;
-    
-    public:
-        OPEOptionPricer(R ttm, R strike, R rate,
-                std::unique_ptr<IPayoff<R>> payoff,
-                std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
-                SolverFunc solver_func,
-                unsigned int num_paths = 4
-                )
-            : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)),
-                num_paths_(num_paths), solver_func_(solver_func) {
-                    buildMixtureDensity();
-                }
 
-        void buildMixtureDensity() {
-            // Build the mixture density Weighted-MC simulation described in the paper
-            // "Option Pricing with the Orthonormal Polynomial Expansion Method" by Ackerer et al.
-            QuantizationGrid<R> grid = readQuantizationGrid<R>(num_paths_, PolynomialBaseDegree, "quantized_grids");
+    using DensityType = stats::BoostBaseDensity<
+        boost::math::normal_distribution<R>, R, R, R>;
 
-            auto gen_sde_model = std::dynamic_pointer_cast<SDE::GenericSVModelSDE<R>>(this->sde_model_);
-            if (!gen_sde_model) {
-                throw std::runtime_error("SDE model must be GenericSVModelSDE to call M_T and C_T");
-            }
+public:
+    OPEOptionPricer(R ttm, R strike, R rate,
+                    std::unique_ptr<IPayoff<R>> payoff,
+                    std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
+                    SolverFunc solver_func,
+                    unsigned int num_paths = 4)
+        : Base(ttm, strike, rate, std::move(payoff), sde_model)
+        , num_paths_(num_paths)
+        , solver_func_(solver_func)
+        , density_object_(make_density_object(ttm, num_paths, PolynomialBaseDegree,
+                                              solver_func_, sde_model))
+    {
+        density_object_.constructOrthonormalBasis();
+        density_object_.constructQProjectionMatrix();    
+    }
 
+    R price() const override {
+        auto h_functions = density_object_.getHFunctionsMixture();
 
-            StoringMatrix dw(grid.coordinates.rows()*2, grid.coordinates.cols()); 
-            dw << grid.coordinates, grid.coordinates;
+        std::cout << "H matrix#" << density_object_.getHMatrix() << std::endl;
+    }
 
-            auto paths = solver_func_(0.0, this->ttm_, PolynomialBaseDegree, num_paths_, std::optional<StoringMatrix>(dw));
+private:
+    unsigned int num_paths_;
+    SolverFunc solver_func_;
+    stats::MixtureDensity<PolynomialBaseDegree, DensityType, R> density_object_;
 
-            Eigen::Map<const StoringMatrix, 0, Eigen::OuterStride<>> vol_view(
-            paths.data(),                           // start at row 0, col 0
-            num_paths_,                              // number of selected rows (e.g., 4)
-            paths.cols(),                           // all columns
-            Eigen::OuterStride<>(2 * paths.outerStride())  // jump two rows each step
+    // Static helper: builds the MixtureDensity before entering constructor body
+    static stats::MixtureDensity<PolynomialBaseDegree, DensityType, R>
+    make_density_object(R ttm,
+                        unsigned int num_paths,
+                        unsigned int poly_deg,
+                        const SolverFunc& solver_func,
+                        const std::shared_ptr<SDE::GenericSVModelSDE<R>>& sde_model)
+    {
+        // Read quantization grid
+        QuantizationGrid<R> grid =
+            readQuantizationGrid<R>(num_paths, poly_deg, "quantized_grids");
 
-            );
+        // Double the coordinates for dw
+        StoringMatrix dw(grid.coordinates.rows() * 2, grid.coordinates.cols()); 
+        dw << grid.coordinates, grid.coordinates;
 
-            // Call the function
-            StoringVector result = gen_sde_model->M_T(this->ttm_, this->ttm_/PolynomialBaseDegree, vol_view, grid.coordinates);
-            StoringVector result2 = gen_sde_model->C_T(this->ttm_, this->ttm_/PolynomialBaseDegree, vol_view);
+        // Solve for paths
+        auto paths = solver_func(0.0, ttm, poly_deg, num_paths, std::optional<StoringMatrix>(dw));
 
-                // Print the result
-            std::cout << "\nResult:\n" << result.transpose() << "\n";
-            std::cout << "\nResult C:\n" << result2.transpose() << "\n";
+        // Map vol_view
+        Eigen::Map<const StoringMatrix, 0, Eigen::OuterStride<>> vol_view(
+            paths.data(),
+            num_paths,
+            paths.cols(),
+            Eigen::OuterStride<>(2 * paths.outerStride())
+        );
 
+        // Compute mean and variance
+        StoringVector mean = sde_model->M_T(ttm, ttm / poly_deg, vol_view, grid.coordinates);
+        StoringVector variance = sde_model->C_T(ttm, ttm / poly_deg, vol_view);
 
-           
-        }
+        std::cout << "Mean: " << mean.transpose() << std::endl;
+        std::cout << "Variance: " << variance.transpose() << std::endl;
 
-        R price() const override {
-            // Get the terminal log prices from the solver function
-        }        
+        // Build densities
+        std::vector<DensityType> densities(mean.size());
+        std::transform(std::execution::unseq,
+                       mean.data(), mean.data() + mean.size(),
+                       variance.data(),
+                       densities.begin(),
+                       [](R m, R v) {
+                           return stats::make_normal_density<R>(m, std::sqrt(v));
+                       });
 
-    
-    private:
-        unsigned int num_paths_;
-        SolverFunc solver_func_;
+        // Convert Eigen weights to std::vector
+        std::vector<R> weights(grid.weights.data(),
+                               grid.weights.data() + grid.weights.size());
 
-
-    };
+        // Build and return MixtureDensity
+        return stats::MixtureDensity<PolynomialBaseDegree, DensityType, R>(
+            std::move(weights),
+            std::move(densities)
+        );
+    }
+};
 }
+
+
 
 
 namespace options {
@@ -165,15 +199,9 @@ public:
         
    
 
-            if (h_functions.size() != PolynomialBaseDegree + 1) {
+            
 
-                throw std::runtime_error("Number of H_n functions (" + std::to_string(h_functions.size()) +
-
-                                         ") does not match PolynomialBaseDegree+1 (" + std::to_string(PolynomialBaseDegree + 1) + ").");
-
-            }
-
-         
+        
 
        
 

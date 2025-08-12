@@ -38,7 +38,7 @@ int main() {
     auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
     auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.20, 0.3, -0.7, x0);
     auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, x0);
-    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, 0.1, 1.0 , x0);
+    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.01, 1.5, 0.04, 0.3, -0.5, 0.01, 0.09 , x0);
 
     MCPricer<R> mc_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), gbm_model, [gbm_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
         // Placeholder for the solver function, replace with actual implementation
@@ -46,12 +46,14 @@ int main() {
     });
 
     // Print the price of the option
-    std::cout << "European Call Option Price: " << mc_pricer.price() << std::endl;
+    std::cout << "European Call Option Price: " << jacobi_model->generator_G(3) << std::endl;
 
     OPEOptionPricer<R, 2> ope_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
         // Placeholder for the solver function, replace with actual implementation
         return EulerMaruyamaSolver<HullWhiteModelSDE<R>>(*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);
     });
+
+
 
 
 
