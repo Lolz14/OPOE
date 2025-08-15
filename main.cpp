@@ -1,3 +1,7 @@
+#include <Eigen/Dense>
+#include <Eigen/Sparse>
+#include <iomanip>
+#include <sde/FinModels.hpp>
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
@@ -7,290 +11,91 @@
 #include <functional>
 #include <cassert>
 #include <algorithm>
-#include <type_traits>  
-#include <unsupported/Eigen/MatrixFunctions>
-#include "sde/FinModels.hpp"
-#include "sde/SDE.hpp"
-#include "options/Payoff.hpp"
-#include "options/OPEOptionPricer.hpp"
-#include "options/MCOptionPricer.hpp"
+#include <type_traits>
+#include "polynomials/OrthogonalPolynomials.hpp"
+#include "utils/Utils.hpp"
 
-// TODO: Add n = 1 case for Ackerer Pricing
+using Eigen::MatrixXd;
+using Eigen::SparseMatrix;
+using Eigen::Triplet;
+using namespace SDE;
+
+static std::vector<std::pair<int,int>> enumerate_basis(int N) {
+    std::vector<std::pair<int,int>> E;
+    E.reserve((N+1)*(N+2)/2);
+    for (int m = 0; m <= N; ++m) {
+        for (int n = 0; n <= N - m; ++n) {
+            E.emplace_back(m, n);
+        }
+    }
+    return E;
+}
+
+#include <Eigen/Dense>
+#include <unsupported/Eigen/KroneckerProduct>
+#include <vector>
+#include <utility>
+
+using Eigen::MatrixXd;
+using StoringVector = Eigen::VectorXd;
+
 
 int main() {
-    using namespace options;
-    using namespace SDE;
-    using R = double;
+    int N = 2; // total degree
+    auto E_tri = enumerate_basis(N-1);
+    int dim_tri = E_tri.size();
 
+    int Nv_full = N+1;
+    int Nx_full = N+1; // we need Nx = N+1 to cover all n
+    int dim_full = Nv_full * Nx_full;
+
+    using R = double;
+    polynomials::HermitePolynomial<2, R> hermite(0.0, 1.0); // mu=0, sigma=1
+    std::cout << "Hermite polynomial of degree " << Nv_full-1 << ":\n";
+    for (int i = 0; i < Nv_full; ++i) {
+        std::cout << "H_" << i << "(x) = " << hermite.getPolynomial(i) << "\n"; // Evaluate at x=0
+    }
     R S0 = 100.0;     // Spot price
     // R K = 100.0;      // Strike
     R r = 0.05;       // Risk-free rate
     // R T = 1.0;        // Time to maturity
     R sigma = 0.2;    // Volatility
 
-    // Log spot for compatibility with CF framework
-    options::Array initial_log_price = options::Array::Constant(1, std::log(S0));
 
     Eigen::VectorXd x0(2);
     x0 << 0.20, std::log(100.0);
 
     // GBM model (no need to configure beyond placeholder here)
-    auto gbm_model = std::make_shared<SDE::GeometricBrownianMotionSDE<R>>(r, sigma, std::log(S0));
-    auto heston_model = std::make_shared<SDE::HestonModelSDE<R>>(0.05, 2.0, 0.20, 0.3, -0.7, x0);
-    auto hull_model = std::make_shared<SDE::HullWhiteModelSDE<R>>(0.04, 2.0, 0.20, 0.3, -0.7, x0);
-    auto jacobi_model = std::make_shared<SDE::JacobiModelSDE<R>>(0.01, 1.5, 0.04, 0.3, -0.5, 0.01, 0.09 , x0);
-
-    MCPricer<R> mc_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), gbm_model, [gbm_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
-        // Placeholder for the solver function, replace with actual implementation
-        return SDE::EulerMaruyamaSolver<SDE::GeometricBrownianMotionSDE<R>>(*gbm_model).solve(t0, ttm, num_steps, num_paths, dW_opt);
-    });
-
-    // Print the price of the option
-    std::cout << "European Call Option Price: " << jacobi_model->generator_G(3) << std::endl;
-
-    OPEOptionPricer<R, 2> ope_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDE::SDEMatrix>& dW_opt) {
-        // Placeholder for the solver function, replace with actual implementation
-        return EulerMaruyamaSolver<HullWhiteModelSDE<R>>(*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);
-    });
-
-
-
-
-
-
-
-
-    return 0;
-
-    
-    
-};
-
-
-
-
-
-
-/* 
-
-
-
-    // Test Call Option
-    {
-        auto call_payoff = std::make_unique<options::EuropeanCallPayoff<R>>(K);
-        options::CFPricer<R> call_pricer(T, K, r, std::move(call_payoff), gbm_model);
-
-        std::cout << "European Call Option:\n";
-        std::cout << "  Price: " << call_pricer.price() << "\n";
-        std::cout << "  Delta: " << call_pricer.delta() << "\n";
-        std::cout << "  Gamma: " << call_pricer.gamma() << "\n";
-        std::cout << "  Vega:  " << call_pricer.vega() << "\n";
-        std::cout << "  Theta: " << call_pricer.theta() << "\n";
-        std::cout << "  Rho:   " << call_pricer.rho() << "\n";
-        std::cout << "\n";
-    }
-
-    options::MCPricer<R> fft_pricer(T, K, r, std::make_unique<options::EuropeanCallPayoff<R>>(K), gbm_model, solver_func);
-
-    std::cout << "FFT Pricer for European Call Option:\n"<<std::endl;
-    std::cout << "  Price: " << fft_pricer.price() << std::endl;
-
-    
-
-    return 0;
-
-
-
-
-
-   
+    auto heston_model = std::make_shared<HullWhiteModelSDE<R>>(0.05, 2.0, 0.20, 0.3, -0.7, x0);
 
 
     
+
+    // Example H for Nx_full=3
+    MatrixXd H(3,3);
+    H << 1, 0, -std::sqrt(2.0)/2,
+         0, 1,  0,
+         0, 0,  std::sqrt(2.0)/2;
+
+    MatrixXd HS(2, 2);
+    HS << 1, 0,
+         0, 1;
+    
+
+
+
+    // Project onto triangular basis4
+    MatrixXd G_tri_projected = heston_model->generator_G(E_tri, HS);
+
+    // Compare with generator_G
+    SDEMatrix G_tri_generator = heston_model->generator_G(E_tri, 2, 1);
+    std::cout << "G:" << G_tri_generator << "\n";
+
+    // Pretty-print differences
+    std::cout << "Differences G_tri_projected - G_tri_generator:\n";
+    std::cout << (G_tri_projected - G_tri_generator) << "\n";
+
+    std::cout << "vG_tri:" << G_tri_projected << "\n";
+
+  
 }
-
-*/
-
-
-
-/*
-
-   
-int main() {
-    try {
-        using DataType = double;
-
-        constexpr unsigned int N = 5; // Degree of basis
-
-
-        // Define drift and volatility
-        auto mu = 0.05;
-        auto sigma = 0.2;
-        
-        stats::MixtureDensity<5, stats::GammaDensity> gamma_density({0.5,0.5},{
-            stats::make_gamma_density(2.0, 1.0), // Shape and scale parameters
-            stats::make_gamma_density(3.0, 1.5)}  // Another component
-        );
-        
-
-        SDE::GeometricBrownianMotionSDE<DataType>::Parameters gbm_params{mu, sigma};
-        SDE::GeometricBrownianMotionSDE<DataType> gbm_model(gbm_params);
-        // Define domain and integrator
-        auto domain = gamma_density.getSupport(); // Assumed to return {lower, upper}
-        quadrature::QuadratureRuleHolder<double> integrator(quadrature::QuadratureType::TanhSinh);
-        gamma_density.constructOrthonormalBasis();
-
-        // Allocate generator matrix
-        Eigen::MatrixXd G(N, N);
-
-        for (unsigned int j = 0; j < N; ++j) {
-            const auto& Hj = gamma_density.getPolynomial(j);
-            auto dHj = polynomials::der<1>(Hj);
-            auto d2Hj = polynomials::der<2>(Hj);
-
-          
-            for (unsigned int i = 0; i < N; ++i) {
-                const auto& Hi = gamma_density.getPolynomial(i).as_function();
-
-                // Weight function: Hi(x) * L(Hj)(x)
-                auto weight = [&](double x) {
-                    double val = Hi(x) * gbm_model.generator_fn(0.0, SDE::SDEVector::Ones(1)*x, dHj(x), d2Hj(x)) * gamma_density.pdf(x); // weighted inner product
-                    return std::isfinite(val) ? val : 0.0;
-                };
-
-                G(i, j) = integrator.integrate(weight, domain.lower, domain.upper);
-            }
-        }
-
-        std::cout << "G matrix (in monomial basis):\n" << G << std::endl;
-
-        // --- Option parameters ---
-        DataType K = 100.0;        // Strike price
-        DataType r = 0.05;         // Risk-free rate
-        DataType T = 1.0;          // Time to maturity (1 year)
-
-
-
-        // --- Simulation settings ---
-        int num_steps = 100;
-        int num_paths = 1000; // Increase for more accuracy
-        DataType dt = T / num_steps;
-        DataType initial_state = std::log(100.0);
-
-        // Create initial state vector: all paths start at initial_state
-        SDE::SDEVector initial_x = SDE::SDEVector::Ones(1) * initial_state;
-        // Parameters
-    
-
-    bool found_nan = false;
-
-    for (int i = 0; i < paths.rows(); ++i) {
-        for (int j = 0; j < paths.cols(); ++j) {
-            if (std::isnan(paths(i, j))) {
-                std::cerr << "NaN detected at row " << i << ", col " << j << std::endl;
-                found_nan = true;
-            }
-        }
-    }
-
-    if (!found_nan) {
-        std::cout << "No NaNs found in paths matrix." << std::endl;
-    }
-
-    std::cout << "Simulation complete. Results written to heston_paths.csv\n";
-    return 0;
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Check correctnes of G, since Brownian motion is split
-int main() {
-    options::EuropeanCallPayoff<double> call_payoff(100.0); // Example payoff
-   options::EuropeanPutPayoff put_payoff(100.0); // Example payoff
-
-
-   // Now we can compute the G matrix using the mixture density and a GBM model
-quadrature::QuadratureRuleHolder<double> integrator(quadrature::QuadratureType::TanhSinh); // Example integrator
-   stats::GammaDensity gamma_density(3, 3); // Example instantiation
-   stats::MixtureDensity<5, stats::GammaDensity> mixture_density(
-       {0.5, 0.5}, 
-       {gamma_density, gamma_density} // Using the same density for simplicity
-   );
-
-   // Construct the orthonormal basis for the mixture density
-   mixture_density.constructOrthonormalBasis(); // Generate polynomials based on the density
-
-    // Now we can compute the G matrix
-
-    SDE::GeometricBrownianMotionSDE gbm_model({0.05, 0.2}); // Example GBM model    
-    Eigen::MatrixXd G(5, 5); // G matrix for 5 basis polynomials
-
-    for (unsigned int j = 0; j < 5; ++j) {
-
-        auto Hj = mixture_density.getPolynomial(j);
-
-
-
-        
-        auto dHj = polynomials::der<1>(Hj);
-
-        auto d2Hj = polynomials::der<2>(Hj);
-
-        
-
-        // Define L_Hj as mu(x) * dHj + 0.5 * sigma^2(x) * d2Hj
-
-        auto L_Hj = [&](double x) {
-
-            return gbm_model.generator_fn(0.0, SDE::SDEVector::Ones(1)*x, dHj(x), d2Hj(x)); // Assuming t=0 for simplicity
-
-        };
-
-
-    
-
-        for (unsigned int i = 0; i < 5; ++i) {
-            
-
-
-            auto Hi = mixture_density.getPolynomial(i);
-
-            
-            auto weight = [&gamma_density, &Hi, &L_Hj](double x){ double y = gamma_density.pdf(x)*Hi.as_function()(x)*L_Hj(x); if (!std::isfinite(y)) {return 0.0; }return y;}; // Define weight function as product of densities and polynomials
-
-            //auto weight = [&gamma_density](double x){return gamma_density.pdf(x);};
-
-               // Compute inner product <Hi, L_Hj> w.r.t. mixture_density measure
-
-
-            double inner_product = integrator.integrate(weight, gamma_density.getDomain().lower, gamma_density.getDomain().upper); // Pseudo-code
-
-
-            G(i, j) = inner_product;
-
-    }
-
-    }
-
-// Output or use G matrix
-
-    std::cout << "G Matrix:\n" << G << std::endl;
-    std::cout << "G exp Matrix:\n" << G.exp() << std::endl;
-
-   };
-   
-   */

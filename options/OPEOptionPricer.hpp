@@ -2,6 +2,7 @@
 #define OPTION_PRICER_HPP
 
 #include "../utils/FileReader.hpp"
+#include "../utils/Utils.hpp"
 #include "../quadrature/Projector.hpp"
 #include "../quadrature/QuadratureRuleHolder.hpp"
 #include "../stats/MixtureDensity.hpp"
@@ -54,9 +55,71 @@ public:
     }
 
     R price() const override {
-        auto h_functions = density_object_.getHFunctionsMixture();
+        auto H = density_object_.getHMatrix();
 
-        std::cout << "H matrix#" << density_object_.getHMatrix() << std::endl;
+        auto E = Utils::enumerate_basis(PolynomialBaseDegree);
+        const int M = static_cast<int>(E.size());
+        auto variance = density_object_.variance();
+
+        auto gen_sde_model = dynamic_cast<SDE::GenericSVModelSDE<R>*>(this->sde_model_.get());
+
+        auto G_matrix = gen_sde_model->generator_G(E, PolynomialBaseDegree, std::sqrt(variance));
+
+        // Build vector of monomials [1, X0, X0^2, ..., X0^N]
+        StoringVector monoms(PolynomialBaseDegree+1);
+        monoms(0) = 1.0;
+        for (int k = 1; k <= PolynomialBaseDegree; ++k) {
+            monoms(k) = monoms(k-1) * gen_sde_model->get_x0();
+        }
+
+        // Evaluate Hermites at X0 using your H matrix
+        StoringVector Hvec = H.transpose(comp) * monoms; // size N+1
+        std::cout << "Hmatrix: " << H << std::endl;
+        std::cout << "Monomials: " << monoms.transpose() << std::endl;
+        std::cout << "Hvec: " << Hvec.transpose() << std::endl;
+
+        // Build h_vals = v^m * H_n(X0)
+        StoringVector h_vals(M);
+        for (int i = 0; i < M; ++i) {
+            auto [m, n] = E[i];
+            h_vals(i) = std::pow(gen_sde_model->get_v0(), m) * Hvec(n);
+        }
+
+        std::cout << "h_vals: " << h_vals.transpose() << std::endl;
+  
+
+        // Precompute dense exp(T * G)
+        StoringMatrix expGT = (this->get_ttm() * G_matrix).exp();
+
+        // Precompute index mapping for (0,n)
+        std::vector<int> idx0n(PolynomialBaseDegree + 1, -1);
+        for (int i = 0; i < M; ++i) {
+            if (E[i].first == 0) idx0n[E[i].second] = i;
+        }
+
+        // Compute l_n = h_vals^T * expGT * e_{pi(0,n)}
+        std::vector<double> l_values;
+        l_values.reserve(PolynomialBaseDegree + 1);
+
+        for (int n = 0; n <= PolynomialBaseDegree; ++n) {
+            const int j = idx0n[n];
+            if (j < 0) {
+                l_values.push_back(0.0);
+                continue;
+            }
+            // expGT.col(j) is exactly expGT * e_j
+            double ln_val = h_vals.dot(expGT.col(j));
+            l_values.push_back(ln_val);
+        }
+
+        std::cout << "l_values: ";
+        for (const auto& val : l_values) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+
+
+
     }
 
 private:
@@ -97,6 +160,7 @@ private:
 
         std::cout << "Mean: " << mean.transpose() << std::endl;
         std::cout << "Variance: " << variance.transpose() << std::endl;
+        std::cout << "Weights: " << grid.weights.transpose() << std::endl;
 
         // Build densities
         std::vector<DensityType> densities(mean.size());

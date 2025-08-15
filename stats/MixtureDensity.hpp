@@ -237,7 +237,7 @@ public:
             // Note: DensityToPolyTraits is a template that maps the DensityType to the appropriate polynomial type
             using PolyTraits = DensityToPolyTraits<DensityType, PolynomialBaseDegree, R>;
 
-            auto curr_comp_poly = PolyTraits::create(component); // <-- USE THIS
+            auto curr_comp_poly = PolyTraits::create(component); 
         
             // 2. Get the Jacobi matrix (assuming it's available)
             Js.push_back(curr_comp_poly.getJacobiMatrix());
@@ -528,7 +528,8 @@ public:
      * 
      * @param x The point at which to evaluate the PDF.
      * @return R The PDF value at x.
-     */    R pdf(R x) const {
+     */  
+    R pdf(R x) const {
         R total_pdf = R(0.0);
         for (size_t i = 0; i < components_.size(); ++i) {
              // Directly call pdf on the known component type
@@ -554,10 +555,41 @@ public:
     }
 
     /**
+     * @brief Computes the mean of the mixture density.
+     * 
+     * @return R The weighted mean of the mixture components.
+     */
+    R mean() const {
+        R total_mean = R(0.0);
+        for (size_t i = 0; i < components_.size(); ++i) {
+            total_mean += weights_[i] * components_[i].getMu();
+        }
+        return total_mean;
+    }
+
+    /** * @brief Computes the variance of the mixture density.
+     * 
+     * @return R The weighted variance of the mixture components.
+     */
+    R variance() const {
+        R total_variance = R(0.0);
+        for (size_t i = 0; i < components_.size(); ++i) {
+            R mu = components_[i].getMu();
+            R sigma = components_[i].getSigma();
+            total_variance += weights_[i] * (sigma * sigma + mu * mu);
+        }
+        return total_variance - mean() * mean();
+    }
+    
+
+    /**
      * @brief Prints the parameters of each component in the mixture to standard output.
      * 
      * Assumes DensityType provides getDistribution() and getConstructorParameters().
      */
+
+
+
     void printComponentParameters() const {
         std::cout << "--- Mixture Components ---\n";
         if (components_.empty()) {

@@ -64,7 +64,7 @@ density w which is a weighted sum of densities, with weights c
 #include <stdexcept>    // For std::invalid_argument, std::runtime_error
 #include <iostream>     // For std::cerr
 #include <complex>
-
+#include <memory>
 namespace SDE{
 
 template <typename T = traits::DataType::PolynomialField>
@@ -270,6 +270,9 @@ public:
 // dS(t) = mu*S(t)*dt + V(t)^p * S(t) * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr)
 // dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ_uncorr
 // where dZ_uncorr and dW_uncorr are two independent Wiener motions.
+// Applying the Ito's lemma, we can derive the drift and diffusion terms for the SDEs.
+// dX(t) (mu - V(t)^2p/2) * dt + V(t)^p * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr
+// dY(t) = kappa * (theta - Y(t)) * dt + sigma * Y(t)^q * dZ_uncorr
 
 
 template<typename T = traits::DataType::PolynomialField>
@@ -437,9 +440,65 @@ public:
         //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * (params_.asset_vol_exponent - 1.0) * std::pow(x(0), params_.asset_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ_unc
     }
 
-    StoringMatrix generator_G(int N, T mu, T sigma) const {
+    struct SVPolyCoeffs {
+        SDEVector bx;   // b_x(v)
+        SDEVector axx;  // a_xx(v)
+        SDEVector bv;   // b_v(v)
+        SDEVector axv;  // a_xv(v)
+        SDEVector avv;  // a_vv(v)
+    };
 
-        auto E = Utils::enumerate_basis(N);
+    SVPolyCoeffs build_sv_polynomials(
+        const typename GenericSVModelSDE<T>::Parameters& p, 
+        int N
+    ) {
+        SVPolyCoeffs out;
+
+        // b_x(v) = μ - 0.5 v^(2p)
+        out.bx = SDEVector::Zero(N);
+        out.bx[0] = p.asset_drift_const;
+        {
+            int exp = static_cast<int>(2 * p.asset_vol_exponent);
+            if (exp < N)
+                out.bx[exp] = out.bx[exp] - T(0.5);
+        }
+
+        // a_xx(v) = v^(2p)
+        out.axx = SDEVector::Zero(N);
+        {
+            int exp = static_cast<int>(2 * p.asset_vol_exponent);
+            if (exp < N)
+                out.axx[exp] = T(1.0);
+        }
+
+        // b_v(v) = κ θ - κ v
+        out.bv = SDEVector::Zero(N);
+        out.bv[0] = p.sv_kappa * p.sv_theta;
+        if (1 < N)
+            out.bv[1] = -p.sv_kappa;
+
+        // a_xv(v) = ρ σ v^(p+q)
+        out.axv = SDEVector::Zero(N);
+        {
+            int exp = static_cast<int>(p.asset_vol_exponent + p.sv_vol_exponent);
+            if (exp < N)
+                out.axv[exp] = p.correlation * p.sv_sigma;
+        }
+
+        // a_vv(v) = σ² v^(2q)
+        out.avv = SDEVector::Zero(N);
+        {
+            int exp = static_cast<int>(2 * p.sv_vol_exponent);
+            if (exp < N)
+                out.avv[exp] = p.sv_sigma * p.sv_sigma;
+        }
+
+        return out;
+    }
+
+
+    virtual SDEMatrix generator_G(std::vector<std::pair<int,int>> E, int N, T sigma) const {
+
         const int M = static_cast<int>(E.size());
 
         // Fast index lookup
@@ -460,50 +519,74 @@ public:
         const auto r = params_.asset_drift_const;
         const auto sigma_v = params_.sv_sigma;
 
-        auto add_entry = [&](int row_m, int row_n, int col, double value) {
+        auto add_entry = [&](int row_m, int row_n, int col, T value) {
             if (row_m < 0 || row_n < 0) return;
             if (row_m + row_n > N) return; // out of basis range
             auto it = idx.find(key(row_m, row_n));
             if (it != idx.end()) {
-                G(it->second, col) = value;
+                G(it->second, col) += value; // Since p and q are dynamic, the same cell may be called multiple times, so we must add to the existing value
             }
         };
 
         for (int col = 0; col < M; ++col) {
             const auto [m, n] = E[col];
-            const double alpha_n = (n >= 1) ? std::sqrt(static_cast<double>(n)) / sigma : 0.0;
 
-            // 1) h_{m-2, n}
-            if (m >= 2 + 2 * q) {
-                add_entry(m-2 + 2 * q, n, col, -sigma_v * sigma_v * 0.5 * m * (m - 1));
+            // 1) h_{m-2+2q, n}
+            if (m >= 2 - 2 * q) {
+
+                add_entry(m-2 + 2 * q, n, col, sigma_v * sigma_v * 0.5 * m * (m - 1));
             }
-            // 2) h_{m-1, n-1}
-            if (m >= 1 && n >= 1) {
-                add_entry(m-1, n-1, col, -rho * sigma * m * std::sqrt((double)n) / sigma * vmax*vmin / C);
+            // 2) h_{m-1+p+q, n-1}
+            if (m >= 1 - p - q && n >= 1) {
+            
+                add_entry(m - 1 + p + q, n-1, col, rho * sigma_v * m * std::sqrt((T)n) / sigma);
             }
             // 3) h_{m-1, n}
             if (m >= 1) {
-                add_entry(m-1, n, col, m*kappa*theta + sigma*sigma * m*(m-1) * (vmax+vmin) / (2.0*C));
+                
+                add_entry(m - 1, n, col, m * kappa * theta);
             }
             // 4) h_{m, n-1}
             if (n >= 1) {
-                add_entry(m, n-1, col, std::sqrt((double)n)/sigma * ((r - delta) + m*rho*sigma*(vmax+vmin)/C));
+                
+                add_entry(m, n-1, col, std::sqrt((T)n) / sigma * r);
             }
-            // 5) h_{m+1, n-2}
+            // 5) h_{m+2p, n-2}
             if (n >= 2) {
-                add_entry(m+1, n-2, col, std::sqrt((double)n*(n-1)) / (2.0*sigma*sigma));
+                
+                add_entry(m + 2 * p, n-2, col, std ::sqrt((T)n * (n - 1)) / (2.0 * sigma * sigma));
             }
             // 6) h_{m, n}
-            add_entry(m, n, col, -m*kappa - sigma*sigma*m*(m-1) / (2.0*C));
-            // 7) h_{m+1, n-1}
+            add_entry(m, n, col, -m * kappa);
+
+            // 7) h_{m+2p, n-1}
             if (n >= 1) {
-                add_entry(m+1, n-1, col, -std::sqrt((double)n) / (2.0*sigma) - rho*sigma*m*std::sqrt((double)n) / (sigma*C));
+                
+                add_entry(m + 2 * p, n-1, col, -0.5 * std::sqrt((T)n) / sigma);
             }
         }
 
         return G;
 
     }; 
+
+    virtual SDEMatrix generator_G(std::vector<std::pair<int,int>> E, const SDEMatrix& H){
+
+        auto const N = static_cast<int>(H.rows());
+
+        std::cout << "Building SV polynomials for N = " << N << std::endl;
+        std::cout << "E size: " << E.size() << std::endl;
+
+
+        auto coeffs = build_sv_polynomials(this->params_, N);
+
+        auto G = Utils::build_G_full(H, coeffs.bx, coeffs.axx, coeffs.bv, coeffs.axv, coeffs.avv, N);
+
+        auto G_projected = Utils::project_to_triangular(G, E, N);
+        return G_projected;
+
+    }
+
 
     inline T get_x0() const noexcept override  {
         // Return the initial state vector
@@ -928,8 +1011,7 @@ public:
 
     }
 
-    SDEMatrix generator_G(int N) const {
-        auto E = Utils::enumerate_basis(N);
+    SDEMatrix generator_G(std::vector<std::pair<int,int>> E, int N, T sigma) const override{
         const int M = static_cast<int>(E.size());
 
         // Fast index lookup
@@ -942,23 +1024,21 @@ public:
 
         SDEMatrix G = SDEMatrix::Zero(M, M);
         
-        const double sigma_w_ = Base::params_.sv_sigma;
 
-        const double C = q_denominator_sq_;
-        const double vmin = y_min_;
-        const double vmax = y_max_;
-        const double kappa = Base::params_.sv_kappa;
-        const double theta = Base::params_.sv_theta;
-        const double r = Base::params_.asset_drift_const;
-        const double delta = 0.0; // set dividend yield if needed
-        const double sigma = Base::params_.sv_sigma;
-        const double rho = Base::params_.correlation;
+        const T C = q_denominator_sq_;
+        const T vmin = y_min_;
+        const T vmax = y_max_;
+        const T kappa = Base::params_.sv_kappa;
+        const T theta = Base::params_.sv_theta;
+        const T r = Base::params_.asset_drift_const;
+        const T sigma_v = Base::params_.sv_sigma;
+        const T rho = Base::params_.correlation;
 
-        const double q2 = -1.0 / C;
-        const double q1 = (vmax + vmin) / C;
-        const double q0 = -vmax * vmin / C;
+        const T q2 = -1.0 / C;
+        const T q1 = (vmax + vmin) / C;
+        const T q0 = -vmax * vmin / C;
 
-        auto add_entry = [&](int row_m, int row_n, int col, double value) {
+        auto add_entry = [&](int row_m, int row_n, int col, T value) {
             if (row_m < 0 || row_n < 0) return;
             if (row_m + row_n > N) return; // out of basis range
             auto it = idx.find(key(row_m, row_n));
@@ -969,33 +1049,32 @@ public:
 
         for (int col = 0; col < M; ++col) {
             const auto [m, n] = E[col];
-            const double alpha_n = (n >= 1) ? std::sqrt(static_cast<double>(n)) / sigma_w_ : 0.0;
 
             // 1) h_{m-2, n}
             if (m >= 2) {
-                add_entry(m-2, n, col, -sigma*sigma * m*(m-1) * vmax*vmin / (2.0*C));
+                add_entry(m-2, n, col, -sigma_v * sigma_v * m * (m - 1) * vmax * vmin / (2.0 * C));
             }
             // 2) h_{m-1, n-1}
             if (m >= 1 && n >= 1) {
-                add_entry(m-1, n-1, col, -rho * sigma * m * std::sqrt((double)n) / sigma_w_ * vmax*vmin / C);
+                add_entry(m-1, n-1, col, -rho * sigma_v * m * std::sqrt((T)n) / sigma * vmax * vmin / C);
             }
             // 3) h_{m-1, n}
             if (m >= 1) {
-                add_entry(m-1, n, col, m*kappa*theta + sigma*sigma * m*(m-1) * (vmax+vmin) / (2.0*C));
+                add_entry(m-1, n, col, m * kappa * theta + sigma_v * sigma_v * m * (m - 1) * (vmax + vmin) / (2.0 * C));
             }
             // 4) h_{m, n-1}
             if (n >= 1) {
-                add_entry(m, n-1, col, std::sqrt((double)n)/sigma_w_ * ((r - delta) + m*rho*sigma*(vmax+vmin)/C));
+                add_entry(m, n-1, col, std::sqrt((T)n) / sigma * (r   + m * rho * sigma_v *(vmax + vmin) / C));
             }
             // 5) h_{m+1, n-2}
             if (n >= 2) {
-                add_entry(m+1, n-2, col, std::sqrt((double)n*(n-1)) / (2.0*sigma_w_*sigma_w_));
+                add_entry(m+1, n-2, col, std::sqrt((T)n * (n - 1)) / (2.0 * sigma * sigma));
             }
             // 6) h_{m, n}
-            add_entry(m, n, col, -m*kappa - sigma*sigma*m*(m-1) / (2.0*C));
+            add_entry(m, n, col, -m * kappa - sigma_v * sigma_v * m * (m - 1) / (2.0 * C));
             // 7) h_{m+1, n-1}
             if (n >= 1) {
-                add_entry(m+1, n-1, col, -std::sqrt((double)n) / (2.0*sigma_w_) - rho*sigma*m*std::sqrt((double)n) / (sigma_w_*C));
+                add_entry(m+1, n-1, col, -std::sqrt((T)n) / (2.0 * sigma) - rho * sigma_v * m * std::sqrt((T)n) / (sigma * C));
             }
         }
 

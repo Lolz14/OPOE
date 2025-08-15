@@ -23,9 +23,18 @@
 #include <utility>       
 #include <type_traits>
 #include "../traits/OPOE_traits.hpp" 
+#include <unsupported/Eigen/KroneckerProduct>
 
 namespace Utils
 {
+
+/**
+ * @section Polynomial Utilities
+ * @brief Provides utilities for polynomial operations, including compile-time exponentiation.
+ */
+
+using IndexMap = std::unordered_map<long, int>;
+
 // Forward declaration of Polynomial class
 template <unsigned int N, typename R = traits::DataType::PolynomialField> 
 class Polynomial;
@@ -35,7 +44,6 @@ class Polynomial;
  *
  * This map is used to efficiently store and retrieve indices based on polynomial degree and exponent.
  */
-using IndexMap = std::unordered_map<long, int>;
 
 /**
  * @brief Template structure to compute powers of a Polynomial at compile time.
@@ -120,6 +128,16 @@ inline R Pochhammer(R m, R n) {
         return result;
     }
 }
+
+
+/**
+ * @section Random Generation Utilities
+ * @brief Provides utilities for generating random samples using Eigen types.
+ *
+ * This section includes a generic `sampler` function that can generate Eigen vectors or matrices filled with random samples from a specified distribution.
+ * The function supports both single-dimensional (vector) and two-dimensional (matrix) outputs, leveraging variadic templates for flexibility.
+ * It also includes an `argmin` function to find the column of a matrix closest (in L2 norm) to a target vector, and a function to compute average distortion between random samples and centroids.
+ */
 
 /**
  * @brief Generates an Eigen vector or matrix filled with random samples.
@@ -271,6 +289,12 @@ T calculate_overall_distortion(
 
 
 /**
+ * @section Matrix Utilities
+ * @brief Provides utilities for matrix operations, including enumeration of polynomial basis indices and Kronecker products.
+ */
+using StoringMatrix = traits::DataType::StoringMatrix;
+using StoringVector = traits::DataType::StoringVector;
+/**
  * @brief Enumerates all pairs (m, n) such that m + n <= N.
  * 
  * This function generates a vector of pairs representing the indices of the basis functions
@@ -289,6 +313,110 @@ static std::vector<std::pair<int,int>> enumerate_basis(int N) {
         }
     }
     return E;
+}
+
+
+
+// Derivative matrices on monomial basis: {1, x, x^2, ...}
+template<typename T = traits::DataType::PolynomialField>
+[[nodiscard]] inline StoringMatrix build_Dmono(int N) {
+    StoringMatrix D = StoringMatrix::Zero(N, N);
+    if (N > 1) {
+        D.diagonal(1) = StoringVector::LinSpaced(N - 1, T(1), T(N - 1));
+    }
+    return D;
+}
+
+template<typename T = traits::DataType::PolynomialField>
+[[nodiscard]] inline StoringMatrix build_D2mono(int N) {
+    StoringMatrix D2 = StoringMatrix::Zero(N, N);
+    if (N > 2) {
+        StoringVector j = StoringVector::LinSpaced(N - 2, T(2), T(N - 1));
+        D2.diagonal(2) = j.array() * (j.array() - T(1));
+    }
+    return D2;
+}
+
+// Polynomial coeffs -> multiplication matrix in v (dense)
+template<typename T = traits::DataType::PolynomialField>
+[[nodiscard]] inline StoringMatrix poly_to_M(const StoringVector& coeffs, int Nv) {
+    StoringMatrix R = StoringMatrix::Zero(Nv, Nv);
+    const int L = std::min<int>(coeffs.size(), Nv);
+    for (int r = 0; r < L; ++r) {
+        const T c = coeffs[r];
+        if (c != T(0)) {
+            R.diagonal(-r).array() += c;
+        }
+    }
+    return R;
+}
+
+// Build full rectangular G (dense)
+template<typename T = traits::DataType::PolynomialField>
+[[nodiscard]] inline StoringMatrix build_G_full(
+    const StoringMatrix& H,
+    const StoringVector& bx,
+    const StoringVector& axx,
+    const StoringVector& bv,
+    const StoringVector& axv,
+    const StoringVector& avv,
+    int Nv
+) {
+    const int Nx = H.cols();
+
+    // Derivatives in H basis
+    const StoringMatrix Dmono  = build_Dmono<T>(Nx);
+    const StoringMatrix D2mono = build_D2mono<T>(Nx);
+
+    auto dec = H.colPivHouseholderQr();
+    const StoringMatrix D_H  = dec.solve(Dmono  * H);
+    const StoringMatrix D_H2 = dec.solve(D2mono * H);
+
+    // v-side operators
+    const StoringMatrix Bx   = poly_to_M<T>(bx,  Nv);
+    const StoringMatrix Bxx  = poly_to_M<T>(axx, Nv);
+    const StoringMatrix Bv   = poly_to_M<T>(bv,  Nv);
+    const StoringMatrix Bxv  = poly_to_M<T>(axv, Nv);
+    const StoringMatrix Bvv  = poly_to_M<T>(avv, Nv);
+
+    const StoringMatrix Dvmono  = build_Dmono<T>(Nv);
+    const StoringMatrix D2vmono = build_D2mono<T>(Nv);
+
+    StoringMatrix G_full = StoringMatrix::Zero(Nv * Nx, Nv * Nx);
+
+    // Operators
+    G_full.noalias() += Eigen::kroneckerProduct(Bx, D_H).eval();
+    G_full.noalias() += 0.5 * Eigen::kroneckerProduct(Bxx, D_H2).eval();
+    G_full.noalias() += Eigen::kroneckerProduct((Bv * Dvmono).eval(), StoringMatrix::Identity(Nx, Nx)).eval();
+    G_full.noalias() += Eigen::kroneckerProduct((Bxv * Dvmono).eval(), D_H).eval();
+    G_full.noalias() += 0.5 * Eigen::kroneckerProduct((Bvv * D2vmono).eval(), StoringMatrix::Identity(Nx, Nx)).eval();
+
+    return G_full;
+}
+
+// Project G_full onto triangular basis
+[[nodiscard]] inline StoringMatrix project_to_triangular(
+    const StoringMatrix& G_full,
+    const std::vector<std::pair<int,int>>& E_tri,
+    int Nx
+) {
+    const int M = static_cast<int>(E_tri.size());
+    StoringMatrix G_tri = StoringMatrix::Zero(M, M);
+
+    // Flatten indices (v-major: idx = v*Nx + x)
+    Eigen::VectorXi flat(M);
+    for (int k = 0; k < M; ++k) {
+        flat[k] = E_tri[k].first * Nx + E_tri[k].second;
+    }
+
+    // Gather into G_tri
+    for (int c = 0; c < M; ++c) {
+        const int ic = flat[c];
+        for (int r = 0; r < M; ++r) {
+            G_tri(r, c) = G_full(flat[r], ic);
+        }
+    }
+    return G_tri;
 }
 
 
