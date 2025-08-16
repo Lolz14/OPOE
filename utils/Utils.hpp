@@ -129,7 +129,6 @@ inline R Pochhammer(R m, R n) {
     }
 }
 
-
 /**
  * @section Random Generation Utilities
  * @brief Provides utilities for generating random samples using Eigen types.
@@ -465,6 +464,44 @@ template<typename T = traits::DataType::PolynomialField>
         }
     }
     return G_tri;
+}
+
+template<typename Scalar = traits::DataType::PolynomialField>
+StoringVector build_h_vals(const StoringMatrix& H,               // (N+1)x(N+1) Hermite basis matrix
+             const std::vector<std::pair<int,int>>& E,                // vector of (m,n) pairs
+             unsigned int N,                // polynomial base degree
+             Scalar X0, Scalar V0){
+    const int M = static_cast<int>(E.size());
+
+    // --- Step 1: monomials of X0 up to N
+    StoringVector monoms(N+1);
+    monoms(0) = Scalar(1);
+    for (unsigned int k = 1; k <= N; ++k) {
+        monoms(k) = monoms(k-1) * X0;
+    }
+
+    // --- Step 2: Hermite evaluation using H matrix
+    // H is (N+1)x(N+1), monoms is (N+1)x1
+    // → Hvec = H * monoms, size (N+1)x1
+    StoringVector Hvec = H.transpose() * monoms;
+
+    // --- Step 3: powers of V0 up to max m in E
+    unsigned int max_m = 0;
+    for (auto [m, n] : E) if ((unsigned int)m > max_m) max_m = m;
+    StoringVector Vpowers(max_m+1);
+    Vpowers(0) = Scalar(1);
+    for (unsigned int k = 1; k <= max_m; ++k) {
+        Vpowers(k) = Vpowers(k-1) * V0;
+    }
+
+    // --- Step 4: assemble h_vals
+    StoringVector h_vals(M);
+    for (int i = 0; i < M; ++i) {
+        const auto [m, n] = E[i];
+        h_vals(i) = Vpowers(m) * Hvec(n);
+    }
+
+    return h_vals;
 }
 
 

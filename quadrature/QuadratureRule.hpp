@@ -144,8 +144,8 @@ public:
      * @param workspace_limit Max number of subintervals for the workspace.
      */
     explicit GSLQuadrature(
-        R absolute_error = 1e-9,
-        R relative_error = 1e-9,
+        R absolute_error = 1e-6,
+        R relative_error = 1e-6,
         size_t workspace_limit = 1000)
         :
         workspace_size_(workspace_limit),

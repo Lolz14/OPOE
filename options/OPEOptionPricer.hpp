@@ -44,80 +44,126 @@ public:
                     std::unique_ptr<IPayoff<R>> payoff,
                     std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
                     SolverFunc solver_func,
-                    unsigned int num_paths = 4)
+                    traits::QuadratureMethod integrator_param = traits::QuadratureMethod::TanhSinh,
+                    unsigned int num_paths = 10)
         : Base(ttm, strike, rate, std::move(payoff), sde_model)
         , num_paths_(num_paths)
         , solver_func_(solver_func)
         , density_object_(make_density_object(ttm, num_paths, PolynomialBaseDegree,
                                               solver_func_, sde_model))
+        , integrator_(integrator_param)
+                                            
     {
         density_object_.constructOrthonormalBasis();
         density_object_.constructQProjectionMatrix();    
     }
 
     R price() const override {
-        auto H = density_object_.getHMatrix();
+        const auto& H = density_object_.getHMatrix();     // (N+1)x(N+1)
+        const auto E  = Utils::enumerate_basis(PolynomialBaseDegree);
+        const unsigned int M   = static_cast<int>(E.size());
 
-        auto E = Utils::enumerate_basis(PolynomialBaseDegree);
-        const int M = static_cast<int>(E.size());
-        auto variance = density_object_.variance();
+        const auto mean = density_object_.mean();
+        const auto stddev = std::sqrt(density_object_.variance());
+        
 
-        auto gen_sde_model = dynamic_cast<SDE::GenericSVModelSDE<R>*>(this->sde_model_.get());
+        auto* gen_sde_model = dynamic_cast<SDE::GenericSVModelSDE<R>*>(this->sde_model_.get());
+        const auto X0 = gen_sde_model->get_x0();  // Initial value
+        const auto V0 = gen_sde_model->get_v0();  // Initial volatility
+        
+        StoringMatrix G = gen_sde_model->generator_G(E, H);         // MxM
 
-        auto G_matrix = gen_sde_model->generator_G(E, H);
+        StoringVector h_vals = Utils::build_h_vals<R>(H, E, PolynomialBaseDegree, X0, V0);
 
-        // Build vector of monomials [1, X0, X0^2, ..., X0^N]
-        StoringVector monoms(PolynomialBaseDegree+1);
-        monoms(0) = 1.0;
-        for (unsigned int k = 1; k <= PolynomialBaseDegree; ++k) {
-            monoms(k) = monoms(k-1) * gen_sde_model->get_x0();
-        }
+        // Matrix exponential
+        StoringMatrix expGT = (this->get_ttm() * G).exp();
 
-        // Evaluate Hermites at X0 using your H matrix
-        StoringVector Hvec = H.transpose() * monoms; // size N+1
-        std::cout << "Hmatrix: " << H << std::endl;
-        std::cout << "Monomials: " << monoms.transpose() << std::endl;
-        std::cout << "Hvec: " << Hvec.transpose() << std::endl;
-
-        // Build h_vals = v^m * H_n(X0)
-        StoringVector h_vals(M);
-        for (int i = 0; i < M; ++i) {
-            auto [m, n] = E[i];
-            h_vals(i) = std::pow(gen_sde_model->get_v0(), m) * Hvec(n);
-        }
-
-        std::cout << "h_vals: " << h_vals.transpose() << std::endl;
-  
-
-        // Precompute dense exp(T * G)
-        StoringMatrix expGT = (this->get_ttm() * G_matrix).exp();
-
-        // Precompute index mapping for (0,n)
-        std::vector<int> idx0n(PolynomialBaseDegree + 1, -1);
-        for (int i = 0; i < M; ++i) {
-            if (E[i].first == 0) idx0n[E[i].second] = i;
-        }
-
-        // Compute l_n = h_vals^T * expGT * e_{pi(0,n)}
-        std::vector<double> l_values;
-        l_values.reserve(PolynomialBaseDegree + 1);
-
-        for (unsigned int n = 0; n <= PolynomialBaseDegree; ++n) {
-            const int j = idx0n[n];
-            if (j < 0) {
-                l_values.push_back(0.0);
-                continue;
+        // Build sparse selector matrix S (M x (N+1)), columns = e_{pi(0,n)}
+        StoringMatrix S = StoringMatrix::Zero(M, PolynomialBaseDegree+1);
+        for (unsigned int i = 0; i < M; ++i) {
+            if (E[i].first == 0 && E[i].second <= PolynomialBaseDegree) {
+                S(i, E[i].second) = 1.0;
             }
-            // expGT.col(j) is exactly expGT * e_j
-            double ln_val = h_vals.dot(expGT.col(j));
-            l_values.push_back(ln_val);
         }
 
-        std::cout << "l_values: ";
-        for (const auto& val : l_values) {
-            std::cout << val << " ";
+        // Compute all l_n in one shot: l = h_vals^T * expGT * S
+        StoringVector l_values = (h_vals.transpose() * expGT * S).transpose();
+
+        // Optional: debug output
+        std::cout << "Hmatrix:\n" << H << "\n";
+        std::cout << "h_vals: " << h_vals.transpose() << "\n";
+        std::cout << "l_values: " << l_values.transpose() << "\n";
+
+        
+        // 4. Get integration domain (presumably for log_spot_price)
+
+        stats::DensityInterval<R> support = this->density_object_.getSupport();
+
+        auto h_functions = density_object_.getHFunctionsMixture();
+
+        // Integrand(x) = Payoff_log(x) * [ Σ_{n=0 to N} ℓ_n * H_n(x) ] * w(x)
+        // where x is the log_spot.
+
+        auto full_integrand_function =
+
+            [this, &h_functions, &l_values](R log_spot_price) -> R {
+
+            // Calculate Σ_{n=0 to N} ℓ_n * H_n(log_spot_price)
+            R auxiliary_density_value = static_cast<R>(0.0);
+
+            for (unsigned int n = 0; n <= PolynomialBaseDegree; ++n) {
+
+                // Ensure the H_n function is valid before calling
+                if (!h_functions[n]) {
+                        throw std::runtime_error("Invalid (null) H_n function at index " + std::to_string(n) + ".");
+                }
+
+                auxiliary_density_value += l_values[n] * h_functions[n](log_spot_price);
+            
+            }
+
+    
+
+        
+
+            // Full term: Payoff(log_x) * (Σ ℓ_n H_n(log_x)) * w(log_x)
+            return  auxiliary_density_value * this->payoff_->evaluate_from_log(log_spot_price)*this->density_object_.pdf(log_spot_price);
+
+        };
+
+
+        // 5. Perform numerical integration using the member integrator_
+        R expected_value_at_maturity = this->integrator_.integrate(
+
+            full_integrand_function,
+
+            mean - 8*stddev, // Assuming this is the lower bound
+
+            mean + 8*stddev // Assuming this is the upper bound
+
+        );
+
+        std::ofstream csv_file("integrand_values.csv");
+   
+        // Header
+        csv_file << "log_spot,integrand\n";
+
+        // Evaluate full_integrand_function from 0 to 100 with a step, e.g., 0.1
+        const R step = 0.05;
+        for (R log_spot = 4.0; log_spot <= 7.0; log_spot += step) {
+            R value = full_integrand_function(log_spot);
+            csv_file << log_spot << "," << value << "\n";
         }
-        std::cout << std::endl;
+
+        csv_file.close();
+        std::cout << "CSV file written successfully.\n";
+
+
+    
+
+        // 6. Discount the expected value back to today
+
+        return std::exp(-this->rate_ * this->ttm_) * expected_value_at_maturity;
 
 
 
@@ -127,6 +173,8 @@ private:
     unsigned int num_paths_;
     SolverFunc solver_func_;
     stats::MixtureDensity<PolynomialBaseDegree, DensityType, R> density_object_;
+    quadrature::QuadratureRuleHolder<R> integrator_;
+
 
     // Static helper: builds the MixtureDensity before entering constructor body
     static stats::MixtureDensity<PolynomialBaseDegree, DensityType, R>
