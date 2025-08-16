@@ -9,6 +9,7 @@
 #include "../traits/OPOE_traits.hpp"
 #include "Payoff.hpp"
 #include "BaseOptionPricer.hpp"
+#include <unsupported/Eigen/MatrixFunctions>
 #include <variant>
 #include <stdexcept>
 #include <string>
@@ -63,17 +64,17 @@ public:
 
         auto gen_sde_model = dynamic_cast<SDE::GenericSVModelSDE<R>*>(this->sde_model_.get());
 
-        auto G_matrix = gen_sde_model->generator_G(E, PolynomialBaseDegree, std::sqrt(variance));
+        auto G_matrix = gen_sde_model->generator_G(E, H);
 
         // Build vector of monomials [1, X0, X0^2, ..., X0^N]
         StoringVector monoms(PolynomialBaseDegree+1);
         monoms(0) = 1.0;
-        for (int k = 1; k <= PolynomialBaseDegree; ++k) {
+        for (unsigned int k = 1; k <= PolynomialBaseDegree; ++k) {
             monoms(k) = monoms(k-1) * gen_sde_model->get_x0();
         }
 
         // Evaluate Hermites at X0 using your H matrix
-        StoringVector Hvec = H.transpose(comp) * monoms; // size N+1
+        StoringVector Hvec = H.transpose() * monoms; // size N+1
         std::cout << "Hmatrix: " << H << std::endl;
         std::cout << "Monomials: " << monoms.transpose() << std::endl;
         std::cout << "Hvec: " << Hvec.transpose() << std::endl;
@@ -101,7 +102,7 @@ public:
         std::vector<double> l_values;
         l_values.reserve(PolynomialBaseDegree + 1);
 
-        for (int n = 0; n <= PolynomialBaseDegree; ++n) {
+        for (unsigned int n = 0; n <= PolynomialBaseDegree; ++n) {
             const int j = idx0n[n];
             if (j < 0) {
                 l_values.push_back(0.0);

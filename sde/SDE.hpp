@@ -50,10 +50,10 @@ inline std::mt19937& get_default_rng_engine() {
  * @return Reference to thread-local std::normal_distribution<double> with mean 0 and std dev 1.
 
  */
+template<typename R = traits::DataType::PolynomialField>
+inline std::normal_distribution<R>& get_standard_normal_dist() {
 
-inline std::normal_distribution<double>& get_standard_normal_dist() {
-
-    static thread_local std::normal_distribution<double> standard_normal(0.0, 1.0);
+    static thread_local std::normal_distribution<R> standard_normal(0.0, 1.0);
     return standard_normal;
 
 }
@@ -64,10 +64,10 @@ inline std::normal_distribution<double>& get_standard_normal_dist() {
  * @return Reference to thread-local std::uniform_real_distribution<double>.
 
  */
+template<typename R = traits::DataType::PolynomialField>
+inline std::uniform_real_distribution<R>& get_uniform_distribution() {
 
-inline std::uniform_real_distribution<double>& get_uniform_distribution() {
-
-    static thread_local std::uniform_real_distribution<double> uniform_distribution(0.0, 1.0);
+    static thread_local std::uniform_real_distribution<R> uniform_distribution(0.0, 1.0);
     return uniform_distribution;
 
 }
@@ -77,8 +77,8 @@ inline std::uniform_real_distribution<double>& get_uniform_distribution() {
 /** 
  * @brief Concept for general SDE models, ensuring dimensional constants and drift/diffusion methods.
  */
-template<typename T>
-concept SDEModel = requires(const T& sde, double t, const SDEVector& x, SDEVector& mu_out, SDEMatrix& sigma_out) {
+template<typename T, typename R = traits::DataType::PolynomialField>
+concept SDEModel = requires(const T& sde, R t, const SDEVector& x, SDEVector& mu_out, SDEMatrix& sigma_out) {
     
     { T::WIENER_DIM } -> std::convertible_to<unsigned int>;
     { T::STATE_DIM } -> std::convertible_to<unsigned int>;
@@ -94,26 +94,26 @@ concept SDEModel = requires(const T& sde, double t, const SDEVector& x, SDEVecto
 /**
  * @brief Concept for Stochastic Volatility (SV) SDE models, extending SDEModel with SV-specific parameters.
  */
-template<typename T>
-concept SVSDEModel = SDEModel<T> && requires(const T& sde) {
+template<typename T, typename R = traits::DataType::PolynomialField>
+concept SVSDEModel = SDEModel<T, R> && requires(const T& sde) {
     
     requires T::WIENER_DIM >= 2;// At least two independent Wiener processes
     requires T::STATE_DIM >= 2;// At least two independent Wiener processes
-    { sde.get_correlation() } -> std::convertible_to<double>; // Correlation parameter (rho)
-    { sde.get_kappa() } -> std::convertible_to<double>;       // Mean-reversion speed
-    { sde.get_theta() } -> std::convertible_to<double>;       // Long-term variance/mean
-    { sde.get_sigma_v() } -> std::convertible_to<double>;     // Volatility of volatility
-    { sde.get_mu() } -> std::convertible_to<double>;          // Drift or risk-neutral rate
-    { sde.get_p() } -> std::convertible_to<double>;           // Power parameter for volatility (if applicable)
-    { sde.get_q() } -> std::convertible_to<double>;           // Additional power parameter (if applicable)
+    { sde.get_correlation() } -> std::convertible_to<R>; // Correlation parameter (rho)
+    { sde.get_kappa() } -> std::convertible_to<R>;       // Mean-reversion speed
+    { sde.get_theta() } -> std::convertible_to<R>;       // Long-term variance/mean
+    { sde.get_sigma_v() } -> std::convertible_to<R>;     // Volatility of volatility
+    { sde.get_mu() } -> std::convertible_to<R>;          // Drift or risk-neutral rate
+    { sde.get_p() } -> std::convertible_to<R>;           // Power parameter for volatility (if applicable)
+    { sde.get_q() } -> std::convertible_to<R>;           // Additional power parameter (if applicable)
 };
 
 /**
  * @brief Concept for 1D SDEs supporting Milstein scheme, requiring derivative information.
  */
 
-template<typename T>
-concept Milstein1DSDEModel = SDEModel<T> && requires(const T& sde, double t, double x_scalar) {
+template<typename T, typename R = traits::DataType::PolynomialField>
+concept Milstein1DSDEModel = SDEModel<T, R> && requires(const T& sde, R t, R x_scalar) {
 
     requires T::WIENER_DIM == 1;
     requires T::STATE_DIM >= 1;
@@ -124,8 +124,8 @@ concept Milstein1DSDEModel = SDEModel<T> && requires(const T& sde, double t, dou
  * @brief Concept for 2D Stochastic Volatility SDEs supporting Milstein scheme.
  */
 
-template<typename T>
-concept Milstein2DSVSDEModel = SDEModel<T> && requires(const T& sde, double t, const SDEVector& x) {
+template<typename T, typename R = traits::DataType::PolynomialField>
+concept Milstein2DSVSDEModel = SDEModel<T> && requires(const T& sde, R t, const SDEVector& x) {
 
     requires T::WIENER_DIM == 2;// Two Wiener processes
     requires T::STATE_DIM >= 2;
@@ -147,7 +147,7 @@ concept Milstein2DSVSDEModel = SDEModel<T> && requires(const T& sde, double t, c
  */
 
 
-template <typename DerivedSolver, SDEModel SdeType>
+template <typename DerivedSolver, SDEModel SdeType,  typename R = traits::DataType::PolynomialField>
 class SDESolverBase {
 public:
     SDESolverBase(const SdeType& sde, std::mt19937& rng_engine = SDE::get_default_rng_engine())
@@ -162,7 +162,7 @@ public:
      * @param num_steps Number of time steps.
      */
 
-    void generate_wiener_increments(double dt, SDEMatrix& dW_out, int num_steps, int num_paths) const {
+    void generate_wiener_increments(R dt, SDEMatrix& dW_out, int num_steps, int num_paths) const {
         if (dt < 0.0) throw std::invalid_argument("dt must be non-negative");
 
         if (dt == 0.0) {
@@ -171,15 +171,15 @@ public:
         }
 
         const int num_wiener = SdeType::WIENER_DIM;
-        const double sqrt_dt = std::sqrt(dt);
+        const R sqrt_dt = std::sqrt(dt);
 
 
         #pragma omp parallel for
         for (int w = 0; w < num_wiener; ++w) {
             // Unique seed per Wiener dimension (you can make this more robust if needed)
-            SDEMatrix block = Utils::sampler<double>(
+            SDEMatrix block = Utils::sampler<R>(
                 get_default_rng_engine(),
-                SDE::get_standard_normal_dist(),
+                SDE::get_standard_normal_dist<R>(),
                 num_paths, num_steps
             ) * sqrt_dt;
 
@@ -199,7 +199,7 @@ public:
      * @param observer Callback function with signature void(double time, const SDEVector& state).
      */
 
-    void solve(double t_start, double t_end, int num_steps, int num_paths,
+    void solve(R t_start, R t_end, int num_steps, int num_paths,
            const std::function<void(unsigned int, const SDEVector&)>& observer, 
            const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
             
@@ -209,7 +209,7 @@ public:
         if (num_steps <= 0 || t_end <= t_start)
             throw std::invalid_argument("Invalid time range or num_steps");
 
-        double dt = (t_end - t_start) / num_steps;
+        R dt = (t_end - t_start) / num_steps;
 
         // Flattened state vector: num_paths * STATE_DIM
         SDEVector current_x(num_paths * SdeType::STATE_DIM);
@@ -243,7 +243,7 @@ public:
         
         
 
-        double current_t = t_start;
+        R current_t = t_start;
         observer(0, current_x);
 
         for (int i = 0; i < num_steps; ++i) {
@@ -262,7 +262,7 @@ public:
      * @return Vector of state vectors at each time step (size num_steps + 1).
      */
 
-    SDEMatrix solve(double t_start, double t_end, int num_steps, int num_paths,
+    SDEMatrix solve(R t_start, R t_end, int num_steps, int num_paths,
                     const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
         SDEMatrix path_flat(num_paths * SdeType::STATE_DIM, num_steps + 1);
         solve(t_start, t_end, num_steps, num_paths,
@@ -294,14 +294,14 @@ protected:
 
  */
 
-template <SDEModel SdeType>
-class EulerMaruyamaSolver : public SDESolverBase<EulerMaruyamaSolver<SdeType>, SdeType> {
+template <SDEModel SdeType,  typename R = traits::DataType::PolynomialField>
+class EulerMaruyamaSolver : public SDESolverBase<EulerMaruyamaSolver<SdeType>, SdeType, R> {
 public:
-    using Base = SDESolverBase<EulerMaruyamaSolver<SdeType>, SdeType>;
+    using Base = SDESolverBase<EulerMaruyamaSolver<SdeType>, SdeType, R>;
     using Base::Base;
 
 void step(
-    double t, const SDEVector& current_x, double dt, const SDEVector& dW_t,
+    R t, const SDEVector& current_x, R dt, const SDEVector& dW_t,
     int num_paths, SDEVector& next_x
     ) const {
         const int state_dim = SdeType::STATE_DIM;
@@ -357,15 +357,15 @@ void step(
  * @tparam SdeType SDE model type satisfying SDEModel concept.
  */
 
-template <SDEModel SdeType>
-class MilsteinSolver : public SDESolverBase<MilsteinSolver<SdeType>, SdeType> {
+template <SDEModel SdeType,  typename R = traits::DataType::PolynomialField>
+class MilsteinSolver : public SDESolverBase<MilsteinSolver<SdeType>, SdeType,  R> {
 
 public:
 
     using Base = SDESolverBase<MilsteinSolver<SdeType>, SdeType>;
     using Base::Base;
 
-    void step(double t, const SDEVector& current_x, double dt, const SDEVector& dW_t, int num_paths, SDEVector& next_x) const {
+    void step(R t, const SDEVector& current_x, R dt, const SDEVector& dW_t, int num_paths, SDEVector& next_x) const {
 
         const int state_dim = SdeType::STATE_DIM;
         const int wiener_dim = SdeType::WIENER_DIM;
@@ -447,18 +447,18 @@ public:
             // TODO : CHECK IF DERIVATIVES ARE TO BE USED AND CHECK THE COEFFS OF DW
         
 
-            const double pEXP = this->sde_ref_.get_p();
-            const double q = this->sde_ref_.get_q();
-            const double rho = this->sde_ref_.get_correlation();
-            const double rho_p = std::sqrt(1.0 - rho * rho);
-            const double sigma_v = this->sde_ref_.get_sigma_v();
-            auto Q = Utils::sampler<double>(get_default_rng_engine(), get_uniform_distribution(), 1);
+            const R pEXP = this->sde_ref_.get_p();
+            const R q = this->sde_ref_.get_q();
+            const R rho = this->sde_ref_.get_correlation();
+            const R rho_p = std::sqrt(1.0 - rho * rho);
+            const R sigma_v = this->sde_ref_.get_sigma_v();
+            auto Q = Utils::sampler<R>(get_default_rng_engine(), get_uniform_distribution<R>(), 1);
 
-            const double X = dt / M_PI * std::log(Q(0)/(1.0 - Q(0))); // X is the log-normal variable
-            const double Y = std::sqrt((dW_p(1)*dW_p(1) + dW_p(0)*dW_p(0))*dt/3)* Utils::sampler<double>(get_default_rng_engine(), get_standard_normal_dist(), 1)(0); // Assuming the second component is the volatility variable
+            const R X = dt / M_PI * std::log(Q(0)/(1.0 - Q(0))); // X is the log-normal variable
+            const R Y = std::sqrt((dW_p(1)*dW_p(1) + dW_p(0)*dW_p(0))*dt/3)* Utils::sampler<R>(get_default_rng_engine(), get_standard_normal_dist<R>(), 1)(0); // Assuming the second component is the volatility variable
             
-            const double double_integral = 0.5 * dW_p(1) * dW_p(0) - 0.5 * (X + Y); // Integral term for the correction
-            const double correction_vol = sigma_v * pEXP * std::pow(x_p(0), pEXP + q - 1) *
+            const R double_integral = 0.5 * dW_p(1) * dW_p(0) - 0.5 * (X + Y); // Integral term for the correction
+            const R correction_vol = sigma_v * pEXP * std::pow(x_p(0), pEXP + q - 1) *
             (rho_p * double_integral + rho * 0.5 * (dW_p(0) * dW_p(0) - dt));
 
             
@@ -479,14 +479,14 @@ public:
  * @brief Interpolated Kahl-Jackel solver for stochastic volatility SDEs.
  * @tparam SdeType SDE model type satisfying SDEModel concept.
  */
-template <SDEModel SdeType>
-class InterpolatedKahlJackelSolver : public SDESolverBase<InterpolatedKahlJackelSolver<SdeType>, SdeType> {
+template <SDEModel SdeType, typename R = traits::DataType::PolynomialField>
+class InterpolatedKahlJackelSolver : public SDESolverBase<InterpolatedKahlJackelSolver<SdeType>, SdeType,  R> {
 public:
-    using Base = SDESolverBase<InterpolatedKahlJackelSolver<SdeType>, SdeType>;
+    using Base = SDESolverBase<InterpolatedKahlJackelSolver<SdeType>, SdeType, R>;
     using Base::Base;
 
-    void step(double t_current, const SDEVector& current_x,
-              double dt, const SDEVector& dW_t, int num_paths,
+    void step(R t_current, const SDEVector& current_x,
+              R dt, const SDEVector& dW_t, int num_paths,
               SDEVector& next_x) const {
         // static bool ikj_warning_shown = false;
         // if (!ikj_warning_shown) {
@@ -501,11 +501,11 @@ public:
 
 
         if constexpr (Milstein2DSVSDEModel<SdeType>) {
-            const double pEXP = this->sde_ref_.get_p();
-            const double q = this->sde_ref_.get_q();
-            const double rho = this->sde_ref_.get_correlation();
-            const double rho_p = std::sqrt(1.0 - rho * rho);
-            const double sigma_v = this->sde_ref_.get_sigma_v();
+            const R pEXP = this->sde_ref_.get_p();
+            const R q = this->sde_ref_.get_q();
+            const R rho = this->sde_ref_.get_correlation();
+            const R rho_p = std::sqrt(1.0 - rho * rho);
+            const R sigma_v = this->sde_ref_.get_sigma_v();
 
 
             // Map to Eigen views

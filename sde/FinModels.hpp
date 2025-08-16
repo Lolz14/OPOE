@@ -448,7 +448,7 @@ public:
         SDEVector avv;  // a_vv(v)
     };
 
-    SVPolyCoeffs build_sv_polynomials(
+    virtual SVPolyCoeffs build_sv_polynomials(
         const typename GenericSVModelSDE<T>::Parameters& p, 
         int N
     ) {
@@ -570,19 +570,16 @@ public:
 
     }; 
 
-    virtual SDEMatrix generator_G(std::vector<std::pair<int,int>> E, const SDEMatrix& H){
+    SDEMatrix generator_G(std::vector<std::pair<int,int>> E, const SDEMatrix& H){
 
         auto const N = static_cast<int>(H.rows());
-
-        std::cout << "Building SV polynomials for N = " << N << std::endl;
-        std::cout << "E size: " << E.size() << std::endl;
-
 
         auto coeffs = build_sv_polynomials(this->params_, N);
 
         auto G = Utils::build_G_full(H, coeffs.bx, coeffs.axx, coeffs.bv, coeffs.axv, coeffs.avv, N);
 
         auto G_projected = Utils::project_to_triangular(G, E, N);
+
         return G_projected;
 
     }
@@ -846,6 +843,7 @@ class JacobiModelSDE : public GenericSVModelSDE<T> {
 public:
     using Base = GenericSVModelSDE<T>;
     using Parameters = typename Base::Parameters;
+    using Base::generator_G;                 // bring the base class generator_G into scope
 
 
     static constexpr unsigned int WIENER_DIM = 2; // Two correlated Wiener processes
@@ -1011,6 +1009,61 @@ public:
 
     }
 
+    typename Base::SVPolyCoeffs build_sv_polynomials(
+        const typename JacobiModelSDE::Parameters& p, 
+        int N) override
+        {
+        typename Base::SVPolyCoeffs out;
+
+        const T C = q_denominator_sq_;
+        const T vmin = y_min_;
+        const T vmax = y_max_;
+
+        // b_x(v) = μ - 0.5 v
+        out.bx = SDEVector::Zero(N);
+        out.bx[0] = p.asset_drift_const;
+        {
+            if (1 < N)
+                out.bx[1] = out.bx[1]  - T(0.5);
+        }
+
+        // a_xx(v) = v
+        out.axx = SDEVector::Zero(N);
+        {
+            if (1 < N)
+                out.axx[1] = T(1.0);
+        }
+
+        // b_v(v) = κ θ - κ v
+        out.bv = SDEVector::Zero(N);
+        out.bv[0] = p.sv_kappa * p.sv_theta;
+        if (1 < N)
+            out.bv[1] = -p.sv_kappa;
+
+        // a_xv(v) = ρ σ Q(v)
+        out.axv = SDEVector::Constant(N, p.correlation * p.sv_sigma);
+        {
+            out.axv[0] *= -vmin * vmax / C; // Adjust for the constant term
+            if (1 < N)
+                out.axv[1] *=  (vmin + vmax) / C; 
+            if (2 < N)
+                out.axv[2] /= -C; 
+ 
+        }
+        // a_vv(v) = σ² Q(v)
+        out.avv = SDEVector::Constant(N, p.sv_sigma * p.sv_sigma);
+        {
+            out.avv[0] *= -vmin * vmax / C; // Adjust for the constant term
+            if (1 < N)
+                out.avv[1] *= (vmin + vmax) / C; 
+            if (2 < N)
+                out.avv[2] /= -C; 
+ 
+        }
+
+        return out;
+    }
+
     SDEMatrix generator_G(std::vector<std::pair<int,int>> E, int N, T sigma) const override{
         const int M = static_cast<int>(E.size());
 
@@ -1034,10 +1087,6 @@ public:
         const T sigma_v = Base::params_.sv_sigma;
         const T rho = Base::params_.correlation;
 
-        const T q2 = -1.0 / C;
-        const T q1 = (vmax + vmin) / C;
-        const T q0 = -vmax * vmin / C;
-
         auto add_entry = [&](int row_m, int row_n, int col, T value) {
             if (row_m < 0 || row_n < 0) return;
             if (row_m + row_n > N) return; // out of basis range
@@ -1050,30 +1099,37 @@ public:
         for (int col = 0; col < M; ++col) {
             const auto [m, n] = E[col];
 
+
             // 1) h_{m-2, n}
             if (m >= 2) {
+
                 add_entry(m-2, n, col, -sigma_v * sigma_v * m * (m - 1) * vmax * vmin / (2.0 * C));
             }
             // 2) h_{m-1, n-1}
             if (m >= 1 && n >= 1) {
+
                 add_entry(m-1, n-1, col, -rho * sigma_v * m * std::sqrt((T)n) / sigma * vmax * vmin / C);
             }
             // 3) h_{m-1, n}
             if (m >= 1) {
+
                 add_entry(m-1, n, col, m * kappa * theta + sigma_v * sigma_v * m * (m - 1) * (vmax + vmin) / (2.0 * C));
             }
             // 4) h_{m, n-1}
             if (n >= 1) {
-                add_entry(m, n-1, col, std::sqrt((T)n) / sigma * (r   + m * rho * sigma_v *(vmax + vmin) / C));
+
+                add_entry(m, n-1, col, std::sqrt((T)n) / sigma * (r   + m * rho * sigma_v * (vmax + vmin) / C));
             }
             // 5) h_{m+1, n-2}
             if (n >= 2) {
+
                 add_entry(m+1, n-2, col, std::sqrt((T)n * (n - 1)) / (2.0 * sigma * sigma));
             }
             // 6) h_{m, n}
             add_entry(m, n, col, -m * kappa - sigma_v * sigma_v * m * (m - 1) / (2.0 * C));
             // 7) h_{m+1, n-1}
             if (n >= 1) {
+        
                 add_entry(m+1, n-1, col, -std::sqrt((T)n) / (2.0 * sigma) - rho * sigma_v * m * std::sqrt((T)n) / (sigma * C));
             }
         }
@@ -1084,6 +1140,7 @@ public:
     std::shared_ptr<ISDEModel<T>> clone() const override {
         return std::make_shared<JacobiModelSDE<T>>(*this);
     }
+
     inline SDEVector M_T(T ttm, T dt, const SDEMatrix& y_t, const SDEMatrix& w_t) {
             const auto n = y_t.cols();
             const auto k = y_t.rows();

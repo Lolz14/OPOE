@@ -304,7 +304,7 @@ using StoringVector = traits::DataType::StoringVector;
  * @param N The maximum degree of the polynomial basis.
  * @return A vector of pairs (m, n) where m + n <= N.
  */
-static std::vector<std::pair<int,int>> enumerate_basis(int N) {
+std::vector<std::pair<int,int>> enumerate_basis(int N) {
     std::vector<std::pair<int,int>> E;
     E.reserve((N+1)*(N+2)/2);
     for (int m = 0; m <= N; ++m) {
@@ -316,8 +316,14 @@ static std::vector<std::pair<int,int>> enumerate_basis(int N) {
 }
 
 
-
-// Derivative matrices on monomial basis: {1, x, x^2, ...}
+/**
+ * @brief Builds the representation matrix of the first monomial derivative of dimension N.
+ * 
+ * This function constructs a diagonal matrix where the diagonal entries correspond to the first derivative of the monomial basis functions.
+ * The diagonal entries are filled with the values from 1 to N-1, representing the coefficients of the first derivative.
+ * @param N The size of the matrix (number of monomial basis functions).
+ * @return A StoringMatrix representing the first monomial derivative.
+ */
 template<typename T = traits::DataType::PolynomialField>
 [[nodiscard]] inline StoringMatrix build_Dmono(int N) {
     StoringMatrix D = StoringMatrix::Zero(N, N);
@@ -327,6 +333,14 @@ template<typename T = traits::DataType::PolynomialField>
     return D;
 }
 
+/**
+ * @brief Builds the representation matrix of the second monomial derivative of dimension N.
+ * 
+ * This function constructs a diagonal matrix where the diagonal entries correspond to the second derivative of the monomial basis functions.
+ * The diagonal entries are filled with the values from 2 to N-1, representing the coefficients of the second derivative.
+ * @param N The size of the matrix (number of monomial basis functions).
+ * @return A StoringMatrix representing the second monomial derivative.
+ */
 template<typename T = traits::DataType::PolynomialField>
 [[nodiscard]] inline StoringMatrix build_D2mono(int N) {
     StoringMatrix D2 = StoringMatrix::Zero(N, N);
@@ -337,7 +351,15 @@ template<typename T = traits::DataType::PolynomialField>
     return D2;
 }
 
-// Polynomial coeffs -> multiplication matrix in v (dense)
+/**
+ * @brief Converts a polynomial vector to a diagonal matrix representation.
+ *
+ * This function takes a vector of polynomial coefficients and constructs a diagonal matrix where each diagonal entry corresponds to a coefficient.
+ * The diagonal is shifted by the specified index, allowing for flexible placement of the coefficients.
+ * @param coeffs Vector of polynomial coefficients.
+ * @param Nv Size of the diagonal matrix (number of rows/columns).
+ * @return A StoringMatrix representing the polynomial coefficients as a diagonal matrix.
+ */
 template<typename T = traits::DataType::PolynomialField>
 [[nodiscard]] inline StoringMatrix poly_to_M(const StoringVector& coeffs, int Nv) {
     StoringMatrix R = StoringMatrix::Zero(Nv, Nv);
@@ -351,7 +373,20 @@ template<typename T = traits::DataType::PolynomialField>
     return R;
 }
 
-// Build full rectangular G (dense)
+
+/**
+ * @brief Builds the G representation matrix of the generator of a stochastic volatility model.
+ *
+ * This function constructs the representation matrix G of the generator for a stochastic volatility model.
+ * It uses the provided parameters to compute the derivatives in the H basis and constructs the G matrix using Kronecker products.
+ * The resulting matrix is structured to represent the interactions between the volatility and the underlying asset.
+ * @param H The matrix representing the H basis.
+ * @param bx, axx, bv, axv, avv Vectors representing the coefficients of the generator.
+ * @param Nv The size of the volatility dimension.
+ * @return A StoringMatrix representing the G matrix of the generator.
+ *
+ */
+
 template<typename T = traits::DataType::PolynomialField>
 [[nodiscard]] inline StoringMatrix build_G_full(
     const StoringMatrix& H,
@@ -394,7 +429,20 @@ template<typename T = traits::DataType::PolynomialField>
     return G_full;
 }
 
-// Project G_full onto triangular basis
+/**
+ * @brief Projects the full G matrix to a triangular form based on the provided edges.
+ * 
+ * This function constructs a triangular matrix representation of the G matrix by selecting only the entries corresponding to the specified edges.
+ * The edges are provided as a vector of pairs (m, n), where m and n are indices in the full G matrix.
+ * The resulting triangular matrix is structured such that it contains only the entries corresponding to the specified edges.
+ * 
+ * @param G_full The full G matrix from which to extract the triangular representation.
+ * @param E_tri Vector of pairs representing the edges to include in the triangular matrix.
+ * @param Nx The size of the x dimension (number of rows/columns in the full G matrix).
+ * @return A StoringMatrix representing the projected triangular form of G.
+ * 
+ * @note The function assumes that the edges are provided in a format compatible with the full G matrix, and that Nx corresponds to the number of x dimensions in the full G matrix.
+ */
 [[nodiscard]] inline StoringMatrix project_to_triangular(
     const StoringMatrix& G_full,
     const std::vector<std::pair<int,int>>& E_tri,

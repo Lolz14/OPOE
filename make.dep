@@ -262,4 +262,28 @@ main.o: main.cpp \
  polynomials/../utils/FFTW.hpp \
  polynomials/../utils/../traits/OPOE_traits.hpp \
  polynomials/OrthogonalValidator.cpp polynomials/OrthogonalValidator.hpp \
- utils/Utils.hpp
+ utils/Utils.hpp options/OPEOptionPricer.hpp \
+ options/../utils/FileReader.hpp \
+ options/../utils/../traits/OPOE_traits.hpp options/../utils/Utils.hpp \
+ options/../quadrature/Projector.hpp \
+ options/../quadrature/QuadratureRuleHolder.hpp \
+ options/../quadrature/QuadratureWrappers.hpp \
+ options/../quadrature/QuadratureRule.hpp traits/OPOE_traits.hpp \
+ options/../quadrature/QuadratureRuleAbstract.hpp \
+ options/../quadrature/../traits/OPOE_traits.hpp \
+ options/../quadrature/QuadratureRuleHolder.hpp \
+ options/../stats/MixtureDensity.hpp options/../stats/DensityBase.hpp \
+ options/../stats/../traits/OPOE_traits.hpp \
+ options/../stats/../polynomials/OrthogonalPolynomials.hpp \
+ options/../traits/OPOE_traits.hpp options/Payoff.hpp \
+ options/BaseOptionPricer.hpp options/../sde/FinModels.hpp \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/MatrixFunctions \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Core \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/LU \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/Eigen/Eigenvalues \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixExponential.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/StemFunction.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixFunction.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixSquareRoot.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixLogarithm.h \
+ /u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3/unsupported/Eigen/src/MatrixFunctions/MatrixPower.h
