@@ -1,21 +1,45 @@
 
+/**
+ * @file SDE.hpp
+ * @brief Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes.
+ *
+ * This header defines a flexible and extensible framework for simulating SDEs using various numerical methods,
+ * including Euler-Maruyama, Milstein, and Interpolated Kahl-Jackel schemes. The framework leverages C++20 concepts
+ * for compile-time constraints, Eigen for linear algebra, and OpenMP for parallelism.
+ *
+ * Key Features:
+ * - Thread-local random number generation utilities for reproducible and parallel-safe simulations.
+ * - Strongly-typed SDE model concepts (SDEModel, SVSDEModel, Milstein1DSDEModel, Milstein2DSVSDEModel) for compile-time validation.
+ * - CRTP-based base solver class (SDESolverBase) for static polymorphism and code reuse.
+ * - Concrete solver implementations for Euler-Maruyama, Milstein, and Interpolated Kahl-Jackel methods.
+ * - Support for multi-path, multi-step simulations with observer callbacks and optional pre-generated Wiener increments.
+ * - Full truncation to ensure non-negativity of state variables where appropriate.
+ *
+ * Template Parameters:
+ * - SdeType: The SDE model type, which must satisfy the relevant SDEModel concept.
+ * - R: Scalar type for computations (default: traits::DataType::PolynomialField).
+ *
+ * Dependencies:
+ * - OPOE_traits.hpp: For type definitions and concepts.
+ * - Utils.hpp: For utility functions and type traits.
+ *
+ * Usage:
+ * 1. Define an SDE model class satisfying the required concept(s).
+ * 2. Instantiate a solver (e.g., EulerMaruyamaSolver, MilsteinSolver) with the model.
+ * 3. Call `solve()` to simulate paths, optionally providing pre-generated Wiener increments.
+ */
 #ifndef SDE_HPP
 #define SDE_HPP
 
-#include <cmath>        // For std::sqrt
-#include <concepts>     // For C++20 concepts
-#include <iostream>     // For warnings (e.g., in placeholder solvers)
-#include <random>       // For random number generation
-#include <stdexcept>    // For std::invalid_argument, std::runtime_error
-#include <vector>       
-#include <thread>       // For std::this_thread::get_id
-#include <optional>       // For high_resolution_clock
+#include <cmath>        
+#include <concepts>     
+#include <iostream>     
+#include <random>       
+#include <stdexcept>   
+#include <thread>       
+#include <optional>       
 #include "../traits/OPOE_traits.hpp"
 #include "../utils/Utils.hpp"
-
-// Define aliases for Eigen types.
-// These could be adapted if your "StoringVector" and "StoringMatrix" traits map to Eigen types.
-
 
 
 namespace SDE {
@@ -47,6 +71,7 @@ inline std::mt19937& get_default_rng_engine() {
 /**
 
  * @brief Returns a reference to a thread-local standard normal distribution.
+ * @tparam R Scalar type for the distribution (default: traits::DataType::PolynomialField).
  * @return Reference to thread-local std::normal_distribution<double> with mean 0 and std dev 1.
 
  */
@@ -59,10 +84,9 @@ inline std::normal_distribution<R>& get_standard_normal_dist() {
 }
 
 /**
-
  * @brief Returns a reference to a thread-local uniform distribution on [0, 1).
+ * @tparam R Scalar type for the distribution (default: traits::DataType::PolynomialField).
  * @return Reference to thread-local std::uniform_real_distribution<double>.
-
  */
 template<typename R = traits::DataType::PolynomialField>
 inline std::uniform_real_distribution<R>& get_uniform_distribution() {
@@ -137,13 +161,10 @@ concept Milstein2DSVSDEModel = SDEModel<T> && requires(const T& sde, R t, const 
 // --- Base SDE Solver Class using CRTP ---
 
 /**
-
  * @brief Base class for SDE solvers using CRTP for static polymorphism.
-
  * @tparam DerivedSolver The derived solver class (CRTP pattern).
-
  * @tparam SdeType The SDE model type satisfying SDEModel concept.
-
+ * @tparam R Scalar type for computations (default: traits::DataType::PolynomialField).
  */
 
 
@@ -176,7 +197,7 @@ public:
 
         #pragma omp parallel for
         for (int w = 0; w < num_wiener; ++w) {
-            // Unique seed per Wiener dimension (you can make this more robust if needed)
+            // Unique seed per Wiener dimension
             SDEMatrix block = Utils::sampler<R>(
                 get_default_rng_engine(),
                 SDE::get_standard_normal_dist<R>(),
@@ -216,9 +237,7 @@ public:
 
         // initial_x is a column vector: [0.25, 100]
         SDEMatrix initial_states = sde_ref_.m_x0.transpose().replicate(num_paths, 1); 
-        current_x = Eigen::Map<SDEVector>(initial_states.data(), initial_states.size());
-
-                
+        current_x = Eigen::Map<SDEVector>(initial_states.data(), initial_states.size());   
         SDEVector next_x(num_paths * SdeType::STATE_DIM);
 
         // dW is matrix: (num_paths * WIENER_DIM, num_steps)
@@ -228,14 +247,11 @@ public:
         if (dW_opt.has_value()) {
 
             assert(dW_opt->rows() == num_paths * SdeType::WIENER_DIM && dW_opt->cols() == num_steps);
-            
             dW = dW_opt.value();
-
 
         } else {
 
             dW.resize(num_paths * SdeType::WIENER_DIM, num_steps);
-
             generate_wiener_increments(dt, dW, num_steps, num_paths);
 
         }
@@ -287,11 +303,9 @@ protected:
 // --- Euler-Maruyama Solver Implementation ---
 
 /**
-
  * @brief Euler-Maruyama solver for general SDEs, a first-order method.
-
  * @tparam SdeType SDE model type satisfying SDEModel concept.
-
+ * @tparam R Scalar type for computations (default: traits::DataType::PolynomialField).
  */
 
 template <SDEModel SdeType,  typename R = traits::DataType::PolynomialField>
@@ -321,8 +335,6 @@ void step(
             Eigen::Map<const SDEVector> x_p(current_x.data() + offset, state_dim);
             Eigen::Map<SDEVector> next_x_p(next_x.data() + offset, state_dim);
             
-            // Full Truncation to ensure non-negativity
-
             // Compute drift and diffusion
             this->sde_ref_.drift(t, x_p, mu);
             this->sde_ref_.diffusion(t, x_p, sigma);
@@ -338,7 +350,7 @@ void step(
 
         }
     }
-    // Full truncation to ensure non-negativity
+    // Full truncation to ensure non-negativity of volatility
     next_x = next_x.cwiseMax(1e-4);
 
 
@@ -355,6 +367,7 @@ void step(
 /**
  * @brief Milstein solver for SDEs, a higher-order method using derivative information.
  * @tparam SdeType SDE model type satisfying SDEModel concept.
+ * @tparam R Scalar type for computations (default: traits::DataType::PolynomialField).
  */
 
 template <SDEModel SdeType,  typename R = traits::DataType::PolynomialField>
@@ -388,13 +401,10 @@ public:
             Eigen::Map<const SDEVector> x_p(current_x.data() + offset, state_dim);
             Eigen::Map<SDEVector> next_x_p(next_x.data() + offset, state_dim);
 
-
-
             this->sde_ref_.drift(t, x_p, mu);
             this->sde_ref_.diffusion(t, x_p, sigma);
 
-    
-
+            // Map dW for this path, spaced by num_paths per Wiener dimension
             Eigen::Map<const SDEVector, 0, Eigen::InnerStride<>> dW_p(
                 dW_t.data() + p, // start at row=p
                 wiener_dim,
@@ -442,11 +452,8 @@ public:
         }
 
         if constexpr (Milstein2DSVSDEModel<SdeType>) {
-            // This block is only compiled if SdeType meets the Milstein1DSDEModel concept.
 
-            // TODO : CHECK IF DERIVATIVES ARE TO BE USED AND CHECK THE COEFFS OF DW
-        
-
+            // This block is only compiled if SdeType meets the Milstein1DSDEModel concept        
             const R pEXP = this->sde_ref_.get_p();
             const R q = this->sde_ref_.get_q();
             const R rho = this->sde_ref_.get_correlation();
@@ -454,8 +461,9 @@ public:
             const R sigma_v = this->sde_ref_.get_sigma_v();
             auto Q = Utils::sampler<R>(get_default_rng_engine(), get_uniform_distribution<R>(), 1);
 
+            // It computes the Levy integral correction term
             const R X = dt / M_PI * std::log(Q(0)/(1.0 - Q(0))); // X is the log-normal variable
-            const R Y = std::sqrt((dW_p(1)*dW_p(1) + dW_p(0)*dW_p(0))*dt/3)* Utils::sampler<R>(get_default_rng_engine(), get_standard_normal_dist<R>(), 1)(0); // Assuming the second component is the volatility variable
+            const R Y = std::sqrt((dW_p(1)*dW_p(1) + dW_p(0)*dW_p(0))*dt/3)* Utils::sampler<R>(get_default_rng_engine(), get_standard_normal_dist<R>(), 1)(0);
             
             const R double_integral = 0.5 * dW_p(1) * dW_p(0) - 0.5 * (X + Y); // Integral term for the correction
             const R correction_vol = sigma_v * pEXP * std::pow(x_p(0), pEXP + q - 1) *
@@ -478,6 +486,7 @@ public:
 /**
  * @brief Interpolated Kahl-Jackel solver for stochastic volatility SDEs.
  * @tparam SdeType SDE model type satisfying SDEModel concept.
+ * @tparam R Scalar type for computations (default: traits::DataType::PolynomialField).
  */
 template <SDEModel SdeType, typename R = traits::DataType::PolynomialField>
 class InterpolatedKahlJackelSolver : public SDESolverBase<InterpolatedKahlJackelSolver<SdeType>, SdeType,  R> {
@@ -488,14 +497,7 @@ public:
     void step(R t_current, const SDEVector& current_x,
               R dt, const SDEVector& dW_t, int num_paths,
               SDEVector& next_x) const {
-        // static bool ikj_warning_shown = false;
-        // if (!ikj_warning_shown) {
-        //    std::cerr << "Warning: InterpolatedKahlJackelSolver is a placeholder and currently falls back to EulerMaruyamaSolver's step logic." << std::endl;
-        //    ikj_warning_shown = true;
-        // }
         
-        // Fallback to Euler-Maruyama as this is a placeholder.
-        // For a real IKJ, this step would be very different and model-specific.
         EulerMaruyamaSolver<SdeType> euler_solver(this->sde_ref_, this->rng_engine_ref_);
         euler_solver.step(t_current, current_x, dt, dW_t, num_paths, next_x);
 

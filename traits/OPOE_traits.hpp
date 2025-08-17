@@ -5,6 +5,11 @@
  * This header provides essential type definitions and enumerations used throughout the OPOE library,
  * including matrix and vector types based on Eigen, polynomial field types, and various enums for
  * evaluation, integration, and quantization methods.
+ * 
+ * Dependencies:
+ * - Eigen library for matrix and vector operations.
+ * - Standard library features (e.g., std::complex, std::vector, std::array).
+ * - C++20 concepts for type constraints.
  */
 
 #ifndef OPOE_TRAITS_HPP
@@ -100,16 +105,6 @@ enum class QuadratureMethod
 };
 
 /*!
- * @enum IntegrationMethod
- * @brief Strategies for computing integrals of polynomials.
- */
-enum class IntegrationMethod
-{
-    Direct,      ///< Straightforward analytical or numerical integration.
-    Simplified   ///< Approximated or optimized integration strategy.
-};
-
-/*!
  * @enum OptionType
  * @brief Financial option types.
  */
@@ -130,17 +125,6 @@ enum class QuantizationProcedure
 };
 
 
-
-/*!
- * @enum class PricingMethod
- * @brief Enumerates different methods for option pricing.
- */
-enum class PricingMethod
-{
-    MonteCarlo, ///< Monte Carlo simulation for option pricing.
-    PolynomialExpansion, ///< Ackerer's polynomial expansion method.
-    FourierTransform ///< For option pricing using Fourier methods.
-};
 
 } // namespace traits
 

@@ -1,4 +1,3 @@
-
 /**
  * @file Payoff.hpp
  * @brief Defines interfaces and concrete classes for option payoff evaluation in quantitative finance.

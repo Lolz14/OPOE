@@ -1,3 +1,39 @@
+/**
+ * @file OPEOptionPricer.hpp
+ * @brief Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE).
+ *
+ * This header provides the implementation of the OPEOptionPricer class template, which inherits from BaseOptionPricer.
+ * The class uses orthogonal polynomial expansions and mixture densities to efficiently price options under stochastic volatility models.
+ * It supports flexible polynomial bases, customizable quadrature integration, and leverages quantization grids for path discretization.
+ *
+ * Dependencies:
+ * - BaseOptionPricer.hpp: Base class for option pricing.
+ * - SDE.hpp: Interface for stochastic differential equation models.
+ * - Utils.hpp: Utility functions for enumerating polynomial bases and other operations.
+ * - MixtureDensity.hpp: For handling mixture densities in polynomial expansions.
+ * - QuadratureRuleHolder.hpp: For configurable quadrature integration methods.
+ * 
+ * @section Features
+ * - Constructs an orthonormal polynomial basis for the expansion.
+ * - Computes the generator matrix and propagates it via matrix exponentiation.
+ * - Integrates the expected payoff using a configurable quadrature rule.
+ * - Supports custom SDE solvers and stochastic volatility models.
+ * - Outputs intermediate results and integrand values for debugging and analysis.
+ *
+ * @section Usage
+ * Instantiate OPEOptionPricer with the desired template parameters, provide the required SDE model, payoff, and solver function.
+ * Call the price() method to compute the discounted expected payoff.
+ *
+ * @section Example
+ * @code
+ * auto pricer = options::OPEOptionPricer<>(ttm, strike, rate, payoff, sde_model, solver_func);
+ * double option_price = pricer.price();
+ * @endcode
+ *
+ * @see BaseOptionPricer
+ * @see stats::MixtureDensity
+ * @see quadrature::QuadratureRuleHolder
+ */
 #ifndef OPTION_PRICER_HPP
 #define OPTION_PRICER_HPP
 
@@ -7,7 +43,6 @@
 #include "../quadrature/QuadratureRuleHolder.hpp"
 #include "../stats/MixtureDensity.hpp"
 #include "../traits/OPOE_traits.hpp"
-#include "Payoff.hpp"
 #include "BaseOptionPricer.hpp"
 #include <unsupported/Eigen/MatrixFunctions>
 #include <variant>
@@ -18,6 +53,16 @@
 #include <execution>
 
 namespace options {
+
+/**
+ * @brief OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE).
+ *
+ * This class implements the OPE method for option pricing, leveraging orthogonal polynomial expansions and mixture densities.
+ * It supports flexible polynomial bases and integrates the expected payoff using configurable quadrature rules.
+ *
+ * @tparam R The floating-point type used for calculations (default: traits::DataType::PolynomialField).
+ * @tparam PolynomialBaseDegree The degree of the polynomial basis (must be >= 2).
+ */
 
 template <typename R = traits::DataType::PolynomialField,
 unsigned int PolynomialBaseDegree = 3>
@@ -40,6 +85,24 @@ class OPEOptionPricer : public BaseOptionPricer<R> {
         boost::math::normal_distribution<R>, R, R, R>;
 
 public:
+/**
+ * @brief Constructs an OPEOptionPricer instance.
+ *
+ * @param ttm Time to maturity.
+ * @param strike Strike price of the option.
+ * @param rate Risk-free interest rate.
+ * @param payoff Payoff function for the option.
+ * @param sde_model Shared pointer to the stochastic differential equation model.
+ * @param solver_func Function to solve the SDE, returning a matrix.
+ * @param integrator_param Quadrature method for integration (default: TanhSinh).
+ * @param num_paths Number of paths for simulation (default: 10).
+ *
+ * @throws std::invalid_argument if PolynomialBaseDegree < 2.
+ * @throws std::runtime_error if the polynomial basis cannot be constructed.
+ *
+ * This constructor initializes the OPEOptionPricer with the provided parameters,
+ * constructs the orthonormal polynomial basis, and prepares the density object for pricing.
+ */
     OPEOptionPricer(R ttm, R strike, R rate,
                     std::unique_ptr<IPayoff<R>> payoff,
                     std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
@@ -58,7 +121,16 @@ public:
         density_object_.constructQProjectionMatrix();    
     }
 
+    /**
+     * @brief Computes the option price using the OPE method.
+     *
+     * This method calculates the expected value of the option payoff at maturity,
+     * integrating over the log-spot price using the orthonormal polynomial basis.
+     *
+     * @return The computed option price.
+     */
     R price() const override {
+        // 1. Get the generator matrix H and the polynomial basis
         const auto& H = density_object_.getHMatrix();     // (N+1)x(N+1)
         const auto E  = Utils::enumerate_basis(PolynomialBaseDegree);
         const unsigned int M   = static_cast<int>(E.size());
@@ -78,7 +150,7 @@ public:
         // Matrix exponential
         StoringMatrix expGT = (this->get_ttm() * G).exp();
 
-        // Build sparse selector matrix S (M x (N+1)), columns = e_{pi(0,n)}
+        // 2. Build sparse selector matrix S (M x (N+1)), columns = e_{pi(0,n)}
         StoringMatrix S = StoringMatrix::Zero(M, PolynomialBaseDegree+1);
         for (unsigned int i = 0; i < M; ++i) {
             if (E[i].first == 0 && E[i].second <= PolynomialBaseDegree) {
@@ -86,7 +158,7 @@ public:
             }
         }
 
-        // Compute all l_n in one shot: l = h_vals^T * expGT * S
+        // 3. Compute all l_n in one shot: l = h_vals^T * expGT * S
         StoringVector l_values = (h_vals.transpose() * expGT * S).transpose();
 
         // Optional: debug output
@@ -95,9 +167,8 @@ public:
         std::cout << "l_values: " << l_values.transpose() << "\n";
 
         
-        // 4. Get integration domain (presumably for log_spot_price)
-
-        stats::DensityInterval<R> support = this->density_object_.getSupport();
+        // 4. Get integration domain 
+        //stats::DensityInterval<R> support = this->density_object_.getSupport();
 
         auto h_functions = density_object_.getHFunctionsMixture();
 
@@ -122,9 +193,6 @@ public:
             
             }
 
-    
-
-        
 
             // Full term: Payoff(log_x) * (Σ ℓ_n H_n(log_x)) * w(log_x)
             return  auxiliary_density_value * this->payoff_->evaluate_from_log(log_spot_price)*this->density_object_.pdf(log_spot_price);
@@ -134,13 +202,9 @@ public:
 
         // 5. Perform numerical integration using the member integrator_
         R expected_value_at_maturity = this->integrator_.integrate(
-
             full_integrand_function,
-
             mean - 8*stddev, // Assuming this is the lower bound
-
             mean + 8*stddev // Assuming this is the upper bound
-
         );
 
         std::ofstream csv_file("integrand_values.csv");
@@ -159,13 +223,8 @@ public:
         std::cout << "CSV file written successfully.\n";
 
 
-    
-
         // 6. Discount the expected value back to today
-
         return std::exp(-this->rate_ * this->ttm_) * expected_value_at_maturity;
-
-
 
     }
 
@@ -176,7 +235,23 @@ private:
     quadrature::QuadratureRuleHolder<R> integrator_;
 
 
-    // Static helper: builds the MixtureDensity before entering constructor body
+    /**
+     * @brief Constructs the density object for the OPEOptionPricer.
+     *
+     * This method reads the quantization grid, solves for paths using the provided solver function,
+     * and builds the mixture density object for polynomial expansion.
+     * It computes the mean and variance of the paths and constructs the densities.
+     *
+     * @param ttm Time to maturity.
+     * @param num_paths Number of paths for simulation.
+     * @param poly_deg Degree of the polynomial basis.
+     * @param solver_func Function to solve the SDE and return paths.
+     * @param sde_model Shared pointer to the stochastic differential equation model.
+     * @return A stats::MixtureDensity object containing the computed densities.
+     * @throws std::runtime_error if the quantization grid cannot be read or if the solver function fails.
+     *
+     * This method is crucial for setting up the polynomial basis and densities used in the OPE method.
+     */
     static stats::MixtureDensity<PolynomialBaseDegree, DensityType, R>
     make_density_object(R ttm,
                         unsigned int num_paths,
@@ -232,280 +307,7 @@ private:
         );
     }
 };
-}
 
-
-
-
-namespace options {
-
-template<
-    traits::OptionType OptionTypeValue,
-    unsigned int PolynomialBaseDegree,
-    typename DensityKernelType,
-    typename R = double
->
-class AckererOptionPricer {
-public:
-    using PayoffVariant = std::variant<EuropeanCallPayoff<R>, EuropeanPutPayoff<R>>;
-
-protected:
-    R ttm_;
-    R rate_;
-    PayoffVariant payoff_;
-    stats::MixtureDensity<PolynomialBaseDegree, DensityKernelType, R> density_object_;
-    quadrature::QuadratureRuleHolder<R> integrator_;
-
-public:
-    explicit AckererOptionPricer(
-        R strike,
-        R ttm_val,
-        R rate_val,
-        stats::MixtureDensity<PolynomialBaseDegree, DensityKernelType, R> density_obj_param,
-        traits::QuadratureMethod integrator_param = traits::QuadratureMethod::QAGI,
-        R tolerance_param = 1e-8
-    ) : ttm_(ttm_val),
-        rate_(rate_val),
-        payoff_(
-            (OptionTypeValue == traits::OptionType::Call)
-            ? PayoffVariant(std::in_place_type<EuropeanCallPayoff<R>>, strike)
-            : PayoffVariant(std::in_place_type<EuropeanPutPayoff<R>>, strike)
-        ),
-        density_object_(std::move(density_obj_param)),
-        integrator_(integrator_param)
-    {
-
-    
-        if (strike < static_cast<R>(0.0)) {
-
-                throw std::invalid_argument("Strike price cannot be negative. Received: " + std::to_string(strike));
-
-        }
-
-        if (ttm_ < static_cast<R>(0.0)) {
-
-            throw std::invalid_argument("Time to maturity cannot be negative. Received: " + std::to_string(ttm_));
-
-        }
-
-        // Consider if rate_val should also be checked (e.g., non-negative)
-
-
-
-        static_assert(OptionTypeValue == traits::OptionType::Call || OptionTypeValue == traits::OptionType::Put,
-
-                        "Unsupported option type provided as template parameter.");
-        density_object_.constructOrthonormalBasis();
-        density_object_.constructQProjectionMatrix();
-
-    }
-
-    virtual ~AckererOptionPricer() = default;
-
-    virtual [[nodiscard]] R price() const {
-            auto h_functions = density_object_.getHFunctionsMixture();
-
-            std::cout << "H matrix#" << density_object_.getHMatrix() << std::endl;
-
-           
-
-        
-   
-
-            
-
-        
-
-       
-
-            // Integrand(x) = Payoff_log(x) * [ Σ_{n=0 to N} ℓ_n * H_n(x) ] * w(x)
-
-            // where x is typically log_spot.
-
-            auto full_integrand_function =
-
-                [this, &h_functions](R log_spot_price) -> R {
-
-       
-
-                // Calculate Σ_{n=0 to N} ℓ_n * H_n(log_spot_price)
-
-                R auxiliary_density_value = static_cast<R>(0.0);
-
-                for (unsigned int n = 0; n <= PolynomialBaseDegree; ++n) {
-
-                    // Ensure the H_n function is valid before calling
-
-                    if (!h_functions[n]) {
-
-                         throw std::runtime_error("Invalid (null) H_n function at index " + std::to_string(n) + ".");
-
-                    }
-
-                    auxiliary_density_value += h_functions[n](log_spot_price)*this->density_object_.pdf(log_spot_price);
-
-                }
-
-       
-
-                // Get Payoff(log_spot_price)
-
-                R payoff_value = std::visit(
-
-                    [log_spot_price](const auto& concrete_payoff_object) {
-
-                        // Assuming Payoff objects have evaluate_from_log(log_spot_price)
-
-                        return concrete_payoff_object.evaluate_from_log(log_spot_price);
-
-                    },
-
-                    this->payoff_
-
-                );
-
-       
-
-                // Get auxiliary density w(log_spot_price)
-
-       
-
-                // Full term: Payoff(log_x) * (Σ ℓ_n H_n(log_x)) * w(log_x)
-
-                return  payoff_value*auxiliary_density_value;
-
-            };
-
-            std::cout << "Full integrand function created successfully." << std::endl;
-
-            std::cout << "Integrand function: " << full_integrand_function(0.5) << std::endl; // Test with log_spot_price = 0.0
-
-       
-
-            // 4. Get integration domain (presumably for log_spot_price)
-
-            stats::DensityInterval<R> support = this->density_object_.getSupport();
-
-       
-
-            // 5. Perform numerical integration using the member integrator_
-
-            R expected_value_at_maturity = this->integrator_.integrate(
-
-                full_integrand_function,
-
-                support.lower, // Assuming this is the lower bound
-
-                support.upper // Assuming this is the upper bound
-
-            );
-
-       
-
-            // 6. Discount the expected value back to today
-
-            return std::exp(-this->rate_ * this->ttm_) * expected_value_at_maturity;
-
-        }
-};
-
-template<
-    traits::OptionType OptionTypeValue,
-    unsigned int PolynomialBaseDegree,
-    typename R = double
->
-class GammaOptionPricer : public AckererOptionPricer<OptionTypeValue, PolynomialBaseDegree, stats::GammaDensity, R> {
-public:
-    using Base = AckererOptionPricer<OptionTypeValue, PolynomialBaseDegree, stats::GammaDensity, R>;
-    using StoringMatrix = traits::DataType::StoringMatrix;
-
-    explicit GammaOptionPricer(
-        R strike,
-        R ttm_val,
-        R rate_val,
-        stats::MixtureDensity<PolynomialBaseDegree, stats::GammaDensity, R> density_obj_param,
-        traits::QuadratureMethod integrator_param = traits::QuadratureMethod::QAGI,
-        R tolerance_param = 1e-8
-    ) : Base(strike, ttm_val, rate_val, std::move(density_obj_param), integrator_param, tolerance_param) {}
-
-    R price() const override {
-        const auto& components = this->density_object_.getComponents();
-        size_t num_components = components.size();
-        StoringMatrix f_n(num_components, PolynomialBaseDegree + 1);
-        f_n.setZero();
-
-        // Extract necessary parameters
-        R strike_price = std::visit([](const auto& payoff) { return payoff.getStrike(); },this->payoff_);
-        R strike_log = std::log(strike_price);
-        const auto& weights = this->density_object_.getWeights();
-        const auto& Qmatrices = this->density_object_.getQProjectionMatrix();
-
-        for (size_t i = 0; i < num_components; ++i) {
-            R alpha = components[i].getShape();
-            R beta = 1 / components[i].getScale();
-
-            R eta = components[i].getDomain().upper>0 ? components[i].getDomain().lower : components[i].getDomain().upper; // Assume eta computation as per context (depends on asset)
-            
-            for (unsigned int n = 0; n <= PolynomialBaseDegree; ++n) {
-                f_n(i, n) = compute_f_n(i, n, eta, strike_log, alpha, beta);
-            }
-        }
-
-        std::cout << "Computed f_n matrix: " << f_n << std::endl;
-
-        R sum = 0.0;
-        for (size_t i = 0; i < num_components; ++i) {
-            sum += weights[i] * Qmatrices[i].col(PolynomialBaseDegree).dot(f_n.row(i));
-        }
-        
-
-
-        return sum; // Placeholder for logic.
-    }
-    R compute_I_n(unsigned int n, R nu, R alpha, R mu) const {
-        if (n == 0) {
-            // Base case: I^(α-1)_0
-            return compute_I_alpha_0(mu, nu, alpha);
-        } else if (n == 1) {
-            // Base case: I^(α-1)_1
-            return alpha * compute_I_alpha_0(mu, nu, alpha) + compute_I_alpha_0(mu, nu, alpha + 1);
-        } else {
-            // Recursive definition for n ≥ 2
-            R term1 = (2 + (alpha - 2) / n) * compute_I_n(n - 1, nu, alpha, mu);
-            R term2 = (1 + (alpha - 2) / n) * compute_I_n(n - 2, nu, alpha, mu);
-            R term3 = (1.0 / n) * (compute_I_n(n - 1, nu, alpha + 1, mu) - compute_I_n(n - 2, nu, alpha + 1, mu));
-            return term1 - term2 - term3;
-        }
-    }
-
-    // Computes payoff coefficients f_n using the recursive results from I^(α-1)_n
-    R compute_f_n(unsigned int k, unsigned int n, R eta, R strike_log, R alpha, R beta) const {
-        R mu = std::max(static_cast<R>(0), beta * (strike_log - eta));
-        R coeff1 = std::sqrt(std::tgamma(n + 1) / (std::tgamma(alpha + n))) * 1 / std::tgamma(alpha);
-        R term1 = std::exp(eta) * compute_I_n(n, beta, alpha, mu);
-        R term2 = std::exp(strike_log) * compute_I_n(n, beta, alpha, 0.0);
-        //std::cout << "Computed f_n for k=" << k << ", n=" << n << ": iN=" << compute_I_n(n, 1/beta, alpha, mu) << std::endl;
-        return coeff1 * (term1 + term2);
-    }
-
-private:
-    // Approximation of the upper incomplete gamma function (Γ(α, x))
-    static R gamma_upper(R alpha, R x) {
-        if (x == 0) return std::tgamma(alpha); // Γ(α, 0) = Γ(α)
-        return std::tgamma(alpha) - boost::math::gamma_p<R, R>(alpha, x); // Difference Γ(α) - lower Γ(α, x)
-    }
-
-    // Compute I^(α)_0(μ; ν) as used in the recursive calculation
-    R compute_I_alpha_0(R mu, R nu, R alpha) const {
-
-        std::cout << "Computing I_alpha_0 with mu: " << mu << ", nu: " << nu << ", alpha: " << alpha << std::endl;
-        std::cout << "Gamma upper: " << gamma_upper(alpha, mu * (1 - nu)) << std::endl;
-        std::cout << "Computed I_alpha_0: " <<  std::pow(1 - nu, -alpha)  << std::endl;
-        return std::pow(1 - nu, -alpha) * std::tgamma(alpha) * gamma_upper(alpha, mu * (1 - nu));
-    }
-
-};
-
-} // namespace OPOE
+} // namespace options
 
 #endif // OPTION_PRICER_HPP

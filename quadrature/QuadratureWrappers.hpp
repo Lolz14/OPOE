@@ -4,8 +4,12 @@
  * @brief Provides wrapper classes for different quadrature (numerical integration) backends.
  *
  * This header defines wrapper classes for Boost and GSL quadrature rules, allowing them to be used
- * through a common interface (`IQuadratureRule`). The wrappers manage the underlying rule objects
+ * through a common interface. The wrappers manage the underlying rule objects
  * and provide methods for integration and cloning.
+ * 
+ * Dependencies:
+ * - QuadratureRule.hpp: Base class for quadrature rules.
+ * - QuadratureRuleAbstract.hpp: Abstract interface for quadrature rules.
  *
  */
 #ifndef QUADRATURE_WRAPPERS_HPP

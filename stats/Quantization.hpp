@@ -15,11 +15,12 @@
  *   - Performs online updates of centroids using a learning rate schedule and a winner-takes-all update rule.
  *   - Maintains and updates centroid weights (frequency of selection).
  *   - Tracks and reports distortion estimates during training.
+ * 
  * Dependencies:
- * - Eigen for matrix/vector operations.
  * - OpenMP for parallelization.
- * - Utilities for sampling, argmin, and distortion calculation.
- *
+ * - DensityBase.hpp for density functions.
+ * - Utils.hpp for utility functions (e.g., sampling, distortion calculation).
+ * 
  * Usage:
  * - Instantiate the appropriate `Quantizer` specialization with desired parameters.
  * - Call `run()` to perform quantization.
@@ -196,7 +197,6 @@ public:
             this->hints(0, i) = a_range + (b_range - a_range) * (static_cast<T>(i) + static_cast<T>(0.5)) / static_cast<T>(N_points);
         }
 
-        std::cout << "[Debug] Hints initialized for Newton (Dim=1, N=" << N_points << "):\n";
     }
 
     /**
@@ -233,8 +233,7 @@ public:
             }
         }
         this->quantization.row(0) = x.transpose(); // Store result
-        std::cout << "[Debug] Newton: Final Quantization Grid:\n" << this->quantization.transpose() << std::endl;
-    }
+     }
 
 private:
     Params params_; ///< Newton method parameters.
@@ -371,7 +370,6 @@ public:
 
         // this->hints is Dim_val x N_points
         this->hints = Utils::sampler<T>(gen, dist, Dim_val, N_points);
-        std::cout << "[Debug] Hints initialized for CLVQ (Dim=" << Dim_val << ", N=" << N_points << "):\n";
     }
 
     /**

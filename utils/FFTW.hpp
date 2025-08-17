@@ -4,8 +4,7 @@
  *
  * This header provides functions to compute the forward and inverse Fast Fourier Transform (FFT)
  * using the FFTW library, as well as utilities for pointwise multiplication in the frequency domain
- * and polynomial multiplication via FFT. The implementation leverages Eigen for array operations and
- * supports generic floating-point types for polynomial coefficients.
+ * and polynomial multiplication via FFT.
  *
  * Dependencies:
  * - FFTW3 library for FFT computations.
@@ -24,8 +23,8 @@
  * - pointwiseMultiply: Performs element-wise multiplication of two arrays in the frequency domain.
  * - fftMultiply: Template function to multiply two polynomials using FFT-based convolution.
  */
-#ifndef FFT_POLYNOMIAL_MULTIPLIER_HPP
-#define FFT_POLYNOMIAL_MULTIPLIER_HPP
+#ifndef FFTW_HPP
+#define FFTW_HPP
 
 #include <fftw3.h>
 #include <Eigen/Dense>
@@ -148,5 +147,5 @@ inline Eigen::Array<T, Eigen::Dynamic, 1> fftMultiply(const Eigen::Array<T, Eige
 
 } // namespace Utils
 
-#endif // FFT_POLYNOMIAL_MULTIPLIER_HPP
+#endif // FFTW_HPP
 

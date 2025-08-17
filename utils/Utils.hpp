@@ -10,6 +10,10 @@
  * - A `calculate_overall_distortion` function to compute the average distortion (root mean squared error) between randomly generated samples and their closest centroids.
  *
  * The utilities are designed to work with Eigen types and generic numeric types, and leverage modern C++ features such as variadic templates, `if constexpr`, and concepts.
+ * 
+ * Dependencies:
+ * - Eigen for matrix and vector operations.
+ * - OPOE_traits.hpp for type definitions and concepts.
  */
 
 #ifndef UTILS_HPP
@@ -466,6 +470,21 @@ template<typename T = traits::DataType::PolynomialField>
     return G_tri;
 }
 
+/**
+ * @brief Expands the Orthonormal Basis to include the volatility dimension.
+ * 
+ * This function constructs the Hermite basis matrix H for a polynomial of degree N, expanded to include the volatility dimension.
+ * The Hermite basis is represented as a matrix where each column corresponds to a polynomial basis function evaluated at the specified points.
+ * The resulting matrix is structured to represent the polynomial basis functions in both the x and v dimensions.
+ * 
+ * @param H Representation matrix of the Orthonormal Basis.
+ * @param E Vector of pairs (m, n) representing the polynomial basis indices.
+ * @param N The degree of the polynomial basis.
+ * @param X0 The initial value of the x dimension (e.g., asset price).
+ * @param V0 The initial value of the v dimension (e.g., volatility).
+ * 
+ * @return A StoringMatrix representing the Hermite basis matrix H.
+ */
 template<typename Scalar = traits::DataType::PolynomialField>
 StoringVector build_h_vals(const StoringMatrix& H,               // (N+1)x(N+1) Hermite basis matrix
              const std::vector<std::pair<int,int>>& E,                // vector of (m,n) pairs

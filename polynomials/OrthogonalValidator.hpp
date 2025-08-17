@@ -1,10 +1,11 @@
-
 /**
  * @file OrthogonalValidator.hpp
  * @brief Provides utilities for validating domains and parameters of orthogonal polynomials.
  *
  * This header defines concepts, structures, and classes to facilitate the validation of
  * parameters and domains for various families of orthogonal polynomials (e.g., Jacobi, Laguerre, Hermite, Gegenbauer).
+ * 
+ * 
  * It includes:
  *   - Function type alias for recurrence coefficients.
  *   - DomainInterval for interval validation (with floating-point support).
@@ -13,8 +14,8 @@
  *   - PolynomialDomainValidator class template for parameter validation and access.
  *
  */
-#ifndef ORTHOGONAL_VALIDATOR_H
-#define ORTHOGONAL_VALIDATOR_H
+#ifndef ORTHOGONAL_VALIDATOR_HPP
+#define ORTHOGONAL_VALIDATOR_HPP
 #include <stdexcept>
 #include <limits>
 #include <type_traits>
@@ -262,4 +263,4 @@ private:
 
 }
 
-#endif // ORTHOGONAL_VALIDATOR_H
+#endif // ORTHOGONAL_VALIDATOR_HPP

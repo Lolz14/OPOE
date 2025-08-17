@@ -3,9 +3,10 @@
  * @brief Defines the abstract interface for numerical quadrature rules.
  *
  * This file declares the IQuadratureRule interface, which provides a common
- * abstraction for implementing numerical integration (quadrature) rules.
+ * abstraction for implementing numerical integration rules.
  * The interface supports integration of single-variable functions over a
  * specified interval and enables polymorphic copying of rule objects.
+ * 
  *
  */
 #ifndef I_QUADRATURE_RULE_HPP

@@ -3,6 +3,9 @@
  * @file MixtureDensity.hpp
  * @brief Defines the MixtureDensity class template for representing and manipulating mixtures of probability density functions (PDFs) with orthogonal polynomial bases.
  *
+ * Dependencies:
+ * - DensityBase.hpp: Base class for probability density functions.
+ * - OrthogonalPolynomials.hpp: For polynomial operations and orthogonal polynomial bases.
  * @details
  * This header provides a flexible framework for constructing mixtures of various probability distributions (e.g., Normal, Gamma, Beta) and associating each component with its corresponding orthogonal polynomial basis (e.g., Hermite, Laguerre, Jacobi).
  * The MixtureDensity class supports:
@@ -38,14 +41,14 @@
 
 #include <vector>
 #include <variant>
-#include <numeric>      // For std::accumulate
+#include <numeric>      
 #include <stdexcept>
 #include <limits>
 #include <iostream>
-#include <typeinfo>     // For typeid
-#include <tuple>        // For std::apply
-#include <utility>      // For std::move
-#include <functional>  // For std::function
+#include <typeinfo>     
+#include <tuple>        
+#include <utility>      
+#include <functional>  
 #include "DensityBase.hpp" 
 #include "../polynomials/OrthogonalPolynomials.hpp"
 
@@ -155,7 +158,7 @@ struct DensityToPolyTraits<GammaDensity, N, R> {
     static PolyType create(const GammaDensity& density_component) {
 
         return PolyType(density_component.getShape() - 1, 
-                        density_component.getScale()); // Adjust if your constructor differs
+                        density_component.getScale()); 
     }
 };
 
@@ -234,7 +237,6 @@ public:
         for (const auto& component : components_) {
     
             // 1. Create the polynomial traits for the current component
-            // Note: DensityToPolyTraits is a template that maps the DensityType to the appropriate polynomial type
             using PolyTraits = DensityToPolyTraits<DensityType, PolynomialBaseDegree, R>;
 
             auto curr_comp_poly = PolyTraits::create(component); 
@@ -246,7 +248,6 @@ public:
             curr_vec.reserve(PolynomialBaseDegree + 1);
 
             for (unsigned int idx = 0; idx <= PolynomialBaseDegree; ++idx) {
-                // This line requires the full definition of std::function<R> (or std::function<double>)
                 auto temp_poly = Polynomial<PolynomialBaseDegree, R>(curr_comp_poly.getHMatrix().col(idx));
 
                 curr_vec.push_back(temp_poly.as_function());
@@ -397,11 +398,7 @@ public:
                  ratio = std::max(R(0.0), ratio); // Clamp near-zero negative due to precision
                  b[i - 1] = std::sqrt(ratio); // Store b[i-1]
                  b_im1_sq = ratio;            // Use the ratio (b[i-1]^2) for the update step
-            } else {
-                 // b[-1] is not defined / needed. b[0] might be computed if i=0 loop calculates csi[1].
-                 // Assuming b[0] = sqrt(csi[1]/csi[0]) would be calculated in the *next* (i=1) iteration.
-                 // The update formula needs b_{i-1}^2, so for i=0, this term is zero.
-            }
+            } 
 
             // --- Parallel Update of z vectors ---
             // Calculate z_{next} = (J - a[i] * I) * z_curr - b[i-1]^2 * z_prev

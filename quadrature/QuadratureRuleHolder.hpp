@@ -1,4 +1,3 @@
-
 /**
  * @file QuadratureRuleHolder.hpp
  * @brief Defines the QuadratureRuleHolder class, a type-erased holder for various quadrature rule implementations.
@@ -7,7 +6,10 @@
  * for different quadrature rule implementations (e.g., Boost Tanh-Sinh, GSL QAGI). The holder enables
  * selection and usage of a quadrature rule via a common interface, supporting both default and parameterized
  * construction. Deep copy and move semantics are implemented, and integration is performed via a uniform method.
- *
+ * 
+ * Dependencies:
+ * - QuadratureWrappers.hpp: Contains concrete wrapper implementations for specific quadrature rules.
+ * - traits/OPOE_traits.hpp: Defines the QuadratureMethod enum and other type traits.
  */
 #ifndef QUADRATURE_RULE_HOLDER_HPP
 #define QUADRATURE_RULE_HOLDER_HPP

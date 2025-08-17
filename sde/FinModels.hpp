@@ -1,64 +1,44 @@
-
-/*
-Consider Polynomial Diffusion: dZ(t) = b(Z(t)) dt + sigma(Z(t)) dW_t
-where b is a vector and sigma is a matrix (Pol_n(E))
-Generator is given by:
-b^T*∇ + 1/2 Tr(σ^T σ ∇^2)
-where ∇ is the gradient operator and Tr is the trace operator.
-
-If the polynomial property holds, then the generator can be expressed as Q(z)Gp, with G being the matrix reperesentation, and Q is a basis of E.alignas
-
-Moments are then given by:
-Q(Z(t))^T*(exp(G(T - t)))*p = E[p(Z(T)) | F(t)]
-where F(t) is the filtration up to time t.
-
-ln = Q(Z0)^T*(exp(G(T - 0)))*Hn
-
-dY(t) = k* (θ - Y(t))*dt + σ (Y(t)) * dW1_t
-dX(t) = (r - delta)*dt  - 1/2*d[X(t)] + Sigma_1(Y(t)) * dW1_t + Sigma_2(Y(t)) * dW2_t
-
-where:
-
-where W1 and W2 are Brownian motions, and σ(Y(t)) is the volatility function dependent on the state variable Y(t).
-where k is the speed of mean reversion, θ is the long-term mean, and σ is the volatility.
-
-
-
-
-
-The Greeks of the option are computed by differentiating the option price with respect to one or multiple
-variables. For the sensitivity analysis we fix the auxiliary density w(x), hence the basis Hn(x) and the
-coefficients fn, and let only `(x) through g(x) depend on the perturbed parameters. The sensitivity of πf
-with respect to the variable y is hence given by
-∂y πf = ∑ (n≥0)(ln ∂y fn + fn ∂y ln) (22)
-with the partial derivative ∂y = ∂/∂y. The sensitivity of ln with respect to y is given by
-∂y ln = (0, ∂yQ(Z0))*exp(GT)*Hn + (1, Q(Z0))*∂yexp(GT)*Hn.
-The derivative of the exponentcial operator eG T with respect to y is given by
-∂ exp(GT)/∂y = [exp(xGT) ∂GT/∂y exp((1−x)GT)dx] as proved in (Wilcox 1967).
-In particular for the Delta, which is the derivative of option price with respect to y = exp(X0), we have
-that ∂y eG T = 0. In practice, we can efficiently approximate the option greeks by truncation the series (22)
-at some finite order N . This may also prove to be valuable for the model calibration or estimation since the
-objective function derivatives with respect to the model parameters can be computed which enables the use
-of gradient based search algorithms.
-
-
-
-
-
-
-Implementation Roadmap:
-// 1. BaseStochVolModel: Base class for stochastic volatility models. (implementation of spotvariance, leverage, volvol, sigma1, sigma2,
-sigma). Distribution of XT (logprice) follows a normal distribution with MT = Xo + (r - delta)T + 1/2[spotvariance(Yt)dt] +[sigma1(Yt) * dW1_t] 
-CT = [sigma2(Yt)^2*dt]
-
-Density is then defined automatically. If we want approximate the log price density with a mixture density, then it's enough to consider a
-density w which is a weighted sum of densities, with weights c 
-// 2. Check if prop 3.2 is applicable (MT is bounded and CT is bounded -> likelihood ratio lies in Lebesgue^2 weighted space, with weight w)
-
-*/
-
-#ifndef SDE_FINMODELS_HPP
-#define SDE_FINMODELS_HPP
+/**
+ * @file FinModels.hpp
+ * @brief Stochastic Differential Equation (SDE) models for financial applications.
+ *
+ * This header defines a set of classes and interfaces for modeling various stochastic processes
+ * commonly used in mathematical finance, such as Geometric Brownian Motion, Heston, Stein-Stein,
+ * Hull-White, and Jacobi models. These models are implemented as SDEs and provide interfaces for
+ * drift, diffusion, and their derivatives, as well as characteristic functions and generator matrices.
+ *
+ * Main Components:
+ * - ISDEModel: Abstract base class for SDE models, defining the interface for drift, diffusion,
+ *   their derivatives, characteristic functions, and initial state management.
+ * - GeometricBrownianMotionSDE: Implements the classic GBM model for asset prices.
+ * - GenericSVModelSDE: Generic stochastic volatility model supporting flexible exponents for volatility.
+ * - HestonModelSDE: Specialization of GenericSVModelSDE for the Heston model (square-root volatility).
+ * - SteinSteinModelSDE: Specialization for the Stein-Stein model (OU volatility).
+ * - HullWhiteModelSDE: Specialization for the Hull-White model (linear volatility).
+ * - JacobiModelSDE: Specialization for the Jacobi model, with bounded variance process.
+ *
+ * Features:
+ * - Support for both real and complex-valued state vectors and matrices.
+ * - Calculation of drift, diffusion, and their derivatives for use in numerical schemes.
+ * - Characteristic function computation for Fourier-based pricing methods.
+ * - Construction of generator matrices for polynomial expansion methods.
+ * - Parameter validation and error handling for model consistency.
+ *
+ * Template Parameter:
+ * - T: Numeric type (default: traits::DataType::PolynomialField), allowing for flexibility in precision.
+ *
+ * Usage:
+ * - Instantiate a model class with appropriate parameters and initial state.
+ * - Use the drift and diffusion methods for simulation or numerical solution of SDEs.
+ * - Use the characteristic function for pricing or calibration tasks.
+ * - Use generator_G for polynomial expansion or spectral methods.
+ *
+ * Dependencies:
+ * - SDE.hpp: Base definitions for SDE vectors and matrices.
+ *
+ */
+#ifndef FINMODELS_HPP
+#define FINMODELS_HPP
 
 #include "SDE.hpp"
 #include <stdexcept>    // For std::invalid_argument, std::runtime_error
@@ -79,41 +59,99 @@ static constexpr long key(int m, int n) noexcept {
         return (static_cast<long>(m) << 32) | static_cast<unsigned int>(n);
     }
 
+/**
+ * @brief Base interface for all SDE models.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ */
 template<typename T = traits::DataType::PolynomialField>
 class ISDEModel {
 
 public:
-
-        virtual ~ISDEModel() = default; // Important for proper cleanup
+        /**
+         * @brief Virtual destructor for proper cleanup in derived classes.
+         */
+        virtual ~ISDEModel() = default; 
         
+        /**
+         * @brief Clones the SDE model.
+         * @return A shared pointer to a new instance of the SDE model.
+         *
+         * This method allows for polymorphic copying of the model, ensuring that derived classes can be copied correctly.
+         */
         virtual std::shared_ptr<ISDEModel<T>> clone() const = 0;
         
-        // Pure virtual functions defining the SDE
+        /**
+         * @brief Computes the drift term of the SDE.
+         * @param t Current time.
+         * @param x Current state vector.
+         * @param mu_out Output vector for the drift term.
+         */
         virtual void drift(T t, const SDEVector& x, SDEVector& mu_out) const = 0;
         
+
+        /**
+         * @brief Computes the diffusion term of the SDE.
+         * @param t Current time.
+         * @param x Current state vector.
+         * @param sigma_out Output matrix for the diffusion term.
+         *
+         * The diffusion term is typically a matrix that scales the Wiener increments.
+         */
         virtual void diffusion(T t, const SDEVector& x, SDEMatrix& sigma_out) const = 0;
 
         // Essential for some numerical schemes (e.g., Milstein)
         // These could be optional or provide default (e.g., zero) implementations if not always needed
         // Or, better, have specialized interfaces for models that support these
 
+        /**
+         * @brief Computes the derivative of the drift term with respect to the state vector.
+         * @param t Current time.
+         * @param x Current state vector.
+         * @param deriv_out Output vector for the drift derivative.
+         *
+         * This method is used in higher-order numerical schemes that require knowledge of how the drift changes with respect to the state.
+         */
         virtual void drift_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEVector& /*deriv_out*/) const {
             // Default implementation: numerical differentiation or throw not_implemented
             throw std::logic_error("Drift derivative not implemented for this model.");
         }
 
+        /**
+         * @brief Computes the derivative of the diffusion term with respect to the state vector.
+         * @param t Current time.
+         * @param x Current state vector.
+         * @param deriv_out Output matrix for the diffusion derivative.
+         *
+         * This method is used in higher-order numerical schemes that require knowledge of how the diffusion changes with respect to the state.
+         */
         virtual void diffusion_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEMatrix& /*deriv_out*/) const {
 
             throw std::logic_error("Diffusion derivative not implemented for this model.");
 
         }
 
+        /**
+         * @brief Computes the second derivative of the diffusion term with respect to the state vector.
+         * @param t Current time.
+         * @param x Current state vector.
+         * @param deriv_out Output matrix for the second diffusion derivative.
+         *
+         * This method is used in advanced numerical schemes that require knowledge of how the diffusion changes with respect to the state.
+         */
         virtual void diffusion_second_derivative_x(T /*t*/, const SDEVector& /*x*/, SDEMatrix& /*deriv_out*/) const {
 
             throw std::logic_error("Diffusion derivative not implemented for this model.");
 
         }
 
+        /**
+         * @brief Computes the characteristic function of the SDE.
+         * @param t Time parameter for the characteristic function.
+         * @param x Input vector for the characteristic function.
+         * @param charact_out Output vector for the characteristic function.
+         *
+         * The characteristic function is used in Fourier-based method.
+         */
         virtual void characteristic_fn(T /*t*/,  const SDEComplexVector& /*x*/, SDEComplexVector& /*charact_out*/) const {
 
             // Default implementation: throw not_implemented
@@ -121,6 +159,12 @@ public:
 
         }
 
+        /**
+         * @brief Gets the initial state vector of the SDE.
+         * @return The initial state vector.
+         *
+         * This method provides access to the initial state, which can be used in characteristic functions or other calculations.
+         */
         virtual T get_x0() const {
 
             // Default implementation: throw not_implemented
@@ -128,6 +172,12 @@ public:
 
         }
 
+        /**
+         * @brief Sets the initial state vector of the SDE.
+         * @param x0 The new initial state vector.
+         *
+         * This method allows setting the initial state, which can be useful for simulations or recalibrations.
+         */
         virtual void set_x0(const T& /*x0*/) {
 
             // Default implementation: throw not_implemented
@@ -135,6 +185,12 @@ public:
 
         }
 
+        /**
+         * @brief Gets the initial volatility (v0) of the SDE.
+         * @return The initial volatility.
+         *
+         * This method provides access to the initial volatility, which can be used in characteristic functions or other calculations.
+         */
         virtual T get_v0() const {
 
             // Default implementation: throw not_implemented
@@ -142,6 +198,13 @@ public:
 
         }
 
+
+        /**
+         * @brief Sets the initial volatility (v0) of the SDE.
+         * @param v0 The new initial volatility.
+         *
+         * This method allows setting the initial volatility, which can be useful for simulations or recalibrations.
+         */
         virtual void set_v0(const T& /*v0*/) {
 
             // Default implementation: throw not_implemented
@@ -149,25 +212,44 @@ public:
 
         }
 
+        /**
+         * @brief Gets the Wiener dimension of the SDE.
+         * @return The Wiener dimension.
+         *
+         * This method provides the number of independent Wiener processes driving the SDE.
+         */
         virtual unsigned int get_wiener_dimension() const = 0;
 
+        /**
+         * @brief Gets the state dimension of the SDE.
+         * @return The state dimension.
+         *
+         * This method provides the number of state variables in the SDE model.
+         */
         virtual unsigned int get_state_dim() const = 0;
 
         SDEVector m_x0; // Initial state vector, can be used in characteristic functions or other calculations
 
 };
 
+/**
+ * @brief Geometric Brownian Motion SDE model.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ *
+ * This model represents the classic Geometric Brownian Motion, commonly used for modeling stock prices.
+ * It includes methods for drift, diffusion, and characteristic function calculations.
+ */
 template<typename T = traits::DataType::PolynomialField>
 class GeometricBrownianMotionSDE : public ISDEModel<T> {
 
 public:
 
     static constexpr unsigned int WIENER_DIM = 1;
-    static constexpr unsigned int STATE_DIM = 1; // Single state variable (e.g., asset price S)
+    static constexpr unsigned int STATE_DIM = 1; 
 
 
     struct Parameters {
-        T mu; // X is log-price ln(S), mu is (r + 0.5*sigma^2)
+        T mu; // X is log-price ln(S), mu is (r - 0.5*sigma^2)
         T sigma; // Volatility
     };
 
@@ -176,7 +258,14 @@ private:
     Parameters params_;
 
 public:
-
+    
+    /**
+     * @brief Geometric Brownian Motion SDE constructor.
+     * @param mu Drift parameter (expected return rate).
+     * @param sigma Volatility parameter (standard deviation of returns).
+     * @param x0 Initial state (log-price).
+     * @throws std::invalid_argument if sigma is negative.
+     */
     GeometricBrownianMotionSDE(T mu, T sigma, T x0) : params_(Parameters{mu, sigma}) {
         this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
 
@@ -185,7 +274,7 @@ public:
         }
 
     }
-    
+
     std::shared_ptr<ISDEModel<T>> clone() const override {
         return std::make_shared<GeometricBrownianMotionSDE<T>>(*this);
     }
@@ -259,22 +348,27 @@ public:
 
 };
 
-// As defined in Fast strong approximation Monte-Carlo schemes for stochastic volatility models
-// The model is the following:
-// dS(t) = mu*S(t)*dt + V(t)^p * S(t) * dW(t)
-// dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ(t)
-// We employ Cholesky decomposition to handle the correlation between the two Wiener processes:
-// dW = rho * dZ_uncorr + sqrt(1 - rho^2) * dW_uncorr
-// dZ = dZ_uncorr
-// So that, we get the following system of SDEs:
-// dS(t) = mu*S(t)*dt + V(t)^p * S(t) * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr)
-// dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ_uncorr
-// where dZ_uncorr and dW_uncorr are two independent Wiener motions.
-// Applying the Ito's lemma, we can derive the drift and diffusion terms for the SDEs.
-// dX(t) (mu - V(t)^2p/2) * dt + V(t)^p * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr
-// dY(t) = kappa * (theta - Y(t)) * dt + sigma * Y(t)^q * dZ_uncorr
 
-
+/**
+ * @brief Generic Stochastic Volatility SDE model.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ * This model supports flexible exponents for volatility and allows for correlation between the asset and volatility processes.
+ *
+ * As defined in Fast strong approximation Monte-Carlo schemes for stochastic volatility models
+ * The model is the following:
+ * dS(t) = mu*S(t)*dt + V(t)^p * S(t) * dW(t)
+ * dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ(t)
+ * We employ Cholesky decomposition to handle the correlation between the two Wiener processes:
+ * dW = rho * dZ_uncorr + sqrt(1 - rho^2) * dW_uncorr
+ * dZ = dZ_uncorr
+ * So that, we get the following system of SDEs:
+ * dS(t) = mu*S(t)*dt + V(t)^p * S(t) * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr)
+ * dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ_uncorr
+ * where dZ_uncorr and dW_uncorr are two independent Wiener motions.
+ * Applying the Ito's lemma, we can derive the drift and diffusion terms for the SDEs.
+ * dX(t) (mu - V(t)^2p/2) * dt + V(t)^p * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr
+ * dY(t) = kappa * (theta - Y(t)) * dt + sigma * Y(t)^q * dZ_uncorr
+*/
 template<typename T = traits::DataType::PolynomialField>
 class GenericSVModelSDE : public ISDEModel<T> {
         using Base = ISDEModel<T>;
@@ -285,13 +379,13 @@ public:
     static constexpr unsigned int STATE_DIM = 2; // Two state variables (log-price and variance)
 
     struct Parameters {
-        T asset_drift_const; // e.g., r if x(0) is log-price
-        T sv_kappa;          // mean-reversion speed for x(1)
-        T sv_theta;          // long-term mean for x(1)
-        T sv_sigma;          // volatility of x(1)
+        T asset_drift_const; // e.g., r if x(1) is log-price
+        T sv_kappa;          // mean-reversion speed for x(0)
+        T sv_theta;          // long-term mean for x(0)
+        T sv_sigma;          // volatility of x(0)
         T correlation;       // rho
-        T asset_vol_exponent; // p in your code: asset vol ~ x(1)^p
-        T sv_vol_exponent;    // q in your code: sv vol ~ x(1)^q
+        T asset_vol_exponent; // asset vol ~ x(0)^p
+        T sv_vol_exponent;    //  sv vol ~ x(0)^q
     };
 
 protected:
@@ -310,8 +404,7 @@ public:
              throw std::invalid_argument("Long-term variance theta must be positive.");
         }
 
-        if (params_.sv_kappa < 0.0) { // kappa typically positive
-            // Consider if allowing kappa=0 (CIR becomes degenerate) is desired.
+        if (params_.sv_kappa < 0.0) { 
             // Usually kappa > 0 for mean reversion.
             std::cerr << "Warning: Mean-reversion kappa is negative or zero.\n";
 
@@ -321,13 +414,13 @@ public:
             throw std::invalid_argument("Correlation rho must be between -1 and 1.");
         }
 
-        if (params_.sv_sigma <= 0.0 && params_.sv_vol_exponent > 0) { // only if sv_sigma matters
+        if (params_.sv_sigma <= 0.0 && params_.sv_vol_exponent > 0) { 
              throw std::invalid_argument("Volatility of stochastic factor (sv_sigma) must be positive if it has an impact.");
         }
 
-         // Feller-like condition might depend on 'q' if x(1) is variance.
+         // Feller condition check
 
-        if (params_.sv_vol_exponent == 0.5 && params_.sv_kappa > 0 && params_.sv_theta > 0) { // Heston-like variance (x(1)=v)
+        if (params_.sv_vol_exponent == 0.5 && params_.sv_kappa > 0 && params_.sv_theta > 0) { 
             if (2.0 * params_.sv_kappa * params_.sv_theta < params_.sv_sigma * params_.sv_sigma) {
                 std::cerr << "Warning: Feller condition (2*kappa*theta >= sigma_v^2) may not be satisfied; x(0) might become negative if it represents variance.\n";
             }
@@ -346,12 +439,10 @@ public:
 
         if (params_.asset_vol_exponent == static_cast<T>(0.5)) {
 
-            // (x(1)^0.5)^2 = x(1)
             asset_vol_term_squared = x(0);
 
         } else if (params_.asset_vol_exponent == static_cast<T>(1.0)) {
 
-            // (x(1)^1.0)^2 = x(1)^2
             asset_vol_term_squared = x(0) * x(0);
 
         } else {
@@ -440,6 +531,21 @@ public:
         //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * (params_.asset_vol_exponent - 1.0) * std::pow(x(0), params_.asset_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ_unc
     }
 
+    /**
+     * @brief Struct to hold polynomial coefficients for the stochastic volatility model.
+     * This struct contains the coefficients for the polynomial representation of the drift and diffusion terms.
+     * It is used to build the generator matrix for polynomial expansion methods.
+     *
+     * The coefficients are stored as vectors, where each vector corresponds to a polynomial term:
+     * - bx: Coefficients for b_x(v)
+     * - axx: Coefficients for a_xx(v)
+     * - bv: Coefficients for b_v(v)
+     * - axv: Coefficients for a_xv(v)
+     * - avv: Coefficients for a_vv(v)
+     *
+     * The coefficients are indexed by the polynomial degree, allowing for efficient polynomial evaluation.
+     * This struct is essential for constructing the generator matrix and performing polynomial expansions in the SDE model.
+     */
     struct SVPolyCoeffs {
         SDEVector bx;   // b_x(v)
         SDEVector axx;  // a_xx(v)
@@ -448,6 +554,13 @@ public:
         SDEVector avv;  // a_vv(v)
     };
 
+
+    /**
+     * @brief Builds the polynomial coefficients for the stochastic volatility model.
+     * @param p Parameters of the stochastic volatility model.
+     * @param N Number of polynomial coefficients to compute.
+     * @return SVPolyCoeffs containing the polynomial coefficients for the drift and diffusion terms.
+     */
     virtual SVPolyCoeffs build_sv_polynomials(
         const typename GenericSVModelSDE<T>::Parameters& p, 
         int N
@@ -497,6 +610,19 @@ public:
     }
 
 
+
+    /**
+     * @brief Constructs the generator matrix G for the stochastic volatility model.
+     * @param E Vector of pairs representing the indices of the basis functions.
+     * @param N Number of basis functions.
+     * @param sigma Volatility parameter.
+     * @return The generator matrix G as an SDEMatrix.
+     *
+     * This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model.
+     * The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E.
+     * The resulting matrix G is used in polynomial expansion methods for solving the SDE. This version of the method uses an approximation when it comes to mixture models, since
+     * the sigma parameter provided is approximated through moment matching and is not the actual volatility of the process.
+     */
     virtual SDEMatrix generator_G(std::vector<std::pair<int,int>> E, int N, T sigma) const {
 
         const int M = static_cast<int>(E.size());
@@ -570,6 +696,17 @@ public:
 
     }; 
 
+    /**
+     * @brief Constructs the generator matrix G for the stochastic volatility model.
+     * @param E Vector of pairs representing the indices of the basis functions.
+     * @param H The SDEMatrix representing the current state of the model.
+     * @return The generator matrix G as an SDEMatrix.
+     * 
+     * This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model.
+     * The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E.
+     * The resulting matrix G is used in polynomial expansion methods for solving the SDE.
+     * This version of the method uses Kronecker products to build the generator matrix G based on the provided basis H, which can be also a mixture.
+     */
     SDEMatrix generator_G(std::vector<std::pair<int,int>> E, const SDEMatrix& H){
 
         auto const N = static_cast<int>(H.rows());
@@ -603,6 +740,11 @@ public:
         this->m_x0(0) = v0; // Set the initial variance (x(1))
     }
 
+    /**
+     * @brief Getters for model parameters.
+     * These methods provide access to the model parameters used in the SDE.
+     * They are useful for retrieving specific parameters without exposing the entire Parameters struct.
+     */
     inline T get_p() const noexcept {
         return params_.asset_vol_exponent; // p in the model
     }
@@ -627,6 +769,19 @@ public:
         return params_.sv_sigma; // Volatility of the variance process
     }
 
+    /**
+     * @brief Computes the Mean of the SDE at time T by employing an IJK scheme combined with weighted Monte Carlo integration.
+     * @param ttm Time to maturity.
+     * @param dt Time step size.
+     * @param y_t Current state of the SDE (matrix form).
+     * @param w_t Wiener increments (matrix form).
+     * @return The mean of the SDE at time T as an SDEVector.
+     *  
+     * This method computes the mean of the SDE at time T using a combination of trapezoidal rule for integration and stochastic integral for the Wiener increments.
+     * It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters.
+     * The method assumes that y_t and w_t are matrices with compatible dimensions.
+     * 
+     */
     inline SDEVector M_T(T ttm, T dt, const SDEMatrix& y_t, const SDEMatrix& w_t) {
         const auto n = y_t.cols();
         const auto k = y_t.rows();
@@ -664,6 +819,16 @@ public:
         return result;
     };
 
+    /**
+     * @brief Computes the C_T term for the SDE at time T.
+     * @param ttm Time to maturity.
+     * @param dt Time step size.
+     * @param y_t Current state of the SDE (matrix form).
+     * @return The C_T term as an SDEVector.
+     * This method computes the C_T term for the SDE at time T using the trapezoidal rule.
+     * It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters.
+     * The method assumes that y_t is a matrix with compatible dimensions.
+     */
     inline SDEVector C_T([[maybe_unused]] T ttm, T dt, const SDEMatrix& y_t) {
         const auto n = y_t.cols();
         const auto k = y_t.rows();
@@ -688,6 +853,10 @@ public:
 
 };
 
+/**
+ * @brief Heston Model SDE implementation.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ */
 template<typename T = traits::DataType::PolynomialField>
 class HestonModelSDE : public GenericSVModelSDE<T> {
 public:
@@ -775,11 +944,14 @@ public:
 
     }
 
-
-
-
 };
 
+
+/**
+ * @brief Stein-Stein Model SDE implementation.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ * This model is a specific case of the GenericSVModelSDE with p=1 and q=0.
+ */
 template<typename T = traits::DataType::PolynomialField>
 class SteinSteinModelSDE : public GenericSVModelSDE<T> {
 public:
@@ -809,6 +981,12 @@ public:
 
 };
 
+/**
+ * @brief Hull-White Model SDE implementation.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ * This model is a specific case of the GenericSVModelSDE with p=1 and q=1.
+ * It is commonly used in interest rate modeling.
+ */
 template<typename T = traits::DataType::PolynomialField>
 class HullWhiteModelSDE : public GenericSVModelSDE<T> {
 public:
@@ -837,6 +1015,12 @@ public:
 
 };
 
+/**
+ * @brief Jacobi Model SDE implementation.
+ * @tparam T Numeric type for computations (default: traits::DataType::PolynomialField).
+ * This model is a specific case of the GenericSVModelSDE with p=1 and q=0.
+ * It is used for modeling processes with bounded variance, such as in the Jacobi process.
+ */
 template<typename T = traits::DataType::PolynomialField>
 class JacobiModelSDE : public GenericSVModelSDE<T> {
 
@@ -855,7 +1039,19 @@ private:
     T y_max_;
     T q_denominator_sq_; // (sqrt(y_max) - sqrt(y_min))^2
 
-    // Helper for Q(y)
+    /**
+     * @brief Computes the Q function for the Jacobi model.
+     * @param y The input value for which to compute Q(y).
+     * @return The computed value of Q(y).
+     * 
+     * This function computes the Q function for the Jacobi model, which is used to transform the variance process.
+     * It ensures that the input value y is within the bounds defined by y_min and y_max, and handles cases where the denominator might be zero.
+     * The Q function is defined as:
+     * Q(y) = (y - y_min) * (y_max - y) / (sqrt(y_max) - sqrt(y_min))^2
+     * 
+     * If the denominator is zero (which can happen if y_max is very close to y_min), it returns 0.0 to avoid division by zero.
+     * The function also clamps the input value y to ensure it stays within the bounds [y_min, y_max].
+     */
     inline T Q_func(const T y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; // Avoid division by zero if y_max approx y_min
@@ -868,7 +1064,28 @@ private:
 
     }
 
-    
+    /**
+     * @brief Computes the Q function for a matrix of values.
+     * @param y The input matrix for which to compute Q(y).
+     * @return An Eigen::Array containing the computed values of Q(y) for each element in the input matrix.
+     * 
+     * This function computes the Q function for each element in the input matrix y, which is expected to be an Eigen::MatrixBase type.
+     * It ensures that the input values are clamped within the bounds defined by y_min and y_max, and handles cases where the denominator might be zero.
+     * The Q function is defined as:
+     * Q(y) = (y - y_min) * (y_max - y) / (sqrt(y_max) - sqrt(y_min))^2
+     * 
+     * If the denominator is zero (which can happen if y_max is very close to y_min), it returns an array of zeros with the same shape as the input matrix.
+     * The function uses Eigen's array operations for efficient computation and broadcasting.
+     * 
+     * @tparam Derived The type of the Eigen matrix (must be derived from Eigen::MatrixBase).
+     * @return An Eigen::Array containing the computed values of Q(y) for each element in the input matrix.
+     * 
+     * This function is useful for vectorized operations where the Q function needs to be applied to multiple values simultaneously.
+     * It leverages Eigen's capabilities for efficient computation and broadcasting, making it suitable for large datasets.
+     * 
+     * @note The function assumes that the input matrix y is compatible with the defined bounds [y_min, y_max].
+     * If the input values exceed these bounds, they will be clamped to ensure valid computations.
+     */
     template<typename Derived>
     Eigen::Array<typename Derived::Scalar,
                 Derived::RowsAtCompileTime,
@@ -890,6 +1107,20 @@ private:
         return ((y_clamped - R(y_min_)) * (R(y_max_) - y_clamped) / R(q_denominator_sq_)).eval();
     }
 
+    /**
+     * @brief Computes the first and second derivatives of the Q function with respect to y.
+     * @param y The input value for which to compute the derivatives.
+     * @return The computed first derivative of Q(y) with respect to y.
+     * 
+     * This function computes the first derivative of the Q function for the Jacobi model, which is used to transform the variance process.
+     * It ensures that the input value y is within the bounds defined by y_min and y_max, and handles cases where the denominator might be zero.
+     * The first derivative is defined as:
+     * Q'(y) = (y_max - 2y + y_min) / (sqrt(y_max) - sqrt(y_min))^2
+     * 
+     * If the denominator is zero (which can happen if y_max is very close to y_min), it returns 0.0 to avoid division by zero.
+     * The function also clamps the input value y to ensure it stays within the bounds [y_min, y_max]. 
+     */
+    
     inline T Q_func_der1(const T y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; 
@@ -901,6 +1132,20 @@ private:
 
     }
 
+
+    /**
+     * @brief Computes the second derivative of the Q function with respect to y.
+     * @param y The input value for which to compute the second derivative.
+     * @return The computed second derivative of Q(y) with respect to y.
+     * 
+     * This function computes the second derivative of the Q function for the Jacobi model, which is used to transform the variance process.
+     * It ensures that the input value y is within the bounds defined by y_min and y_max, and handles cases where the denominator might be zero.
+     * The second derivative is defined as:
+     * Q''(y) = -2 / (sqrt(y_max) - sqrt(y_min))^2
+     * 
+     * If the denominator is zero (which can happen if y_max is very close to y_min), it returns 0.0 to avoid division by zero.
+     * The function also clamps the input value y to ensure it stays within the bounds [y_min, y_max].
+     */
     inline T Q_func_der2(const T  y) const {
 
         if (q_denominator_sq_ <= 0) return 0.0; 
@@ -962,7 +1207,6 @@ public:
 
     }
 
-    // State x: x(0) = X_t (log-price), x(1) = Y_t (variance process)
 
     inline void drift([[maybe_unused]] T t, const SDEVector& x_state, SDEVector& mu_out) const override {
 
@@ -1212,4 +1456,4 @@ public:
 
 }
 
-#endif // SDE_FINMODELS_HPP
+#endif // FINMODELS_HPP

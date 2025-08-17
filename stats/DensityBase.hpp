@@ -6,6 +6,10 @@
  * This header defines a flexible template class `BoostBaseDensity` that wraps Boost.Math distributions,
  * providing a unified interface for PDF, CDF, quantile, and parameter access, as well as domain support.
  * It uses SFINAE to enable property accessors only for distributions that support them.
+ * 
+ * Dependencies:
+ * - Boost.Math for distribution implementations.
+ * - traits/OPOE_traits.hpp for type definitions and concepts.
  *
  * Main Components:
  * - SFINAE detection helpers: Traits to detect if a Boost distribution supports mean, stddev, shape, scale, alpha, beta.
@@ -24,21 +28,23 @@
  * double mu = norm.getMu();
  * @endcode
  */
+
+#ifndef DENSITY_BASE_HPP
+#define DENSITY_BASE_HPP
 #include <stdexcept>
-#include <type_traits> // For type checking, SFINAE
-#include <limits>      // For numeric_limits
-#include <utility>     // For forward, declval, move
-#include <tuple>       // For storing parameters
-#include <vector>      // Required for some includes, though Mixture not used here
-#include <variant>     // Required for some includes, though Mixture not used here
-#include <numeric>     // Required for some includes
-#include <iostream>    // For potential debug/warnings
-#include <typeinfo>    // For typeid name
+#include <type_traits> 
+#include <limits>      
+#include <utility>     
+#include <tuple>      
+#include <vector>      
+#include <numeric>     
+#include <iostream>    
+#include <typeinfo>   
 #include <boost/math/distributions/normal.hpp>
 #include <boost/math/distributions/gamma.hpp>
 #include <boost/math/distributions/beta.hpp>
-#include <boost/math/distributions/complement.hpp> // For support
-#include <boost/math/policies/policy.hpp>         // For infinity handling in support
+#include <boost/math/distributions/complement.hpp> 
+#include <boost/math/policies/policy.hpp>         
 #include "../traits/OPOE_traits.hpp"
 
 // --- SFINAE detection helpers (Using generic Boost functions) ---
@@ -388,3 +394,4 @@ auto make_beta_density(Args&&... args) {
 } // namespace stats
 
 
+#endif // DENSITY_BASE_HPP

@@ -1,4 +1,3 @@
-
 /**
  * @file OrthogonalPolynomials.hpp
  * @brief Defines a generic CRTP-based framework for orthogonal polynomials and their specializations.
@@ -8,6 +7,11 @@
  * It also provides concrete implementations for several classical orthogonal polynomial families:
  * Legendre, Hermite, Chebyshev, Laguerre, Jacobi, and Gegenbauer polynomials.
  *
+ * Dependencies:
+ * - Polynomials.hpp: For the base polynomial class.
+ * - OrthogonalValidator.cpp: For parameter validation of orthogonal polynomials.
+ * - Eigen library: For matrix and vector operations.
+ * - OpenMP: For parallelization of polynomial generation and evaluation.
  * ## Main Components
  *
  * - **OrthogonalPolynomialBase**: 
@@ -47,7 +51,6 @@
 
 
 namespace polynomials {
-
 
 /**
  * @brief Base class for orthogonal polynomials using CRTP.

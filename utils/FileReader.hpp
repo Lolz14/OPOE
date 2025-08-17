@@ -1,4 +1,18 @@
 
+/**
+ * @file FileReader.hpp
+ * @brief Provides functionality to read quantization grid data from a file into Eigen-based structures.
+ *
+ * This header defines the QuantizationGrid struct and the readQuantizationGrid function template,
+ * which are used to load quantization grid data (including coordinates, weights, and distortions)
+ * from a file into Eigen matrices and vectors for efficient numerical processing.
+ *
+ * Dependencies:
+ * - OPOE_traits.hpp: For type definitions and concepts.
+ */
+
+#ifndef FILE_READER_HPP
+#define FILE_READER_HPP
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -6,9 +20,24 @@
 #include <sstream>
 #include <stdexcept>
 #include <filesystem>
-#include "../traits/OPOE_traits.hpp" // Using your project's traits
+#include "../traits/OPOE_traits.hpp" 
 
-// A struct to hold the quantization grid data, using only Eigen types.
+/**
+ * @struct QuantizationGrid
+ * @brief Structure to hold quantization grid data using Eigen types.
+ *
+ * @tparam R The type used for global distortion values (default: traits::DataType::PolynomialField).
+ *
+ * Members:
+ * - N: Number of grid points.
+ * - d: Dimension of each grid point.
+ * - coordinates: Eigen matrix storing all grid point coordinates (size N x d).
+ * - weights: Eigen vector storing the weight for each grid point (size N).
+ * - local_l2_distortions: Eigen vector of local L2 distortions for each grid point (size N).
+ * - local_l1_distortions: Eigen vector of local L1 distortions for each grid point (size N).
+ * - quadratic_distortion: Global quadratic (L2) distortion.
+ * - l1_distortion: Global L1 distortion.
+ */
 template<typename R = traits::DataType::PolynomialField>
 struct QuantizationGrid {
     unsigned int N;
@@ -27,7 +56,24 @@ struct QuantizationGrid {
     R l1_distortion;
 };
 
-// Function to read a quantization grid from a file into the Eigen-only structure
+
+/**
+ * @brief Reads a quantization grid from a file into a QuantizationGrid structure using Eigen types.
+ *
+ * The function expects the file to have N rows of data, each containing:
+ *   - weight (scalar)
+ *   - d coordinates (space-separated)
+ *   - local L2 distortion (scalar)
+ *   - local L1 distortion (scalar)
+ * followed by a final row containing global distortion values.
+ *
+ * @tparam R The type used for global distortion values (default: traits::DataType::PolynomialField).
+ * @param N Number of grid points.
+ * @param d Dimension of each grid point.
+ * @param base_dir Directory containing the grid file.
+ * @return QuantizationGrid<R> Structure populated with data from the file.
+ * @throws std::runtime_error If the file cannot be opened or if the data format is invalid.
+ */
 template<typename R = traits::DataType::PolynomialField>
 QuantizationGrid<R> readQuantizationGrid(int N, int d, const std::filesystem::path& base_dir) {
     // Construct the filename
@@ -96,4 +142,6 @@ QuantizationGrid<R> readQuantizationGrid(int N, int d, const std::filesystem::pa
 
     return grid;
 }
+
+#endif // FILE_READER_HPP
 

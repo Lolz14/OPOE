@@ -1,4 +1,3 @@
-
 /**
  * @file Projector.hpp
  * @brief Defines the Projector class template for weighted integration of products of functions using quadrature.
@@ -6,6 +5,9 @@
  * The Projector class template enables the computation of integrals of the form:
  *   Integral(lower, upper, weight_fn(x) * f1(x) * f2(x) * ... * fn(x) dx)
  * where the user supplies a quadrature rule, a weight function, and a variadic list of input functions.
+ * 
+ * Dependencies:
+ * - QuadratureRuleHolder.hpp: For the quadrature rule implementation.
  *
  */
 

@@ -1,4 +1,3 @@
-
 /**
  * @file QuadratureRule.hpp
  * @brief Provides generic quadrature (numerical integration) adapters for Boost and GSL libraries.
@@ -7,6 +6,11 @@
  * - quadrature::BoostTanhSinhQuadrature: Adapter for Boost.Math's tanh_sinh quadrature, supporting finite and infinite bounds.
  * - quadrature::GSLQuadrature: Adapter for GSL's adaptive quadrature routines, supporting finite and infinite bounds with workspace management.
  *
+ * Dependencies:
+ * - Boost.Math for tanh_sinh quadrature.
+ * - GSL (GNU Scientific Library) for adaptive quadrature.
+ * - traits/OPOE_traits.hpp for type definitions.
+ * 
  * Features:
  * - Type-generic (templated on floating-point type R).
  * - Handles both finite and infinite integration limits.

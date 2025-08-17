@@ -1,4 +1,3 @@
-
 /*!
  * @file Polynomials.hpp
  * @brief Defines the polynomials::Polynomial template class and related polynomial operations.
@@ -9,6 +8,12 @@
  * and direct evaluation methods. Additional features include conversion to std::function,
  * pretty-printing, and compile-time degree information.
  *
+ * 
+ * Dependencies:
+ * - Armadillo/Eigen for array operations.
+ * - C++17 or later (C++20 for comparison operators).
+ * - Custom traits and utility headers.
+ * 
  * @details
  * Main features:
  * - Template class `Polynomial<N, R>` for polynomials of degree N over field R.
@@ -22,10 +27,6 @@
  * - Pretty-printing via operator<<.
  * - C++20 three-way comparison operator (if available).
  *
- * Dependencies:
- * - Armadillo/Eigen for array operations.
- * - C++17 or later (C++20 for comparison operators).
- * - Custom traits and utility headers.
  *
  * Usage example:
  * @code

@@ -5,6 +5,9 @@
  * PolynomialDomainValidator class template, which is responsible for
  * validating the parameters of a polynomial domain and providing
  * debugging information.
+ * 
+ * Dependencies:
+ * - OrthogonalValidator.hpp: Header file for the PolynomialDomainValidator class.
  *
  * @tparam R The return type or result type associated with the validator.
  * @tparam Params Variadic template parameters representing the types of the parameters to validate.
@@ -25,7 +28,6 @@
 #include "OrthogonalValidator.hpp"
 
 namespace polynomials {
-
 
 // PolynomialDomainValidator member functions
 template<typename R, typename... Params>
