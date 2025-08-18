@@ -1,0 +1,250 @@
+\hypertarget{classoptions_1_1_european_put_payoff}{}\doxysection{options\+::European\+Put\+Payoff$<$ T $>$ Class Template Reference}
+\label{classoptions_1_1_european_put_payoff}\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+
+
+Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for European Put options.  
+
+
+
+
+{\ttfamily \#include $<$Payoff.\+hpp$>$}
+
+
+
+Inheritance diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classoptions_1_1_european_put_payoff__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classoptions_1_1_european_put_payoff__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classoptions_1_1_european_put_payoff_ab7e4369df2bc2d9013b02caae7872ca0}{European\+Put\+Payoff}} (T strike\+\_\+price)
+\begin{DoxyCompactList}\small\item\em Constructor for European Put Payoff. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}{traits\+::\+Option\+Type}} \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a1042cb8e9f29016ae19fb7ab73950728}{type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the type of the option (Put). \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a59c01408f257d50faa2a7cdfd55d474e}{evaluate}} (T underlying\+\_\+price) const override
+\begin{DoxyCompactList}\small\item\em Evaluates the put payoff\+: max(K -\/ S\+\_\+T, 0). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}} \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a4a36c460824e5de7bbc9189f9af33d02}{evaluate}} (\mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}} underlying\+\_\+prices) const override
+\begin{DoxyCompactList}\small\item\em Evaluates the put payoff for a vector of underlying prices. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e0c80bbecf}{evaluate\+\_\+from\+\_\+log}} (T log\+\_\+underlying\+\_\+price) const override
+\begin{DoxyCompactList}\small\item\em Evaluates the put payoff from log-\/price\+: max(K -\/ exp(x\+\_\+\+T), 0). \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ T $>$ $>$ \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a5856fbe8d62685bce229a8fcd45b2342}{clone}} () const override
+\begin{DoxyCompactList}\small\item\em Creates a copy of the \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{European\+Put\+Payoff}} object. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}{get\+Strike}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_addc7dbeec53de12c37386950ab9d442d}{strike\+\_\+price\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class options\+::\+European\+Put\+Payoff$<$ T $>$}
+
+Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for European Put options. 
+
+This class implements the payoff evaluation for European put options, defined as max(K -\/ S\+\_\+T, 0), where S\+\_\+T is the final price of the underlying asset and K is the strike price.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The numeric type used for the strike price and evaluations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 195 of file Payoff.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_ab7e4369df2bc2d9013b02caae7872ca0}\label{classoptions_1_1_european_put_payoff_ab7e4369df2bc2d9013b02caae7872ca0}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!EuropeanPutPayoff@{EuropeanPutPayoff}}
+\index{EuropeanPutPayoff@{EuropeanPutPayoff}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{EuropeanPutPayoff()}{EuropeanPutPayoff()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::\mbox{\hyperlink{classoptions_1_1_european_put_payoff}{European\+Put\+Payoff}} (\begin{DoxyParamCaption}\item[{T}]{strike\+\_\+price }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for European Put Payoff. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strike\+\_\+price} & The strike price (K) of the option. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 204 of file Payoff.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a5856fbe8d62685bce229a8fcd45b2342}\label{classoptions_1_1_european_put_payoff_a5856fbe8d62685bce229a8fcd45b2342}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!clone@{clone}}
+\index{clone@{clone}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$T$>$ $>$ \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a copy of the \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{European\+Put\+Payoff}} object. 
+
+\begin{DoxyReturn}{Returns}
+A std\+::unique\+\_\+ptr to the new \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} object. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a5a67c274834ea11efe4824138c856ea8}{options\+::\+IPayoff$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 253 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a4a36c460824e5de7bbc9189f9af33d02}\label{classoptions_1_1_european_put_payoff_a4a36c460824e5de7bbc9189f9af33d02}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}} \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::evaluate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}}}]{underlying\+\_\+prices }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Evaluates the put payoff for a vector of underlying prices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em underlying\+\_\+prices} & The final prices (S\+\_\+T) of the underlying asset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of calculated put payoffs for each underlying price. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a0b8f287e9dbadb4741369092cbebf7d8}{options\+::\+IPayoff$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 232 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a59c01408f257d50faa2a7cdfd55d474e}\label{classoptions_1_1_european_put_payoff_a59c01408f257d50faa2a7cdfd55d474e}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::evaluate (\begin{DoxyParamCaption}\item[{T}]{underlying\+\_\+price }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Evaluates the put payoff\+: max(K -\/ S\+\_\+T, 0). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em underlying\+\_\+price} & The final price (S\+\_\+T) of the underlying asset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated put payoff value. 
+\end{DoxyReturn}
+
+
+Definition at line 223 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e0c80bbecf}\label{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e0c80bbecf}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate\_from\_log@{evaluate\_from\_log}}
+\index{evaluate\_from\_log@{evaluate\_from\_log}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate\_from\_log()}{evaluate\_from\_log()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::evaluate\+\_\+from\+\_\+log (\begin{DoxyParamCaption}\item[{T}]{log\+\_\+underlying\+\_\+price }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Evaluates the put payoff from log-\/price\+: max(K -\/ exp(x\+\_\+\+T), 0). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em log\+\_\+underlying\+\_\+price} & The final log-\/price (x\+\_\+T = ln(\+S\+\_\+\+T)) of the underlying asset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated put payoff value. 
+\end{DoxyReturn}
+
+
+Definition at line 244 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}\label{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!getStrike@{getStrike}}
+\index{getStrike@{getStrike}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getStrike()}{getStrike()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Gets the strike price. 
+
+\begin{DoxyReturn}{Returns}
+The strike price (K). 
+\end{DoxyReturn}
+
+
+Definition at line 261 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a1042cb8e9f29016ae19fb7ab73950728}\label{classoptions_1_1_european_put_payoff_a1042cb8e9f29016ae19fb7ab73950728}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!type@{type}}
+\index{type@{type}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}{traits\+::\+Option\+Type}} \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the type of the option (Put). 
+
+\begin{DoxyReturn}{Returns}
+The type of the option as traits\+::\+Option\+Type\+::\+Put. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a25865d4e18089c2e6b45da21c13149ab}{options\+::\+IPayoff$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 214 of file Payoff.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_addc7dbeec53de12c37386950ab9d442d}\label{classoptions_1_1_european_put_payoff_addc7dbeec53de12c37386950ab9d442d}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!strike\_price\_@{strike\_price\_}}
+\index{strike\_price\_@{strike\_price\_}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{strike\_price\_}{strike\_price\_}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::strike\+\_\+price\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 197 of file Payoff.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+options/\mbox{\hyperlink{_payoff_8hpp}{Payoff.\+hpp}}\end{DoxyCompactItemize}

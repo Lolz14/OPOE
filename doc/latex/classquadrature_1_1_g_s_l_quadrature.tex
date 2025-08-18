@@ -1,0 +1,179 @@
+\hypertarget{classquadrature_1_1_g_s_l_quadrature}{}\doxysection{quadrature\+::GSLQuadrature$<$ R $>$ Class Template Reference}
+\label{classquadrature_1_1_g_s_l_quadrature}\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+
+
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature.  
+
+
+
+
+{\ttfamily \#include $<$Quadrature\+Rule.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_a164d422ae2fbd03e19deb2214ffc6697}{GSLQuadrature}} (R absolute\+\_\+error=1e-\/6, R relative\+\_\+error=1e-\/6, size\+\_\+t workspace\+\_\+limit=1000)
+\begin{DoxyCompactList}\small\item\em Constructor for GSL adaptive quadrature adapter. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_a1956a278e81f8360a87a96a3acfb48e6}{integrate}} (const std\+::function$<$ R(R)$>$ \&integrand, R lower\+\_\+bound, R upper\+\_\+bound) const
+\begin{DoxyCompactList}\small\item\em Integrates using GSL\textquotesingle{}s adaptive quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}{GSLWorkspace\+Ptr}} = std\+::unique\+\_\+ptr$<$ gsl\+\_\+integration\+\_\+workspace, decltype(\&gsl\+\_\+integration\+\_\+workspace\+\_\+free)$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}{GSLWorkspace\+Ptr}} \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad716133f9f3f9a81359ba910cf00d352}{create\+\_\+workspace}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_a42e5ae48f3f72186b03e574845dc68dc}{workspace\+\_\+size\+\_\+}}
+\item 
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad74bf934c7e2f3f1569e45069548c60b}{target\+\_\+absolute\+\_\+error\+\_\+}}
+\item 
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_a1a1e609e22cdaafdadb6a6ae114f0b7d}{target\+\_\+relative\+\_\+error\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class quadrature\+::\+GSLQuadrature$<$ R $>$}
+
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature. 
+
+This class provides an adapter for GSL\textquotesingle{}s adaptive quadrature routines, allowing for numerical integration over finite and infinite bounds with specified absolute and relative error tolerances.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 151 of file Quadrature\+Rule.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}\label{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!GSLWorkspacePtr@{GSLWorkspacePtr}}
+\index{GSLWorkspacePtr@{GSLWorkspacePtr}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{GSLWorkspacePtr}{GSLWorkspacePtr}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}{GSLWorkspace\+Ptr}} =  std\+::unique\+\_\+ptr$<$gsl\+\_\+integration\+\_\+workspace, decltype(\&gsl\+\_\+integration\+\_\+workspace\+\_\+free)$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 159 of file Quadrature\+Rule.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_a164d422ae2fbd03e19deb2214ffc6697}\label{classquadrature_1_1_g_s_l_quadrature_a164d422ae2fbd03e19deb2214ffc6697}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!GSLQuadrature@{GSLQuadrature}}
+\index{GSLQuadrature@{GSLQuadrature}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{GSLQuadrature()}{GSLQuadrature()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} (\begin{DoxyParamCaption}\item[{R}]{absolute\+\_\+error = {\ttfamily 1e-\/6},  }\item[{R}]{relative\+\_\+error = {\ttfamily 1e-\/6},  }\item[{size\+\_\+t}]{workspace\+\_\+limit = {\ttfamily 1000} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for GSL adaptive quadrature adapter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em absolute\+\_\+error} & Target absolute error. \\
+\hline
+{\em relative\+\_\+error} & Target relative error. \\
+\hline
+{\em workspace\+\_\+limit} & Max number of subintervals for the workspace. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 178 of file Quadrature\+Rule.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_ad716133f9f3f9a81359ba910cf00d352}\label{classquadrature_1_1_g_s_l_quadrature_ad716133f9f3f9a81359ba910cf00d352}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!create\_workspace@{create\_workspace}}
+\index{create\_workspace@{create\_workspace}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{create\_workspace()}{create\_workspace()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_ad4691058e239dc698a5db9d16d82add9}{GSLWorkspace\+Ptr}} \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::create\+\_\+workspace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 162 of file Quadrature\+Rule.\+hpp.
+
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_a1956a278e81f8360a87a96a3acfb48e6}\label{classquadrature_1_1_g_s_l_quadrature_a1956a278e81f8360a87a96a3acfb48e6}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::integrate (\begin{DoxyParamCaption}\item[{const std\+::function$<$ R(R)$>$ \&}]{integrand,  }\item[{R}]{lower\+\_\+bound,  }\item[{R}]{upper\+\_\+bound }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Integrates using GSL\textquotesingle{}s adaptive quadrature. 
+
+Selects routine based on bounds. 
+\begin{DoxyParams}{Parameters}
+{\em integrand} & The function to integrate. \\
+\hline
+{\em lower\+\_\+bound} & Lower integration limit. \\
+\hline
+{\em upper\+\_\+bound} & Upper integration limit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The approximate value of the definite integral. 
+\end{DoxyReturn}
+
+
+Definition at line 197 of file Quadrature\+Rule.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_ad74bf934c7e2f3f1569e45069548c60b}\label{classquadrature_1_1_g_s_l_quadrature_ad74bf934c7e2f3f1569e45069548c60b}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!target\_absolute\_error\_@{target\_absolute\_error\_}}
+\index{target\_absolute\_error\_@{target\_absolute\_error\_}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{target\_absolute\_error\_}{target\_absolute\_error\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::target\+\_\+absolute\+\_\+error\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 154 of file Quadrature\+Rule.\+hpp.
+
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_a1a1e609e22cdaafdadb6a6ae114f0b7d}\label{classquadrature_1_1_g_s_l_quadrature_a1a1e609e22cdaafdadb6a6ae114f0b7d}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!target\_relative\_error\_@{target\_relative\_error\_}}
+\index{target\_relative\_error\_@{target\_relative\_error\_}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{target\_relative\_error\_}{target\_relative\_error\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::target\+\_\+relative\+\_\+error\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 155 of file Quadrature\+Rule.\+hpp.
+
+\mbox{\Hypertarget{classquadrature_1_1_g_s_l_quadrature_a42e5ae48f3f72186b03e574845dc68dc}\label{classquadrature_1_1_g_s_l_quadrature_a42e5ae48f3f72186b03e574845dc68dc}} 
+\index{quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}!workspace\_size\_@{workspace\_size\_}}
+\index{workspace\_size\_@{workspace\_size\_}!quadrature::GSLQuadrature$<$ R $>$@{quadrature::GSLQuadrature$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{workspace\_size\_}{workspace\_size\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+size\+\_\+t \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}$<$ R $>$\+::workspace\+\_\+size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 153 of file Quadrature\+Rule.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+quadrature/\mbox{\hyperlink{_quadrature_rule_8hpp}{Quadrature\+Rule.\+hpp}}\end{DoxyCompactItemize}

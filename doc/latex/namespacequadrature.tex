@@ -1,0 +1,54 @@
+\hypertarget{namespacequadrature}{}\doxysection{quadrature Namespace Reference}
+\label{namespacequadrature}\index{quadrature@{quadrature}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classquadrature_1_1_projector}{Projector}}
+\begin{DoxyCompactList}\small\item\em Computes the weighted integral of the product of multiple functions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}} class for numerical integration using Boost\textquotesingle{}s tanh\+\_\+sinh quadrature. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structquadrature_1_1_g_s_l_integration_wrapper}{GSLIntegration\+Wrapper}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_i_quadrature_rule}{IQuadrature\+Rule}}
+\begin{DoxyCompactList}\small\item\em Abstract interface for numerical quadrature rules. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_quadrature_rule_holder}{Quadrature\+Rule\+Holder}}
+\begin{DoxyCompactList}\small\item\em A holder class for different numerical quadrature rules. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{Boost\+Quadrature\+Wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the Boost Tanh-\/\+Sinh quadrature rule. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_wrapper}{GSLQuadrature\+Wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the GSL adaptive quadrature rule. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacequadrature_aa41733c0a881b7a9119131a496c33f38}{Quadrature\+Type}} = \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}{traits\+::\+Quadrature\+Method}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename R , typename... Func\+Types$>$ }\\\mbox{\hyperlink{namespacequadrature_a64487e4e4259f0893a8ba37fb14bd9e0}{Projector}} (const \mbox{\hyperlink{classquadrature_1_1_quadrature_rule_holder}{quadrature\+::\+Quadrature\+Rule\+Holder}}$<$ R $>$ \&, std\+::function$<$ R(R)$>$, Func\+Types...) -\/$>$ \mbox{\hyperlink{classquadrature_1_1_projector}{Projector}}$<$ R, Func\+Types... $>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{namespacequadrature_aa41733c0a881b7a9119131a496c33f38}\label{namespacequadrature_aa41733c0a881b7a9119131a496c33f38}} 
+\index{quadrature@{quadrature}!QuadratureType@{QuadratureType}}
+\index{QuadratureType@{QuadratureType}!quadrature@{quadrature}}
+\doxysubsubsection{\texorpdfstring{QuadratureType}{QuadratureType}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{namespacequadrature_aa41733c0a881b7a9119131a496c33f38}{quadrature\+::\+Quadrature\+Type}} = typedef \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}{traits\+::\+Quadrature\+Method}}}
+
+
+
+Definition at line 25 of file Quadrature\+Rule\+Holder.\+hpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacequadrature_a64487e4e4259f0893a8ba37fb14bd9e0}\label{namespacequadrature_a64487e4e4259f0893a8ba37fb14bd9e0}} 
+\index{quadrature@{quadrature}!Projector@{Projector}}
+\index{Projector@{Projector}!quadrature@{quadrature}}
+\doxysubsubsection{\texorpdfstring{Projector()}{Projector()}}
+{\footnotesize\ttfamily template$<$typename R , typename... Func\+Types$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_projector}{quadrature\+::\+Projector}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classquadrature_1_1_quadrature_rule_holder}{quadrature\+::\+Quadrature\+Rule\+Holder}}$<$ R $>$ \&}]{,  }\item[{std\+::function$<$ R(R)$>$}]{,  }\item[{Func\+Types...}]{ }\end{DoxyParamCaption}) -\/$>$  \mbox{\hyperlink{classquadrature_1_1_projector}{Projector}}$<$ R, Func\+Types... $>$}
+

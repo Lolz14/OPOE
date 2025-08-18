@@ -1,0 +1,175 @@
+\hypertarget{struct_data_type}{}\doxysection{Data\+Type Struct Reference}
+\label{struct_data_type}\index{DataType@{DataType}}
+
+
+Central container of type aliases for commonly used matrix/vector structures in OPOE.  
+
+
+
+
+{\ttfamily \#include $<$OPOE\+\_\+traits.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}} = double
+\begin{DoxyCompactList}\small\item\em Scalar field used for all polynomial operations (default\+: double). \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_ac725ae3c06992854d9f7945c57eff876}{Storing\+Matrix}} = Eigen\+::\+Matrix$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major $>$
+\begin{DoxyCompactList}\small\item\em Dynamic-\/size matrix type. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_a910ca4416279fb9aff7cfa4dd497d1a5}{Storing\+Vector}} = Eigen\+::\+Matrix$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, 1 $>$
+\begin{DoxyCompactList}\small\item\em Dynamic-\/size column vector type. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_a8c3d00220bb3e7acc7fd521338d249a3}{Complex\+Storing\+Vector}} = Eigen\+::\+Matrix$<$ std\+::complex$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}} $>$, Eigen\+::\+Dynamic, 1 $>$
+\begin{DoxyCompactList}\small\item\em Dynamic-\/size complex column vector type. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_a090fd0ab61c9d18721df80b2152ffa78}{Storing\+Array}} = Eigen\+::\+Array$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, 1 $>$
+\begin{DoxyCompactList}\small\item\em Dynamic-\/size array for element-\/wise operations. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_ace7753f2d087a84ca787e118a1b55db6}{Complex\+Array}} = Eigen\+::\+Array$<$ std\+::complex$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}} $>$, Eigen\+::\+Dynamic, 1 $>$
+\begin{DoxyCompactList}\small\item\em Array of complex numbers for advanced operations. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_a9dfc4d018aecde108e143610edf8088b}{Sparse\+Storing\+Matrix}} = Eigen\+::\+Sparse\+Matrix$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}} $>$
+\begin{DoxyCompactList}\small\item\em Sparse matrix type for memory-\/efficient storage of large, sparse data. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}{Triplet}} = Eigen\+::\+Triplet$<$ \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}} $>$
+\begin{DoxyCompactList}\small\item\em Triplet structure for building sparse matrices. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{struct_data_type_ae848ef90c1e14bfa0f74563d760e2ab8}{Triplets}} = std\+::vector$<$ \mbox{\hyperlink{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}{Triplet}} $>$
+\begin{DoxyCompactList}\small\item\em Collection of triplets used for sparse matrix assembly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Central container of type aliases for commonly used matrix/vector structures in OPOE. 
+
+These types are based on Eigen and are designed for dynamic sizing and numerical efficiency, targeting polynomial manipulation and high-\/dimensional vector/matrix operations. 
+
+Definition at line 56 of file OPOE\+\_\+traits.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{struct_data_type_ace7753f2d087a84ca787e118a1b55db6}\label{struct_data_type_ace7753f2d087a84ca787e118a1b55db6}} 
+\index{DataType@{DataType}!ComplexArray@{ComplexArray}}
+\index{ComplexArray@{ComplexArray}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ComplexArray}{ComplexArray}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_ace7753f2d087a84ca787e118a1b55db6}{Data\+Type\+::\+Complex\+Array}} =  Eigen\+::\+Array$<$std\+::complex$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}$>$, Eigen\+::\+Dynamic, 1$>$}
+
+
+
+Array of complex numbers for advanced operations. 
+
+
+
+Definition at line 69 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_a8c3d00220bb3e7acc7fd521338d249a3}\label{struct_data_type_a8c3d00220bb3e7acc7fd521338d249a3}} 
+\index{DataType@{DataType}!ComplexStoringVector@{ComplexStoringVector}}
+\index{ComplexStoringVector@{ComplexStoringVector}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ComplexStoringVector}{ComplexStoringVector}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_a8c3d00220bb3e7acc7fd521338d249a3}{Data\+Type\+::\+Complex\+Storing\+Vector}} =  Eigen\+::\+Matrix$<$std\+::complex$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}$>$, Eigen\+::\+Dynamic, 1$>$}
+
+
+
+Dynamic-\/size complex column vector type. 
+
+
+
+Definition at line 65 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}\label{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}} 
+\index{DataType@{DataType}!PolynomialField@{PolynomialField}}
+\index{PolynomialField@{PolynomialField}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PolynomialField}{PolynomialField}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Data\+Type\+::\+Polynomial\+Field}} =  double}
+
+
+
+Scalar field used for all polynomial operations (default\+: double). 
+
+
+
+Definition at line 59 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_a9dfc4d018aecde108e143610edf8088b}\label{struct_data_type_a9dfc4d018aecde108e143610edf8088b}} 
+\index{DataType@{DataType}!SparseStoringMatrix@{SparseStoringMatrix}}
+\index{SparseStoringMatrix@{SparseStoringMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SparseStoringMatrix}{SparseStoringMatrix}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_a9dfc4d018aecde108e143610edf8088b}{Data\+Type\+::\+Sparse\+Storing\+Matrix}} =  Eigen\+::\+Sparse\+Matrix$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}$>$}
+
+
+
+Sparse matrix type for memory-\/efficient storage of large, sparse data. 
+
+
+
+Definition at line 71 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_a090fd0ab61c9d18721df80b2152ffa78}\label{struct_data_type_a090fd0ab61c9d18721df80b2152ffa78}} 
+\index{DataType@{DataType}!StoringArray@{StoringArray}}
+\index{StoringArray@{StoringArray}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{StoringArray}{StoringArray}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_a090fd0ab61c9d18721df80b2152ffa78}{Data\+Type\+::\+Storing\+Array}} =  Eigen\+::\+Array$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, 1$>$}
+
+
+
+Dynamic-\/size array for element-\/wise operations. 
+
+
+
+Definition at line 67 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_ac725ae3c06992854d9f7945c57eff876}\label{struct_data_type_ac725ae3c06992854d9f7945c57eff876}} 
+\index{DataType@{DataType}!StoringMatrix@{StoringMatrix}}
+\index{StoringMatrix@{StoringMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{StoringMatrix}{StoringMatrix}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_ac725ae3c06992854d9f7945c57eff876}{Data\+Type\+::\+Storing\+Matrix}} =  Eigen\+::\+Matrix$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major$>$}
+
+
+
+Dynamic-\/size matrix type. 
+
+
+
+Definition at line 61 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_a910ca4416279fb9aff7cfa4dd497d1a5}\label{struct_data_type_a910ca4416279fb9aff7cfa4dd497d1a5}} 
+\index{DataType@{DataType}!StoringVector@{StoringVector}}
+\index{StoringVector@{StoringVector}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{StoringVector}{StoringVector}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_a910ca4416279fb9aff7cfa4dd497d1a5}{Data\+Type\+::\+Storing\+Vector}} =  Eigen\+::\+Matrix$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}, Eigen\+::\+Dynamic, 1$>$}
+
+
+
+Dynamic-\/size column vector type. 
+
+
+
+Definition at line 63 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}\label{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}} 
+\index{DataType@{DataType}!Triplet@{Triplet}}
+\index{Triplet@{Triplet}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Triplet}{Triplet}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}{Data\+Type\+::\+Triplet}} =  Eigen\+::\+Triplet$<$\mbox{\hyperlink{struct_data_type_ae89a7655ecc7a49644efa2aca38031f1}{Polynomial\+Field}}$>$}
+
+
+
+Triplet structure for building sparse matrices. 
+
+
+
+Definition at line 73 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{struct_data_type_ae848ef90c1e14bfa0f74563d760e2ab8}\label{struct_data_type_ae848ef90c1e14bfa0f74563d760e2ab8}} 
+\index{DataType@{DataType}!Triplets@{Triplets}}
+\index{Triplets@{Triplets}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Triplets}{Triplets}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{struct_data_type_ae848ef90c1e14bfa0f74563d760e2ab8}{Data\+Type\+::\+Triplets}} =  std\+::vector$<$\mbox{\hyperlink{struct_data_type_a54ac16d4569d22b940ab7b653fb3a95c}{Triplet}}$>$}
+
+
+
+Collection of triplets used for sparse matrix assembly. 
+
+
+
+Definition at line 75 of file OPOE\+\_\+traits.\+hpp.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+traits/\mbox{\hyperlink{_o_p_o_e__traits_8hpp}{OPOE\+\_\+traits.\+hpp}}\end{DoxyCompactItemize}

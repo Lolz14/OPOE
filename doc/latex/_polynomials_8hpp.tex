@@ -1,0 +1,99 @@
+\hypertarget{_polynomials_8hpp}{}\doxysection{polynomials/\+Polynomials.hpp File Reference}
+\label{_polynomials_8hpp}\index{polynomials/Polynomials.hpp@{polynomials/Polynomials.hpp}}
+
+
+Defines the \mbox{\hyperlink{classpolynomials_1_1_polynomial}{polynomials\+::\+Polynomial}} template class and related polynomial operations.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$exception$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$ranges$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$armadillo$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include \char`\"{}../traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../utils/\+Utils.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../utils/\+FFTW.\+hpp\char`\"{}}\newline
+Include dependency graph for Polynomials.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_polynomials_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{_polynomials_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpolynomials_1_1_polynomial}{polynomials\+::\+Polynomial$<$ N, R $>$}}
+\begin{DoxyCompactList}\small\item\em Template class for polynomials. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacepolynomials}{polynomials}}
+\begin{DoxyCompactList}\small\item\em Validates and debugs polynomial domain parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespacepolynomials_aeea34549b9bb903d4eb323212f01dc15}{polynomials\+::operator$<$$<$}} (std\+::ostream \&out, Polynomial$<$ N, R $>$ const \&p)
+\begin{DoxyCompactList}\small\item\em Outputs the polynomial in a pretty-\/print way. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a3996f0eae6d14190d5d5a9b4de15e281}{polynomials\+::operator-\/}} (Polynomial$<$ LDegree, R $>$ const \&left, Polynomial$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a7cc728863a06ab0a36c6351f073d06e6}{polynomials\+::operator-\/}} (const Polynomial$<$ N, R $>$ \&left, const R \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (polynomial -\/ scalar) \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a08a0c9918e95ed8d4f44a3cbda4a9a4d}{polynomials\+::operator-\/}} (const R \&left, const Polynomial$<$ N, R $>$ \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (scalar -\/ polynomial) \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a5de6cda24a2bc3402ee4669a647cae06}{polynomials\+::operator$\ast$}} (Polynomial$<$ LDegree, R $>$ const \&left, Polynomial$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} multiplication. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a3d0bf98db126a6b8068e651873f93c76}{polynomials\+::operator$\ast$}} (R const \&scalar, Polynomial$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em Multiplication of a polynomial with a scalar. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a43b39dcda9a97774321abc64f1cfb0b0}{polynomials\+::operator$\ast$}} (Polynomial$<$ RDegree, R $>$ const \&left, R const \&scalar) noexcept
+\begin{DoxyCompactList}\small\item\em Multiplication of a polynomial with a scalar This is the same as the previous one, but with the arguments swapped. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned M, unsigned RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a91612506e6341c51ec6083eb610f0c16}{polynomials\+::der}} (Polynomial$<$ RDegree, R $>$ const \&p)
+\begin{DoxyCompactList}\small\item\em Derivative of a \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} Usage\+: der$<$\+M$>$(p) (M$>$=0) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the \mbox{\hyperlink{classpolynomials_1_1_polynomial}{polynomials\+::\+Polynomial}} template class and related polynomial operations. 
+
+This header provides a generic, fixed-\/degree polynomial class template with support for various arithmetic operations, evaluation methods, and utilities. The implementation leverages Eigen/\+Armadillo for efficient array operations and supports both Horner\textquotesingle{}s and direct evaluation methods. Additional features include conversion to std\+::function, pretty-\/printing, and compile-\/time degree information.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item Armadillo/\+Eigen for array operations.
+\item C++17 or later (C++20 for comparison operators).
+\item Custom traits and utility headers.
+\end{DoxyItemize}
+
+Main features\+:
+\begin{DoxyItemize}
+\item Template class {\ttfamily Polynomial$<$N, R$>$} for polynomials of degree N over field R.
+\item Supports construction from coefficient arrays, copy/move semantics, and assignment from polynomials of lower degree.
+\item Evaluation via operator() with selectable method (Horner/direct).
+\item Conversion to std\+::function for functional programming use cases.
+\item Arithmetic operations\+: addition, subtraction, multiplication (including FFT-\/based), and scalar operations.
+\item Derivative computation via the {\ttfamily der$<$M$>$(p)} template function.
+\item Pretty-\/printing via operator$<$$<$.
+\item C++20 three-\/way comparison operator (if available).
+\end{DoxyItemize}
+
+Usage example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using} Poly = \mbox{\hyperlink{classpolynomials_1_1_polynomial}{polynomials::Polynomial<3, double>}};}
+\DoxyCodeLine{Poly p(\{1.0, 2.0, 3.0, 4.0\});}
+\DoxyCodeLine{\textcolor{keywordtype}{double} val = p(2.0); \textcolor{comment}{// Evaluate at x=2}}
+\DoxyCodeLine{\textcolor{keyword}{auto} dp = polynomials::der<1>(p); \textcolor{comment}{// First derivative}}
+\DoxyCodeLine{std::cout << p << std::endl;}
+
+\end{DoxyCode}
+ 

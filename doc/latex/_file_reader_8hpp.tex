@@ -1,0 +1,97 @@
+\hypertarget{_file_reader_8hpp}{}\doxysection{utils/\+File\+Reader.hpp File Reference}
+\label{_file_reader_8hpp}\index{utils/FileReader.hpp@{utils/FileReader.hpp}}
+
+
+Provides functionality to read quantization grid data from a file into Eigen-\/based structures.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include \char`\"{}../traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+Include dependency graph for File\+Reader.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_file_reader_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{_file_reader_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em Structure to hold quantization grid data using Eigen types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\\mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$ \mbox{\hyperlink{_file_reader_8hpp_a1ac87e57015aea3b6fb13309341a0949}{read\+Quantization\+Grid}} (int N, int d, const std\+::filesystem\+::path \&base\+\_\+dir)
+\begin{DoxyCompactList}\small\item\em Reads a quantization grid from a file into a \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}} structure using Eigen types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides functionality to read quantization grid data from a file into Eigen-\/based structures. 
+
+This header defines the \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}} struct and the read\+Quantization\+Grid function template, which are used to load quantization grid data (including coordinates, weights, and distortions) from a file into Eigen matrices and vectors for efficient numerical processing.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_o_p_o_e__traits_8hpp}{OPOE\+\_\+traits.\+hpp}}\+: For type definitions and concepts. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_file_reader_8hpp_a1ac87e57015aea3b6fb13309341a0949}\label{_file_reader_8hpp_a1ac87e57015aea3b6fb13309341a0949}} 
+\index{FileReader.hpp@{FileReader.hpp}!readQuantizationGrid@{readQuantizationGrid}}
+\index{readQuantizationGrid@{readQuantizationGrid}!FileReader.hpp@{FileReader.hpp}}
+\doxysubsubsection{\texorpdfstring{readQuantizationGrid()}{readQuantizationGrid()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$R$>$ read\+Quantization\+Grid (\begin{DoxyParamCaption}\item[{int}]{N,  }\item[{int}]{d,  }\item[{const std\+::filesystem\+::path \&}]{base\+\_\+dir }\end{DoxyParamCaption})}
+
+
+
+Reads a quantization grid from a file into a \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}} structure using Eigen types. 
+
+The function expects the file to have N rows of data, each containing\+:
+\begin{DoxyItemize}
+\item weight (scalar)
+\item d coordinates (space-\/separated)
+\item local L2 distortion (scalar)
+\item local L1 distortion (scalar) followed by a final row containing global distortion values.
+\end{DoxyItemize}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The type used for global distortion values (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em N} & Number of grid points. \\
+\hline
+{\em d} & Dimension of each grid point. \\
+\hline
+{\em base\+\_\+dir} & Directory containing the grid file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Quantization\+Grid$<$\+R$>$ Structure populated with data from the file. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & If the file cannot be opened or if the data format is invalid. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 78 of file File\+Reader.\+hpp.
+

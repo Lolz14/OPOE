@@ -1,0 +1,452 @@
+\hypertarget{namespacepolynomials}{}\doxysection{polynomials Namespace Reference}
+\label{namespacepolynomials}\index{polynomials@{polynomials}}
+
+
+Validates and debugs polynomial domain parameters.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpolynomials_1_1_orthogonal_polynomial_base}{Orthogonal\+Polynomial\+Base}}
+\begin{DoxyCompactList}\small\item\em Base class for orthogonal polynomials using CRTP. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_legendre_polynomial}{Legendre\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Legendre polynomials on \mbox{[}-\/1, 1\mbox{]} with uniform weight. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_hermite_polynomial}{Hermite\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Hermite polynomials with parameters μ and σ. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_chebychev_polynomial}{Chebychev\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Chebyshev polynomials of the first kind. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_laguerre_polynomial}{Laguerre\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Generalized Laguerre polynomials with parameters α and θ. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_jacobi_polynomial}{Jacobi\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Jacobi polynomials with parameters α and β. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_gegenbauer_polynomial}{Gegenbauer\+Polynomial}}
+\begin{DoxyCompactList}\small\item\em Gegenbauer polynomials with parameter λ (lambda). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_recurrence_coefficients}{Recurrence\+Coefficients}}
+\begin{DoxyCompactList}\small\item\em Structure for defining recurrence coefficients of orthogonal polynomials. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_domain_interval}{Domain\+Interval}}
+\begin{DoxyCompactList}\small\item\em Represents a closed numeric interval \mbox{[}lower, upper\mbox{]}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_domain_error}{Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Base class for all domain-\/related exceptions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_parameter_domain_error}{Parameter\+Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception for parameter validation errors. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_evaluation_domain_error}{Evaluation\+Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception for evaluation input errors. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_parameter}{Parameter}}
+\begin{DoxyCompactList}\small\item\em A generic parameter with value range validation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_jacobi_alpha}{Jacobi\+Alpha}}
+\begin{DoxyCompactList}\small\item\em α parameter for Jacobi polynomials\+: α $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_jacobi_beta}{Jacobi\+Beta}}
+\begin{DoxyCompactList}\small\item\em β parameter for Jacobi polynomials\+: β $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_laguerre_alpha}{Laguerre\+Alpha}}
+\begin{DoxyCompactList}\small\item\em α parameter for Laguerre polynomials\+: α $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_laguerre_theta}{Laguerre\+Theta}}
+\begin{DoxyCompactList}\small\item\em θ (scale) parameter for Generalized Laguerre\+: θ ≥ 0. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_hermite_mu}{Hermite\+Mu}}
+\begin{DoxyCompactList}\small\item\em μ parameter for Hermite polynomials\+: unbounded. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_hermite_sigma}{Hermite\+Sigma}}
+\begin{DoxyCompactList}\small\item\em σ (scale) parameter for Hermite\+: σ $>$ 0. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_gegenbauer_lambda}{Gegenbauer\+Lambda}}
+\begin{DoxyCompactList}\small\item\em μ parameter for Gegenbauer polynomials\+: μ $>$ -\/0.\+5. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_polynomial_domain_validator}{Polynomial\+Domain\+Validator}}
+\begin{DoxyCompactList}\small\item\em Utility to validate multiple parameters for a polynomial family. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}
+\begin{DoxyCompactList}\small\item\em Template class for polynomials. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename R $>$ }\\using \mbox{\hyperlink{namespacepolynomials_a3addc13ae34b03a984a0e07562811e35}{Function}} = std\+::function$<$ R(R)$>$
+\begin{DoxyCompactList}\small\item\em A callable function taking and returning a scalar value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\constexpr R \mbox{\hyperlink{namespacepolynomials_aa95fd20f6a3a2a228fbf1911da44a282}{monomial}} (const R, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{traits\+::\+Int\+To\+Type}}$<$ 0 $>$)
+\item 
+{\footnotesize template$<$unsigned int N, class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\constexpr R \mbox{\hyperlink{namespacepolynomials_a26cad9501c9679af59f4a0cc18f10724}{monomial}} (const R x, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{traits\+::\+Int\+To\+Type}}$<$ N $>$)
+\item 
+{\footnotesize template$<$unsigned int N, class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\constexpr R \mbox{\hyperlink{namespacepolynomials_a48db4690c9ce98009b33de89ea17c7a1}{monomial}} (const R x)
+\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespacepolynomials_aeea34549b9bb903d4eb323212f01dc15}{operator$<$$<$}} (std\+::ostream \&out, \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ const \&p)
+\begin{DoxyCompactList}\small\item\em Outputs the polynomial in a pretty-\/print way. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a3996f0eae6d14190d5d5a9b4de15e281}{operator-\/}} (\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ LDegree, R $>$ const \&left, \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a7cc728863a06ab0a36c6351f073d06e6}{operator-\/}} (const \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ \&left, const R \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (polynomial -\/ scalar) \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int N, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a08a0c9918e95ed8d4f44a3cbda4a9a4d}{operator-\/}} (const R \&left, const \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (scalar -\/ polynomial) \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a5de6cda24a2bc3402ee4669a647cae06}{operator$\ast$}} (\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ LDegree, R $>$ const \&left, \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} multiplication. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a3d0bf98db126a6b8068e651873f93c76}{operator$\ast$}} (R const \&scalar, \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&right) noexcept
+\begin{DoxyCompactList}\small\item\em Multiplication of a polynomial with a scalar. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned int RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a43b39dcda9a97774321abc64f1cfb0b0}{operator$\ast$}} (\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&left, R const \&scalar) noexcept
+\begin{DoxyCompactList}\small\item\em Multiplication of a polynomial with a scalar This is the same as the previous one, but with the arguments swapped. \end{DoxyCompactList}\item 
+{\footnotesize template$<$unsigned M, unsigned RDegree, typename R $>$ }\\auto \mbox{\hyperlink{namespacepolynomials_a91612506e6341c51ec6083eb610f0c16}{der}} (\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&p)
+\begin{DoxyCompactList}\small\item\em Derivative of a \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} Usage\+: der$<$\+M$>$(p) (M$>$=0) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\concept \mbox{\hyperlink{namespacepolynomials_ae9708d3be233567c01126d260c6656ef}{Numeric}} = std\+::is\+\_\+arithmetic\+\_\+v$<$T$>$
+\begin{DoxyCompactList}\small\item\em Concept restricting T to arithmetic types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Validates and debugs polynomial domain parameters. 
+
+This file contains the implementation of member functions for the \mbox{\hyperlink{classpolynomials_1_1_polynomial_domain_validator}{Polynomial\+Domain\+Validator}} class template, which is responsible for validating the parameters of a polynomial domain and providing debugging information.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_orthogonal_validator_8hpp}{Orthogonal\+Validator.\+hpp}}\+: Header file for the \mbox{\hyperlink{classpolynomials_1_1_polynomial_domain_validator}{Polynomial\+Domain\+Validator}} class.
+\end{DoxyItemize}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The return type or result type associated with the validator. \\
+\hline
+{\em Params} & Variadic template parameters representing the types of the parameters to validate.\\
+\hline
+\end{DoxyTemplParams}
+Member Functions\+:
+\begin{DoxyItemize}
+\item validate\+Parameters()\+: Checks if all parameters are valid according to their domain. Throws a std\+::runtime\+\_\+error with a detailed error message if any parameter is invalid.
+\item debug\+Parameters()\+: Outputs the name and value of each parameter to std\+::cout for debugging purposes.
+\item build\+Error\+Message()\+: Constructs a detailed error message listing all invalid parameters, their values, and the expected domain.
+\end{DoxyItemize}
+
+Usage\+: Instantiate \mbox{\hyperlink{classpolynomials_1_1_polynomial_domain_validator}{Polynomial\+Domain\+Validator}} with the appropriate parameter types, then call validate\+Parameters() to ensure all parameters are valid before proceeding. 
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{namespacepolynomials_a3addc13ae34b03a984a0e07562811e35}\label{namespacepolynomials_a3addc13ae34b03a984a0e07562811e35}} 
+\index{polynomials@{polynomials}!Function@{Function}}
+\index{Function@{Function}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{Function}{Function}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+using \mbox{\hyperlink{namespacepolynomials_a3addc13ae34b03a984a0e07562811e35}{polynomials\+::\+Function}} = typedef std\+::function$<$R(R)$>$}
+
+
+
+A callable function taking and returning a scalar value. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & Scalar type. \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 33 of file Orthogonal\+Validator.\+hpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacepolynomials_a91612506e6341c51ec6083eb610f0c16}\label{namespacepolynomials_a91612506e6341c51ec6083eb610f0c16}} 
+\index{polynomials@{polynomials}!der@{der}}
+\index{der@{der}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{der()}{der()}}
+{\footnotesize\ttfamily template$<$unsigned M, unsigned RDegree, typename R $>$ \\
+auto polynomials\+::der (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&}]{p }\end{DoxyParamCaption})}
+
+
+
+Derivative of a \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} Usage\+: der$<$\+M$>$(p) (M$>$=0) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em M} & The derivative order \\
+\hline
+{\em RDegree} & The degree of the polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+$\frac{d^{M}(p)}{dx^{M}}$ 
+\end{DoxyReturn}
+
+
+Definition at line 409 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a48db4690c9ce98009b33de89ea17c7a1}\label{namespacepolynomials_a48db4690c9ce98009b33de89ea17c7a1}} 
+\index{polynomials@{polynomials}!monomial@{monomial}}
+\index{monomial@{monomial}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{monomial()}{monomial()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$unsigned int N, class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr R polynomials\+::monomial (\begin{DoxyParamCaption}\item[{const R}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line 55 of file Monomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a26cad9501c9679af59f4a0cc18f10724}\label{namespacepolynomials_a26cad9501c9679af59f4a0cc18f10724}} 
+\index{polynomials@{polynomials}!monomial@{monomial}}
+\index{monomial@{monomial}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{monomial()}{monomial()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$unsigned int N, class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr R polynomials\+::monomial (\begin{DoxyParamCaption}\item[{const R}]{x,  }\item[{\mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{traits\+::\+Int\+To\+Type}}$<$ N $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line 48 of file Monomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_aa95fd20f6a3a2a228fbf1911da44a282}\label{namespacepolynomials_aa95fd20f6a3a2a228fbf1911da44a282}} 
+\index{polynomials@{polynomials}!monomial@{monomial}}
+\index{monomial@{monomial}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{monomial()}{monomial()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr R polynomials\+::monomial (\begin{DoxyParamCaption}\item[{const}]{R,  }\item[{\mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{traits\+::\+Int\+To\+Type}}$<$ 0 $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line 41 of file Monomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a5de6cda24a2bc3402ee4669a647cae06}\label{namespacepolynomials_a5de6cda24a2bc3402ee4669a647cae06}} 
+\index{polynomials@{polynomials}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ \\
+auto polynomials\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ LDegree, R $>$ const \&}]{left,  }\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} multiplication. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em LDegree} & The degree of the left polynomial \\
+\hline
+{\em RDegree} & The degree of the right polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left polynomial \\
+\hline
+{\em right} & The right polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The product of the two polynomials 
+\end{DoxyReturn}
+
+
+Definition at line 344 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a43b39dcda9a97774321abc64f1cfb0b0}\label{namespacepolynomials_a43b39dcda9a97774321abc64f1cfb0b0}} 
+\index{polynomials@{polynomials}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$unsigned int RDegree, typename R $>$ \\
+auto polynomials\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&}]{left,  }\item[{R const \&}]{scalar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Multiplication of a polynomial with a scalar This is the same as the previous one, but with the arguments swapped. 
+
+It is here to allow for a more natural syntax. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em RDegree} & The degree of the polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The polynomial \\
+\hline
+{\em scalar} & The scalar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The polynomial multiplied by the scalar 
+\end{DoxyReturn}
+
+
+Definition at line 386 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a3d0bf98db126a6b8068e651873f93c76}\label{namespacepolynomials_a3d0bf98db126a6b8068e651873f93c76}} 
+\index{polynomials@{polynomials}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$unsigned int RDegree, typename R $>$ \\
+auto polynomials\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{R const \&}]{scalar,  }\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Multiplication of a polynomial with a scalar. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em RDegree} & The degree of the polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em scalar} & The scalar \\
+\hline
+{\em right} & The polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The polynomial multiplied by the scalar 
+\end{DoxyReturn}
+
+
+Definition at line 368 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a7cc728863a06ab0a36c6351f073d06e6}\label{namespacepolynomials_a7cc728863a06ab0a36c6351f073d06e6}} 
+\index{polynomials@{polynomials}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$unsigned int N, typename R $>$ \\
+auto polynomials\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ \&}]{left,  }\item[{const R \&}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (polynomial -\/ scalar) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em N} & The degree of the polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The polynomial \\
+\hline
+{\em right} & The scalar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of subtracting the scalar from the polynomial 
+\end{DoxyReturn}
+
+
+Definition at line 311 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a08a0c9918e95ed8d4f44a3cbda4a9a4d}\label{namespacepolynomials_a08a0c9918e95ed8d4f44a3cbda4a9a4d}} 
+\index{polynomials@{polynomials}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$unsigned int N, typename R $>$ \\
+auto polynomials\+::operator-\/ (\begin{DoxyParamCaption}\item[{const R \&}]{left,  }\item[{const \mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ \&}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction with scalar (scalar -\/ polynomial) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em N} & The degree of the polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The scalar \\
+\hline
+{\em right} & The polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of subtracting the polynomial from the scalar 
+\end{DoxyReturn}
+
+
+Definition at line 327 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_a3996f0eae6d14190d5d5a9b4de15e281}\label{namespacepolynomials_a3996f0eae6d14190d5d5a9b4de15e281}} 
+\index{polynomials@{polynomials}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$unsigned int LDegree, unsigned int RDegree, typename R $>$ \\
+auto polynomials\+::operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ LDegree, R $>$ const \&}]{left,  }\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ RDegree, R $>$ const \&}]{right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}} subtraction. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em LDegree} & The degree of the left polynomial \\
+\hline
+{\em RDegree} & The degree of the right polynomial \\
+\hline
+{\em R} & The scalar field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em left} & The left polynomial \\
+\hline
+{\em right} & The right polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The subtraction of the two polynomials 
+\end{DoxyReturn}
+
+
+Definition at line 285 of file Polynomials.\+hpp.
+
+\mbox{\Hypertarget{namespacepolynomials_aeea34549b9bb903d4eb323212f01dc15}\label{namespacepolynomials_aeea34549b9bb903d4eb323212f01dc15}} 
+\index{polynomials@{polynomials}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$unsigned int N, typename R $>$ \\
+std\+::ostream\& polynomials\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{\mbox{\hyperlink{classpolynomials_1_1_polynomial}{Polynomial}}$<$ N, R $>$ const \&}]{p }\end{DoxyParamCaption})}
+
+
+
+Outputs the polynomial in a pretty-\/print way. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em N} & The degree \\
+\hline
+{\em R} & The field \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The output stream \\
+\hline
+{\em p} & The polynomial \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The stream 
+\end{DoxyReturn}
+
+
+Definition at line 256 of file Polynomials.\+hpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacepolynomials_ae9708d3be233567c01126d260c6656ef}\label{namespacepolynomials_ae9708d3be233567c01126d260c6656ef}} 
+\index{polynomials@{polynomials}!Numeric@{Numeric}}
+\index{Numeric@{Numeric}!polynomials@{polynomials}}
+\doxysubsubsection{\texorpdfstring{Numeric}{Numeric}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+concept polynomials\+::\+Numeric = std\+::is\+\_\+arithmetic\+\_\+v$<$T$>$}
+
+
+
+Concept restricting T to arithmetic types. 
+
+
+
+Definition at line 54 of file Orthogonal\+Validator.\+hpp.
+

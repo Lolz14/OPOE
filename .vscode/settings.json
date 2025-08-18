@@ -74,6 +74,7 @@
         "unordered_set": "cpp",
         "orderingmethods": "cpp",
         "matrixfunctions": "cpp",
-        "splines": "cpp"
+        "splines": "cpp",
+        "sparse": "cpp"
     }
 }

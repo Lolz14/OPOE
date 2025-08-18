@@ -1,0 +1,287 @@
+\hypertarget{classoptions_1_1_base_option_pricer}{}\doxysection{options\+::Base\+Option\+Pricer$<$ R $>$ Class Template Reference}
+\label{classoptions_1_1_base_option_pricer}\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+
+
+Base class for option pricing.  
+
+
+
+
+{\ttfamily \#include $<$Base\+Option\+Pricer.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}{Base\+Option\+Pricer}} (R ttm, R strike, R rate, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} instance. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}{$\sim$\+Base\+Option\+Pricer}} ()=default
+\item 
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer_aededc7b8e7d08b05af9fcc829475dcfd}{Base\+Option\+Pricer}} (const \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \&other)
+\item 
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \& \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a6549386f0ce01dcec0b4b8cfca6b4b2f}{operator=}} (const \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \&other)
+\item 
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer_a1d8ba2b8bec95c048a66bb89a2710be8}{Base\+Option\+Pricer}} (\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \& \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a28b608d20734f8f71d563adef538c3b3}{operator=}} (\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} \&\&) noexcept=default
+\item 
+virtual R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}{price}} () const =0
+\item 
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302bcd688c703c}{set\+\_\+ttm}} (R ttm) noexcept
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}{get\+\_\+ttm}} () const noexcept
+\item 
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}{set\+\_\+strike}} (R strike) noexcept
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}{get\+\_\+strike}} () const noexcept
+\item 
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}{set\+\_\+rate}} (R rate) noexcept
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a201377a13ea8f5328991e18587333616}{get\+\_\+rate}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}{ttm\+\_\+}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}{strike\+\_\+}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}{rate\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}{payoff\+\_\+}}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}{sde\+\_\+model\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class options\+::\+Base\+Option\+Pricer$<$ R $>$}
+
+Base class for option pricing. 
+
+This class provides a common interface for option pricing methods. It holds the basic parameters of the option and the payoff function. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).\\
+\hline
+\end{DoxyTemplParams}
+This class is designed to be inherited by specific option pricers like \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer}{FFTPricer}}, \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{MCPricer}}, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-\/free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. 
+
+Definition at line 38 of file Base\+Option\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}\label{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!BaseOptionPricer@{BaseOptionPricer}}
+\index{BaseOptionPricer@{BaseOptionPricer}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{BaseOptionPricer()}{BaseOptionPricer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{strike,  }\item[{R}]{rate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ttm} & Time to maturity. \\
+\hline
+{\em strike} & Strike price of the option. \\
+\hline
+{\em rate} & Risk-\/free interest rate. \\
+\hline
+{\em payoff} & Payoff function for the option. \\
+\hline
+{\em sde\+\_\+model} & Shared pointer to the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model used for pricing. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}\label{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!````~BaseOptionPricer@{$\sim$BaseOptionPricer}}
+\index{````~BaseOptionPricer@{$\sim$BaseOptionPricer}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$BaseOptionPricer()}{~BaseOptionPricer()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::$\sim$\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_aededc7b8e7d08b05af9fcc829475dcfd}\label{classoptions_1_1_base_option_pricer_aededc7b8e7d08b05af9fcc829475dcfd}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!BaseOptionPricer@{BaseOptionPricer}}
+\index{BaseOptionPricer@{BaseOptionPricer}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{BaseOptionPricer()}{BaseOptionPricer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$ R $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 56 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a1d8ba2b8bec95c048a66bb89a2710be8}\label{classoptions_1_1_base_option_pricer_a1d8ba2b8bec95c048a66bb89a2710be8}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!BaseOptionPricer@{BaseOptionPricer}}
+\index{BaseOptionPricer@{BaseOptionPricer}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{BaseOptionPricer()}{BaseOptionPricer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$ R $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a201377a13ea8f5328991e18587333616}\label{classoptions_1_1_base_option_pricer_a201377a13ea8f5328991e18587333616}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!get\_rate@{get\_rate}}
+\index{get\_rate@{get\_rate}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{get\_rate()}{get\_rate()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::get\+\_\+rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 82 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}\label{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!get\_strike@{get\_strike}}
+\index{get\_strike@{get\_strike}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{get\_strike()}{get\_strike()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::get\+\_\+strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 79 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}\label{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!get\_ttm@{get\_ttm}}
+\index{get\_ttm@{get\_ttm}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{get\_ttm()}{get\_ttm()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::get\+\_\+ttm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 76 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a28b608d20734f8f71d563adef538c3b3}\label{classoptions_1_1_base_option_pricer_a28b608d20734f8f71d563adef538c3b3}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}\& \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$ R $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a6549386f0ce01dcec0b4b8cfca6b4b2f}\label{classoptions_1_1_base_option_pricer_a6549386f0ce01dcec0b4b8cfca6b4b2f}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}\& \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$ R $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 60 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}\label{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!price@{price}}
+\index{price@{price}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{price()}{price()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::price (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a4d45e7c1944c0c7d8c58bcbb065091f8}{options\+::\+MCPricer$<$ R $>$}}, \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer_a2d82cf1bddaffcdde05c3f185fe5a4df}{options\+::\+FFTPricer$<$ R $>$}}, and \mbox{\hyperlink{classoptions_1_1_c_f_pricer_a90c543d1a1ed16c3333a2daeec14837a}{options\+::\+CFPricer$<$ R $>$}}.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}\label{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_rate@{set\_rate}}
+\index{set\_rate@{set\_rate}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{set\_rate()}{set\_rate()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::set\+\_\+rate (\begin{DoxyParamCaption}\item[{R}]{rate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 81 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}\label{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_strike@{set\_strike}}
+\index{set\_strike@{set\_strike}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{set\_strike()}{set\_strike()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::set\+\_\+strike (\begin{DoxyParamCaption}\item[{R}]{strike }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 78 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302bcd688c703c}\label{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302bcd688c703c}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_ttm@{set\_ttm}}
+\index{set\_ttm@{set\_ttm}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{set\_ttm()}{set\_ttm()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::set\+\_\+ttm (\begin{DoxyParamCaption}\item[{R}]{ttm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 75 of file Base\+Option\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}\label{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!payoff\_@{payoff\_}}
+\index{payoff\_@{payoff\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{payoff\_}{payoff\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$R$>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::payoff\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 89 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}\label{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!rate\_@{rate\_}}
+\index{rate\_@{rate\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{rate\_}{rate\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::rate\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 88 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}\label{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!sde\_model\_@{sde\_model\_}}
+\index{sde\_model\_@{sde\_model\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{sde\_model\_}{sde\_model\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$R$>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::sde\+\_\+model\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 90 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}\label{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!strike\_@{strike\_}}
+\index{strike\_@{strike\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{strike\_}{strike\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::strike\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 87 of file Base\+Option\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}\label{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}} 
+\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!ttm\_@{ttm\_}}
+\index{ttm\_@{ttm\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{ttm\_}{ttm\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::ttm\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 86 of file Base\+Option\+Pricer.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+options/\mbox{\hyperlink{_base_option_pricer_8hpp}{Base\+Option\+Pricer.\+hpp}}\end{DoxyCompactItemize}

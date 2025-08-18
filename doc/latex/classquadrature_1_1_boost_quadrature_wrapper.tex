@@ -1,0 +1,141 @@
+\hypertarget{classquadrature_1_1_boost_quadrature_wrapper}{}\doxysection{quadrature\+::Boost\+Quadrature\+Wrapper$<$ R $>$ Class Template Reference}
+\label{classquadrature_1_1_boost_quadrature_wrapper}\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+
+
+Wrapper for the Boost Tanh-\/\+Sinh quadrature rule.  
+
+
+
+
+{\ttfamily \#include $<$Quadrature\+Wrappers.\+hpp$>$}
+
+
+
+Inheritance diagram for quadrature\+::Boost\+Quadrature\+Wrapper$<$ R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classquadrature_1_1_boost_quadrature_wrapper__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for quadrature\+::Boost\+Quadrature\+Wrapper$<$ R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classquadrature_1_1_boost_quadrature_wrapper__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper_a9a617208edcaf608bd1b58cc49c1bd09}{Boost\+Quadrature\+Wrapper}} (const \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}$<$ R $>$ \&rule)
+\item 
+\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper_a1321337d1ca7719098112d93f318d2d4}{Boost\+Quadrature\+Wrapper}} (R relative\+\_\+error=std\+::sqrt(std\+::numeric\+\_\+limits$<$ R $>$\+::epsilon()))
+\item 
+R \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper_ac89dccbeb2ad403cbf51ea466e75850b}{integrate}} (const std\+::function$<$ R(R)$>$ \&integrand, R lower\+\_\+bound, R upper\+\_\+bound) const override
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classquadrature_1_1_i_quadrature_rule}{IQuadrature\+Rule}}$<$ R $>$ $>$ \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper_a1ab6f1f0606541aa9dc0be0d943986ed}{clone}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}$<$ R $>$ \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper_afd5d188963ccac07b5838aa94d4649ac}{rule\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class quadrature\+::\+Boost\+Quadrature\+Wrapper$<$ R $>$}
+
+Wrapper for the Boost Tanh-\/\+Sinh quadrature rule. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The floating-\/point type used for integration (e.\+g., double).\\
+\hline
+\end{DoxyTemplParams}
+This class wraps a {\ttfamily \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}} instance and exposes it through the {\ttfamily \mbox{\hyperlink{classquadrature_1_1_i_quadrature_rule}{IQuadrature\+Rule}}} interface. It supports construction from an existing rule or by specifying the desired relative error.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily integrate}\+: Performs numerical integration using the wrapped Boost rule.
+\item {\ttfamily clone}\+: Creates a deep copy of the wrapper and its underlying rule. 
+\end{DoxyItemize}
+
+Definition at line 37 of file Quadrature\+Wrappers.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_boost_quadrature_wrapper_a9a617208edcaf608bd1b58cc49c1bd09}\label{classquadrature_1_1_boost_quadrature_wrapper_a9a617208edcaf608bd1b58cc49c1bd09}} 
+\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}!BoostQuadratureWrapper@{BoostQuadratureWrapper}}
+\index{BoostQuadratureWrapper@{BoostQuadratureWrapper}!quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{BoostQuadratureWrapper()}{BoostQuadratureWrapper()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper}}$<$ R $>$\+::\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{Boost\+Quadrature\+Wrapper}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}$<$ R $>$ \&}]{rule }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 41 of file Quadrature\+Wrappers.\+hpp.
+
+\mbox{\Hypertarget{classquadrature_1_1_boost_quadrature_wrapper_a1321337d1ca7719098112d93f318d2d4}\label{classquadrature_1_1_boost_quadrature_wrapper_a1321337d1ca7719098112d93f318d2d4}} 
+\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}!BoostQuadratureWrapper@{BoostQuadratureWrapper}}
+\index{BoostQuadratureWrapper@{BoostQuadratureWrapper}!quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{BoostQuadratureWrapper()}{BoostQuadratureWrapper()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper}}$<$ R $>$\+::\mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{Boost\+Quadrature\+Wrapper}} (\begin{DoxyParamCaption}\item[{R}]{relative\+\_\+error = {\ttfamily std\+:\+:sqrt(std\+:\+:numeric\+\_\+limits$<$R$>$\+:\+:epsilon())} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 45 of file Quadrature\+Wrappers.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_boost_quadrature_wrapper_a1ab6f1f0606541aa9dc0be0d943986ed}\label{classquadrature_1_1_boost_quadrature_wrapper_a1ab6f1f0606541aa9dc0be0d943986ed}} 
+\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}!clone@{clone}}
+\index{clone@{clone}!quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classquadrature_1_1_i_quadrature_rule}{IQuadrature\+Rule}}$<$R$>$ $>$ \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper}}$<$ R $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classquadrature_1_1_i_quadrature_rule_a27845d21b5f1102f266a436573810ecf}{quadrature\+::\+IQuadrature\+Rule$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 55 of file Quadrature\+Wrappers.\+hpp.
+
+\mbox{\Hypertarget{classquadrature_1_1_boost_quadrature_wrapper_ac89dccbeb2ad403cbf51ea466e75850b}\label{classquadrature_1_1_boost_quadrature_wrapper_ac89dccbeb2ad403cbf51ea466e75850b}} 
+\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper}}$<$ R $>$\+::integrate (\begin{DoxyParamCaption}\item[{const std\+::function$<$ R(R)$>$ \&}]{integrand,  }\item[{R}]{lower\+\_\+bound,  }\item[{R}]{upper\+\_\+bound }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 48 of file Quadrature\+Wrappers.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classquadrature_1_1_boost_quadrature_wrapper_afd5d188963ccac07b5838aa94d4649ac}\label{classquadrature_1_1_boost_quadrature_wrapper_afd5d188963ccac07b5838aa94d4649ac}} 
+\index{quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}!rule\_@{rule\_}}
+\index{rule\_@{rule\_}!quadrature::BoostQuadratureWrapper$<$ R $>$@{quadrature::BoostQuadratureWrapper$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{rule\_}{rule\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}}$<$R$>$ \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper}}$<$ R $>$\+::rule\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 38 of file Quadrature\+Wrappers.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+quadrature/\mbox{\hyperlink{_quadrature_wrappers_8hpp}{Quadrature\+Wrappers.\+hpp}}\end{DoxyCompactItemize}

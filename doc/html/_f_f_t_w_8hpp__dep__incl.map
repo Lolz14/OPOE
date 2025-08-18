@@ -1,0 +1,9 @@
+<map id="utils/FFTW.hpp" name="utils/FFTW.hpp">
+<area shape="rect" id="node1" title="Utilities for performing FFT&#45;based polynomial multiplication using FFTW and Eigen." alt="" coords="165,5,282,32"/>
+<area shape="rect" id="node2" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="5,80,209,107"/>
+<area shape="rect" id="node3" href="$_polynomials_8hpp.html" title="Defines the polynomials::Polynomial template class and related polynomial operations." alt="" coords="233,80,448,107"/>
+<area shape="rect" id="node4" href="$_orthogonal_polynomials_8hpp.html" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="197,155,484,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="306,379,389,405"/>
+<area shape="rect" id="node6" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="319,229,503,256"/>
+<area shape="rect" id="node7" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="315,304,521,331"/>
+</map>

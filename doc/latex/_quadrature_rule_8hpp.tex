@@ -1,0 +1,84 @@
+\hypertarget{_quadrature_rule_8hpp}{}\doxysection{quadrature/\+Quadrature\+Rule.hpp File Reference}
+\label{_quadrature_rule_8hpp}\index{quadrature/QuadratureRule.hpp@{quadrature/QuadratureRule.hpp}}
+
+
+Provides generic quadrature (numerical integration) adapters for Boost and GSL libraries.  
+
+
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$boost/math/quadrature/tanh\+\_\+sinh.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/math/special\+\_\+functions/fpclassify.\+hpp$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+integration.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+Include dependency graph for Quadrature\+Rule.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_quadrature_rule_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{_quadrature_rule_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{quadrature\+::\+Boost\+Tanh\+Sinh\+Quadrature$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{Boost\+Tanh\+Sinh\+Quadrature}} class for numerical integration using Boost\textquotesingle{}s tanh\+\_\+sinh quadrature. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structquadrature_1_1_g_s_l_integration_wrapper}{quadrature\+::\+GSLIntegration\+Wrapper$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{GSLQuadrature}} class for numerical integration using GSL\textquotesingle{}s adaptive quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacequadrature}{quadrature}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides generic quadrature (numerical integration) adapters for Boost and GSL libraries. 
+
+This header defines two main quadrature classes\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{quadrature\+::\+Boost\+Tanh\+Sinh\+Quadrature}}\+: Adapter for Boost.\+Math\textquotesingle{}s tanh\+\_\+sinh quadrature, supporting finite and infinite bounds.
+\item \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature\+::\+GSLQuadrature}}\+: Adapter for GSL\textquotesingle{}s adaptive quadrature routines, supporting finite and infinite bounds with workspace management.
+\end{DoxyItemize}
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item Boost.\+Math for tanh\+\_\+sinh quadrature.
+\item GSL (GNU Scientific Library) for adaptive quadrature.
+\item \mbox{\hyperlink{_o_p_o_e__traits_8hpp}{traits/\+OPOE\+\_\+traits.\+hpp}} for type definitions.
+\end{DoxyItemize}
+
+Features\+:
+\begin{DoxyItemize}
+\item Type-\/generic (templated on floating-\/point type R).
+\item Handles both finite and infinite integration limits.
+\item Error control via absolute and relative tolerances.
+\item Exception-\/safe resource management for GSL workspaces.
+\item C++11/14 compatible, uses std\+::function for integrands.
+\end{DoxyItemize}
+
+Usage Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_quadrature_rule_8hpp}{QuadratureRule.hpp}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature}{quadrature::BoostTanhSinhQuadrature<double>}} boost\_quad;}
+\DoxyCodeLine{\textcolor{keywordtype}{double} result = boost\_quad.\mbox{\hyperlink{classquadrature_1_1_boost_tanh_sinh_quadrature_ac949f784455ada4f08c45fd66dc1383d}{integrate}}([](\textcolor{keywordtype}{double} x) \{ \textcolor{keywordflow}{return} std::exp(-\/x*x); \}, -\/std::numeric\_limits<double>::infinity(), std::numeric\_limits<double>::infinity());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature}{quadrature::GSLQuadrature<double>}} gsl\_quad;}
+\DoxyCodeLine{\textcolor{keywordtype}{double} gsl\_result = gsl\_quad.\mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_a1956a278e81f8360a87a96a3acfb48e6}{integrate}}([](\textcolor{keywordtype}{double} x) \{ \textcolor{keywordflow}{return} std::sin(x); \}, 0.0, M\_PI);}
+
+\end{DoxyCode}
+ 

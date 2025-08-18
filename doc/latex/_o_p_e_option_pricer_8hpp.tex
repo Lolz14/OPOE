@@ -1,0 +1,79 @@
+\hypertarget{_o_p_e_option_pricer_8hpp}{}\doxysection{options/\+OPEOption\+Pricer.hpp File Reference}
+\label{_o_p_e_option_pricer_8hpp}\index{options/OPEOptionPricer.hpp@{options/OPEOptionPricer.hpp}}
+
+
+Defines the OPEOption\+Pricer class for pricing options using Orthogonal Polynomial Expansion (OPE).  
+
+
+{\ttfamily \#include \char`\"{}../utils/\+File\+Reader.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../utils/\+Utils.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../quadrature/\+Projector.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../quadrature/\+Quadrature\+Rule\+Holder.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../stats/\+Mixture\+Density.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Base\+Option\+Pricer.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$unsupported/\+Eigen/\+Matrix\+Functions$>$}\newline
+{\ttfamily \#include $<$variant$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$execution$>$}\newline
+Include dependency graph for OPEOption\+Pricer.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_o_p_e_option_pricer_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{_o_p_e_option_pricer_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceoptions}{options}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the OPEOption\+Pricer class for pricing options using Orthogonal Polynomial Expansion (OPE). 
+
+This header provides the implementation of the OPEOption\+Pricer class template, which inherits from Base\+Option\+Pricer. The class uses orthogonal polynomial expansions and mixture densities to efficiently price options under stochastic volatility models. It supports flexible polynomial bases, customizable quadrature integration, and leverages quantization grids for path discretization.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_base_option_pricer_8hpp}{Base\+Option\+Pricer.\+hpp}}\+: Base class for option pricing.
+\item \mbox{\hyperlink{_s_d_e_8hpp}{SDE.\+hpp}}\+: Interface for stochastic differential equation models.
+\item \mbox{\hyperlink{_utils_8hpp}{Utils.\+hpp}}\+: Utility functions for enumerating polynomial bases and other operations.
+\item \mbox{\hyperlink{_mixture_density_8hpp}{Mixture\+Density.\+hpp}}\+: For handling mixture densities in polynomial expansions.
+\item \mbox{\hyperlink{_quadrature_rule_holder_8hpp}{Quadrature\+Rule\+Holder.\+hpp}}\+: For configurable quadrature integration methods.
+\end{DoxyItemize}\hypertarget{_o_p_e_option_pricer_8hpp_Features}{}\doxysubsection{Features}\label{_o_p_e_option_pricer_8hpp_Features}
+
+\begin{DoxyItemize}
+\item Constructs an orthonormal polynomial basis for the expansion.
+\item Computes the generator matrix and propagates it via matrix exponentiation.
+\item Integrates the expected payoff using a configurable quadrature rule.
+\item Supports custom \mbox{\hyperlink{namespace_s_d_e}{SDE}} solvers and stochastic volatility models.
+\item Outputs intermediate results and integrand values for debugging and analysis.
+\end{DoxyItemize}\hypertarget{_o_p_e_option_pricer_8hpp_Usage}{}\doxysubsection{Usage}\label{_o_p_e_option_pricer_8hpp_Usage}
+Instantiate OPEOption\+Pricer with the desired template parameters, provide the required \mbox{\hyperlink{namespace_s_d_e}{SDE}} model, payoff, and solver function. Call the price() method to compute the discounted expected payoff.\hypertarget{_o_p_e_option_pricer_8hpp_Example}{}\doxysubsection{Example}\label{_o_p_e_option_pricer_8hpp_Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} pricer = options::OPEOptionPricer<>(ttm, strike, rate, payoff, sde\_model, solver\_func);}
+\DoxyCodeLine{\textcolor{keywordtype}{double} option\_price = pricer.price();}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+Base\+Option\+Pricer 
+
+\mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}} 
+
+\mbox{\hyperlink{classquadrature_1_1_quadrature_rule_holder}{quadrature\+::\+Quadrature\+Rule\+Holder}} 
+\end{DoxySeeAlso}

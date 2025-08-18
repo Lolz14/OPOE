@@ -1,0 +1,213 @@
+\hypertarget{classoptions_1_1_m_c_pricer}{}\doxysection{options\+::MCPricer$<$ R $>$ Class Template Reference}
+\label{classoptions_1_1_m_c_pricer}\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+
+
+Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation.  
+
+
+
+
+{\ttfamily \#include $<$MCOption\+Pricer.\+hpp$>$}
+
+
+
+Inheritance diagram for options\+::MCPricer$<$ R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{classoptions_1_1_m_c_pricer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for options\+::MCPricer$<$ R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{classoptions_1_1_m_c_pricer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a7bbee921b7a54ea7092b801f36433b65}{Storing\+Vector}} = traits\+::\+Data\+Type\+::\+Storing\+Vector
+\item 
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}} = traits\+::\+Data\+Type\+::\+Storing\+Matrix
+\item 
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}} = std\+::function$<$ \mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}}(R, R, int, int, const std\+::optional$<$ \mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}} $>$ \&d\+W\+\_\+opt)$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classoptions_1_1_m_c_pricer_aee9658e8c9d0e39c07dd3fa3865dd168}{MCPricer}} (R ttm, R strike, R rate, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model, \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}} solver\+\_\+func, unsigned int num\+\_\+paths=10, unsigned int num\+\_\+steps=3)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{MCPricer}} instance. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a4d45e7c1944c0c7d8c58bcbb065091f8}{price}} () const override
+\begin{DoxyCompactList}\small\item\em Prices the option using Monte Carlo simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}} \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a9cf6db5265df6867346ec6146a775fa1}{solver\+\_\+func\+\_\+}}
+\item 
+unsigned int \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a984e869fb8a7a535143f8fa736bbad2b}{num\+\_\+paths\+\_\+}}
+\item 
+unsigned int \mbox{\hyperlink{classoptions_1_1_m_c_pricer_aa383cedd14b65d562c25fd2822875dc0}{num\+\_\+steps\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R$>$\newline
+class options\+::\+MCPricer$<$ R $>$}
+
+Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation. 
+
+This class implements the Monte Carlo method for option pricing, simulating paths of the underlying asset and calculating the expected payoff at maturity.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 47 of file MCOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}\label{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!SolverFunc@{SolverFunc}}
+\index{SolverFunc@{SolverFunc}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{SolverFunc}{SolverFunc}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}} =  std\+::function$<$\mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}}( R, R, int, int, const std\+::optional$<$\mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}}$>$\& d\+W\+\_\+opt)$>$}
+
+
+
+Definition at line 53 of file MCOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}\label{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!StoringMatrix@{StoringMatrix}}
+\index{StoringMatrix@{StoringMatrix}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{StoringMatrix}{StoringMatrix}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_m_c_pricer_ad0a4b9fcbd60c2ad31c19834727ff8cc}{Storing\+Matrix}} =  traits\+::\+Data\+Type\+::\+Storing\+Matrix}
+
+
+
+Definition at line 50 of file MCOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_a7bbee921b7a54ea7092b801f36433b65}\label{classoptions_1_1_m_c_pricer_a7bbee921b7a54ea7092b801f36433b65}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!StoringVector@{StoringVector}}
+\index{StoringVector@{StoringVector}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{StoringVector}{StoringVector}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+using \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_m_c_pricer_a7bbee921b7a54ea7092b801f36433b65}{Storing\+Vector}} =  traits\+::\+Data\+Type\+::\+Storing\+Vector}
+
+
+
+Definition at line 49 of file MCOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_aee9658e8c9d0e39c07dd3fa3865dd168}\label{classoptions_1_1_m_c_pricer_aee9658e8c9d0e39c07dd3fa3865dd168}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!MCPricer@{MCPricer}}
+\index{MCPricer@{MCPricer}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{MCPricer()}{MCPricer()}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+\mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_m_c_pricer}{MCPricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{strike,  }\item[{R}]{rate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model,  }\item[{\mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}}}]{solver\+\_\+func,  }\item[{unsigned int}]{num\+\_\+paths = {\ttfamily 10},  }\item[{unsigned int}]{num\+\_\+steps = {\ttfamily 3} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{MCPricer}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ttm} & Time to maturity. \\
+\hline
+{\em strike} & Strike price of the option. \\
+\hline
+{\em rate} & Risk-\/free interest rate. \\
+\hline
+{\em payoff} & Payoff function for the option. \\
+\hline
+{\em sde\+\_\+model} & Shared pointer to the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model used for path generation. \\
+\hline
+{\em solver\+\_\+func} & Function to solve the \mbox{\hyperlink{namespace_s_d_e}{SDE}} and generate paths. \\
+\hline
+{\em num\+\_\+paths} & Number of Monte Carlo paths to simulate (default\+: 10). \\
+\hline
+{\em num\+\_\+steps} & Number of time steps in each path (default\+: 3). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file MCOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_a4d45e7c1944c0c7d8c58bcbb065091f8}\label{classoptions_1_1_m_c_pricer_a4d45e7c1944c0c7d8c58bcbb065091f8}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!price@{price}}
+\index{price@{price}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{price()}{price()}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+R \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::price (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Prices the option using Monte Carlo simulation. 
+
+This method generates paths of the underlying asset using the provided \mbox{\hyperlink{namespace_s_d_e}{SDE}} model, evaluates the payoff at maturity, and returns the expected discounted payoff. \begin{DoxyReturn}{Returns}
+The computed option price. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}{options\+::\+Base\+Option\+Pricer$<$ R $>$}}.
+
+
+
+Definition at line 88 of file MCOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_a984e869fb8a7a535143f8fa736bbad2b}\label{classoptions_1_1_m_c_pricer_a984e869fb8a7a535143f8fa736bbad2b}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!num\_paths\_@{num\_paths\_}}
+\index{num\_paths\_@{num\_paths\_}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{num\_paths\_}{num\_paths\_}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+unsigned int \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::num\+\_\+paths\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 117 of file MCOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_aa383cedd14b65d562c25fd2822875dc0}\label{classoptions_1_1_m_c_pricer_aa383cedd14b65d562c25fd2822875dc0}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!num\_steps\_@{num\_steps\_}}
+\index{num\_steps\_@{num\_steps\_}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{num\_steps\_}{num\_steps\_}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+unsigned int \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::num\+\_\+steps\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 118 of file MCOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_m_c_pricer_a9cf6db5265df6867346ec6146a775fa1}\label{classoptions_1_1_m_c_pricer_a9cf6db5265df6867346ec6146a775fa1}} 
+\index{options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}!solver\_func\_@{solver\_func\_}}
+\index{solver\_func\_@{solver\_func\_}!options::MCPricer$<$ R $>$@{options::MCPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{solver\_func\_}{solver\_func\_}}
+{\footnotesize\ttfamily template$<$typename R $>$ \\
+\mbox{\hyperlink{classoptions_1_1_m_c_pricer_a957902234d5c33f51eec02484c212d90}{Solver\+Func}} \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer}}$<$ R $>$\+::solver\+\_\+func\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 116 of file MCOption\+Pricer.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+options/\mbox{\hyperlink{_m_c_option_pricer_8hpp}{MCOption\+Pricer.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,25 @@
+<map id="traits/OPOE_traits.hpp" name="traits/OPOE_traits.hpp">
+<area shape="rect" id="node1" title="Defines core type traits, enumerations, and data structures for the OPOE library." alt="" coords="813,5,978,32"/>
+<area shape="rect" id="node2" href="$_base_option_pricer_8hpp.html" title="Defines the BaseOptionPricer class, an abstract base class for option pricing models." alt="" coords="165,319,378,345"/>
+<area shape="rect" id="node6" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="1023,393,1229,420"/>
+<area shape="rect" id="node8" href="$_payoff_8hpp.html" title="Defines interfaces and concrete classes for option payoff evaluation in quantitative finance." alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node9" href="$_monomials_8hpp.html" title="Provides constexpr functions to compute monomials of a given degree." alt="" coords="1588,80,1795,107"/>
+<area shape="rect" id="node10" href="$_polynomials_8hpp.html" title="Defines the polynomials::Polynomial template class and related polynomial operations." alt="" coords="472,155,687,181"/>
+<area shape="rect" id="node13" href="$_quadrature_rule_8hpp.html" title="Provides generic quadrature (numerical integration) adapters for Boost and GSL libraries." alt="" coords="1125,80,1351,107"/>
+<area shape="rect" id="node15" href="$_quadrature_rule_holder_8hpp.html" title="Defines the QuadratureRuleHolder class, a type&#45;erased holder for various quadrature rule implementati..." alt="" coords="1139,229,1337,271"/>
+<area shape="rect" id="node17" href="$_s_d_e_8hpp.html" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="345,155,448,181"/>
+<area shape="rect" id="node19" href="$_density_base_8hpp.html" title="Provides a generic base class for probability density functions using Boost.Math distributions." alt="" coords="933,80,1101,107"/>
+<area shape="rect" id="node20" href="$_quantization_8hpp.html" title="Implements quantization algorithms for vector quantization, including Newton&#39;s method (1D) and Compet..." alt="" coords="813,155,983,181"/>
+<area shape="rect" id="node21" href="$_f_f_t_w_8hpp.html" title="Utilities for performing FFT&#45;based polynomial multiplication using FFTW and Eigen." alt="" coords="521,80,638,107"/>
+<area shape="rect" id="node22" href="$_file_reader_8hpp.html" title="Provides functionality to read quantization grid data from a file into Eigen&#45;based structures." alt="" coords="1361,237,1512,263"/>
+<area shape="rect" id="node23" href="$_utils_8hpp.html" title="Utility functions and templates for polynomial operations, random sampling, and vector/matrix computa..." alt="" coords="717,80,829,107"/>
+<area shape="rect" id="node3" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="531,393,729,420"/>
+<area shape="rect" id="node4" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="25,393,229,420"/>
+<area shape="rect" id="node5" href="$_m_c_option_pricer_8hpp.html" title="Defines the MCPricer class for Monte Carlo option pricing." alt="" coords="254,393,457,420"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title=" " alt="" coords="750,468,833,495"/>
+<area shape="rect" id="node11" href="$_orthogonal_polynomials_8hpp.html" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="492,237,779,263"/>
+<area shape="rect" id="node12" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="969,319,1153,345"/>
+<area shape="rect" id="node14" href="$_quadrature_wrappers_8hpp.html" title="Provides wrapper classes for different quadrature (numerical integration) backends." alt="" coords="1108,155,1368,181"/>
+<area shape="rect" id="node16" href="$_projector_8hpp.html" title="Defines the Projector class template for weighted integration of products of functions using quadratu..." alt="" coords="1228,319,1411,345"/>
+<area shape="rect" id="node18" href="$_fin_models_8hpp.html" title="Stochastic Differential Equation (SDE) models for financial applications." alt="" coords="325,237,468,263"/>
+</map>

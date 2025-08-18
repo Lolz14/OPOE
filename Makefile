@@ -1,78 +1,100 @@
-############################################################
-#
-# An example of Makefile for the course on 
-# Advanced Programming for Scientific Computing
-# It should be modified for adapting it to the various examples
-#
-############################################################
-#
-# The environmental variable PACS_ROOT should be set to the
-# root directory where the examples reside. In practice, the directory
-# where this file is found. The resolution of PACS_ROOT is made in the
-# Makefile.h file, where other important variables are also set.
-# The only user defined variable that must be set in this file is
-# the one indicating where Makefile.h resides
+OS := $(shell uname -s)
+ARCH := $(shell uname -m)
+
+CC  = gcc
+CXX = g++
+CXX_STD = c++20
+
+# Compiler / linker flags
+WARNFLAGS  = -Wall -Wextra -Wsuggest-override -Wnon-virtual-dtor -Wno-deprecated-enum-enum-conversion -Wno-volatile
+OPTFLAGS   = -O3 -funroll-loops
+DEBUGFLAGS = -g
+DEFINES    = -DNDEBUG
+
+# Includes (project + dependencies)
+PKG_CPPFLAGS = \
+  -I./include \
+  -I./libs/eigen \
+  -I./libs/armadillo/include -DARMA_DONT_USE_WRAPPER -lopenblas -llapack \
+  -I./libs/boost \
+  -I./libs/fftw/include \
+  -I./libs/gsl/include \
+  -I./libs/pybind11/include \
 
 
-#TO BE MODIFIED OR IMPORTED
-PACS_ROOT?=/home/lolz/pacs-examples/Examples
-export PACS_ROOT
+# Libraries (local versions)
+PKG_LIBS = \
+  -L./libs/fftw/lib -lfftw3 -lfftw3_threads \
+  -L./libs/gsl/lib -lgsl -lgslcblas \
+  -lblas -llapack -pthread
 
+# OpenMP support
+ifeq ($(OS),Darwin)
+  ifeq ($(ARCH),arm64)
+      HOMEBREW_PREFIX = /opt/homebrew
+  else
+      HOMEBREW_PREFIX = /usr/local
+  endif
+  PKG_CXXFLAGS = -Xpreprocessor -fopenmp -I$(HOMEBREW_PREFIX)/opt/libomp/include $(OPTFLAGS)
+  PKG_LIBS += -L$(HOMEBREW_PREFIX)/opt/libomp/lib -lomp
+else ifeq ($(OS),Linux)
+  PKG_CXXFLAGS = -fopenmp $(OPTFLAGS)
+  PKG_LIBS += -fopenmp
+else ifeq ($(OS),Windows)
+  PKG_CXXFLAGS = -fopenmp $(OPTFLAGS)
+  PKG_LIBS += -fopenmp
+endif
 
-MAKEFILEH_DIR = $(PACS_ROOT)
+# Final flags
+CPPFLAGS = $(PKG_CPPFLAGS) $(DEFINES)
+CXXFLAGS = -std=$(CXX_STD) $(WARNFLAGS) $(PKG_CXXFLAGS)
+LDFLAGS  = $(PKG_LIBS)
 
-#
-include $(MAKEFILEH_DIR)/Makefile.inc
-#
-# You may have an include file also in the current directory
-# This is optional. If not present is not an error
--include Makefile.inc
+# Sources, objects, executables
+SRCS    = $(wildcard src/*.cpp)
+OBJS    = $(patsubst src/%.cpp,build/%.o,$(SRCS))
+HEADERS = $(wildcard include/*.hpp)
+Mains   = $(filter src/main%.cpp,$(SRCS))
+EXEC  = $(patsubst src/%.cpp,bin/%,$(Mains))
 
-#
-# The general setting is as follows:
-# mains are identified bt main_XX.cpp
-# all other files are XX.cpp
-#
-
-# get all files *.cpp
-SRCS=$(wildcard *.cpp)
-# get the corresponding object file
-OBJS = $(SRCS:.cpp=.o)
-# get all headers in the working directory
-HEADERS=$(wildcard *.hpp)
-#
-exe_sources=$(filter main%.cpp,$(SRCS))
-EXEC=$(exe_sources:.cpp=)
-
-#========================== NEW THE DEFINITION OF THE TARGETS
-.phony= all clean distclean doc
 
 .DEFAULT_GOAL = all
 
-all: $(DEPEND) $(EXEC)
+# --- Bootstrap: ensure libs are installed ---
+libs/.ready:
+	@echo "🔍 Checking dependencies..."
+	@if [ ! -d libs ]; then \
+	  echo "📦 libs/ not found. Running setup_deps.sh..."; \
+	  bash ./setup_deps.sh; \
+	fi
+	@touch libs/.ready
+
+# --- Build rules ---
+all: libs/.ready $(EXEC)
+
+bin/%: build/%.o $(filter-out build/$*.o,$(OBJS))
+	@mkdir -p bin
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+
+build/%.o: src/%.cpp $(HEADERS) libs/.ready
+	@mkdir -p build
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	$(RM) -f $(EXEC) $(OBJS)
+	$(RM) -rf build bin
 
-distclean:
-	$(MAKE) clean
-	$(RM) -f ./doc $(DEPEND)
-	$(RM) *.out *.bak *~
+distclean: clean
+	$(RM) -rf libs
+	$(RM) -f make.dep libs/.ready
 
 doc:
-	doxygen $(DOXYFILE)
+	doxygen Doxyfile
 
-$(EXEC): $(OBJS)
-	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LIBRARIES)
-$(OBJS): $(SRCS)
-
-install:
-	cp *.hpp $(PACS_INC_DIR)
-
-$(DEPEND): $(SRCS)
-	$(RM) $(DEPEND)
+# Dependencies
+make.dep: $(SRCS)
+	$(RM) make.dep
 	for f in $(SRCS); do \
-	$(CXX) $(STDFLAGS) $(CPPFLAGS) -MM $$f >> $(DEPEND); \
+		$(CXX) $(CXXFLAGS) $(CPPFLAGS) -MM $$f >> make.dep; \
 	done
 
--include $(DEPEND)
+-include make.dep

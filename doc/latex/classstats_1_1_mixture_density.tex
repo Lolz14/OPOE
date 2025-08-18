@@ -1,0 +1,807 @@
+\hypertarget{classstats_1_1_mixture_density}{}\doxysection{stats\+::Mixture\+Density$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$ Class Template Reference}
+\label{classstats_1_1_mixture_density}\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+
+
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} class template for polynomial-\/based mixture density estimation.  
+
+
+
+
+{\ttfamily \#include $<$Mixture\+Density.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}} = \mbox{\hyperlink{namespacestats_aaacf7ce6a573dd7a36fef376a0f421d6}{Polynomial}}$<$ Polynomial\+Base\+Degree, R $>$
+\item 
+using \mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} = traits\+::\+Data\+Type\+::\+Storing\+Array
+\item 
+using \mbox{\hyperlink{classstats_1_1_mixture_density_a2e3e3555e2e99e31cb8ed215b72a51b6}{Storing\+Vector}} = traits\+::\+Data\+Type\+::\+Storing\+Vector
+\item 
+using \mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}} = traits\+::\+Data\+Type\+::\+Sparse\+Storing\+Matrix
+\item 
+using \mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} = traits\+::\+Data\+Type\+::\+Storing\+Matrix
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_a6b80fcaf2e3c7b6a8bf4c91a361bd31e}{Mixture\+Density}} (std\+::vector$<$ R $>$ weights, std\+::vector$<$ Density\+Type $>$ components)
+\begin{DoxyCompactList}\small\item\em Constructor initializing the mixture density with given weights and components. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstats_1_1_density_interval}{stats\+::\+Density\+Interval}}$<$ R $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a75ac307b4bd0da8aad338b351659d319}{get\+Support}} () const
+\begin{DoxyCompactList}\small\item\em Computes the combined support interval of the mixture density. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_mixture_density_afc652b39d734a043597a021f96e1bc3c}{compute\+Recursion\+Coeffs}} ()
+\begin{DoxyCompactList}\small\item\em Computes the recursion coefficients (a, b) for the orthonormal polynomial basis. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_mixture_density_a2d8048ff91535e038dbdb8d8f967a8a0}{construct\+Orthonormal\+Basis}} ()
+\begin{DoxyCompactList}\small\item\em Constructs the orthonormal polynomial basis for the mixture density. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_mixture_density_a5f543822bb46ec1b65e2692f6a91ca9a}{construct\+QProjection\+Matrix}} ()
+\begin{DoxyCompactList}\small\item\em Constructs the Q-\/projection matrices for the mixture. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classstats_1_1_mixture_density_aff4622d9b0c23915a958c90754e123c4}{$\sim$\+Mixture\+Density}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classstats_1_1_mixture_density_a3072f208b5052fd7c7480651e888efce}{pdf}} (R x) const
+\begin{DoxyCompactList}\small\item\em Evaluates the probability density function (PDF) of the mixture at a given point. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classstats_1_1_mixture_density_ad1b1ef2a140dd09f5e7035e28f167e55}{cdf}} (R x) const
+\begin{DoxyCompactList}\small\item\em Evaluates the cumulative distribution function (CDF) of the mixture at a given point. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classstats_1_1_mixture_density_ad1808144fced1e406ad050f28ab7d80b}{mean}} () const
+\begin{DoxyCompactList}\small\item\em Computes the mean of the mixture density. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classstats_1_1_mixture_density_aaeb2ef0b2f1e9a2e0cd7b25c02d20a13}{variance}} () const
+\begin{DoxyCompactList}\small\item\em Computes the variance of the mixture density. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_mixture_density_abe53a5a2be4c83081a36bcbbef584e06}{print\+Component\+Parameters}} () const
+\begin{DoxyCompactList}\small\item\em Prints the parameters of each component in the mixture to standard output. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}} \& \mbox{\hyperlink{classstats_1_1_mixture_density_a3977385939d6fecbd3dc6d50695b50f5}{get\+Polynomial}} (unsigned int degree) const
+\begin{DoxyCompactList}\small\item\em Retrieves the orthonormal polynomial of a specified degree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} \mbox{\hyperlink{classstats_1_1_mixture_density_a93bac098e9378d9798460b4e80851fa9}{get\+HMatrix}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the matrix H storing polynomial coefficients. \end{DoxyCompactList}\item 
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density_a13bb6b224353f59646e717038cac332c}{get\+QProjection\+Matrix}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the vector of Q projection matrices. \end{DoxyCompactList}\item 
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density_af9c70bd3d88d09a86b2310e5ff3dc9a0}{get\+HMatrixs}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the vector of H matrices for each component. \end{DoxyCompactList}\item 
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density_a003017ef26dd388df675ca9bf557465a}{get\+Jacobi\+Matrix}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the vector of Jacobi matrices for each component. \end{DoxyCompactList}\item 
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density_ab44921ee49fd3fab1d86913d307ac2fe}{get\+HFunctions\+Components}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the vector of orthonormal polynomial functions for each component. \end{DoxyCompactList}\item 
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density_ac0df0b8df36201c9e4b6c7b26c446ca0}{get\+HFunctions\+Mixture}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the vector of orthonormal polynomial functions for the mixture. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classstats_1_1_mixture_density_a40c4a7b93321fd8c32441ec7d22a3f46}{size}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the number of components in the mixture. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classstats_1_1_mixture_density_a26cac7b77059fe31c4f68f802202a0b3}{empty}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Checks if the mixture is empty (no components). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_a5e1a3e7a04edb79ea6d672f65f429e21}{Mixture\+Density}} (const \mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Prevent copy semantics for safety. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \& \mbox{\hyperlink{classstats_1_1_mixture_density_a87fef84929215463b69d4f57f95798a4}{operator=}} (const \mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \&)=delete
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_a4535ec6275d881677837e1b531d61752}{Mixture\+Density}} (\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \&\&)=default
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \& \mbox{\hyperlink{classstats_1_1_mixture_density_a01bef1d0842fd7a83eda52d71a23ba0f}{operator=}} (\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} \&\&)=default
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Accessors}\par
+\begin{DoxyCompactItemize}
+\item 
+const std\+::vector$<$ Density\+Type $>$ \& \mbox{\hyperlink{classstats_1_1_mixture_density_ace1d4dc18f93848cc83d62e58a2f8aa8}{get\+Components}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieves the mixture\textquotesingle{}s components, weights, Jacobi matrices, and coefficients. \end{DoxyCompactList}\item 
+const std\+::vector$<$ R $>$ \& \mbox{\hyperlink{classstats_1_1_mixture_density_af275ff5878428482ecb8ca20654e0bdc}{get\+Weights}} () const noexcept
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}} $>$ \& \mbox{\hyperlink{classstats_1_1_mixture_density_a12dc97346cf72869d4b0d28a7ad779bb}{get\+Matrices}} () const noexcept
+\item 
+const \mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \& \mbox{\hyperlink{classstats_1_1_mixture_density_ab46d109f8a7715dd5acad0a8c15efb56}{getA}} () const noexcept
+\item 
+const \mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \& \mbox{\hyperlink{classstats_1_1_mixture_density_a8ae3e313f9e32db677bc93ad716544c5}{getB}} () const noexcept
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ R $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_ab0d4f85a5f6ccc0a2298d5acd472810f}{weights\+\_\+}}
+\item 
+std\+::vector$<$ Density\+Type $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_ae576da9f0ba128e208ef7b9ddc3c983a}{components\+\_\+}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}} $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a5cde486b340473122bf9f19f8df19a14}{Js}}
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \mbox{\hyperlink{classstats_1_1_mixture_density_ab990b450e657d1e3dd060ba23a79bb1e}{a}}
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \mbox{\hyperlink{classstats_1_1_mixture_density_a5f05cd6eeae0cbd38ce59a5bd947a75f}{b}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}} $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_ab979c69f89b60f1405d83379ce20bc45}{polynomials}}
+\item 
+\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} \mbox{\hyperlink{classstats_1_1_mixture_density_a7e5988a005f2bb0aea0155375bc36b29}{H}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a52fd640723d79292d8c850662bb9eb24}{Hs}}
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::function$<$ R(R)$>$ $>$ $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a52fa801bc0aecc6491910692dbd14a29}{HPol\+\_\+components}}
+\item 
+std\+::vector$<$ std\+::function$<$ R(R)$>$ $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a3fcee28213b0a66c9e34eb61732e1c99}{HPol\+\_\+mixture}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} $>$ \mbox{\hyperlink{classstats_1_1_mixture_density_a775eceaaec8d56510813f9694af3b29c}{Qs}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type, typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class stats\+::\+Mixture\+Density$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$}
+
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} class template for polynomial-\/based mixture density estimation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Polynomial\+Base\+Degree} & Degree of the polynomial basis. \\
+\hline
+{\em Density\+Type} & Type of the density components (e.\+g., Normal\+Density, Gamma\+Density). \\
+\hline
+{\em R} & Floating-\/point type used for calculations (default is double).\\
+\hline
+\end{DoxyTemplParams}
+This class represents a mixture model composed of weighted density components. It supports polynomial basis construction for density approximation and provides methods for computing PDF, CDF, and orthonormal polynomial bases. 
+
+Definition at line 178 of file Mixture\+Density.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}\label{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!JacobiMatrixType@{JacobiMatrixType}}
+\index{JacobiMatrixType@{JacobiMatrixType}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{JacobiMatrixType}{JacobiMatrixType}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}} =  traits\+::\+Data\+Type\+::\+Sparse\+Storing\+Matrix}
+
+
+
+Definition at line 184 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}\label{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!PolyType@{PolyType}}
+\index{PolyType@{PolyType}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{PolyType}{PolyType}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}} =  \mbox{\hyperlink{namespacestats_aaacf7ce6a573dd7a36fef376a0f421d6}{Polynomial}}$<$Polynomial\+Base\+Degree, R$>$}
+
+
+
+Definition at line 181 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}\label{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!StoringArray@{StoringArray}}
+\index{StoringArray@{StoringArray}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{StoringArray}{StoringArray}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} =  traits\+::\+Data\+Type\+::\+Storing\+Array}
+
+
+
+Definition at line 182 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}\label{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!StoringMatrix@{StoringMatrix}}
+\index{StoringMatrix@{StoringMatrix}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{StoringMatrix}{StoringMatrix}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} =  traits\+::\+Data\+Type\+::\+Storing\+Matrix}
+
+
+
+Definition at line 185 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a2e3e3555e2e99e31cb8ed215b72a51b6}\label{classstats_1_1_mixture_density_a2e3e3555e2e99e31cb8ed215b72a51b6}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!StoringVector@{StoringVector}}
+\index{StoringVector@{StoringVector}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{StoringVector}{StoringVector}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density_a2e3e3555e2e99e31cb8ed215b72a51b6}{Storing\+Vector}} =  traits\+::\+Data\+Type\+::\+Storing\+Vector}
+
+
+
+Definition at line 183 of file Mixture\+Density.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a6b80fcaf2e3c7b6a8bf4c91a361bd31e}\label{classstats_1_1_mixture_density_a6b80fcaf2e3c7b6a8bf4c91a361bd31e}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!MixtureDensity@{MixtureDensity}}
+\index{MixtureDensity@{MixtureDensity}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{MixtureDensity()}{MixtureDensity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ R $>$}]{weights,  }\item[{std\+::vector$<$ Density\+Type $>$}]{components }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor initializing the mixture density with given weights and components. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weights} & Vector of component weights. Must be non-\/empty and sum to 1. \\
+\hline
+{\em components} & Vector of density components, must match size of weights.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if weights are empty, do not sum to 1, contain negatives, or if size mismatch with components. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 211 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_aff4622d9b0c23915a958c90754e123c4}\label{classstats_1_1_mixture_density_aff4622d9b0c23915a958c90754e123c4}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!````~MixtureDensity@{$\sim$MixtureDensity}}
+\index{````~MixtureDensity@{$\sim$MixtureDensity}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$MixtureDensity()}{~MixtureDensity()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::$\sim$\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+Virtual destructor. 
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a5e1a3e7a04edb79ea6d672f65f429e21}\label{classstats_1_1_mixture_density_a5e1a3e7a04edb79ea6d672f65f429e21}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!MixtureDensity@{MixtureDensity}}
+\index{MixtureDensity@{MixtureDensity}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{MixtureDensity()}{MixtureDensity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+Prevent copy semantics for safety. 
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a4535ec6275d881677837e1b531d61752}\label{classstats_1_1_mixture_density_a4535ec6275d881677837e1b531d61752}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!MixtureDensity@{MixtureDensity}}
+\index{MixtureDensity@{MixtureDensity}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{MixtureDensity()}{MixtureDensity()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ad1b1ef2a140dd09f5e7035e28f167e55}\label{classstats_1_1_mixture_density_ad1b1ef2a140dd09f5e7035e28f167e55}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!cdf@{cdf}}
+\index{cdf@{cdf}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{cdf()}{cdf()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::cdf (\begin{DoxyParamCaption}\item[{R}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluates the cumulative distribution function (CDF) of the mixture at a given point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The point at which to evaluate the CDF. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R The CDF value at x, clamped between 0 and 1. 
+\end{DoxyReturn}
+
+
+Definition at line 544 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_afc652b39d734a043597a021f96e1bc3c}\label{classstats_1_1_mixture_density_afc652b39d734a043597a021f96e1bc3c}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!computeRecursionCoeffs@{computeRecursionCoeffs}}
+\index{computeRecursionCoeffs@{computeRecursionCoeffs}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{computeRecursionCoeffs()}{computeRecursionCoeffs()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::compute\+Recursion\+Coeffs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the recursion coefficients (a, b) for the orthonormal polynomial basis. 
+
+This method calculates the three-\/term recurrence coefficients for the polynomial basis constructed from the mixture components.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & on numerical instability or invalid inputs. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 304 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a2d8048ff91535e038dbdb8d8f967a8a0}\label{classstats_1_1_mixture_density_a2d8048ff91535e038dbdb8d8f967a8a0}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!constructOrthonormalBasis@{constructOrthonormalBasis}}
+\index{constructOrthonormalBasis@{constructOrthonormalBasis}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{constructOrthonormalBasis()}{constructOrthonormalBasis()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::construct\+Orthonormal\+Basis (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the orthonormal polynomial basis for the mixture density. 
+
+Calls \mbox{\hyperlink{classstats_1_1_mixture_density_afc652b39d734a043597a021f96e1bc3c}{compute\+Recursion\+Coeffs()}} internally and then builds the polynomial basis up to the specified Polynomial\+Base\+Degree. 
+
+Definition at line 441 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a5f543822bb46ec1b65e2692f6a91ca9a}\label{classstats_1_1_mixture_density_a5f543822bb46ec1b65e2692f6a91ca9a}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!constructQProjectionMatrix@{constructQProjectionMatrix}}
+\index{constructQProjectionMatrix@{constructQProjectionMatrix}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{constructQProjectionMatrix()}{constructQProjectionMatrix()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::construct\+QProjection\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the Q-\/projection matrices for the mixture. 
+
+Placeholder function to compute Q matrices based on H matrices of components. Implementation depends on specific application needs. 
+
+Definition at line 509 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a26cac7b77059fe31c4f68f802202a0b3}\label{classstats_1_1_mixture_density_a26cac7b77059fe31c4f68f802202a0b3}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!empty@{empty}}
+\index{empty@{empty}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+bool \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Checks if the mixture is empty (no components). 
+
+\begin{DoxyReturn}{Returns}
+true if the mixture has no components, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 719 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ab46d109f8a7715dd5acad0a8c15efb56}\label{classstats_1_1_mixture_density_ab46d109f8a7715dd5acad0a8c15efb56}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getA@{getA}}
+\index{getA@{getA}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getA()}{getA()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const \mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}}\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::getA (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 703 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a8ae3e313f9e32db677bc93ad716544c5}\label{classstats_1_1_mixture_density_a8ae3e313f9e32db677bc93ad716544c5}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getB@{getB}}
+\index{getB@{getB}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getB()}{getB()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const \mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}}\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::getB (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 704 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ace1d4dc18f93848cc83d62e58a2f8aa8}\label{classstats_1_1_mixture_density_ace1d4dc18f93848cc83d62e58a2f8aa8}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getComponents@{getComponents}}
+\index{getComponents@{getComponents}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getComponents()}{getComponents()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const std\+::vector$<$Density\+Type$>$\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the mixture\textquotesingle{}s components, weights, Jacobi matrices, and coefficients. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::vector$<$\+Density\+Type$>$\& Reference to the vector of density components. 
+\end{DoxyReturn}
+
+
+Definition at line 700 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ab44921ee49fd3fab1d86913d307ac2fe}\label{classstats_1_1_mixture_density_ab44921ee49fd3fab1d86913d307ac2fe}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getHFunctionsComponents@{getHFunctionsComponents}}
+\index{getHFunctionsComponents@{getHFunctionsComponents}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getHFunctionsComponents()}{getHFunctionsComponents()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+HFunctions\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the vector of orthonormal polynomial functions for each component. 
+
+\begin{DoxyReturn}{Returns}
+auto Vector of function pointers for each component\textquotesingle{}s polynomial. 
+\end{DoxyReturn}
+
+
+Definition at line 680 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ac0df0b8df36201c9e4b6c7b26c446ca0}\label{classstats_1_1_mixture_density_ac0df0b8df36201c9e4b6c7b26c446ca0}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getHFunctionsMixture@{getHFunctionsMixture}}
+\index{getHFunctionsMixture@{getHFunctionsMixture}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getHFunctionsMixture()}{getHFunctionsMixture()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+HFunctions\+Mixture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the vector of orthonormal polynomial functions for the mixture. 
+
+\begin{DoxyReturn}{Returns}
+auto Vector of function pointers for the mixture\textquotesingle{}s polynomial. 
+\end{DoxyReturn}
+
+
+Definition at line 689 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a93bac098e9378d9798460b4e80851fa9}\label{classstats_1_1_mixture_density_a93bac098e9378d9798460b4e80851fa9}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getHMatrix@{getHMatrix}}
+\index{getHMatrix@{getHMatrix}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getHMatrix()}{getHMatrix()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+HMatrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the matrix H storing polynomial coefficients. 
+
+\begin{DoxyReturn}{Returns}
+Storing\+Matrix Matrix H. 
+\end{DoxyReturn}
+
+
+Definition at line 643 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_af9c70bd3d88d09a86b2310e5ff3dc9a0}\label{classstats_1_1_mixture_density_af9c70bd3d88d09a86b2310e5ff3dc9a0}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getHMatrixs@{getHMatrixs}}
+\index{getHMatrixs@{getHMatrixs}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getHMatrixs()}{getHMatrixs()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+HMatrixs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the vector of H matrices for each component. 
+
+\begin{DoxyReturn}{Returns}
+auto Vector of H matrices. 
+\end{DoxyReturn}
+
+
+Definition at line 661 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a003017ef26dd388df675ca9bf557465a}\label{classstats_1_1_mixture_density_a003017ef26dd388df675ca9bf557465a}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getJacobiMatrix@{getJacobiMatrix}}
+\index{getJacobiMatrix@{getJacobiMatrix}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getJacobiMatrix()}{getJacobiMatrix()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Jacobi\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the vector of Jacobi matrices for each component. 
+
+\begin{DoxyReturn}{Returns}
+auto Vector of Jacobi matrices. 
+\end{DoxyReturn}
+
+
+Definition at line 670 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a12dc97346cf72869d4b0d28a7ad779bb}\label{classstats_1_1_mixture_density_a12dc97346cf72869d4b0d28a7ad779bb}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getMatrices@{getMatrices}}
+\index{getMatrices@{getMatrices}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getMatrices()}{getMatrices()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const std\+::vector$<$\mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}}$>$\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Matrices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 702 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a3977385939d6fecbd3dc6d50695b50f5}\label{classstats_1_1_mixture_density_a3977385939d6fecbd3dc6d50695b50f5}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getPolynomial@{getPolynomial}}
+\index{getPolynomial@{getPolynomial}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getPolynomial()}{getPolynomial()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const \mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}}\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Polynomial (\begin{DoxyParamCaption}\item[{unsigned int}]{degree }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves the orthonormal polynomial of a specified degree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degree} & Degree of the polynomial requested (0-\/based). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const Poly\+Type\& Reference to the polynomial of the requested degree. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if degree exceeds Polynomial\+Base\+Degree. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 631 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a13bb6b224353f59646e717038cac332c}\label{classstats_1_1_mixture_density_a13bb6b224353f59646e717038cac332c}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getQProjectionMatrix@{getQProjectionMatrix}}
+\index{getQProjectionMatrix@{getQProjectionMatrix}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getQProjectionMatrix()}{getQProjectionMatrix()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const auto \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+QProjection\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Retrieves the vector of Q projection matrices. 
+
+\begin{DoxyReturn}{Returns}
+auto Vector of Q matrices. 
+\end{DoxyReturn}
+
+
+Definition at line 652 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a75ac307b4bd0da8aad338b351659d319}\label{classstats_1_1_mixture_density_a75ac307b4bd0da8aad338b351659d319}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getSupport@{getSupport}}
+\index{getSupport@{getSupport}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getSupport()}{getSupport()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{structstats_1_1_density_interval}{stats\+::\+Density\+Interval}}$<$R$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Support (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the combined support interval of the mixture density. 
+
+\begin{DoxyReturn}{Returns}
+stats\+::\+Density\+Interval$<$\+R$>$ representing the overall support covering all components. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if no components exist. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 268 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_af275ff5878428482ecb8ca20654e0bdc}\label{classstats_1_1_mixture_density_af275ff5878428482ecb8ca20654e0bdc}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!getWeights@{getWeights}}
+\index{getWeights@{getWeights}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{getWeights()}{getWeights()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const std\+::vector$<$R$>$\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::get\+Weights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 701 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ad1808144fced1e406ad050f28ab7d80b}\label{classstats_1_1_mixture_density_ad1808144fced1e406ad050f28ab7d80b}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!mean@{mean}}
+\index{mean@{mean}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{mean()}{mean()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::mean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the mean of the mixture density. 
+
+\begin{DoxyReturn}{Returns}
+R The weighted mean of the mixture components. 
+\end{DoxyReturn}
+
+
+Definition at line 559 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a87fef84929215463b69d4f57f95798a4}\label{classstats_1_1_mixture_density_a87fef84929215463b69d4f57f95798a4}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a01bef1d0842fd7a83eda52d71a23ba0f}\label{classstats_1_1_mixture_density_a01bef1d0842fd7a83eda52d71a23ba0f}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}\& \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classstats_1_1_mixture_density}{Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$ \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a3072f208b5052fd7c7480651e888efce}\label{classstats_1_1_mixture_density_a3072f208b5052fd7c7480651e888efce}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!pdf@{pdf}}
+\index{pdf@{pdf}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{pdf()}{pdf()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::pdf (\begin{DoxyParamCaption}\item[{R}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluates the probability density function (PDF) of the mixture at a given point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The point at which to evaluate the PDF. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R The PDF value at x. 
+\end{DoxyReturn}
+
+
+Definition at line 529 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_abe53a5a2be4c83081a36bcbbef584e06}\label{classstats_1_1_mixture_density_abe53a5a2be4c83081a36bcbbef584e06}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!printComponentParameters@{printComponentParameters}}
+\index{printComponentParameters@{printComponentParameters}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{printComponentParameters()}{printComponentParameters()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::print\+Component\+Parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prints the parameters of each component in the mixture to standard output. 
+
+Assumes Density\+Type provides get\+Distribution() and get\+Constructor\+Parameters(). 
+
+Definition at line 590 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a40c4a7b93321fd8c32441ec7d22a3f46}\label{classstats_1_1_mixture_density_a40c4a7b93321fd8c32441ec7d22a3f46}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!size@{size}}
+\index{size@{size}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+size\+\_\+t \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the number of components in the mixture. 
+
+\begin{DoxyReturn}{Returns}
+size\+\_\+t Number of components. 
+\end{DoxyReturn}
+
+
+Definition at line 712 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_aaeb2ef0b2f1e9a2e0cd7b25c02d20a13}\label{classstats_1_1_mixture_density_aaeb2ef0b2f1e9a2e0cd7b25c02d20a13}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!variance@{variance}}
+\index{variance@{variance}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{variance()}{variance()}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::variance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the variance of the mixture density. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+R The weighted variance of the mixture components. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Definition at line 571 of file Mixture\+Density.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ab990b450e657d1e3dd060ba23a79bb1e}\label{classstats_1_1_mixture_density_ab990b450e657d1e3dd060ba23a79bb1e}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!a@{a}}
+\index{a@{a}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{a}{a}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::a\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 191 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a5f05cd6eeae0cbd38ce59a5bd947a75f}\label{classstats_1_1_mixture_density_a5f05cd6eeae0cbd38ce59a5bd947a75f}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!b@{b}}
+\index{b@{b}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{b}{b}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density_aa74b981b2686b83d5ae9a4e26e3772f6}{Storing\+Array}} \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::b\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 192 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ae576da9f0ba128e208ef7b9ddc3c983a}\label{classstats_1_1_mixture_density_ae576da9f0ba128e208ef7b9ddc3c983a}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!components\_@{components\_}}
+\index{components\_@{components\_}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{components\_}{components\_}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$Density\+Type$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::components\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 189 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a7e5988a005f2bb0aea0155375bc36b29}\label{classstats_1_1_mixture_density_a7e5988a005f2bb0aea0155375bc36b29}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!H@{H}}
+\index{H@{H}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{H}{H}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}} \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::H\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 194 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a52fa801bc0aecc6491910692dbd14a29}\label{classstats_1_1_mixture_density_a52fa801bc0aecc6491910692dbd14a29}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!HPol\_components@{HPol\_components}}
+\index{HPol\_components@{HPol\_components}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{HPol\_components}{HPol\_components}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$std\+::vector$<$std\+::function$<$R(R)$>$ $>$ $>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::HPol\+\_\+components\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 196 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a3fcee28213b0a66c9e34eb61732e1c99}\label{classstats_1_1_mixture_density_a3fcee28213b0a66c9e34eb61732e1c99}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!HPol\_mixture@{HPol\_mixture}}
+\index{HPol\_mixture@{HPol\_mixture}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{HPol\_mixture}{HPol\_mixture}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$std\+::function$<$R(R)$>$ $>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::HPol\+\_\+mixture\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 197 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a52fd640723d79292d8c850662bb9eb24}\label{classstats_1_1_mixture_density_a52fd640723d79292d8c850662bb9eb24}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!Hs@{Hs}}
+\index{Hs@{Hs}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{Hs}{Hs}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}}$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::Hs\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 195 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a5cde486b340473122bf9f19f8df19a14}\label{classstats_1_1_mixture_density_a5cde486b340473122bf9f19f8df19a14}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!Js@{Js}}
+\index{Js@{Js}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{Js}{Js}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$\mbox{\hyperlink{classstats_1_1_mixture_density_a5856fe91c102ff3ab6bb7077283bfca8}{Jacobi\+Matrix\+Type}}$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::Js\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 190 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ab979c69f89b60f1405d83379ce20bc45}\label{classstats_1_1_mixture_density_ab979c69f89b60f1405d83379ce20bc45}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!polynomials@{polynomials}}
+\index{polynomials@{polynomials}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{polynomials}{polynomials}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$\mbox{\hyperlink{classstats_1_1_mixture_density_a7fc30e845258258b9a205e34d7815d51}{Poly\+Type}}$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::polynomials\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 193 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_a775eceaaec8d56510813f9694af3b29c}\label{classstats_1_1_mixture_density_a775eceaaec8d56510813f9694af3b29c}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!Qs@{Qs}}
+\index{Qs@{Qs}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{Qs}{Qs}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$\mbox{\hyperlink{classstats_1_1_mixture_density_a6c578b60defd1dafbd282a3a3664bceb}{Storing\+Matrix}}$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::Qs\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 198 of file Mixture\+Density.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_mixture_density_ab0d4f85a5f6ccc0a2298d5acd472810f}\label{classstats_1_1_mixture_density_ab0d4f85a5f6ccc0a2298d5acd472810f}} 
+\index{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}!weights\_@{weights\_}}
+\index{weights\_@{weights\_}!stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$@{stats::MixtureDensity$<$ PolynomialBaseDegree, DensityType, R $>$}}
+\doxysubsubsection{\texorpdfstring{weights\_}{weights\_}}
+{\footnotesize\ttfamily template$<$unsigned int Polynomial\+Base\+Degree, typename Density\+Type , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::vector$<$R$>$ \mbox{\hyperlink{classstats_1_1_mixture_density}{stats\+::\+Mixture\+Density}}$<$ Polynomial\+Base\+Degree, Density\+Type, R $>$\+::weights\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 188 of file Mixture\+Density.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+stats/\mbox{\hyperlink{_mixture_density_8hpp}{Mixture\+Density.\+hpp}}\end{DoxyCompactItemize}

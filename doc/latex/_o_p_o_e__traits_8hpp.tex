@@ -1,0 +1,227 @@
+\hypertarget{_o_p_o_e__traits_8hpp}{}\doxysection{traits/\+OPOE\+\_\+traits.hpp File Reference}
+\label{_o_p_o_e__traits_8hpp}\index{traits/OPOE\_traits.hpp@{traits/OPOE\_traits.hpp}}
+
+
+Defines core type traits, enumerations, and data structures for the OPOE library.  
+
+
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$variant$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$complex$>$}\newline
+Include dependency graph for OPOE\+\_\+traits.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_o_p_o_e__traits_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_o_p_o_e__traits_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_data_type}{Data\+Type}}
+\begin{DoxyCompactList}\small\item\em Central container of type aliases for commonly used matrix/vector structures in OPOE. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacetraits}{traits}}
+\begin{DoxyCompactList}\small\item\em Contains all type traits, type aliases, and enumerations used across the OPOE library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$unsigned int N$>$ }\\using \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{Int\+To\+Type}} = std\+::integral\+\_\+constant$<$ unsigned int, N $>$
+\begin{DoxyCompactList}\small\item\em Converts an integer to a type at compile time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfc}{Eval\+Method}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcae53bca3910340ff55667266b10427e5b}{Horner}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcafd1dd0c603be8170f9eae0be9f2f6afb}{Direct}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration of available methods for evaluating polynomials. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125d}{Pochammer\+Type}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da4475404a8e17049853e83d014a833ca1}{Rising}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da0f57d5b441651c57eac9f91efaa5a75a}{Falling}}
+ \}
+\begin{DoxyCompactList}\small\item\em Types of Pochhammer symbol (factorial-\/like product). \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}{Quadrature\+Method}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a9d5c37e644c8bc73ec65a2be795e1ea7}{Tanh\+Sinh}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a5c99fcac7be3a40f45e4d69c25233de4}{QAGI}}
+ \}
+\begin{DoxyCompactList}\small\item\em Advanced numerical integration techniques. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}{Option\+Type}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ac3755e61202abd74da5885d2e9c9160e}{Call}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ad0bf1810982e9728fcf3ac444a015373}{Put}}
+ \}
+\begin{DoxyCompactList}\small\item\em Financial option types. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cc}{Quantization\+Procedure}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Newton}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca18404ae18ea5a0144a5dffc87cb03fc5}{CLVQ}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumerates different quantization strategies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines core type traits, enumerations, and data structures for the OPOE library. 
+
+This header provides essential type definitions and enumerations used throughout the OPOE library, including matrix and vector types based on Eigen, polynomial field types, and various enums for evaluation, integration, and quantization methods.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item Eigen library for matrix and vector operations.
+\item Standard library features (e.\+g., std\+::complex, std\+::vector, std\+::array).
+\item C++20 concepts for type constraints. 
+\end{DoxyItemize}
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}\label{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!IntToType@{IntToType}}
+\index{IntToType@{IntToType}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{IntToType}{IntToType}}
+{\footnotesize\ttfamily template$<$unsigned int N$>$ \\
+using \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a44081d4693183458e1b06198d9b15709}{Int\+To\+Type}} =  std\+::integral\+\_\+constant$<$unsigned int, N$>$}
+
+
+
+Converts an integer to a type at compile time. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em N} & The unsigned integer to wrap in a type.\\
+\hline
+\end{DoxyTemplParams}
+This is a meta-\/programming utility useful for compile-\/time dispatch based on integer constants. 
+
+Definition at line 85 of file OPOE\+\_\+traits.\+hpp.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfc}\label{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfc}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!EvalMethod@{EvalMethod}}
+\index{EvalMethod@{EvalMethod}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{EvalMethod}{EvalMethod}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfc}{Eval\+Method}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enumeration of available methods for evaluating polynomials. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Horner@{Horner}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Horner@{Horner}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcae53bca3910340ff55667266b10427e5b}\label{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcae53bca3910340ff55667266b10427e5b}} 
+Horner&Use Horner\textquotesingle{}s method\+: efficient nested multiplication. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Direct@{Direct}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Direct@{Direct}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcafd1dd0c603be8170f9eae0be9f2f6afb}\label{_o_p_o_e__traits_8hpp_a6d9c836bc140f79e1c4988597da5dbfcafd1dd0c603be8170f9eae0be9f2f6afb}} 
+Direct&Use direct evaluation (less efficient, straightforward). \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 91 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}\label{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!OptionType@{OptionType}}
+\index{OptionType@{OptionType}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{OptionType}{OptionType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6}{Option\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Financial option types. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Call@{Call}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Call@{Call}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ac3755e61202abd74da5885d2e9c9160e}\label{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ac3755e61202abd74da5885d2e9c9160e}} 
+Call&Call option\+: right to buy. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Put@{Put}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Put@{Put}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ad0bf1810982e9728fcf3ac444a015373}\label{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a639d6ad0bf1810982e9728fcf3ac444a015373}} 
+Put&Put option\+: right to sell. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 121 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125d}\label{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125d}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!PochammerType@{PochammerType}}
+\index{PochammerType@{PochammerType}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{PochammerType}{PochammerType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125d}{Pochammer\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Types of Pochhammer symbol (factorial-\/like product). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Rising@{Rising}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Rising@{Rising}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da4475404a8e17049853e83d014a833ca1}\label{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da4475404a8e17049853e83d014a833ca1}} 
+Rising&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Falling@{Falling}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Falling@{Falling}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da0f57d5b441651c57eac9f91efaa5a75a}\label{_o_p_o_e__traits_8hpp_a96ed12655fd92755d02717a6a8b8125da0f57d5b441651c57eac9f91efaa5a75a}} 
+Falling&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 101 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}\label{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!QuadratureMethod@{QuadratureMethod}}
+\index{QuadratureMethod@{QuadratureMethod}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{QuadratureMethod}{QuadratureMethod}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3}{Quadrature\+Method}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Advanced numerical integration techniques. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TanhSinh@{TanhSinh}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!TanhSinh@{TanhSinh}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a9d5c37e644c8bc73ec65a2be795e1ea7}\label{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a9d5c37e644c8bc73ec65a2be795e1ea7}} 
+Tanh\+Sinh&Tanh-\/\+Sinh quadrature for handling endpoint singularities. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{QAGI@{QAGI}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!QAGI@{QAGI}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a5c99fcac7be3a40f45e4d69c25233de4}\label{_o_p_o_e__traits_8hpp_ab0367a13ee21106fe79a88ab95cdb1d3a5c99fcac7be3a40f45e4d69c25233de4}} 
+QAGI&Infinite interval integration using QAGI (from QUADPACK). \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 111 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cc}\label{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cc}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!QuantizationProcedure@{QuantizationProcedure}}
+\index{QuantizationProcedure@{QuantizationProcedure}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{QuantizationProcedure}{QuantizationProcedure}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cc}{Quantization\+Procedure}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enumerates different quantization strategies. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Newton@{Newton}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Newton@{Newton}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}\label{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}} 
+Newton&Quantization using Newton-\/based optimization. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLVQ@{CLVQ}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!CLVQ@{CLVQ}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca18404ae18ea5a0144a5dffc87cb03fc5}\label{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca18404ae18ea5a0144a5dffc87cb03fc5}} 
+CLVQ&Competitive Learning Vector Quantization. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 131 of file OPOE\+\_\+traits.\+hpp.
+

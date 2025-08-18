@@ -1,0 +1,87 @@
+\hypertarget{_orthogonal_validator_8hpp}{}\doxysection{polynomials/\+Orthogonal\+Validator.hpp File Reference}
+\label{_orthogonal_validator_8hpp}\index{polynomials/OrthogonalValidator.hpp@{polynomials/OrthogonalValidator.hpp}}
+
+
+Provides utilities for validating domains and parameters of orthogonal polynomials.  
+
+
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$concepts$>$}\newline
+Include dependency graph for Orthogonal\+Validator.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_orthogonal_validator_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{_orthogonal_validator_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_recurrence_coefficients}{polynomials\+::\+Recurrence\+Coefficients$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em Structure for defining recurrence coefficients of orthogonal polynomials. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_domain_interval}{polynomials\+::\+Domain\+Interval$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Represents a closed numeric interval \mbox{[}lower, upper\mbox{]}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_domain_error}{polynomials\+::\+Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Base class for all domain-\/related exceptions. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_parameter_domain_error}{polynomials\+::\+Parameter\+Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception for parameter validation errors. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_evaluation_domain_error}{polynomials\+::\+Evaluation\+Domain\+Error}}
+\begin{DoxyCompactList}\small\item\em Exception for evaluation input errors. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_parameter}{polynomials\+::\+Parameter$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em A generic parameter with value range validation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_jacobi_alpha}{polynomials\+::\+Jacobi\+Alpha$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em α parameter for Jacobi polynomials\+: α $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_jacobi_beta}{polynomials\+::\+Jacobi\+Beta$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em β parameter for Jacobi polynomials\+: β $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_laguerre_alpha}{polynomials\+::\+Laguerre\+Alpha$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em α parameter for Laguerre polynomials\+: α $>$ -\/1. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_laguerre_theta}{polynomials\+::\+Laguerre\+Theta$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em θ (scale) parameter for Generalized Laguerre\+: θ ≥ 0. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_hermite_mu}{polynomials\+::\+Hermite\+Mu$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em μ parameter for Hermite polynomials\+: unbounded. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_hermite_sigma}{polynomials\+::\+Hermite\+Sigma$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em σ (scale) parameter for Hermite\+: σ $>$ 0. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structpolynomials_1_1_gegenbauer_lambda}{polynomials\+::\+Gegenbauer\+Lambda$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em μ parameter for Gegenbauer polynomials\+: μ $>$ -\/0.\+5. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classpolynomials_1_1_polynomial_domain_validator}{polynomials\+::\+Polynomial\+Domain\+Validator$<$ R, Params $>$}}
+\begin{DoxyCompactList}\small\item\em Utility to validate multiple parameters for a polynomial family. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacepolynomials}{polynomials}}
+\begin{DoxyCompactList}\small\item\em Validates and debugs polynomial domain parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename R $>$ }\\using \mbox{\hyperlink{namespacepolynomials_a3addc13ae34b03a984a0e07562811e35}{polynomials\+::\+Function}} = std\+::function$<$ R(R)$>$
+\begin{DoxyCompactList}\small\item\em A callable function taking and returning a scalar value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\concept \mbox{\hyperlink{namespacepolynomials_ae9708d3be233567c01126d260c6656ef}{polynomials\+::\+Numeric}} = std\+::is\+\_\+arithmetic\+\_\+v$<$T$>$
+\begin{DoxyCompactList}\small\item\em Concept restricting T to arithmetic types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides utilities for validating domains and parameters of orthogonal polynomials. 
+
+This header defines concepts, structures, and classes to facilitate the validation of parameters and domains for various families of orthogonal polynomials (e.\+g., Jacobi, Laguerre, Hermite, Gegenbauer).
+
+It includes\+:
+\begin{DoxyItemize}
+\item Function type alias for recurrence coefficients.
+\item Domain\+Interval for interval validation (with floating-\/point support).
+\item Exception types for domain violations.
+\item Parameter base structure and specific parameter types for common polynomial families.
+\item Polynomial\+Domain\+Validator class template for parameter validation and access. 
+\end{DoxyItemize}

@@ -1,0 +1,202 @@
+\hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4}{}\doxysection{stats\+::Quantizer$<$ N\+\_\+points, 1, Quantization\+Procedure\+::Newton, T $>$ Class Template Reference}
+\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4}\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+
+
+Specialization of \mbox{\hyperlink{classstats_1_1_quantizer}{Quantizer}} for 1D using Newton\textquotesingle{}s method.  
+
+
+
+
+{\ttfamily \#include $<$Quantization.\+hpp$>$}
+
+
+
+Inheritance diagram for stats\+::Quantizer$<$ N\+\_\+points, 1, Quantization\+Procedure\+::Newton, T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for stats\+::Quantizer$<$ N\+\_\+points, 1, Quantization\+Procedure\+::Newton, T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_1_1_params}{Params}}
+\begin{DoxyCompactList}\small\item\em Parameters for controlling Newton\textquotesingle{}s method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a59c08c7a333926618662d1d67da55cc4}{Quantizer}} (const Params \&params=Params\{\})
+\begin{DoxyCompactList}\small\item\em Constructor for the 1D Newton quantizer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a8824558b30603668d2efd145c1e05ada}{initialize\+Hints}} ()
+\begin{DoxyCompactList}\small\item\em Initializes hints using a uniform grid over \mbox{[}-\/4, 4\mbox{]}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a06dedc6d4d63f79b17201282f2ffa973}{run}} ()
+\begin{DoxyCompactList}\small\item\em Runs Newton\textquotesingle{}s method to optimize quantizer centroids. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a791302989b09b5f05852c8c8f23960c4}{compute\+Gradient\+And\+Hessian}} (const \mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&q\+\_\+points, \mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&grad, \mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&hess\+\_\+diag)
+\begin{DoxyCompactList}\small\item\em Computes the gradient and diagonal Hessian of the distortion function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Params \mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aee040a99dca9cf2d2db78f373ce1e456}{params\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Newton method parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aa5712b536b41bbeee87010bde7cc3c43}{Dim}} = 1
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$std\+::size\+\_\+t N\+\_\+points, typename T$>$\newline
+class stats\+::\+Quantizer$<$ N\+\_\+points, 1, Quantization\+Procedure\+::\+Newton, T $>$}
+
+Specialization of \mbox{\hyperlink{classstats_1_1_quantizer}{Quantizer}} for 1D using Newton\textquotesingle{}s method. 
+
+This class implements a 1D quantizer using Newton\textquotesingle{}s method to minimize the distortion function for a Gaussian distribution. It inherits from \mbox{\hyperlink{classstats_1_1_quantizer_base}{Quantizer\+Base}} and provides an optimization routine based on analytical gradients and Hessians.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Scalar type (e.\+g., float or double). \\
+\hline
+{\em N\+\_\+points} & Number of quantization points. \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 150 of file Quantization.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a59c08c7a333926618662d1d67da55cc4}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a59c08c7a333926618662d1d67da55cc4}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!Quantizer@{Quantizer}}
+\index{Quantizer@{Quantizer}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{Quantizer()}{Quantizer()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+\mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::\mbox{\hyperlink{classstats_1_1_quantizer}{Quantizer}} (\begin{DoxyParamCaption}\item[{const Params \&}]{params = {\ttfamily Params\{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for the 1D Newton quantizer. 
+
+Initializes the hint values and stores user-\/specified parameters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters for the Newton optimization routine. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 178 of file Quantization.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a791302989b09b5f05852c8c8f23960c4}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a791302989b09b5f05852c8c8f23960c4}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!computeGradientAndHessian@{computeGradientAndHessian}}
+\index{computeGradientAndHessian@{computeGradientAndHessian}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{computeGradientAndHessian()}{computeGradientAndHessian()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+void \mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::compute\+Gradient\+And\+Hessian (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&}]{q\+\_\+points,  }\item[{\mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&}]{grad,  }\item[{\mbox{\hyperlink{namespacestats_a84fdcf5df98e5461134cd00982a55216}{Storing\+Vector}} \&}]{hess\+\_\+diag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Computes the gradient and diagonal Hessian of the distortion function. 
+
+Uses Gaussian PDF and CDF to evaluate analytical expressions for each quantizer point.
+
+
+\begin{DoxyParams}{Parameters}
+{\em q\+\_\+points} & Current positions of quantizer centroids. \\
+\hline
+{\em grad} & Output\+: gradient vector (N\+\_\+points). \\
+\hline
+{\em hess\+\_\+diag} & Output\+: diagonal of Hessian matrix (N\+\_\+points). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 251 of file Quantization.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a8824558b30603668d2efd145c1e05ada}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a8824558b30603668d2efd145c1e05ada}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!initializeHints@{initializeHints}}
+\index{initializeHints@{initializeHints}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{initializeHints()}{initializeHints()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+void \mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::initialize\+Hints (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initializes hints using a uniform grid over \mbox{[}-\/4, 4\mbox{]}. 
+
+The hints provide starting centroids for the optimization, evenly spaced in 1D. 
+
+Definition at line 188 of file Quantization.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a06dedc6d4d63f79b17201282f2ffa973}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_a06dedc6d4d63f79b17201282f2ffa973}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!run@{run}}
+\index{run@{run}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+void \mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Runs Newton\textquotesingle{}s method to optimize quantizer centroids. 
+
+Uses analytical gradients and diagonal Hessian approximation to iteratively update centroids. Updates the {\ttfamily quantization} matrix in the base class with the final result. $<$ Current quantizer positions.
+
+$<$ Gradient vector.
+
+$<$ Diagonal of Hessian matrix.
+
+Definition at line 208 of file Quantization.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aa5712b536b41bbeee87010bde7cc3c43}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aa5712b536b41bbeee87010bde7cc3c43}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!Dim@{Dim}}
+\index{Dim@{Dim}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{Dim}{Dim}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+constexpr std\+::size\+\_\+t \mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::Dim = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 152 of file Quantization.\+hpp.
+
+\mbox{\Hypertarget{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aee040a99dca9cf2d2db78f373ce1e456}\label{classstats_1_1_quantizer_3_01_n__points_00_011_00_01_quantization_procedure_1_1_newton_00_01_t_01_4_aee040a99dca9cf2d2db78f373ce1e456}} 
+\index{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}!params\_@{params\_}}
+\index{params\_@{params\_}!stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$@{stats::Quantizer$<$ N\_points, 1, QuantizationProcedure::Newton, T $>$}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily template$<$std\+::size\+\_\+t N\+\_\+points, typename T $>$ \\
+Params \mbox{\hyperlink{classstats_1_1_quantizer}{stats\+::\+Quantizer}}$<$ N\+\_\+points, 1, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Quantization\+Procedure\+::\+Newton}}, T $>$\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Newton method parameters. 
+
+
+
+Definition at line 239 of file Quantization.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+stats/\mbox{\hyperlink{_quantization_8hpp}{Quantization.\+hpp}}\end{DoxyCompactItemize}

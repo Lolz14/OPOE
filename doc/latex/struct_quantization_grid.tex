@@ -1,0 +1,153 @@
+\hypertarget{struct_quantization_grid}{}\doxysection{Quantization\+Grid$<$ R $>$ Struct Template Reference}
+\label{struct_quantization_grid}\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+
+
+Structure to hold quantization grid data using Eigen types.  
+
+
+
+
+{\ttfamily \#include $<$File\+Reader.\+hpp$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{struct_quantization_grid_a0ca64bdb705c6ec063a11e5bb843182c}{N}}
+\item 
+unsigned int \mbox{\hyperlink{struct_quantization_grid_a6c13b45039f8e9433d98e81c897b0aa6}{d}}
+\item 
+traits\+::\+Data\+Type\+::\+Storing\+Matrix \mbox{\hyperlink{struct_quantization_grid_a1aea36e4718880cf4c9a4a516e0872fd}{coordinates}}
+\item 
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid_a2c28e876ff4765aaa669a56d5af5792e}{weights}}
+\item 
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid_a3d3ce3c23629c74e8b534061b82ff963}{local\+\_\+l2\+\_\+distortions}}
+\item 
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid_aae8f9d88742dac156a19b39cf6feb53c}{local\+\_\+l1\+\_\+distortions}}
+\item 
+R \mbox{\hyperlink{struct_quantization_grid_aceb65ad672edc98584c8a9bbab4b933b}{quadratic\+\_\+distortion}}
+\item 
+R \mbox{\hyperlink{struct_quantization_grid_a3a83a5fefc023962a05bc768c245af82}{l1\+\_\+distortion}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+struct Quantization\+Grid$<$ R $>$}
+
+Structure to hold quantization grid data using Eigen types. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The type used for global distortion values (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).\\
+\hline
+\end{DoxyTemplParams}
+Members\+:
+\begin{DoxyItemize}
+\item N\+: Number of grid points.
+\item d\+: Dimension of each grid point.
+\item coordinates\+: Eigen matrix storing all grid point coordinates (size N x d).
+\item weights\+: Eigen vector storing the weight for each grid point (size N).
+\item local\+\_\+l2\+\_\+distortions\+: Eigen vector of local L2 distortions for each grid point (size N).
+\item local\+\_\+l1\+\_\+distortions\+: Eigen vector of local L1 distortions for each grid point (size N).
+\item quadratic\+\_\+distortion\+: Global quadratic (L2) distortion.
+\item l1\+\_\+distortion\+: Global L1 distortion. 
+\end{DoxyItemize}
+
+Definition at line 42 of file File\+Reader.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_quantization_grid_a1aea36e4718880cf4c9a4a516e0872fd}\label{struct_quantization_grid_a1aea36e4718880cf4c9a4a516e0872fd}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!coordinates@{coordinates}}
+\index{coordinates@{coordinates}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{coordinates}{coordinates}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+traits\+::\+Data\+Type\+::\+Storing\+Matrix \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::coordinates}
+
+
+
+Definition at line 47 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_a6c13b45039f8e9433d98e81c897b0aa6}\label{struct_quantization_grid_a6c13b45039f8e9433d98e81c897b0aa6}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!d@{d}}
+\index{d@{d}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{d}{d}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::d}
+
+
+
+Definition at line 44 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_a3a83a5fefc023962a05bc768c245af82}\label{struct_quantization_grid_a3a83a5fefc023962a05bc768c245af82}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!l1\_distortion@{l1\_distortion}}
+\index{l1\_distortion@{l1\_distortion}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{l1\_distortion}{l1\_distortion}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::l1\+\_\+distortion}
+
+
+
+Definition at line 56 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_aae8f9d88742dac156a19b39cf6feb53c}\label{struct_quantization_grid_aae8f9d88742dac156a19b39cf6feb53c}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!local\_l1\_distortions@{local\_l1\_distortions}}
+\index{local\_l1\_distortions@{local\_l1\_distortions}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{local\_l1\_distortions}{local\_l1\_distortions}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::local\+\_\+l1\+\_\+distortions}
+
+
+
+Definition at line 52 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_a3d3ce3c23629c74e8b534061b82ff963}\label{struct_quantization_grid_a3d3ce3c23629c74e8b534061b82ff963}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!local\_l2\_distortions@{local\_l2\_distortions}}
+\index{local\_l2\_distortions@{local\_l2\_distortions}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{local\_l2\_distortions}{local\_l2\_distortions}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::local\+\_\+l2\+\_\+distortions}
+
+
+
+Definition at line 51 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_a0ca64bdb705c6ec063a11e5bb843182c}\label{struct_quantization_grid_a0ca64bdb705c6ec063a11e5bb843182c}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!N@{N}}
+\index{N@{N}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{N}{N}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::N}
+
+
+
+Definition at line 43 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_aceb65ad672edc98584c8a9bbab4b933b}\label{struct_quantization_grid_aceb65ad672edc98584c8a9bbab4b933b}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!quadratic\_distortion@{quadratic\_distortion}}
+\index{quadratic\_distortion@{quadratic\_distortion}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{quadratic\_distortion}{quadratic\_distortion}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::quadratic\+\_\+distortion}
+
+
+
+Definition at line 55 of file File\+Reader.\+hpp.
+
+\mbox{\Hypertarget{struct_quantization_grid_a2c28e876ff4765aaa669a56d5af5792e}\label{struct_quantization_grid_a2c28e876ff4765aaa669a56d5af5792e}} 
+\index{QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}!weights@{weights}}
+\index{weights@{weights}!QuantizationGrid$<$ R $>$@{QuantizationGrid$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{weights}{weights}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{main_8cpp_a2bed6660252a8734620907db5c512d41}{traits\+::\+Data\+Type\+::\+Storing\+Vector}} \mbox{\hyperlink{struct_quantization_grid}{Quantization\+Grid}}$<$ R $>$\+::weights}
+
+
+
+Definition at line 50 of file File\+Reader.\+hpp.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+utils/\mbox{\hyperlink{_file_reader_8hpp}{File\+Reader.\+hpp}}\end{DoxyCompactItemize}

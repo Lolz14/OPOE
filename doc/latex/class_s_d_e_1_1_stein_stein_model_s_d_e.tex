@@ -1,0 +1,123 @@
+\hypertarget{class_s_d_e_1_1_stein_stein_model_s_d_e}{}\doxysection{SDE\+::Stein\+Stein\+Model\+SDE$<$ T $>$ Class Template Reference}
+\label{class_s_d_e_1_1_stein_stein_model_s_d_e}\index{SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}}
+
+
+Stein-\/\+Stein Model \mbox{\hyperlink{namespace_s_d_e}{SDE}} implementation.  
+
+
+
+
+{\ttfamily \#include $<$Fin\+Models.\+hpp$>$}
+
+
+
+Inheritance diagram for SDE\+::Stein\+Stein\+Model\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_s_d_e_1_1_stein_stein_model_s_d_e__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SDE\+::Stein\+Stein\+Model\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_stein_stein_model_s_d_e__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a6a333802e6e6b6d038cb4e7d22dea19a}{Base}} = \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$ T $>$
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a3e1fc994d42b28e2f42ad5eaa01d0e92}{Parameters}} = typename \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Base\+::\+Parameters}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a094c8c1f7b0165851becbe4f80281eae}{Stein\+Stein\+Model\+SDE}} (T asset\+\_\+drift\+\_\+const, T sv\+\_\+kappa, T sv\+\_\+theta, T sv\+\_\+sigma, T correlation, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} x0)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$ T $>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a0ae8ff99d408515f1ff4382d3df18d66}{clone}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class SDE\+::\+Stein\+Stein\+Model\+SDE$<$ T $>$}
+
+Stein-\/\+Stein Model \mbox{\hyperlink{namespace_s_d_e}{SDE}} implementation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Numeric type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). This model is a specific case of the \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}} with p=1 and q=0. \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 964 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_stein_stein_model_s_d_e_a6a333802e6e6b6d038cb4e7d22dea19a}\label{class_s_d_e_1_1_stein_stein_model_s_d_e_a6a333802e6e6b6d038cb4e7d22dea19a}} 
+\index{SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}!Base@{Base}}
+\index{Base@{Base}!SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Base}{Base}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e}{SDE\+::\+Stein\+Stein\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a6a333802e6e6b6d038cb4e7d22dea19a}{Base}} =  \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$T$>$}
+
+
+
+Definition at line 966 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_stein_stein_model_s_d_e_a3e1fc994d42b28e2f42ad5eaa01d0e92}\label{class_s_d_e_1_1_stein_stein_model_s_d_e_a3e1fc994d42b28e2f42ad5eaa01d0e92}} 
+\index{SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}!Parameters@{Parameters}}
+\index{Parameters@{Parameters}!SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Parameters}{Parameters}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e}{SDE\+::\+Stein\+Stein\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e_a3e1fc994d42b28e2f42ad5eaa01d0e92}{Parameters}} =  typename \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Base\+::\+Parameters}}}
+
+
+
+Definition at line 967 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_stein_stein_model_s_d_e_a094c8c1f7b0165851becbe4f80281eae}\label{class_s_d_e_1_1_stein_stein_model_s_d_e_a094c8c1f7b0165851becbe4f80281eae}} 
+\index{SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}!SteinSteinModelSDE@{SteinSteinModelSDE}}
+\index{SteinSteinModelSDE@{SteinSteinModelSDE}!SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SteinSteinModelSDE()}{SteinSteinModelSDE()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e}{SDE\+::\+Stein\+Stein\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e}{Stein\+Stein\+Model\+SDE}} (\begin{DoxyParamCaption}\item[{T}]{asset\+\_\+drift\+\_\+const,  }\item[{T}]{sv\+\_\+kappa,  }\item[{T}]{sv\+\_\+theta,  }\item[{T}]{sv\+\_\+sigma,  }\item[{T}]{correlation,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}}}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 969 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_stein_stein_model_s_d_e_a0ae8ff99d408515f1ff4382d3df18d66}\label{class_s_d_e_1_1_stein_stein_model_s_d_e_a0ae8ff99d408515f1ff4382d3df18d66}} 
+\index{SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}!clone@{clone}}
+\index{clone@{clone}!SDE::SteinSteinModelSDE$<$ T $>$@{SDE::SteinSteinModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$T$>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_stein_stein_model_s_d_e}{SDE\+::\+Stein\+Stein\+Model\+SDE}}$<$ T $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 985 of file Fin\+Models.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_fin_models_8hpp}{Fin\+Models.\+hpp}}\end{DoxyCompactItemize}

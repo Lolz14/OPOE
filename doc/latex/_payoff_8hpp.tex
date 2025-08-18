@@ -1,0 +1,67 @@
+\hypertarget{_payoff_8hpp}{}\doxysection{options/\+Payoff.hpp File Reference}
+\label{_payoff_8hpp}\index{options/Payoff.hpp@{options/Payoff.hpp}}
+
+
+Defines interfaces and concrete classes for option payoff evaluation in quantitative finance.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include \char`\"{}../traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+Include dependency graph for Payoff.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_payoff_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_payoff_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classoptions_1_1_i_payoff}{options\+::\+IPayoff$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Interface for option payoffs. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{options\+::\+European\+Call\+Payoff$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for European Call options. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for European Put options. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceoptions}{options}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{options\+::\+Storing\+Vector}} = traits\+::\+Data\+Type\+::\+Storing\+Vector
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines interfaces and concrete classes for option payoff evaluation in quantitative finance. 
+
+This header provides a generic interface ({\ttfamily IPayoff}) for evaluating the payoff of financial derivatives, such as options, given the final price or log-\/price of the underlying asset. It also includes concrete implementations for European call and put options, supporting both price and log-\/price evaluation.
+
+Classes\+:
+\begin{DoxyItemize}
+\item IPayoff$<$\+T$>$\+: Abstract base class for option payoffs, supporting polymorphic evaluation and cloning.
+\item European\+Call\+Payoff$<$\+T$>$\+: Implements the payoff for a European call option.
+\item European\+Put\+Payoff$<$\+T$>$\+: Implements the payoff for a European put option.
+\end{DoxyItemize}
+
+Usage\+:
+\begin{DoxyItemize}
+\item Instantiate concrete payoff classes with the desired strike price.
+\item Use {\ttfamily evaluate} for payoff calculation from price, or {\ttfamily evaluate\+\_\+from\+\_\+log} for log-\/price.
+\item Use {\ttfamily clone} for polymorphic copying.
+\end{DoxyItemize}
+
+Example\+: options\+::\+European\+Call\+Payoff$<$double$>$ call(100.\+0); double payoff = call.\+evaluate(105.\+0); // Returns 5.\+0 

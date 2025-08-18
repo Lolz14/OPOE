@@ -1,0 +1,52 @@
+\hypertarget{_m_c_option_pricer_8hpp}{}\doxysection{options/\+MCOption\+Pricer.hpp File Reference}
+\label{_m_c_option_pricer_8hpp}\index{options/MCOptionPricer.hpp@{options/MCOptionPricer.hpp}}
+
+
+Defines the MCPricer class for Monte Carlo option pricing.  
+
+
+{\ttfamily \#include \char`\"{}Base\+Option\+Pricer.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../sde/\+SDE.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+Include dependency graph for MCOption\+Pricer.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_m_c_option_pricer_8hpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{options\+::\+MCPricer$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceoptions}{options}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the MCPricer class for Monte Carlo option pricing. 
+
+This header provides the implementation of a Monte Carlo pricer for financial options. The MCPricer class simulates multiple paths of the underlying asset using a provided stochastic differential equation (\mbox{\hyperlink{namespace_s_d_e}{SDE}}) model and a solver function. It evaluates the option payoff at maturity for each simulated path and computes the expected discounted payoff as the option price.
+
+Key features\+:
+\begin{DoxyItemize}
+\item Templated on the floating-\/point type for flexibility.
+\item Accepts custom payoff and \mbox{\hyperlink{namespace_s_d_e}{SDE}} models via polymorphic interfaces.
+\item Allows injection of a custom \mbox{\hyperlink{namespace_s_d_e}{SDE}} solver function.
+\item Supports configuration of the number of Monte Carlo paths and time steps.
+\end{DoxyItemize}
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item Eigen for matrix and vector operations.
+\item Standard library components for memory management and function objects.
+\item \mbox{\hyperlink{_s_d_e_8hpp}{SDE.\+hpp}} for the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model interface.
+\item \mbox{\hyperlink{_base_option_pricer_8hpp}{Base\+Option\+Pricer.\+hpp}} for the base class of option pricing. 
+\end{DoxyItemize}

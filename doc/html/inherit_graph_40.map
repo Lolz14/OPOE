@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,238,124,265"/>
+<area shape="rect" id="node2" href="$structstats_1_1_boost_base_density_1_1is__this__class__signature.html" title=" " alt="" coords="172,5,401,76"/>
+<area shape="rect" id="node3" href="$structstats_1_1has__boost__alpha.html" title="Trait to detect if a Boost distribution possesses alpha parameter." alt="" coords="201,100,372,141"/>
+<area shape="rect" id="node4" href="$structstats_1_1has__boost__beta__param.html" title="Trait to detect if a Boost distribution possesses beta parameter." alt="" coords="187,165,387,207"/>
+<area shape="rect" id="node5" href="$structstats_1_1has__boost__mean.html" title="Trait to detect if a Boost distribution supports boost::math::mean." alt="" coords="201,231,373,272"/>
+<area shape="rect" id="node6" href="$structstats_1_1has__boost__scale.html" title="Trait to detect if a Boost distribution possesses scale parameter." alt="" coords="202,296,371,337"/>
+<area shape="rect" id="node7" href="$structstats_1_1has__boost__shape.html" title="Trait to detect if a Boost distribution possesses shape parameter." alt="" coords="199,361,374,403"/>
+<area shape="rect" id="node8" href="$structstats_1_1has__boost__stddev.html" title="Trait to detect if a Boost distribution supports boost::math::standard_deviation." alt="" coords="197,427,376,468"/>
+</map>

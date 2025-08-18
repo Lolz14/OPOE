@@ -1,0 +1,136 @@
+\hypertarget{class_s_d_e_1_1_heston_model_s_d_e}{}\doxysection{SDE\+::Heston\+Model\+SDE$<$ T $>$ Class Template Reference}
+\label{class_s_d_e_1_1_heston_model_s_d_e}\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+
+
+Heston Model \mbox{\hyperlink{namespace_s_d_e}{SDE}} implementation.  
+
+
+
+
+{\ttfamily \#include $<$Fin\+Models.\+hpp$>$}
+
+
+
+Inheritance diagram for SDE\+::Heston\+Model\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{class_s_d_e_1_1_heston_model_s_d_e__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SDE\+::Heston\+Model\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_heston_model_s_d_e__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_abc96afb01360c3686cc7a0a8c96f7cf9}{Base}} = \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$ T $>$
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_a3cd56ceca940ff913eb2d51774339fb2}{Parameters}} = typename \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Base\+::\+Parameters}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_ab33e9bd58ac6507215989b4ca02634a4}{Heston\+Model\+SDE}} (T asset\+\_\+drift\+\_\+const, T sv\+\_\+kappa, T sv\+\_\+theta, T sv\+\_\+sigma, T correlation, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} x0)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$ T $>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_a4513306236996a30c5c39ee941fe13f5}{clone}} () const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_a206a84b1aafa3a869e1a44741f7bd8fb}{characteristic\+\_\+fn}} (T t, const \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&x, \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&charact\+\_\+out) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class SDE\+::\+Heston\+Model\+SDE$<$ T $>$}
+
+Heston Model \mbox{\hyperlink{namespace_s_d_e}{SDE}} implementation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Numeric type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 869 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_heston_model_s_d_e_abc96afb01360c3686cc7a0a8c96f7cf9}\label{class_s_d_e_1_1_heston_model_s_d_e_abc96afb01360c3686cc7a0a8c96f7cf9}} 
+\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}!Base@{Base}}
+\index{Base@{Base}!SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Base}{Base}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{SDE\+::\+Heston\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_abc96afb01360c3686cc7a0a8c96f7cf9}{Base}} =  \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$T$>$}
+
+
+
+Definition at line 871 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_heston_model_s_d_e_a3cd56ceca940ff913eb2d51774339fb2}\label{class_s_d_e_1_1_heston_model_s_d_e_a3cd56ceca940ff913eb2d51774339fb2}} 
+\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}!Parameters@{Parameters}}
+\index{Parameters@{Parameters}!SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Parameters}{Parameters}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{SDE\+::\+Heston\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e_a3cd56ceca940ff913eb2d51774339fb2}{Parameters}} =  typename \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Base\+::\+Parameters}}}
+
+
+
+Definition at line 872 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_heston_model_s_d_e_ab33e9bd58ac6507215989b4ca02634a4}\label{class_s_d_e_1_1_heston_model_s_d_e_ab33e9bd58ac6507215989b4ca02634a4}} 
+\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}!HestonModelSDE@{HestonModelSDE}}
+\index{HestonModelSDE@{HestonModelSDE}!SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{HestonModelSDE()}{HestonModelSDE()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{SDE\+::\+Heston\+Model\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{Heston\+Model\+SDE}} (\begin{DoxyParamCaption}\item[{T}]{asset\+\_\+drift\+\_\+const,  }\item[{T}]{sv\+\_\+kappa,  }\item[{T}]{sv\+\_\+theta,  }\item[{T}]{sv\+\_\+sigma,  }\item[{T}]{correlation,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}}}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 874 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_heston_model_s_d_e_a206a84b1aafa3a869e1a44741f7bd8fb}\label{class_s_d_e_1_1_heston_model_s_d_e_a206a84b1aafa3a869e1a44741f7bd8fb}} 
+\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}!characteristic\_fn@{characteristic\_fn}}
+\index{characteristic\_fn@{characteristic\_fn}!SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{characteristic\_fn()}{characteristic\_fn()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{SDE\+::\+Heston\+Model\+SDE}}$<$ T $>$\+::characteristic\+\_\+fn (\begin{DoxyParamCaption}\item[{T}]{t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&}]{charact\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 895 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_heston_model_s_d_e_a4513306236996a30c5c39ee941fe13f5}\label{class_s_d_e_1_1_heston_model_s_d_e_a4513306236996a30c5c39ee941fe13f5}} 
+\index{SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}!clone@{clone}}
+\index{clone@{clone}!SDE::HestonModelSDE$<$ T $>$@{SDE::HestonModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$T$>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_heston_model_s_d_e}{SDE\+::\+Heston\+Model\+SDE}}$<$ T $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 890 of file Fin\+Models.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_fin_models_8hpp}{Fin\+Models.\+hpp}}\end{DoxyCompactItemize}

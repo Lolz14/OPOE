@@ -1,0 +1,48 @@
+\hypertarget{_quadrature_wrappers_8hpp}{}\doxysection{quadrature/\+Quadrature\+Wrappers.hpp File Reference}
+\label{_quadrature_wrappers_8hpp}\index{quadrature/QuadratureWrappers.hpp@{quadrature/QuadratureWrappers.hpp}}
+
+
+Provides wrapper classes for different quadrature (numerical integration) backends.  
+
+
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include \char`\"{}Quadrature\+Rule.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Quadrature\+Rule\+Abstract.\+hpp\char`\"{}}\newline
+Include dependency graph for Quadrature\+Wrappers.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_quadrature_wrappers_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{_quadrature_wrappers_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classquadrature_1_1_boost_quadrature_wrapper}{quadrature\+::\+Boost\+Quadrature\+Wrapper$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the Boost Tanh-\/\+Sinh quadrature rule. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classquadrature_1_1_g_s_l_quadrature_wrapper}{quadrature\+::\+GSLQuadrature\+Wrapper$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em Wrapper for the GSL adaptive quadrature rule. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacequadrature}{quadrature}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides wrapper classes for different quadrature (numerical integration) backends. 
+
+This header defines wrapper classes for Boost and GSL quadrature rules, allowing them to be used through a common interface. The wrappers manage the underlying rule objects and provide methods for integration and cloning.
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_quadrature_rule_8hpp}{Quadrature\+Rule.\+hpp}}\+: Base class for quadrature rules.
+\item \mbox{\hyperlink{_quadrature_rule_abstract_8hpp}{Quadrature\+Rule\+Abstract.\+hpp}}\+: Abstract interface for quadrature rules. 
+\end{DoxyItemize}

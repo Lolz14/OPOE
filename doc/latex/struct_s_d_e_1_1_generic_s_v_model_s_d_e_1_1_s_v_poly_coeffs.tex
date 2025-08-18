@@ -1,0 +1,110 @@
+\hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}{}\doxysection{SDE\+::Generic\+SVModel\+SDE$<$ T $>$\+::SVPoly\+Coeffs Struct Reference}
+\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+
+
+Struct to hold polynomial coefficients for the stochastic volatility model.  
+
+
+
+
+{\ttfamily \#include $<$Fin\+Models.\+hpp$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ae7116fa3f284e4f00729c39e0564c2b0}{bx}}
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a96fba8171b55cd26915f425b296c978a}{axx}}
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a8a4c7ab026d856c31c1aced40f9f3ecf}{bv}}
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a48dd0393e125038dea1cb6ce9d581ab2}{axv}}
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ad09895bb74f32a09f85e64ce2f8f7577}{avv}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+struct SDE\+::\+Generic\+SVModel\+SDE$<$ T $>$\+::\+SVPoly\+Coeffs}
+
+Struct to hold polynomial coefficients for the stochastic volatility model. 
+
+This struct contains the coefficients for the polynomial representation of the drift and diffusion terms. It is used to build the generator matrix for polynomial expansion methods.
+
+The coefficients are stored as vectors, where each vector corresponds to a polynomial term\+:
+\begin{DoxyItemize}
+\item bx\+: Coefficients for b\+\_\+x(v)
+\item axx\+: Coefficients for a\+\_\+xx(v)
+\item bv\+: Coefficients for b\+\_\+v(v)
+\item axv\+: Coefficients for a\+\_\+xv(v)
+\item avv\+: Coefficients for a\+\_\+vv(v)
+\end{DoxyItemize}
+
+The coefficients are indexed by the polynomial degree, allowing for efficient polynomial evaluation. This struct is essential for constructing the generator matrix and performing polynomial expansions in the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model. 
+
+Definition at line 557 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ad09895bb74f32a09f85e64ce2f8f7577}\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ad09895bb74f32a09f85e64ce2f8f7577}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}!avv@{avv}}
+\index{avv@{avv}!SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+\doxysubsubsection{\texorpdfstring{avv}{avv}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::SVPoly\+Coeffs\+::avv}
+
+
+
+Definition at line 562 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a48dd0393e125038dea1cb6ce9d581ab2}\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a48dd0393e125038dea1cb6ce9d581ab2}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}!axv@{axv}}
+\index{axv@{axv}!SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+\doxysubsubsection{\texorpdfstring{axv}{axv}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::SVPoly\+Coeffs\+::axv}
+
+
+
+Definition at line 561 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a96fba8171b55cd26915f425b296c978a}\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a96fba8171b55cd26915f425b296c978a}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}!axx@{axx}}
+\index{axx@{axx}!SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+\doxysubsubsection{\texorpdfstring{axx}{axx}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::SVPoly\+Coeffs\+::axx}
+
+
+
+Definition at line 559 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a8a4c7ab026d856c31c1aced40f9f3ecf}\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_a8a4c7ab026d856c31c1aced40f9f3ecf}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}!bv@{bv}}
+\index{bv@{bv}!SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+\doxysubsubsection{\texorpdfstring{bv}{bv}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::SVPoly\+Coeffs\+::bv}
+
+
+
+Definition at line 560 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ae7116fa3f284e4f00729c39e0564c2b0}\label{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs_ae7116fa3f284e4f00729c39e0564c2b0}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}!bx@{bx}}
+\index{bx@{bx}!SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs@{SDE::GenericSVModelSDE$<$ T $>$::SVPolyCoeffs}}
+\doxysubsubsection{\texorpdfstring{bx}{bx}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::SVPoly\+Coeffs\+::bx}
+
+
+
+Definition at line 558 of file Fin\+Models.\+hpp.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_fin_models_8hpp}{Fin\+Models.\+hpp}}\end{DoxyCompactItemize}

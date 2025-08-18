@@ -1,0 +1,545 @@
+\hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e}{}\doxysection{SDE\+::Generic\+SVModel\+SDE$<$ T $>$ Class Template Reference}
+\label{class_s_d_e_1_1_generic_s_v_model_s_d_e}\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+
+
+Generic Stochastic Volatility \mbox{\hyperlink{namespace_s_d_e}{SDE}} model.  
+
+
+
+
+{\ttfamily \#include $<$Fin\+Models.\+hpp$>$}
+
+
+
+Inheritance diagram for SDE\+::Generic\+SVModel\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_s_d_e_1_1_generic_s_v_model_s_d_e__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SDE\+::Generic\+SVModel\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_generic_s_v_model_s_d_e__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} for the Generic Stochastic Volatility \mbox{\hyperlink{namespace_s_d_e}{SDE}}. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}{SVPoly\+Coeffs}}
+\begin{DoxyCompactList}\small\item\em Struct to hold polynomial coefficients for the stochastic volatility model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_abad0410217a20ce7e7b20f5a43f47380}{Generic\+SVModel\+SDE}} (const \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \&params, const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} x0)
+\item 
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a0de4f48029a88a596218fd157292f1c7}{get\+\_\+wiener\+\_\+dimension}} () const override
+\item 
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c97d33a76b62c69ea6fedb676e78604}{get\+\_\+state\+\_\+dim}} () const override
+\item 
+const \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \& \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_aac605f3f1f41e30fd79c1962e0e438d2}{get\+\_\+parameters}} () const
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a1cf6de1211d6fd1a48e9a629ed686774}{drift}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&mu\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c885a6559d1869ba8b21ec12c7203e2}{diffusion}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&sigma\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a5dbc12ba1e32efb128cccb5ef9839f50}{drift\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&deriv\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a92ef90715271f414f8a69c82871ba69c}{diffusion\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&deriv\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae2ad247fadfa65a3b5d4cb957c531b64}{diffusion\+\_\+second\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&deriv\+\_\+out) const override
+\item 
+virtual \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}{SVPoly\+Coeffs}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_af19f911c9c582e29b56a1da1c98d0a75}{build\+\_\+sv\+\_\+polynomials}} (const typename \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \&p, int N)
+\begin{DoxyCompactList}\small\item\em Builds the polynomial coefficients for the stochastic volatility model. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada84734ca7be0157389c117ee2ea1e35}{generator\+\_\+G}} (std\+::vector$<$ std\+::pair$<$ int, int $>$$>$ E, int N, T sigma) const
+\begin{DoxyCompactList}\small\item\em Constructs the generator matrix G for the stochastic volatility model. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a325bfe57db09e1a4ae0c956c91c6b2a4}{generator\+\_\+G}} (std\+::vector$<$ std\+::pair$<$ int, int $>$$>$ E, const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&H)
+\begin{DoxyCompactList}\small\item\em Constructs the generator matrix G for the stochastic volatility model. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a55adf783558391c5c07dcd63e93b8f95}{get\+\_\+x0}} () const noexcept override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae1d4213d0887cc5236c1302a3ae4f538}{set\+\_\+x0}} (const T \&x0) noexcept override
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a932bf29869c4992f29b723ea1c693e25}{get\+\_\+v0}} () const noexcept override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a332377106c92ae7d48715bf5ae52b3a6}{set\+\_\+v0}} (const T \&v0) noexcept override
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a53d03e5b5c5d81a8623a0e6f03419f84}{get\+\_\+p}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Getters for model parameters. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_adc0902c8ae6d226e7dd9549dd38a650c}{get\+\_\+q}} () const noexcept
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a4793e231f5e1d4ce0f7139eacaddc661}{get\+\_\+correlation}} () const noexcept
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_aa3d319eecf6d3883a8f692f08dd882f1}{get\+\_\+kappa}} () const noexcept
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a8793a62d9bff0381af016df5a07542bd}{get\+\_\+theta}} () const noexcept
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada37cf7bbead2a408c761c2e71b800f3}{get\+\_\+sigma\+\_\+v}} () const noexcept
+\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ad6dfb49ef469e5682859a01364bd4f44}{M\+\_\+T}} (T ttm, T dt, const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&y\+\_\+t, const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&w\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Computes the Mean of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T by employing an IJK scheme combined with weighted Monte Carlo integration. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ab45ce33e1dcd58dacd42962751141c01}{C\+\_\+T}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T ttm, T dt, const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&y\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Computes the C\+\_\+T term for the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_af932812100ceb124149521c91e7b6b3d}{WIENER\+\_\+\+DIM}} = 2
+\item 
+static constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_acee1fa0823cfe237e188bf29398debb2}{STATE\+\_\+\+DIM}} = 2
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_abf7334b20e5c6f022753436d72d25afb}{params\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a25a8cc0b5be86ffaef790f4fa393f312}{Base}} = \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$ T $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class SDE\+::\+Generic\+SVModel\+SDE$<$ T $>$}
+
+Generic Stochastic Volatility \mbox{\hyperlink{namespace_s_d_e}{SDE}} model. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Numeric type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). This model supports flexible exponents for volatility and allows for correlation between the asset and volatility processes.\\
+\hline
+\end{DoxyTemplParams}
+As defined in Fast strong approximation Monte-\/\+Carlo schemes for stochastic volatility models The model is the following\+: d\+S(t) = mu$\ast$S(t)$\ast$dt + V(t)$^\wedge$p $\ast$ S(t) $\ast$ d\+W(t) d\+V(t) = kappa $\ast$ (theta -\/ V(t)) $\ast$ dt + sigma $\ast$ V(t)$^\wedge$q $\ast$ d\+Z(t) We employ Cholesky decomposition to handle the correlation between the two Wiener processes\+: dW = rho $\ast$ d\+Z\+\_\+uncorr + sqrt(1 -\/ rho$^\wedge$2) $\ast$ d\+W\+\_\+uncorr dZ = d\+Z\+\_\+uncorr So that, we get the following system of SDEs\+: d\+S(t) = mu$\ast$S(t)$\ast$dt + V(t)$^\wedge$p $\ast$ S(t) $\ast$ (rho$\ast$d\+Z\+\_\+uncorr + sqrt(1 -\/ rho$^\wedge$2)$\ast$d\+W\+\_\+uncorr) d\+V(t) = kappa $\ast$ (theta -\/ V(t)) $\ast$ dt + sigma $\ast$ V(t)$^\wedge$q $\ast$ d\+Z\+\_\+uncorr where d\+Z\+\_\+uncorr and d\+W\+\_\+uncorr are two independent Wiener motions. Applying the Ito\textquotesingle{}s lemma, we can derive the drift and diffusion terms for the SDEs. d\+X(t) (mu -\/ V(t)$^\wedge$2p/2) $\ast$ dt + V(t)$^\wedge$p $\ast$ (rho$\ast$d\+Z\+\_\+uncorr + sqrt(1 -\/ rho$^\wedge$2)$\ast$d\+W\+\_\+uncorr d\+Y(t) = kappa $\ast$ (theta -\/ Y(t)) $\ast$ dt + sigma $\ast$ Y(t)$^\wedge$q $\ast$ d\+Z\+\_\+uncorr 
+
+Definition at line 374 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a25a8cc0b5be86ffaef790f4fa393f312}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a25a8cc0b5be86ffaef790f4fa393f312}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!Base@{Base}}
+\index{Base@{Base}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Base}{Base}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a25a8cc0b5be86ffaef790f4fa393f312}{Base}} =  \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$T$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 375 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_abad0410217a20ce7e7b20f5a43f47380}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_abad0410217a20ce7e7b20f5a43f47380}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!GenericSVModelSDE@{GenericSVModelSDE}}
+\index{GenericSVModelSDE@{GenericSVModelSDE}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GenericSVModelSDE()}{GenericSVModelSDE()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \&}]{params,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}}}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 405 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_af19f911c9c582e29b56a1da1c98d0a75}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_af19f911c9c582e29b56a1da1c98d0a75}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!build\_sv\_polynomials@{build\_sv\_polynomials}}
+\index{build\_sv\_polynomials@{build\_sv\_polynomials}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{build\_sv\_polynomials()}{build\_sv\_polynomials()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}{SVPoly\+Coeffs}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::build\+\_\+sv\+\_\+polynomials (\begin{DoxyParamCaption}\item[{const typename \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{Generic\+SVModel\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \&}]{p,  }\item[{int}]{N }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Builds the polynomial coefficients for the stochastic volatility model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} of the stochastic volatility model. \\
+\hline
+{\em N} & Number of polynomial coefficients to compute. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs}{SVPoly\+Coeffs}} containing the polynomial coefficients for the drift and diffusion terms. 
+\end{DoxyReturn}
+
+
+Definition at line 572 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ab45ce33e1dcd58dacd42962751141c01}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ab45ce33e1dcd58dacd42962751141c01}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!C\_T@{C\_T}}
+\index{C\_T@{C\_T}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{C\_T()}{C\_T()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::C\+\_\+T (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{ttm,  }\item[{T}]{dt,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{y\+\_\+t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the C\+\_\+T term for the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ttm} & Time to maturity. \\
+\hline
+{\em dt} & Time step size. \\
+\hline
+{\em y\+\_\+t} & Current state of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} (matrix form). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The C\+\_\+T term as an SDEVector. This method computes the C\+\_\+T term for the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T using the trapezoidal rule. It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters. The method assumes that y\+\_\+t is a matrix with compatible dimensions. 
+\end{DoxyReturn}
+
+
+Definition at line 840 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c885a6559d1869ba8b21ec12c7203e2}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c885a6559d1869ba8b21ec12c7203e2}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!diffusion@{diffusion}}
+\index{diffusion@{diffusion}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion()}{diffusion()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::diffusion (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{sigma\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 471 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a92ef90715271f414f8a69c82871ba69c}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a92ef90715271f414f8a69c82871ba69c}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!diffusion\_derivative\_x@{diffusion\_derivative\_x}}
+\index{diffusion\_derivative\_x@{diffusion\_derivative\_x}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion\_derivative\_x()}{diffusion\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::diffusion\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 521 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae2ad247fadfa65a3b5d4cb957c531b64}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae2ad247fadfa65a3b5d4cb957c531b64}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!diffusion\_second\_derivative\_x@{diffusion\_second\_derivative\_x}}
+\index{diffusion\_second\_derivative\_x@{diffusion\_second\_derivative\_x}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion\_second\_derivative\_x()}{diffusion\_second\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::diffusion\+\_\+second\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 535 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a1cf6de1211d6fd1a48e9a629ed686774}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a1cf6de1211d6fd1a48e9a629ed686774}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!drift@{drift}}
+\index{drift@{drift}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{drift()}{drift()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::drift (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{mu\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 444 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a5dbc12ba1e32efb128cccb5ef9839f50}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a5dbc12ba1e32efb128cccb5ef9839f50}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!drift\_derivative\_x@{drift\_derivative\_x}}
+\index{drift\_derivative\_x@{drift\_derivative\_x}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{drift\_derivative\_x()}{drift\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::drift\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 515 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a325bfe57db09e1a4ae0c956c91c6b2a4}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a325bfe57db09e1a4ae0c956c91c6b2a4}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!generator\_G@{generator\_G}}
+\index{generator\_G@{generator\_G}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{generator\_G()}{generator\_G()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::generator\+\_\+G (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$$>$}]{E,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{H }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the generator matrix G for the stochastic volatility model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & Vector of pairs representing the indices of the basis functions. \\
+\hline
+{\em H} & The SDEMatrix representing the current state of the model. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The generator matrix G as an SDEMatrix.
+\end{DoxyReturn}
+This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model. The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E. The resulting matrix G is used in polynomial expansion methods for solving the \mbox{\hyperlink{namespace_s_d_e}{SDE}}. This version of the method uses Kronecker products to build the generator matrix G based on the provided basis H, which can be also a mixture. 
+
+Definition at line 718 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada84734ca7be0157389c117ee2ea1e35}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada84734ca7be0157389c117ee2ea1e35}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!generator\_G@{generator\_G}}
+\index{generator\_G@{generator\_G}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{generator\_G()}{generator\_G()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::generator\+\_\+G (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ int, int $>$$>$}]{E,  }\item[{int}]{N,  }\item[{T}]{sigma }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Constructs the generator matrix G for the stochastic volatility model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em E} & Vector of pairs representing the indices of the basis functions. \\
+\hline
+{\em N} & Number of basis functions. \\
+\hline
+{\em sigma} & Volatility parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The generator matrix G as an SDEMatrix.
+\end{DoxyReturn}
+This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model. The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E. The resulting matrix G is used in polynomial expansion methods for solving the \mbox{\hyperlink{namespace_s_d_e}{SDE}}. This version of the method uses an approximation when it comes to mixture models, since the sigma parameter provided is approximated through moment matching and is not the actual volatility of the process. 
+
+Definition at line 634 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a4793e231f5e1d4ce0f7139eacaddc661}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a4793e231f5e1d4ce0f7139eacaddc661}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_correlation@{get\_correlation}}
+\index{get\_correlation@{get\_correlation}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_correlation()}{get\_correlation()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+correlation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 764 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_aa3d319eecf6d3883a8f692f08dd882f1}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_aa3d319eecf6d3883a8f692f08dd882f1}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_kappa@{get\_kappa}}
+\index{get\_kappa@{get\_kappa}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_kappa()}{get\_kappa()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+kappa (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 768 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a53d03e5b5c5d81a8623a0e6f03419f84}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a53d03e5b5c5d81a8623a0e6f03419f84}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_p@{get\_p}}
+\index{get\_p@{get\_p}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_p()}{get\_p()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+p (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Getters for model parameters. 
+
+These methods provide access to the model parameters used in the \mbox{\hyperlink{namespace_s_d_e}{SDE}}. They are useful for retrieving specific parameters without exposing the entire \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} struct. 
+
+Definition at line 756 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_aac605f3f1f41e30fd79c1962e0e438d2}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_aac605f3f1f41e30fd79c1962e0e438d2}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_parameters@{get\_parameters}}
+\index{get\_parameters@{get\_parameters}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_parameters()}{get\_parameters()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const \mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}}\& \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 442 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_adc0902c8ae6d226e7dd9549dd38a650c}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_adc0902c8ae6d226e7dd9549dd38a650c}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_q@{get\_q}}
+\index{get\_q@{get\_q}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_q()}{get\_q()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+q (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 760 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada37cf7bbead2a408c761c2e71b800f3}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ada37cf7bbead2a408c761c2e71b800f3}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_sigma\_v@{get\_sigma\_v}}
+\index{get\_sigma\_v@{get\_sigma\_v}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_sigma\_v()}{get\_sigma\_v()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+sigma\+\_\+v (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 776 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c97d33a76b62c69ea6fedb676e78604}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a7c97d33a76b62c69ea6fedb676e78604}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_state\_dim@{get\_state\_dim}}
+\index{get\_state\_dim@{get\_state\_dim}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_state\_dim()}{get\_state\_dim()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+state\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a1153abea1f0a2573f5be555d21a46931}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 440 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a8793a62d9bff0381af016df5a07542bd}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a8793a62d9bff0381af016df5a07542bd}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_theta@{get\_theta}}
+\index{get\_theta@{get\_theta}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_theta()}{get\_theta()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+theta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 772 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a932bf29869c4992f29b723ea1c693e25}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a932bf29869c4992f29b723ea1c693e25}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_v0@{get\_v0}}
+\index{get\_v0@{get\_v0}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_v0()}{get\_v0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+v0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a9457e9e498a703a1c9d20d7a19534a01}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 743 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a0de4f48029a88a596218fd157292f1c7}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a0de4f48029a88a596218fd157292f1c7}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_wiener\_dimension@{get\_wiener\_dimension}}
+\index{get\_wiener\_dimension@{get\_wiener\_dimension}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_wiener\_dimension()}{get\_wiener\_dimension()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+wiener\+\_\+dimension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a551c9ac6e5ebfc11845209e256d6e8bf}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 438 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a55adf783558391c5c07dcd63e93b8f95}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a55adf783558391c5c07dcd63e93b8f95}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!get\_x0@{get\_x0}}
+\index{get\_x0@{get\_x0}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_x0()}{get\_x0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::get\+\_\+x0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_ab9613f5b1f4f94b24f650a945597f2a7}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 733 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ad6dfb49ef469e5682859a01364bd4f44}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ad6dfb49ef469e5682859a01364bd4f44}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!M\_T@{M\_T}}
+\index{M\_T@{M\_T}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{M\_T()}{M\_T()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::M\+\_\+T (\begin{DoxyParamCaption}\item[{T}]{ttm,  }\item[{T}]{dt,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{y\+\_\+t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{w\+\_\+t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the Mean of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T by employing an IJK scheme combined with weighted Monte Carlo integration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ttm} & Time to maturity. \\
+\hline
+{\em dt} & Time step size. \\
+\hline
+{\em y\+\_\+t} & Current state of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} (matrix form). \\
+\hline
+{\em w\+\_\+t} & Wiener increments (matrix form). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mean of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T as an SDEVector.
+\end{DoxyReturn}
+This method computes the mean of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} at time T using a combination of trapezoidal rule for integration and stochastic integral for the Wiener increments. It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters. The method assumes that y\+\_\+t and w\+\_\+t are matrices with compatible dimensions. 
+
+Definition at line 793 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_a332377106c92ae7d48715bf5ae52b3a6}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_a332377106c92ae7d48715bf5ae52b3a6}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!set\_v0@{set\_v0}}
+\index{set\_v0@{set\_v0}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_v0()}{set\_v0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::set\+\_\+v0 (\begin{DoxyParamCaption}\item[{const T \&}]{v0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 747 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae1d4213d0887cc5236c1302a3ae4f538}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_ae1d4213d0887cc5236c1302a3ae4f538}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!set\_x0@{set\_x0}}
+\index{set\_x0@{set\_x0}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_x0()}{set\_x0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::set\+\_\+x0 (\begin{DoxyParamCaption}\item[{const T \&}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 738 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_abf7334b20e5c6f022753436d72d25afb}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_abf7334b20e5c6f022753436d72d25afb}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!params\_@{params\_}}
+\index{params\_@{params\_}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters}{Parameters}} \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::params\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 401 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_acee1fa0823cfe237e188bf29398debb2}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_acee1fa0823cfe237e188bf29398debb2}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!STATE\_DIM@{STATE\_DIM}}
+\index{STATE\_DIM@{STATE\_DIM}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{STATE\_DIM}{STATE\_DIM}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::STATE\+\_\+\+DIM = 2\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 380 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_generic_s_v_model_s_d_e_af932812100ceb124149521c91e7b6b3d}\label{class_s_d_e_1_1_generic_s_v_model_s_d_e_af932812100ceb124149521c91e7b6b3d}} 
+\index{SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}!WIENER\_DIM@{WIENER\_DIM}}
+\index{WIENER\_DIM@{WIENER\_DIM}!SDE::GenericSVModelSDE$<$ T $>$@{SDE::GenericSVModelSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{WIENER\_DIM}{WIENER\_DIM}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e}{SDE\+::\+Generic\+SVModel\+SDE}}$<$ T $>$\+::WIENER\+\_\+\+DIM = 2\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 379 of file Fin\+Models.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_fin_models_8hpp}{Fin\+Models.\+hpp}}\end{DoxyCompactItemize}

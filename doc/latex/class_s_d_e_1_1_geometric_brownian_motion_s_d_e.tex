@@ -1,0 +1,360 @@
+\hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{}\doxysection{SDE\+::Geometric\+Brownian\+Motion\+SDE$<$ T $>$ Class Template Reference}
+\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+
+
+Geometric Brownian Motion \mbox{\hyperlink{namespace_s_d_e}{SDE}} model.  
+
+
+
+
+{\ttfamily \#include $<$Fin\+Models.\+hpp$>$}
+
+
+
+Inheritance diagram for SDE\+::Geometric\+Brownian\+Motion\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{class_s_d_e_1_1_geometric_brownian_motion_s_d_e__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SDE\+::Geometric\+Brownian\+Motion\+SDE$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_geometric_brownian_motion_s_d_e__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} for the Geometric Brownian Motion \mbox{\hyperlink{namespace_s_d_e}{SDE}}. Contains the drift (mu) and volatility (sigma) parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a895e562fea1f8f647dcd8502c69eb822}{Geometric\+Brownian\+Motion\+SDE}} (T mu, T sigma, T x0)
+\begin{DoxyCompactList}\small\item\em Geometric Brownian Motion \mbox{\hyperlink{namespace_s_d_e}{SDE}} constructor. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$ T $>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a392b49fd568e7e6d3b888c2a9a7958e5}{clone}} () const override
+\item 
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a9d0a954e8a5e586b38205ac7c147deb8}{get\+\_\+wiener\+\_\+dimension}} () const override
+\item 
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a61f8f71cb34c1737f05e189de559a5fd}{get\+\_\+state\+\_\+dim}} () const override
+\item 
+const \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} \& \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a45e78df6fabd8c4e0b92ce0f4f27500c}{get\+\_\+parameters}} () const
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aa4a5ba02690c97ae24b6bb44436ac8d2}{set\+\_\+parameters}} (const \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} \&params)
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ac7da0a29bea52ab708caf72a09844ec4}{drift}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&mu\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_af036b36d3f2c523fab7c5faf6a3f931f}{diffusion}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&sigma\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a2a601420fb71dfb30276c33252f3bbe6}{drift\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&deriv\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a74440b45b7991f50898080700d129a05}{diffusion\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&deriv\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_add83e495d310ae66c18340a9ce3d91bc}{diffusion\+\_\+second\+\_\+derivative\+\_\+x}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} T t, \mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&x, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&deriv\+\_\+out) const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_abb5405f84c5b6c17cbefcb95816b79e0}{characteristic\+\_\+fn}} (T t, const \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&x, \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&charact\+\_\+out) const override
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ada4c5c00da8284f469143e01c420835c}{get\+\_\+x0}} () const override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ab5244fcfb636fd85afc719996bf10209}{set\+\_\+x0}} (const T \&x0) override
+\item 
+T \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a6f3b01349e93aadb69298185f8f72bba}{get\+\_\+v0}} () const noexcept override
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8939bc10e39ff9a58f08499f9bbc398c}{set\+\_\+v0}} (const T \&v0) noexcept override
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a919f604f16b2e224b5299be284d77332}{WIENER\+\_\+\+DIM}} = 1
+\item 
+static constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8c0acd912f595fcfcd9a70f4cb95cd55}{STATE\+\_\+\+DIM}} = 1
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aee117f7d615a222fbda1d9e49cacc3ce}{params\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class SDE\+::\+Geometric\+Brownian\+Motion\+SDE$<$ T $>$}
+
+Geometric Brownian Motion \mbox{\hyperlink{namespace_s_d_e}{SDE}} model. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Numeric type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).\\
+\hline
+\end{DoxyTemplParams}
+This model represents the classic Geometric Brownian Motion, commonly used for modeling stock prices. It includes methods for drift, diffusion, and characteristic function calculations. 
+
+Definition at line 242 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a895e562fea1f8f647dcd8502c69eb822}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a895e562fea1f8f647dcd8502c69eb822}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!GeometricBrownianMotionSDE@{GeometricBrownianMotionSDE}}
+\index{GeometricBrownianMotionSDE@{GeometricBrownianMotionSDE}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GeometricBrownianMotionSDE()}{GeometricBrownianMotionSDE()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{Geometric\+Brownian\+Motion\+SDE}} (\begin{DoxyParamCaption}\item[{T}]{mu,  }\item[{T}]{sigma,  }\item[{T}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Geometric Brownian Motion \mbox{\hyperlink{namespace_s_d_e}{SDE}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & Drift parameter (expected return rate). \\
+\hline
+{\em sigma} & Volatility parameter (standard deviation of returns). \\
+\hline
+{\em x0} & Initial state (log-\/price). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if sigma is negative. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 270 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_abb5405f84c5b6c17cbefcb95816b79e0}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_abb5405f84c5b6c17cbefcb95816b79e0}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!characteristic\_fn@{characteristic\_fn}}
+\index{characteristic\_fn@{characteristic\_fn}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{characteristic\_fn()}{characteristic\_fn()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::characteristic\+\_\+fn (\begin{DoxyParamCaption}\item[{T}]{t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_aeabcff0c12105b6d037afe65023f9c8c}{SDEComplex\+Vector}} \&}]{charact\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 325 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a392b49fd568e7e6d3b888c2a9a7958e5}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a392b49fd568e7e6d3b888c2a9a7958e5}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!clone@{clone}}
+\index{clone@{clone}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$T$>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 279 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_af036b36d3f2c523fab7c5faf6a3f931f}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_af036b36d3f2c523fab7c5faf6a3f931f}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!diffusion@{diffusion}}
+\index{diffusion@{diffusion}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion()}{diffusion()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::diffusion (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{sigma\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 304 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a74440b45b7991f50898080700d129a05}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a74440b45b7991f50898080700d129a05}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!diffusion\_derivative\_x@{diffusion\_derivative\_x}}
+\index{diffusion\_derivative\_x@{diffusion\_derivative\_x}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion\_derivative\_x()}{diffusion\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::diffusion\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 315 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_add83e495d310ae66c18340a9ce3d91bc}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_add83e495d310ae66c18340a9ce3d91bc}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!diffusion\_second\_derivative\_x@{diffusion\_second\_derivative\_x}}
+\index{diffusion\_second\_derivative\_x@{diffusion\_second\_derivative\_x}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{diffusion\_second\_derivative\_x()}{diffusion\_second\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::diffusion\+\_\+second\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 319 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ac7da0a29bea52ab708caf72a09844ec4}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ac7da0a29bea52ab708caf72a09844ec4}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!drift@{drift}}
+\index{drift@{drift}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{drift()}{drift()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::drift (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{mu\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 297 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a2a601420fb71dfb30276c33252f3bbe6}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a2a601420fb71dfb30276c33252f3bbe6}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!drift\_derivative\_x@{drift\_derivative\_x}}
+\index{drift\_derivative\_x@{drift\_derivative\_x}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{drift\_derivative\_x()}{drift\_derivative\_x()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::drift\+\_\+derivative\+\_\+x (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} T}]{t,  }\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{x,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{deriv\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 311 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a45e78df6fabd8c4e0b92ce0f4f27500c}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a45e78df6fabd8c4e0b92ce0f4f27500c}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!get\_parameters@{get\_parameters}}
+\index{get\_parameters@{get\_parameters}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_parameters()}{get\_parameters()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+const \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}}\& \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::get\+\_\+parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 287 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a61f8f71cb34c1737f05e189de559a5fd}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a61f8f71cb34c1737f05e189de559a5fd}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!get\_state\_dim@{get\_state\_dim}}
+\index{get\_state\_dim@{get\_state\_dim}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_state\_dim()}{get\_state\_dim()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::get\+\_\+state\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a1153abea1f0a2573f5be555d21a46931}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 285 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a6f3b01349e93aadb69298185f8f72bba}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a6f3b01349e93aadb69298185f8f72bba}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!get\_v0@{get\_v0}}
+\index{get\_v0@{get\_v0}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_v0()}{get\_v0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::get\+\_\+v0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a9457e9e498a703a1c9d20d7a19534a01}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 342 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a9d0a954e8a5e586b38205ac7c147deb8}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a9d0a954e8a5e586b38205ac7c147deb8}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!get\_wiener\_dimension@{get\_wiener\_dimension}}
+\index{get\_wiener\_dimension@{get\_wiener\_dimension}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_wiener\_dimension()}{get\_wiener\_dimension()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::get\+\_\+wiener\+\_\+dimension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a551c9ac6e5ebfc11845209e256d6e8bf}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 283 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ada4c5c00da8284f469143e01c420835c}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ada4c5c00da8284f469143e01c420835c}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!get\_x0@{get\_x0}}
+\index{get\_x0@{get\_x0}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_x0()}{get\_x0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+T \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::get\+\_\+x0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_ab9613f5b1f4f94b24f650a945597f2a7}{SDE\+::\+ISDEModel$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 332 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aa4a5ba02690c97ae24b6bb44436ac8d2}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aa4a5ba02690c97ae24b6bb44436ac8d2}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!set\_parameters@{set\_parameters}}
+\index{set\_parameters@{set\_parameters}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_parameters()}{set\_parameters()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::set\+\_\+parameters (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} \&}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 289 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8939bc10e39ff9a58f08499f9bbc398c}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8939bc10e39ff9a58f08499f9bbc398c}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!set\_v0@{set\_v0}}
+\index{set\_v0@{set\_v0}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_v0()}{set\_v0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::set\+\_\+v0 (\begin{DoxyParamCaption}\item[{const T \&}]{v0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 346 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ab5244fcfb636fd85afc719996bf10209}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ab5244fcfb636fd85afc719996bf10209}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!set\_x0@{set\_x0}}
+\index{set\_x0@{set\_x0}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_x0()}{set\_x0()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::set\+\_\+x0 (\begin{DoxyParamCaption}\item[{const T \&}]{x0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 337 of file Fin\+Models.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aee117f7d615a222fbda1d9e49cacc3ce}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_aee117f7d615a222fbda1d9e49cacc3ce}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!params\_@{params\_}}
+\index{params\_@{params\_}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{params\_}{params\_}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters}{Parameters}} \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::params\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 259 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8c0acd912f595fcfcd9a70f4cb95cd55}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a8c0acd912f595fcfcd9a70f4cb95cd55}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!STATE\_DIM@{STATE\_DIM}}
+\index{STATE\_DIM@{STATE\_DIM}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{STATE\_DIM}{STATE\_DIM}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::STATE\+\_\+\+DIM = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 247 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a919f604f16b2e224b5299be284d77332}\label{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a919f604f16b2e224b5299be284d77332}} 
+\index{SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}!WIENER\_DIM@{WIENER\_DIM}}
+\index{WIENER\_DIM@{WIENER\_DIM}!SDE::GeometricBrownianMotionSDE$<$ T $>$@{SDE::GeometricBrownianMotionSDE$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{WIENER\_DIM}{WIENER\_DIM}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr unsigned int \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE}}$<$ T $>$\+::WIENER\+\_\+\+DIM = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 246 of file Fin\+Models.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_fin_models_8hpp}{Fin\+Models.\+hpp}}\end{DoxyCompactItemize}

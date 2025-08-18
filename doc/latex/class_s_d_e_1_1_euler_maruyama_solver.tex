@@ -1,0 +1,92 @@
+\hypertarget{class_s_d_e_1_1_euler_maruyama_solver}{}\doxysection{SDE\+::Euler\+Maruyama\+Solver$<$ Sde\+Type, R $>$ Class Template Reference}
+\label{class_s_d_e_1_1_euler_maruyama_solver}\index{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$@{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$}}
+
+
+Euler-\/\+Maruyama solver for general SDEs, a first-\/order method.  
+
+
+
+
+{\ttfamily \#include $<$SDE.\+hpp$>$}
+
+
+
+Inheritance diagram for SDE\+::Euler\+Maruyama\+Solver$<$ Sde\+Type, R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_euler_maruyama_solver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SDE\+::Euler\+Maruyama\+Solver$<$ Sde\+Type, R $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_d_e_1_1_euler_maruyama_solver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver_a3564dc013219c46ce1da79d5ef8b4dab}{Base}} = \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDESolver\+Base}}$<$ \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver}{Euler\+Maruyama\+Solver}}$<$ Sde\+Type $>$, Sde\+Type, R $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver_a74eade9bc0eb3178676783c778591299}{step}} (R t, const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&current\+\_\+x, R dt, const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&d\+W\+\_\+t, int num\+\_\+paths, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&next\+\_\+x) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$SDEModel Sde\+Type, typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class SDE\+::\+Euler\+Maruyama\+Solver$<$ Sde\+Type, R $>$}
+
+Euler-\/\+Maruyama solver for general SDEs, a first-\/order method. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Sde\+Type} & \mbox{\hyperlink{namespace_s_d_e}{SDE}} model type satisfying SDEModel concept. \\
+\hline
+{\em R} & Scalar type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 320 of file SDE.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_euler_maruyama_solver_a3564dc013219c46ce1da79d5ef8b4dab}\label{class_s_d_e_1_1_euler_maruyama_solver_a3564dc013219c46ce1da79d5ef8b4dab}} 
+\index{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$@{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$}!Base@{Base}}
+\index{Base@{Base}!SDE::EulerMaruyamaSolver$<$ SdeType, R $>$@{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$}}
+\doxysubsubsection{\texorpdfstring{Base}{Base}}
+{\footnotesize\ttfamily template$<$SDEModel Sde\+Type, typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver}{SDE\+::\+Euler\+Maruyama\+Solver}}$<$ Sde\+Type, R $>$\+::\mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver_a3564dc013219c46ce1da79d5ef8b4dab}{Base}} =  \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDESolver\+Base}}$<$\mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver}{Euler\+Maruyama\+Solver}}$<$Sde\+Type$>$, Sde\+Type, R$>$}
+
+
+
+Definition at line 322 of file SDE.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_e_1_1_euler_maruyama_solver_a74eade9bc0eb3178676783c778591299}\label{class_s_d_e_1_1_euler_maruyama_solver_a74eade9bc0eb3178676783c778591299}} 
+\index{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$@{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$}!step@{step}}
+\index{step@{step}!SDE::EulerMaruyamaSolver$<$ SdeType, R $>$@{SDE::EulerMaruyamaSolver$<$ SdeType, R $>$}}
+\doxysubsubsection{\texorpdfstring{step()}{step()}}
+{\footnotesize\ttfamily template$<$SDEModel Sde\+Type, typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver}{SDE\+::\+Euler\+Maruyama\+Solver}}$<$ Sde\+Type, R $>$\+::step (\begin{DoxyParamCaption}\item[{R}]{t,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{current\+\_\+x,  }\item[{R}]{dt,  }\item[{const \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{d\+W\+\_\+t,  }\item[{int}]{num\+\_\+paths,  }\item[{\mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}} \&}]{next\+\_\+x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 325 of file SDE.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sde/\mbox{\hyperlink{_s_d_e_8hpp}{SDE.\+hpp}}\end{DoxyCompactItemize}

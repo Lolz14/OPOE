@@ -1,0 +1,106 @@
+\hypertarget{_s_d_e_8hpp}{}\doxysection{sde/\+SDE.hpp File Reference}
+\label{_s_d_e_8hpp}\index{sde/SDE.hpp@{sde/SDE.hpp}}
+
+
+Stochastic Differential Equation (\mbox{\hyperlink{namespace_s_d_e}{SDE}}) solver framework with support for multiple numerical schemes.  
+
+
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$concepts$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}../traits/\+OPOE\+\_\+traits.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../utils/\+Utils.\+hpp\char`\"{}}\newline
+Include dependency graph for SDE.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_s_d_e_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_s_d_e_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDE\+::\+SDESolver\+Base$<$ Derived\+Solver, Sde\+Type, R $>$}}
+\begin{DoxyCompactList}\small\item\em Base class for \mbox{\hyperlink{namespace_s_d_e}{SDE}} solvers using CRTP for static polymorphism. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_s_d_e_1_1_euler_maruyama_solver}{SDE\+::\+Euler\+Maruyama\+Solver$<$ Sde\+Type, R $>$}}
+\begin{DoxyCompactList}\small\item\em Euler-\/\+Maruyama solver for general SDEs, a first-\/order method. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_s_d_e_1_1_milstein_solver}{SDE\+::\+Milstein\+Solver$<$ Sde\+Type, R $>$}}
+\begin{DoxyCompactList}\small\item\em Milstein solver for SDEs, a higher-\/order method using derivative information. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_s_d_e_1_1_interpolated_kahl_jackel_solver}{SDE\+::\+Interpolated\+Kahl\+Jackel\+Solver$<$ Sde\+Type, R $>$}}
+\begin{DoxyCompactList}\small\item\em Interpolated Kahl-\/\+Jackel solver for stochastic volatility SDEs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespace_s_d_e}{SDE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespace_s_d_e_a8b3b4ba60e448cba6b010524d85d24fb}{SDE\+::\+SDEArray}} = traits\+::\+Data\+Type\+::\+Storing\+Array
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mt19937 \& \mbox{\hyperlink{namespace_s_d_e_a87ec450f28f3c81241689f42c4ec9fcd}{SDE\+::get\+\_\+default\+\_\+rng\+\_\+engine}} ()
+\begin{DoxyCompactList}\small\item\em Returns a reference to a thread-\/local Mersenne Twister engine for random number generation. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\std\+::normal\+\_\+distribution$<$ R $>$ \& \mbox{\hyperlink{namespace_s_d_e_a6ac046e7f44a37f725f665e80a3a393a}{SDE\+::get\+\_\+standard\+\_\+normal\+\_\+dist}} ()
+\begin{DoxyCompactList}\small\item\em Returns a reference to a thread-\/local standard normal distribution. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\std\+::uniform\+\_\+real\+\_\+distribution$<$ R $>$ \& \mbox{\hyperlink{namespace_s_d_e_a31a3e9ab3c3c9176651941aa648c3255}{SDE\+::get\+\_\+uniform\+\_\+distribution}} ()
+\begin{DoxyCompactList}\small\item\em Returns a reference to a thread-\/local uniform distribution on \mbox{[}0, 1). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\concept \mbox{\hyperlink{namespace_s_d_e_ae2828cc094a2033e3b5468e314f85f42}{SDE\+::\+SDEModel}}
+\begin{DoxyCompactList}\small\item\em Concept for general \mbox{\hyperlink{namespace_s_d_e}{SDE}} models, ensuring dimensional constants and drift/diffusion methods. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\concept \mbox{\hyperlink{namespace_s_d_e_ae154b75cca8842208a1991cf3a13e004}{SDE\+::\+SVSDEModel}}
+\begin{DoxyCompactList}\small\item\em Concept for Stochastic Volatility (SV) \mbox{\hyperlink{namespace_s_d_e}{SDE}} models, extending SDEModel with SV-\/specific parameters. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\concept \mbox{\hyperlink{namespace_s_d_e_a73d90a42ab731e717f884af5708bb98a}{SDE\+::\+Milstein1\+DSDEModel}}
+\begin{DoxyCompactList}\small\item\em Concept for 1D SDEs supporting Milstein scheme, requiring derivative information. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ }\\concept \mbox{\hyperlink{namespace_s_d_e_a91be36c2e4764856ed53c7b27d8bdfe4}{SDE\+::\+Milstein2\+DSVSDEModel}}
+\begin{DoxyCompactList}\small\item\em Concept for 2D Stochastic Volatility SDEs supporting Milstein scheme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stochastic Differential Equation (\mbox{\hyperlink{namespace_s_d_e}{SDE}}) solver framework with support for multiple numerical schemes. 
+
+This header defines a flexible and extensible framework for simulating SDEs using various numerical methods, including Euler-\/\+Maruyama, Milstein, and Interpolated Kahl-\/\+Jackel schemes. The framework leverages C++20 concepts for compile-\/time constraints, Eigen for linear algebra, and Open\+MP for parallelism.
+
+Key Features\+:
+\begin{DoxyItemize}
+\item Thread-\/local random number generation utilities for reproducible and parallel-\/safe simulations.
+\item Strongly-\/typed \mbox{\hyperlink{namespace_s_d_e}{SDE}} model concepts (SDEModel, SVSDEModel, Milstein1\+DSDEModel, Milstein2\+DSVSDEModel) for compile-\/time validation.
+\item CRTP-\/based base solver class (SDESolver\+Base) for static polymorphism and code reuse.
+\item Concrete solver implementations for Euler-\/\+Maruyama, Milstein, and Interpolated Kahl-\/\+Jackel methods.
+\item Support for multi-\/path, multi-\/step simulations with observer callbacks and optional pre-\/generated Wiener increments.
+\item Full truncation to ensure non-\/negativity of state variables where appropriate.
+\end{DoxyItemize}
+
+Template Parameters\+:
+\begin{DoxyItemize}
+\item Sde\+Type\+: The \mbox{\hyperlink{namespace_s_d_e}{SDE}} model type, which must satisfy the relevant SDEModel concept.
+\item R\+: Scalar type for computations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).
+\end{DoxyItemize}
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{_o_p_o_e__traits_8hpp}{OPOE\+\_\+traits.\+hpp}}\+: For type definitions and concepts.
+\item \mbox{\hyperlink{_utils_8hpp}{Utils.\+hpp}}\+: For utility functions and type traits.
+\end{DoxyItemize}
+
+Usage\+:
+\begin{DoxyEnumerate}
+\item Define an \mbox{\hyperlink{namespace_s_d_e}{SDE}} model class satisfying the required concept(s).
+\item Instantiate a solver (e.\+g., Euler\+Maruyama\+Solver, Milstein\+Solver) with the model.
+\item Call {\ttfamily solve()} to simulate paths, optionally providing pre-\/generated Wiener increments. 
+\end{DoxyEnumerate}
