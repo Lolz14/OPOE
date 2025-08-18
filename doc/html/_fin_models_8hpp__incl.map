@@ -1,5 +1,5 @@
-<map id="sde/FinModels.hpp" name="sde/FinModels.hpp">
-<area shape="rect" id="node1" title="Stochastic Differential Equation (SDE) models for financial applications." alt="" coords="673,5,815,32"/>
+<map id="include/sde/FinModels.hpp" name="include/sde/FinModels.hpp">
+<area shape="rect" id="node1" title="Stochastic Differential Equation (SDE) models for financial applications." alt="" coords="647,5,841,32"/>
 <area shape="rect" id="node2" href="$_s_d_e_8hpp.html" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="355,80,431,107"/>
 <area shape="rect" id="node5" title=" " alt="" coords="5,155,85,181"/>
 <area shape="rect" id="node7" title=" " alt="" coords="701,155,787,181"/>

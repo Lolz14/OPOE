@@ -1,4 +1,4 @@
-<map id="quadrature/QuadratureRuleHolder.hpp" name="quadrature/QuadratureRuleHolder.hpp">
+<map id="include/quadrature/QuadratureRuleHolder.hpp" name="include/quadrature/QuadratureRuleHolder.hpp">
 <area shape="rect" id="node1" title="Defines the QuadratureRuleHolder class, a type&#45;erased holder for various quadrature rule implementati..." alt="" coords="271,5,470,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,251,83,278"/>
 <area shape="rect" id="node3" title=" " alt="" coords="218,251,305,278"/>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OPE: options/Payoff.hpp Source File</title>
+<title>OPE: include/options/Payoff.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_357e2d19e3e0338691b646f53507a985.html">options</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_6df245f6e84c53d10b7d5936200c4384.html">options</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,11 +72,11 @@ $(function() {
 <a href="_payoff_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifndef PAYOFF_HPP</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define PAYOFF_HPP</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span> <span class="comment">// For std::max</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span>     <span class="comment">// For std::exp (if evaluating from log-price)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span>    <span class="comment">// For std::unique_ptr</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span> <span class="comment">// For exceptions</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;../traits/OPOE_traits.hpp&quot;</span> <span class="comment">// For traits::DataType::PolynomialField</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span> </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span>     </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span>    </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span> </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;../traits/OPOE_traits.hpp&quot;</span> </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoptions.html">options</a> {</div>
@@ -227,7 +227,7 @@ $(function() {
 <div class="ttc" id="aclassoptions_1_1_i_payoff_html_a93ffdac8a5e50d0a57125d369b364398"><div class="ttname"><a href="classoptions_1_1_i_payoff.html#a93ffdac8a5e50d0a57125d369b364398">options::IPayoff::evaluate_from_log</a></div><div class="ttdeci">virtual T evaluate_from_log(T log_underlying_price) const</div><div class="ttdoc">Evaluates the payoff for a given final log-price of the underlying.</div><div class="ttdef"><b>Definition:</b> <a href="_payoff_8hpp_source.html#l00084">Payoff.hpp:84</a></div></div>
 <div class="ttc" id="aclassoptions_1_1_i_payoff_html_a9a11cd10b92564295e1757dacec008ac"><div class="ttname"><a href="classoptions_1_1_i_payoff.html#a9a11cd10b92564295e1757dacec008ac">options::IPayoff::evaluate_from_log</a></div><div class="ttdeci">virtual StoringVector evaluate_from_log(StoringVector log_underlying_prices) const</div><div class="ttdoc">Evaluates the payoff for a vector of final log-prices of the underlying.</div><div class="ttdef"><b>Definition:</b> <a href="_payoff_8hpp_source.html#l00095">Payoff.hpp:95</a></div></div>
 <div class="ttc" id="aclassoptions_1_1_i_payoff_html_aa21778f773459e71dc01131f045f05e7"><div class="ttname"><a href="classoptions_1_1_i_payoff.html#aa21778f773459e71dc01131f045f05e7">options::IPayoff::evaluate</a></div><div class="ttdeci">virtual T evaluate(T underlying_price) const =0</div><div class="ttdoc">Evaluates the payoff for a given final underlying asset price.</div></div>
-<div class="ttc" id="amain_8cpp_html_a2bed6660252a8734620907db5c512d41"><div class="ttname"><a href="main_8cpp.html#a2bed6660252a8734620907db5c512d41">StoringVector</a></div><div class="ttdeci">Eigen::VectorXd StoringVector</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00024">main.cpp:24</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a2bed6660252a8734620907db5c512d41"><div class="ttname"><a href="main_8cpp.html#a2bed6660252a8734620907db5c512d41">StoringVector</a></div><div class="ttdeci">Eigen::VectorXd StoringVector</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00025">main.cpp:25</a></div></div>
 <div class="ttc" id="anamespaceoptions_html"><div class="ttname"><a href="namespaceoptions.html">options</a></div><div class="ttdef"><b>Definition:</b> <a href="_base_option_pricer_8hpp_source.html#l00024">BaseOptionPricer.hpp:24</a></div></div>
 <div class="ttc" id="anamespaceoptions_html_a594f1b93ab3b7242e4da5c30e30fd012"><div class="ttname"><a href="namespaceoptions.html#a594f1b93ab3b7242e4da5c30e30fd012">options::Array</a></div><div class="ttdeci">traits::DataType::StoringArray Array</div><div class="ttdef"><b>Definition:</b> <a href="_base_option_pricer_8hpp_source.html#l00025">BaseOptionPricer.hpp:25</a></div></div>
 <div class="ttc" id="anamespaceoptions_html_ab58cae0110c4f2120c90ccd35ec52b40"><div class="ttname"><a href="namespaceoptions.html#ab58cae0110c4f2120c90ccd35ec52b40">options::StoringVector</a></div><div class="ttdeci">traits::DataType::StoringVector StoringVector</div><div class="ttdef"><b>Definition:</b> <a href="_payoff_8hpp_source.html#l00035">Payoff.hpp:35</a></div></div>

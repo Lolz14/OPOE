@@ -1,26 +1,35 @@
-\hypertarget{_f_f_t_option_pricer_8hpp}{}\doxysection{options/\+FFTOption\+Pricer.hpp File Reference}
-\label{_f_f_t_option_pricer_8hpp}\index{options/FFTOptionPricer.hpp@{options/FFTOptionPricer.hpp}}
+\hypertarget{_f_f_t_option_pricer_8hpp}{}\doxysection{include/options/\+FFTOption\+Pricer.hpp File Reference}
+\label{_f_f_t_option_pricer_8hpp}\index{include/options/FFTOptionPricer.hpp@{include/options/FFTOptionPricer.hpp}}
 
 
-Defines the FFTPricer class for option pricing using the Fast Fourier Transform (FFT) method.  
+Defines the FFTOption\+Pricer class for option pricing using the Fast Fourier Transform (FFT) method.  
 
 
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$unsupported/\+Eigen/\+Splines$>$}\newline
 {\ttfamily \#include \char`\"{}Base\+Option\+Pricer.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../utils/\+FFTW.\+hpp\char`\"{}}\newline
-Include dependency graph for FFTOption\+Pricer.\+hpp\+:\nopagebreak
+Include dependency graph for FFTOption\+Pricer.\+hpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{_f_f_t_option_pricer_8hpp__incl}
 \end{center}
 \end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{_f_f_t_option_pricer_8hpp__dep__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer}{options\+::\+FFTPricer$<$ R $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer}{FFTPricer}} class for pricing options using Fast Fourier Transform (FFT). \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} class for pricing options using Fast Fourier Transform (FFT). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,9 +52,9 @@ using \mbox{\hyperlink{namespaceoptions_ac3c1143a803713ab01715555bb8f4f1e}{optio
 
 
 \doxysubsection{Detailed Description}
-Defines the FFTPricer class for option pricing using the Fast Fourier Transform (FFT) method. 
+Defines the FFTOption\+Pricer class for option pricing using the Fast Fourier Transform (FFT) method. 
 
-This header provides the FFTPricer class template, which implements option pricing via FFT, leveraging the characteristic function of the underlying asset\textquotesingle{}s \mbox{\hyperlink{namespace_s_d_e}{SDE}} model. The class supports flexible polynomial bases, configurable FFT grid parameters, and provides methods for pricing and computing option Greeks (delta, gamma, vega, rho, theta) using bump-\/and-\/difference techniques.
+This header provides the FFTOption\+Pricer class template, which implements option pricing via FFT, leveraging the characteristic function of the underlying asset\textquotesingle{}s \mbox{\hyperlink{namespace_s_d_e}{SDE}} model. The class supports flexible polynomial bases, configurable FFT grid parameters, and provides methods for pricing and computing option Greeks (delta, gamma, vega, rho, theta) using bump-\/and-\/difference techniques.
 
 Dependencies\+:
 \begin{DoxyItemize}

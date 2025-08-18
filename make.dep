@@ -1,0 +1,37 @@
+main.o: src/main.cpp src/../include/sde/FinModels.hpp \
+ src/../include/sde/SDE.hpp src/../include/sde/../traits/OPOE_traits.hpp \
+ src/../include/sde/../utils/Utils.hpp \
+ src/../include/sde/../utils/../traits/OPOE_traits.hpp \
+ src/../include/polynomials/OrthogonalPolynomials.hpp \
+ src/../include/polynomials/Polynomials.hpp \
+ src/../include/polynomials/../traits/OPOE_traits.hpp \
+ src/../include/polynomials/../utils/Utils.hpp \
+ src/../include/polynomials/../utils/FFTW.hpp \
+ src/../include/polynomials/../utils/../traits/OPOE_traits.hpp \
+ src/../include/polynomials/OrthogonalValidator.cpp \
+ src/../include/polynomials/OrthogonalValidator.hpp \
+ src/../include/utils/Utils.hpp \
+ src/../include/options/OPEOptionPricer.hpp \
+ src/../include/options/../utils/FileReader.hpp \
+ src/../include/options/../utils/../traits/OPOE_traits.hpp \
+ src/../include/options/../utils/Utils.hpp \
+ src/../include/options/../quadrature/Projector.hpp \
+ src/../include/options/../quadrature/QuadratureRuleHolder.hpp \
+ src/../include/options/../quadrature/QuadratureWrappers.hpp \
+ src/../include/options/../quadrature/QuadratureRule.hpp \
+ include/traits/OPOE_traits.hpp \
+ src/../include/options/../quadrature/QuadratureRuleAbstract.hpp \
+ src/../include/options/../quadrature/../traits/OPOE_traits.hpp \
+ src/../include/options/../quadrature/QuadratureRuleHolder.hpp \
+ src/../include/options/../stats/MixtureDensity.hpp \
+ src/../include/options/../stats/DensityBase.hpp \
+ src/../include/options/../stats/../traits/OPOE_traits.hpp \
+ src/../include/options/../stats/../polynomials/OrthogonalPolynomials.hpp \
+ src/../include/options/../traits/OPOE_traits.hpp \
+ src/../include/options/BaseOptionPricer.hpp \
+ src/../include/options/Payoff.hpp \
+ src/../include/options/../sde/FinModels.hpp \
+ src/../include/options/FFTOptionPricer.hpp \
+ src/../include/options/../utils/FFTW.hpp \
+ src/../include/options/MCOptionPricer.hpp \
+ src/../include/options/../sde/SDE.hpp

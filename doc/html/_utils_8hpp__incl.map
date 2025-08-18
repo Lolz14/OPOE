@@ -1,5 +1,5 @@
-<map id="utils/Utils.hpp" name="utils/Utils.hpp">
-<area shape="rect" id="node1" title="Utility functions and templates for polynomial operations, random sampling, and vector/matrix computa..." alt="" coords="357,5,469,32"/>
+<map id="include/utils/Utils.hpp" name="include/utils/Utils.hpp">
+<area shape="rect" id="node1" title="Utility functions and templates for polynomial operations, random sampling, and vector/matrix computa..." alt="" coords="331,5,494,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,169,68,196"/>
 <area shape="rect" id="node3" title=" " alt="" coords="526,87,598,114"/>
 <area shape="rect" id="node4" title=" " alt="" coords="92,169,147,196"/>

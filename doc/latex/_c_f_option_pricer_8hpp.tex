@@ -1,14 +1,15 @@
-\hypertarget{_c_f_option_pricer_8hpp}{}\doxysection{options/\+CFOption\+Pricer.hpp File Reference}
-\label{_c_f_option_pricer_8hpp}\index{options/CFOptionPricer.hpp@{options/CFOptionPricer.hpp}}
+\hypertarget{_c_f_option_pricer_8hpp}{}\doxysection{include/options/\+CFOption\+Pricer.hpp File Reference}
+\label{_c_f_option_pricer_8hpp}\index{include/options/CFOptionPricer.hpp@{include/options/CFOptionPricer.hpp}}
 
 
-Defines the CFPricer class for closed-\/form (Black-\/\+Scholes) option pricing.  
+Defines the CFOption\+Pricer class for closed-\/form (Black-\/\+Scholes) option pricing.  
 
 
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include \char`\"{}Base\+Option\+Pricer.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../stats/\+Density\+Base.\+hpp\char`\"{}}\newline
-Include dependency graph for CFOption\+Pricer.\+hpp\+:\nopagebreak
+Include dependency graph for CFOption\+Pricer.\+hpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -18,8 +19,8 @@ Include dependency graph for CFOption\+Pricer.\+hpp\+:\nopagebreak
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{classoptions_1_1_c_f_pricer}{options\+::\+CFPricer$<$ R $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classoptions_1_1_c_f_pricer}{CFPricer}} class for pricing options using the Black-\/\+Scholes model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pricer$<$ R $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+Pricer}} class for pricing options using the Black-\/\+Scholes model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,9 +29,9 @@ class \mbox{\hyperlink{classoptions_1_1_c_f_pricer}{options\+::\+CFPricer$<$ R $
 
 
 \doxysubsection{Detailed Description}
-Defines the CFPricer class for closed-\/form (Black-\/\+Scholes) option pricing. 
+Defines the CFOption\+Pricer class for closed-\/form (Black-\/\+Scholes) option pricing. 
 
-This header provides the implementation of the CFPricer class, which computes the price and Greeks of European options using the Black-\/\+Scholes model. The class supports both call and put payoffs, and requires the underlying \mbox{\hyperlink{namespace_s_d_e}{SDE}} model to be a Geometric Brownian Motion (GBM).
+This header provides the implementation of the CFOption\+Pricer class, which computes the price and Greeks of European options using the Black-\/\+Scholes model. The class supports both call and put payoffs, and requires the underlying \mbox{\hyperlink{namespace_s_d_e}{SDE}} model to be a Geometric Brownian Motion (GBM).
 
 Key Features\+:
 \begin{DoxyItemize}

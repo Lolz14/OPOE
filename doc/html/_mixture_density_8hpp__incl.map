@@ -1,5 +1,5 @@
-<map id="stats/MixtureDensity.hpp" name="stats/MixtureDensity.hpp">
-<area shape="rect" id="node1" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="1535,5,1719,32"/>
+<map id="include/stats/MixtureDensity.hpp" name="include/stats/MixtureDensity.hpp">
+<area shape="rect" id="node1" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="1509,5,1744,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="2119,408,2182,435"/>
 <area shape="rect" id="node3" title=" " alt="" coords="2211,408,2279,435"/>
 <area shape="rect" id="node4" title=" " alt="" coords="45,326,120,353"/>

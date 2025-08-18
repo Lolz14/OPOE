@@ -1,7 +1,7 @@
 var searchData=
 [
   ['a_0',['a',['../classstats_1_1_mixture_density.html#ab990b450e657d1e3dd060ba23a79bb1e',1,'stats::MixtureDensity']]],
-  ['a_5f_1',['A_',['../classoptions_1_1_f_f_t_pricer.html#a21f297322750c816e12fe299a77ac017',1,'options::FFTPricer']]],
+  ['a_5f_1',['A_',['../classoptions_1_1_f_f_t_option_pricer.html#a638581a62756ad1321704726b88f7f98',1,'options::FFTOptionPricer']]],
   ['alpha_5f_2',['alpha_',['../classpolynomials_1_1_laguerre_polynomial.html#ae14a24660d96558434bd8cf874e2bee2',1,'polynomials::LaguerrePolynomial::alpha_()'],['../classpolynomials_1_1_jacobi_polynomial.html#afefb56d9bb48852d62ddbc098c38045f',1,'polynomials::JacobiPolynomial::alpha_()']]],
   ['alpha_5fk_3',['alpha_k',['../structpolynomials_1_1_recurrence_coefficients.html#a3182130dfe360d2e7946dae0930a937e',1,'polynomials::RecurrenceCoefficients']]],
   ['alphas_4',['alphas',['../classpolynomials_1_1_orthogonal_polynomial_base.html#a1920aa9ef685b5b19959a173e00c52b6',1,'polynomials::OrthogonalPolynomialBase']]],

@@ -1,5 +1,5 @@
-<map id="sde/SDE.hpp" name="sde/SDE.hpp">
-<area shape="rect" id="node1" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="308,5,411,32"/>
+<map id="include/sde/SDE.hpp" name="include/sde/SDE.hpp">
+<area shape="rect" id="node1" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="282,5,437,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,244,68,271"/>
 <area shape="rect" id="node3" title=" " alt="" coords="57,80,137,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="161,80,241,107"/>

@@ -1,8 +1,8 @@
-<map id="stats/DensityBase.hpp" name="stats/DensityBase.hpp">
-<area shape="rect" id="node1" title="Provides a generic base class for probability density functions using Boost.Math distributions." alt="" coords="237,5,405,32"/>
-<area shape="rect" id="node2" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="5,80,204,107"/>
-<area shape="rect" id="node3" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="229,80,413,107"/>
-<area shape="rect" id="node6" href="$_quantization_8hpp.html" title="Implements quantization algorithms for vector quantization, including Newton&#39;s method (1D) and Compet..." alt="" coords="437,80,607,107"/>
-<area shape="rect" id="node4" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="217,155,424,181"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="279,229,362,256"/>
+<map id="include/stats/DensityBase.hpp" name="include/stats/DensityBase.hpp">
+<area shape="rect" id="node1" title="Provides a generic base class for probability density functions using Boost.Math distributions." alt="" coords="223,5,442,32"/>
+<area shape="rect" id="node2" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFOptionPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="5,80,191,121"/>
+<area shape="rect" id="node3" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="215,87,450,114"/>
+<area shape="rect" id="node6" href="$_quantization_8hpp.html" title="Implements quantization algorithms for vector quantization, including Newton&#39;s method (1D) and Compet..." alt="" coords="475,87,695,114"/>
+<area shape="rect" id="node4" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="235,169,430,211"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="280,259,385,285"/>
 </map>

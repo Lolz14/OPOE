@@ -1,6 +1,6 @@
-<map id="polynomials/OrthogonalPolynomials.hpp" name="polynomials/OrthogonalPolynomials.hpp">
-<area shape="rect" id="node1" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="5,5,292,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="114,229,197,256"/>
-<area shape="rect" id="node3" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="127,80,311,107"/>
-<area shape="rect" id="node4" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="123,155,329,181"/>
+<map id="include/polynomials/OrthogonalPolynomials.hpp" name="include/polynomials/OrthogonalPolynomials.hpp">
+<area shape="rect" id="node1" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="97,5,303,47"/>
+<area shape="rect" id="node2" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="5,95,240,121"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="147,259,253,285"/>
+<area shape="rect" id="node3" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="36,169,231,211"/>
 </map>

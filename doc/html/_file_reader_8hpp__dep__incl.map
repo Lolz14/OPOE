@@ -1,5 +1,5 @@
-<map id="utils/FileReader.hpp" name="utils/FileReader.hpp">
-<area shape="rect" id="node1" title="Provides functionality to read quantization grid data from a file into Eigen&#45;based structures." alt="" coords="33,5,184,32"/>
-<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="5,80,212,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="67,155,150,181"/>
+<map id="include/utils/FileReader.hpp" name="include/utils/FileReader.hpp">
+<area shape="rect" id="node1" title="Provides functionality to read quantization grid data from a file into Eigen&#45;based structures." alt="" coords="5,5,207,32"/>
+<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="9,80,203,121"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="53,169,159,196"/>
 </map>

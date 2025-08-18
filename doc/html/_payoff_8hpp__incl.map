@@ -1,5 +1,5 @@
-<map id="options/Payoff.hpp" name="options/Payoff.hpp">
-<area shape="rect" id="node1" title="Defines interfaces and concrete classes for option payoff evaluation in quantitative finance." alt="" coords="133,5,275,32"/>
+<map id="include/options/Payoff.hpp" name="include/options/Payoff.hpp">
+<area shape="rect" id="node1" title="Defines interfaces and concrete classes for option payoff evaluation in quantitative finance." alt="" coords="107,5,301,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,91,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="54,155,117,181"/>
 <area shape="rect" id="node4" title=" " alt="" coords="165,80,243,107"/>

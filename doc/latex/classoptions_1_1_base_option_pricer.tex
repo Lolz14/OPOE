@@ -64,7 +64,7 @@ This class provides a common interface for option pricing methods. It holds the 
 {\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).\\
 \hline
 \end{DoxyTemplParams}
-This class is designed to be inherited by specific option pricers like \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer}{FFTPricer}}, \mbox{\hyperlink{classoptions_1_1_m_c_pricer}{MCPricer}}, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-\/free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. 
+This class is designed to be inherited by specific option pricers like FFTPricer, MCPricer, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-\/free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. 
 
 Definition at line 38 of file Base\+Option\+Pricer.\+hpp.
 
@@ -187,7 +187,7 @@ virtual R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Bas
 
 
 
-Implemented in \mbox{\hyperlink{classoptions_1_1_m_c_pricer_a4d45e7c1944c0c7d8c58bcbb065091f8}{options\+::\+MCPricer$<$ R $>$}}, \mbox{\hyperlink{classoptions_1_1_f_f_t_pricer_a2d82cf1bddaffcdde05c3f185fe5a4df}{options\+::\+FFTPricer$<$ R $>$}}, and \mbox{\hyperlink{classoptions_1_1_c_f_pricer_a90c543d1a1ed16c3333a2daeec14837a}{options\+::\+CFPricer$<$ R $>$}}.
+Implemented in \mbox{\hyperlink{classoptions_1_1_m_c_option_pricer_ab0627815bdbfe43b59dea9904897e911}{options\+::\+MCOption\+Pricer$<$ R $>$}}, \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{options\+::\+FFTOption\+Pricer$<$ R $>$}}, and \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer_aa726ef001b13af1864179dfe28ed6cf8}{options\+::\+CFOption\+Pricer$<$ R $>$}}.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}\label{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_rate@{set\_rate}}
@@ -284,4 +284,4 @@ Definition at line 86 of file Base\+Option\+Pricer.\+hpp.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-options/\mbox{\hyperlink{_base_option_pricer_8hpp}{Base\+Option\+Pricer.\+hpp}}\end{DoxyCompactItemize}
+include/options/\mbox{\hyperlink{_base_option_pricer_8hpp}{Base\+Option\+Pricer.\+hpp}}\end{DoxyCompactItemize}

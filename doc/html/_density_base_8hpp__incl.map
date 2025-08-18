@@ -1,5 +1,5 @@
-<map id="stats/DensityBase.hpp" name="stats/DensityBase.hpp">
-<area shape="rect" id="node1" title="Provides a generic base class for probability density functions using Boost.Math distributions." alt="" coords="593,5,761,32"/>
+<map id="include/stats/DensityBase.hpp" name="include/stats/DensityBase.hpp">
+<area shape="rect" id="node1" title="Provides a generic base class for probability density functions using Boost.Math distributions." alt="" coords="567,5,786,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,87,92,114"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,169,97,196"/>
 <area shape="rect" id="node4" title=" " alt="" coords="471,87,530,114"/>

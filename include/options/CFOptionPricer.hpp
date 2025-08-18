@@ -1,8 +1,8 @@
 /**
  * @file CFOptionPricer.hpp
- * @brief Defines the CFPricer class for closed-form (Black-Scholes) option pricing.
+ * @brief Defines the CFOptionPricer class for closed-form (Black-Scholes) option pricing.
  *
- * This header provides the implementation of the CFPricer class, which computes the price and Greeks
+ * This header provides the implementation of the CFOptionPricer class, which computes the price and Greeks
  * of European options using the Black-Scholes model. The class supports both call and put payoffs,
  * and requires the underlying SDE model to be a Geometric Brownian Motion (GBM).
  *
@@ -28,26 +28,26 @@ namespace options {
 using Array = traits::DataType::StoringArray;
 
 /**
- * @brief CFPricer class for pricing options using the Black-Scholes model.
+ * @brief CFOptionPricer class for pricing options using the Black-Scholes model.
  * This class implements the closed-form solution for European options under the Black-Scholes model.
  * It supports both call and put options and provides methods for computing option price and Greeks.
  *
  * @tparam R The floating-point type used for calculations (default: traits::DataType::PolynomialField).
  */
 template <typename R = traits::DataType::PolynomialField>
-class CFPricer : public BaseOptionPricer<R> {
+class CFOptionPricer : public BaseOptionPricer<R> {
     using Base = BaseOptionPricer<R>;
     
 public:
     /**
-     * @brief Constructor for CFPricer.
+     * @brief Constructor for CFOptionPricer.
      * @param ttm Time to maturity in years.
      * @param strike Strike price of the option.
      * @param rate Risk-free interest rate.
      * @param payoff Unique pointer to the option payoff object (Call or Put).
      * @param sde_model Shared pointer to the SDE model (should be GeometricBrownianMotionSDE).
      */
-    CFPricer(R ttm, R strike, R rate,
+    CFOptionPricer(R ttm, R strike, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model
              )
@@ -55,7 +55,7 @@ public:
           
     {
         if (!std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)) {
-            throw std::logic_error("CFPricer is only valid for the Black-Scholes (GBM) model.");
+            throw std::logic_error("CFOptionPricer is only valid for the Black-Scholes (GBM) model.");
         }
 
         const R S0 = std::exp(this->sde_model_->m_x0(0));
@@ -84,7 +84,7 @@ public:
         } else if (dynamic_cast<const EuropeanPutPayoff<R>*>(Base::payoff_.get())) {
             return K * std::exp(-r * T) * normal_.cdf(-d2_) - S * normal_.cdf(-d1_);
         } else {
-            throw std::logic_error("Unsupported payoff type for CFPricer.");
+            throw std::logic_error("Unsupported payoff type for CFOptionPricer.");
         }
     }
 

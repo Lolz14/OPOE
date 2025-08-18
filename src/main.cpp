@@ -46,6 +46,9 @@ int main() {
 
     std::cout << "Option Price FFT: " << FFTOptionPricer<R>(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model).price() << std::endl;
 
+    std::cout << "Option Price MC: " << MCOptionPricer<R>(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDEMatrix>& dW_opt) {
+        return EulerMaruyamaSolver<HestonModelSDE<R>, R> (*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);}, 1000, 100 ).price() << std::endl;
+
 
    
 

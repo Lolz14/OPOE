@@ -1,6 +1,6 @@
-<map id="quadrature/QuadratureRuleHolder.hpp" name="quadrature/QuadratureRuleHolder.hpp">
-<area shape="rect" id="node1" title="Defines the QuadratureRuleHolder class, a type&#45;erased holder for various quadrature rule implementati..." alt="" coords="9,5,208,47"/>
-<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="5,169,212,196"/>
-<area shape="rect" id="node4" href="$_projector_8hpp.html" title="Defines the Projector class template for weighted integration of products of functions using quadratu..." alt="" coords="83,95,265,121"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="67,244,150,271"/>
+<map id="include/quadrature/QuadratureRuleHolder.hpp" name="include/quadrature/QuadratureRuleHolder.hpp">
+<area shape="rect" id="node1" title="Defines the QuadratureRuleHolder class, a type&#45;erased holder for various quadrature rule implementati..." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="7,184,202,225"/>
+<area shape="rect" id="node4" href="$_projector_8hpp.html" title="Defines the Projector class template for weighted integration of products of functions using quadratu..." alt="" coords="87,95,231,136"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="52,273,157,300"/>
 </map>

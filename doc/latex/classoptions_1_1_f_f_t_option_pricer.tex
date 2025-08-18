@@ -1,0 +1,624 @@
+\hypertarget{classoptions_1_1_f_f_t_option_pricer}{}\doxysection{options\+::FFTOption\+Pricer$<$ R $>$ Class Template Reference}
+\label{classoptions_1_1_f_f_t_option_pricer}\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+
+
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} class for pricing options using Fast Fourier Transform (FFT).  
+
+
+
+
+{\ttfamily \#include $<$FFTOption\+Pricer.\+hpp$>$}
+
+
+
+Inheritance diagram for options\+::FFTOption\+Pricer$<$ R $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classoptions_1_1_f_f_t_option_pricer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for options\+::FFTOption\+Pricer$<$ R $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classoptions_1_1_f_f_t_option_pricer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a688b70e1c9ae750b39388c4ca695ba9e}{FFTOption\+Pricer}} (R ttm, R strike, R rate, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model, unsigned int Npow=10, unsigned int A=10)
+\begin{DoxyCompactList}\small\item\em Constructs an \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} instance. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{price}} () const override
+\begin{DoxyCompactList}\small\item\em Price the option using FFT. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_acbd4afd45aec29bfad78438ea47ee4d8}{delta}} () const
+\begin{DoxyCompactList}\small\item\em Computes the delta of the option using a bump-\/and-\/difference method. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a8a7e08cee23f7af13a1b620a1fd84758}{gamma}} () const
+\begin{DoxyCompactList}\small\item\em Computes the gamma of the option using a bump-\/and-\/difference method. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a8fdd2eb9db6bc646e24ac4d1eb0053d1}{vega}} () const
+\begin{DoxyCompactList}\small\item\em Computes the vega of the option using a bump-\/and-\/difference method. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae59e8efe3ecf43c9f8e2ca6f9dca8dfe}{rho}} () const
+\begin{DoxyCompactList}\small\item\em Computes the rho of the option using a bump-\/and-\/difference method. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a0e5de6942aa1156f138dbcc7d543717a}{theta}} () const
+\begin{DoxyCompactList}\small\item\em Computes the theta of the option using a bump-\/and-\/difference method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa2db6eb498e5913fe9f0453427a63a2d}{Base}} = \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$ R $>$
+\item 
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}{Getter}} = std\+::function$<$ R()$>$
+\item 
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}{Setter}} = std\+::function$<$ void(R)$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a5d62be6a7f49ba925335dd564c9d82d3}{initialize\+\_\+fft\+\_\+grid}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the FFT grid parameters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_af3e3496952fb5dbaf6f7172528140b29}{update\+\_\+characteristic\+\_\+fn}} () const
+\begin{DoxyCompactList}\small\item\em Updates the characteristic function and computes the spline for option pricing. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a28c99a7c355385355be84d84ce33734b}{interpolate\+\_\+price}} (R K) const
+\begin{DoxyCompactList}\small\item\em Interpolates the option price based on the computed spline and strike price. \end{DoxyCompactList}\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a61782123d4046f88394eef58c7d04ac0}{bump\+\_\+and\+\_\+diff}} (\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}{Getter}} getter, \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}{Setter}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a5ea5c86e9f0b87d4025197d01564f5e0}{setter}}, bool log\+\_\+spot=false, bool second=false) const requires \mbox{\hyperlink{namespaceoptions_a11fda8a34b804aa38580e29167ebffdf}{Getter\+Function}}$<$ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}{Getter}}
+\begin{DoxyCompactList}\small\item\em Bump-\/and-\/difference method for computing derivatives. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a5ea5c86e9f0b87d4025197d01564f5e0}{setter}} (original+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a273b84276ed7d4f4e78d14bb751278b7}{bump}})
+\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab1356a781f2df2e707bf3cb58900709a}{if}} (second)
+\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_af5b8ca4006a09bb912bb43bf18ee31e0}{setter}} (original)
+\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a9b1c355b357fcd2c7058195bf8f83d87}{return}} (\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab4358370a206225c6231f3eb59a827a6}{plus}} -\/ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a3c7398086480acaeb7959966581969ee}{minus}})/(2 $\ast$\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+R R \&\& \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a1553735939c77f56febb80f5e533a56b}{Setter\+Function$<$ Setter, R $>$}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a273b84276ed7d4f4e78d14bb751278b7}{bump}} = log\+\_\+spot ? \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}} / std\+::exp(original) \+: \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab4358370a206225c6231f3eb59a827a6}{plus}} = this-\/$>$\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{price}}()
+\item 
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a03618791c1d750e520d21f47be7e992f}{else}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a3c7398086480acaeb7959966581969ee}{minus}} = this-\/$>$\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{price}}()
+\item 
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a37abbe59f026bb0adc7e7190545eb64c}{Npow\+\_\+}}
+\item 
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a638581a62756ad1321704726b88f7f98}{A\+\_\+}}
+\item 
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_adc109b9c4c76b149ab63afdf9922ccf0}{N\+\_\+}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae04e0994863f78dc4cbce50be2845fb5}{eta\+\_\+}}
+\item 
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab4be48bed452db268687da43cea24a83}{lambda\+\_\+}}
+\item 
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae4ece7ed9d4f3a5774210ab914465290}{k\+\_\+}}
+\item 
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a31b81ca697b0a0810fbfdb5fc38e3dd4}{w\+\_\+}}
+\item 
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a62ded6084a60a37bdff87e35f4cf745f}{strikes\+\_\+}}
+\item 
+\mbox{\hyperlink{namespaceoptions_acb51c4e1bef6d78e95644f43ff82a5ee}{Complex\+Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab181d525b0ba8ad0386d52d9fe8bd288}{v\+\_\+}}
+\item 
+Eigen\+::\+Spline$<$ R, 1 $>$ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_acb57947ab6b15df477a0cec31b0b8dc8}{spline\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}} = 1e-\/6
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename R = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$\newline
+class options\+::\+FFTOption\+Pricer$<$ R $>$}
+
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} class for pricing options using Fast Fourier Transform (FFT). 
+
+This class implements the FFT method for option pricing, leveraging the characteristic function of the underlying asset. It supports flexible polynomial bases and integrates the expected payoff using configurable quadrature rules. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field). \\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 49 of file FFTOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_aa2db6eb498e5913fe9f0453427a63a2d}\label{classoptions_1_1_f_f_t_option_pricer_aa2db6eb498e5913fe9f0453427a63a2d}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!Base@{Base}}
+\index{Base@{Base}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{Base}{Base}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa2db6eb498e5913fe9f0453427a63a2d}{Base}} =  \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}}$<$R$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 50 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}\label{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!Getter@{Getter}}
+\index{Getter@{Getter}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{Getter}{Getter}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}{Getter}} =  std\+::function$<$R()$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 212 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}\label{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!Setter@{Setter}}
+\index{Setter@{Setter}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{Setter}{Setter}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+using \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}{Setter}} =  std\+::function$<$void(R)$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 213 of file FFTOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a688b70e1c9ae750b39388c4ca695ba9e}\label{classoptions_1_1_f_f_t_option_pricer_a688b70e1c9ae750b39388c4ca695ba9e}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!FFTOptionPricer@{FFTOptionPricer}}
+\index{FFTOptionPricer@{FFTOptionPricer}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{FFTOptionPricer()}{FFTOptionPricer()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{strike,  }\item[{R}]{rate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model,  }\item[{unsigned int}]{Npow = {\ttfamily 10},  }\item[{unsigned int}]{A = {\ttfamily 10} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs an \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{FFTOption\+Pricer}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ttm} & Time to maturity. \\
+\hline
+{\em strike} & Strike price of the option. \\
+\hline
+{\em rate} & Risk-\/free interest rate. \\
+\hline
+{\em payoff} & Payoff function for the option. \\
+\hline
+{\em sde\+\_\+model} & Shared pointer to the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model used for pricing. \\
+\hline
+{\em Npow} & Power of 2 for the FFT grid size (default\+: 20). \\
+\hline
+{\em A} & Scaling factor for the FFT grid (default\+: 1200). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 63 of file FFTOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a61782123d4046f88394eef58c7d04ac0}\label{classoptions_1_1_f_f_t_option_pricer_a61782123d4046f88394eef58c7d04ac0}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!bump\_and\_diff@{bump\_and\_diff}}
+\index{bump\_and\_diff@{bump\_and\_diff}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{bump\_and\_diff()}{bump\_and\_diff()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::bump\+\_\+and\+\_\+diff (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ae2c80af86d149781b678a6e6e6f771ca}{Getter}}}]{getter,  }\item[{\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}{Setter}}}]{setter,  }\item[{bool}]{log\+\_\+spot = {\ttfamily false},  }\item[{bool}]{second = {\ttfamily false} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Bump-\/and-\/difference method for computing derivatives. 
+
+This method perturbs a value using a getter and setter function, computes the option price, and returns the derivative based on the specified bump size. 
+\begin{DoxyParams}{Parameters}
+{\em getter} & Function to retrieve the current value. \\
+\hline
+{\em setter} & Function to set the perturbed value. \\
+\hline
+{\em log\+\_\+spot} & Whether to apply the bump as a log-\/spot perturbation (default\+: false). \\
+\hline
+{\em second} & Whether to compute the second derivative (default\+: false). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The computed derivative value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_acbd4afd45aec29bfad78438ea47ee4d8}\label{classoptions_1_1_f_f_t_option_pricer_acbd4afd45aec29bfad78438ea47ee4d8}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!delta@{delta}}
+\index{delta@{delta}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{delta()}{delta()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::delta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the delta of the option using a bump-\/and-\/difference method. 
+
+This method perturbs the initial state of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model and calculates the change in option price. \begin{DoxyReturn}{Returns}
+The computed delta value. 
+\end{DoxyReturn}
+
+
+Definition at line 84 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a8a7e08cee23f7af13a1b620a1fd84758}\label{classoptions_1_1_f_f_t_option_pricer_a8a7e08cee23f7af13a1b620a1fd84758}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!gamma@{gamma}}
+\index{gamma@{gamma}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{gamma()}{gamma()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::gamma (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the gamma of the option using a bump-\/and-\/difference method. 
+
+This method perturbs the initial state of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model twice and calculates the second derivative of the option price. \begin{DoxyReturn}{Returns}
+The computed gamma value. 
+\end{DoxyReturn}
+
+
+Definition at line 97 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ab1356a781f2df2e707bf3cb58900709a}\label{classoptions_1_1_f_f_t_option_pricer_ab1356a781f2df2e707bf3cb58900709a}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!if@{if}}
+\index{if@{if}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{if()}{if()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::if (\begin{DoxyParamCaption}\item[{second}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 233 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a5d62be6a7f49ba925335dd564c9d82d3}\label{classoptions_1_1_f_f_t_option_pricer_a5d62be6a7f49ba925335dd564c9d82d3}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!initialize\_fft\_grid@{initialize\_fft\_grid}}
+\index{initialize\_fft\_grid@{initialize\_fft\_grid}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{initialize\_fft\_grid()}{initialize\_fft\_grid()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::initialize\+\_\+fft\+\_\+grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Initializes the FFT grid parameters. 
+
+This method sets up the grid size, eta, and lambda based on the provided Npow and A parameters. It also initializes the complex vectors v\+\_\+ and k\+\_\+ used in the FFT computation. 
+
+Definition at line 153 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a28c99a7c355385355be84d84ce33734b}\label{classoptions_1_1_f_f_t_option_pricer_a28c99a7c355385355be84d84ce33734b}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!interpolate\_price@{interpolate\_price}}
+\index{interpolate\_price@{interpolate\_price}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{interpolate\_price()}{interpolate\_price()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::interpolate\+\_\+price (\begin{DoxyParamCaption}\item[{R}]{K }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Interpolates the option price based on the computed spline and strike price. 
+
+This method evaluates the spline at the given strike price and adjusts the result based on the option type. 
+\begin{DoxyParams}{Parameters}
+{\em K} & The strike price at which to interpolate the option price. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The interpolated option price. 
+\end{DoxyReturn}
+
+
+Definition at line 204 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}\label{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!price@{price}}
+\index{price@{price}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{price()}{price()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::price (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Price the option using FFT. 
+
+This method computes the option price by evaluating the characteristic function of the underlying asset and applying the FFT to obtain the expected payoff. \begin{DoxyReturn}{Returns}
+The computed option price. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}{options\+::\+Base\+Option\+Pricer$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 74 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a9b1c355b357fcd2c7058195bf8f83d87}\label{classoptions_1_1_f_f_t_option_pricer_a9b1c355b357fcd2c7058195bf8f83d87}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!return@{return}}
+\index{return@{return}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{return()}{return()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::return (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_ab4358370a206225c6231f3eb59a827a6}{plus}} -\/}]{minus }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ae59e8efe3ecf43c9f8e2ca6f9dca8dfe}\label{classoptions_1_1_f_f_t_option_pricer_ae59e8efe3ecf43c9f8e2ca6f9dca8dfe}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!rho@{rho}}
+\index{rho@{rho}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{rho()}{rho()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::rho (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the rho of the option using a bump-\/and-\/difference method. 
+
+This method perturbs the risk-\/free interest rate and calculates the change in option price. \begin{DoxyReturn}{Returns}
+The computed rho value. 
+\end{DoxyReturn}
+
+
+Definition at line 122 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_af5b8ca4006a09bb912bb43bf18ee31e0}\label{classoptions_1_1_f_f_t_option_pricer_af5b8ca4006a09bb912bb43bf18ee31e0}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!setter@{setter}}
+\index{setter@{setter}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{setter()}{setter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::setter (\begin{DoxyParamCaption}\item[{original}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a5ea5c86e9f0b87d4025197d01564f5e0}\label{classoptions_1_1_f_f_t_option_pricer_a5ea5c86e9f0b87d4025197d01564f5e0}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!setter@{setter}}
+\index{setter@{setter}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{setter()}{setter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::setter (\begin{DoxyParamCaption}\item[{original+}]{bump }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a0e5de6942aa1156f138dbcc7d543717a}\label{classoptions_1_1_f_f_t_option_pricer_a0e5de6942aa1156f138dbcc7d543717a}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!theta@{theta}}
+\index{theta@{theta}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{theta()}{theta()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::theta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the theta of the option using a bump-\/and-\/difference method. 
+
+This method perturbs the time to maturity and calculates the change in option price. \begin{DoxyReturn}{Returns}
+The computed theta value. 
+\end{DoxyReturn}
+
+
+Definition at line 136 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_af3e3496952fb5dbaf6f7172528140b29}\label{classoptions_1_1_f_f_t_option_pricer_af3e3496952fb5dbaf6f7172528140b29}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!update\_characteristic\_fn@{update\_characteristic\_fn}}
+\index{update\_characteristic\_fn@{update\_characteristic\_fn}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{update\_characteristic\_fn()}{update\_characteristic\_fn()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::update\+\_\+characteristic\+\_\+fn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Updates the characteristic function and computes the spline for option pricing. 
+
+This method evaluates the characteristic function of the underlying asset using the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model, computes the necessary terms for the FFT, and builds a spline for interpolating option prices. It is called before pricing the option to ensure the characteristic function is up-\/to-\/date. 
+
+Definition at line 170 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a8fdd2eb9db6bc646e24ac4d1eb0053d1}\label{classoptions_1_1_f_f_t_option_pricer_a8fdd2eb9db6bc646e24ac4d1eb0053d1}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!vega@{vega}}
+\index{vega@{vega}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{vega()}{vega()}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::vega (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the vega of the option using a bump-\/and-\/difference method. 
+
+This method perturbs the volatility parameter of the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model and calculates the change in option price. \begin{DoxyReturn}{Returns}
+The computed vega value. 
+\end{DoxyReturn}
+
+
+Definition at line 110 of file FFTOption\+Pricer.\+hpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a638581a62756ad1321704726b88f7f98}\label{classoptions_1_1_f_f_t_option_pricer_a638581a62756ad1321704726b88f7f98}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!A\_@{A\_}}
+\index{A\_@{A\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{A\_}{A\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::A\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 250 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a273b84276ed7d4f4e78d14bb751278b7}\label{classoptions_1_1_f_f_t_option_pricer_a273b84276ed7d4f4e78d14bb751278b7}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!bump@{bump}}
+\index{bump@{bump}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{bump}{bump}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::bump = log\+\_\+spot ? \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}} / std\+::exp(original) \+: \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}{bump\+\_\+size\+\_\+}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 228 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}\label{classoptions_1_1_f_f_t_option_pricer_aa6bf4e060e321a4b9c22ac319d37cd8e}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!bump\_size\_@{bump\_size\_}}
+\index{bump\_size\_@{bump\_size\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{bump\_size\_}{bump\_size\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+constexpr R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::bump\+\_\+size\+\_\+ = 1e-\/6\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 247 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a03618791c1d750e520d21f47be7e992f}\label{classoptions_1_1_f_f_t_option_pricer_a03618791c1d750e520d21f47be7e992f}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!else@{else}}
+\index{else@{else}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::else\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a5ea5c86e9f0b87d4025197d01564f5e0}{setter}}(original -\/ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a273b84276ed7d4f4e78d14bb751278b7}{bump}})}
+
+\end{DoxyCode}
+
+
+Definition at line 239 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ae04e0994863f78dc4cbce50be2845fb5}\label{classoptions_1_1_f_f_t_option_pricer_ae04e0994863f78dc4cbce50be2845fb5}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!eta\_@{eta\_}}
+\index{eta\_@{eta\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{eta\_}{eta\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::eta\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 252 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ae4ece7ed9d4f3a5774210ab914465290}\label{classoptions_1_1_f_f_t_option_pricer_ae4ece7ed9d4f3a5774210ab914465290}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!k\_@{k\_}}
+\index{k\_@{k\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{k\_}{k\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::k\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 253 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ab4be48bed452db268687da43cea24a83}\label{classoptions_1_1_f_f_t_option_pricer_ab4be48bed452db268687da43cea24a83}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!lambda\_@{lambda\_}}
+\index{lambda\_@{lambda\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{lambda\_}{lambda\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::lambda\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 252 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a3c7398086480acaeb7959966581969ee}\label{classoptions_1_1_f_f_t_option_pricer_a3c7398086480acaeb7959966581969ee}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!minus@{minus}}
+\index{minus@{minus}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{minus}{minus}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::minus = this-\/$>$\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{price}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 241 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_adc109b9c4c76b149ab63afdf9922ccf0}\label{classoptions_1_1_f_f_t_option_pricer_adc109b9c4c76b149ab63afdf9922ccf0}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!N\_@{N\_}}
+\index{N\_@{N\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{N\_}{N\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::N\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 251 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a37abbe59f026bb0adc7e7190545eb64c}\label{classoptions_1_1_f_f_t_option_pricer_a37abbe59f026bb0adc7e7190545eb64c}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!Npow\_@{Npow\_}}
+\index{Npow\_@{Npow\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{Npow\_}{Npow\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+unsigned int \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::Npow\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 250 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ab4358370a206225c6231f3eb59a827a6}\label{classoptions_1_1_f_f_t_option_pricer_ab4358370a206225c6231f3eb59a827a6}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!plus@{plus}}
+\index{plus@{plus}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{plus}{plus}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::plus = this-\/$>$\mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_add0ba6794f2dbc06d6728054a0db9abc}{price}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 231 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a1553735939c77f56febb80f5e533a56b}\label{classoptions_1_1_f_f_t_option_pricer_a1553735939c77f56febb80f5e533a56b}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!SetterFunction$<$ Setter, R $>$@{SetterFunction$<$ Setter, R $>$}}
+\index{SetterFunction$<$ Setter, R $>$@{SetterFunction$<$ Setter, R $>$}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{SetterFunction$<$ Setter, R $>$}{SetterFunction< Setter, R >}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+R R\&\& \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{namespaceoptions_ad8740b90f40226cf5e85a133cead6c72}{Setter\+Function}}$<$ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer_a6fbcb29d3ffc52e487c064e940992e61}{Setter}}, R $>$\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{            R original = getter()}
+
+\end{DoxyCode}
+
+
+Definition at line 225 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_acb57947ab6b15df477a0cec31b0b8dc8}\label{classoptions_1_1_f_f_t_option_pricer_acb57947ab6b15df477a0cec31b0b8dc8}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!spline\_@{spline\_}}
+\index{spline\_@{spline\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{spline\_}{spline\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+Eigen\+::\+Spline$<$R, 1$>$ \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::spline\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 255 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a62ded6084a60a37bdff87e35f4cf745f}\label{classoptions_1_1_f_f_t_option_pricer_a62ded6084a60a37bdff87e35f4cf745f}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!strikes\_@{strikes\_}}
+\index{strikes\_@{strikes\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{strikes\_}{strikes\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::strikes\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 253 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_ab181d525b0ba8ad0386d52d9fe8bd288}\label{classoptions_1_1_f_f_t_option_pricer_ab181d525b0ba8ad0386d52d9fe8bd288}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!v\_@{v\_}}
+\index{v\_@{v\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{v\_}{v\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespaceoptions_acb51c4e1bef6d78e95644f43ff82a5ee}{Complex\+Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::v\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 254 of file FFTOption\+Pricer.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_f_f_t_option_pricer_a31b81ca697b0a0810fbfdb5fc38e3dd4}\label{classoptions_1_1_f_f_t_option_pricer_a31b81ca697b0a0810fbfdb5fc38e3dd4}} 
+\index{options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}!w\_@{w\_}}
+\index{w\_@{w\_}!options::FFTOptionPricer$<$ R $>$@{options::FFTOptionPricer$<$ R $>$}}
+\doxysubsubsection{\texorpdfstring{w\_}{w\_}}
+{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+\mbox{\hyperlink{namespaceoptions_a594f1b93ab3b7242e4da5c30e30fd012}{Array}} \mbox{\hyperlink{classoptions_1_1_f_f_t_option_pricer}{options\+::\+FFTOption\+Pricer}}$<$ R $>$\+::w\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 253 of file FFTOption\+Pricer.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/options/\mbox{\hyperlink{_f_f_t_option_pricer_8hpp}{FFTOption\+Pricer.\+hpp}}\end{DoxyCompactItemize}

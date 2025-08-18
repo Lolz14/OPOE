@@ -133,7 +133,7 @@ class options::BaseOptionPricer&lt; R &gt;</h3>
   </table>
   </dd>
 </dl>
-<p>This class is designed to be inherited by specific option pricers like <a class="el" href="classoptions_1_1_f_f_t_pricer.html" title="FFTPricer class for pricing options using Fast Fourier Transform (FFT).">FFTPricer</a>, <a class="el" href="classoptions_1_1_m_c_pricer.html" title="Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation.">MCPricer</a>, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. </p>
+<p>This class is designed to be inherited by specific option pricers like FFTPricer, MCPricer, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. </p>
 
 <p class="definition">Definition at line <a class="el" href="_base_option_pricer_8hpp_source.html#l00038">38</a> of file <a class="el" href="_base_option_pricer_8hpp_source.html">BaseOptionPricer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -463,7 +463,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classoptions_1_1_m_c_pricer.html#a4d45e7c1944c0c7d8c58bcbb065091f8">options::MCPricer&lt; R &gt;</a>, <a class="el" href="classoptions_1_1_f_f_t_pricer.html#a2d82cf1bddaffcdde05c3f185fe5a4df">options::FFTPricer&lt; R &gt;</a>, and <a class="el" href="classoptions_1_1_c_f_pricer.html#a90c543d1a1ed16c3333a2daeec14837a">options::CFPricer&lt; R &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classoptions_1_1_m_c_option_pricer.html#ab0627815bdbfe43b59dea9904897e911">options::MCOptionPricer&lt; R &gt;</a>, <a class="el" href="classoptions_1_1_f_f_t_option_pricer.html#add0ba6794f2dbc06d6728054a0db9abc">options::FFTOptionPricer&lt; R &gt;</a>, and <a class="el" href="classoptions_1_1_c_f_option_pricer.html#aa726ef001b13af1864179dfe28ed6cf8">options::CFOptionPricer&lt; R &gt;</a>.</p>
 
 </div>
 </div>
@@ -689,7 +689,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>options/<a class="el" href="_base_option_pricer_8hpp_source.html">BaseOptionPricer.hpp</a></li>
+<li>include/options/<a class="el" href="_base_option_pricer_8hpp_source.html">BaseOptionPricer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

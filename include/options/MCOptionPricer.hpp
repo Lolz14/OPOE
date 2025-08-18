@@ -1,9 +1,9 @@
 /**
  * @file MCOptionPricer.hpp
- * @brief Defines the MCPricer class for Monte Carlo option pricing.
+ * @brief Defines the MCOptionPricer class for Monte Carlo option pricing.
  *
  * This header provides the implementation of a Monte Carlo pricer for financial options.
- * The MCPricer class simulates multiple paths of the underlying asset using a provided
+ * The MCOptionPricer class simulates multiple paths of the underlying asset using a provided
  * stochastic differential equation (SDE) model and a solver function. It evaluates the
  * option payoff at maturity for each simulated path and computes the expected discounted
  * payoff as the option price.
@@ -44,7 +44,7 @@ namespace options {
  */
     
 template<typename R>
-class MCPricer : public BaseOptionPricer<R> {
+class MCOptionPricer : public BaseOptionPricer<R> {
 public:
     using StoringVector = traits::DataType::StoringVector;
     using StoringMatrix = traits::DataType::StoringMatrix;
@@ -54,7 +54,7 @@ public:
     R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
     
     /**
-     * @brief Constructs a MCPricer instance.
+     * @brief Constructs a MCOptionPricer instance.
      *
      * @param ttm Time to maturity.
      * @param strike Strike price of the option.
@@ -65,7 +65,7 @@ public:
      * @param num_paths Number of Monte Carlo paths to simulate (default: 10).
      * @param num_steps Number of time steps in each path (default: 3).
      */
-    MCPricer(R ttm, R strike, R rate,
+    MCOptionPricer(R ttm, R strike, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model,
              SolverFunc solver_func,
