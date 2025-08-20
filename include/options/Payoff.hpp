@@ -97,6 +97,14 @@ public:
         // Derived classes can override if a more direct calculation exists
         return evaluate(log_underlying_prices.array().exp());
     }
+
+    virtual T getStrike() const = 0;
+    /**
+     * @brief Sets the strike price.
+     * @param strike_price The new strike price (K).
+     * @throws std::invalid_argument if the strike price is negative.
+     */
+    virtual void setStrike(T strike_price) = 0;
 };
 
 /**
@@ -178,6 +186,18 @@ public:
      */
     T getStrike() const noexcept {
         return strike_price_;
+    }
+
+    /**
+     * @brief Sets the strike price.
+     * @param strike_price The new strike price (K).
+     * @throws std::invalid_argument if the strike price is negative.
+     */
+    void setStrike(T strike_price) {
+        if (strike_price < static_cast<T>(0.0)) {
+            throw std::invalid_argument("Strike price cannot be negative.");
+        }
+        strike_price_ = strike_price;
     }
 };
 
@@ -261,6 +281,19 @@ public:
     T getStrike() const noexcept{
         return strike_price_;
     }
+
+        /**
+     * @brief Sets the strike price.
+     * @param strike_price The new strike price (K).
+     * @throws std::invalid_argument if the strike price is negative.
+     */
+    void setStrike(T strike_price) {
+        if (strike_price < static_cast<T>(0.0)) {
+            throw std::invalid_argument("Strike price cannot be negative.");
+        }
+        strike_price_ = strike_price;
+    }
+
 };
 
 } // namespace options

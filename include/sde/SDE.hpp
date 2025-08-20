@@ -104,10 +104,6 @@ inline std::uniform_real_distribution<R>& get_uniform_distribution() {
 template<typename T, typename R = traits::DataType::PolynomialField>
 concept SDEModel = requires(const T& sde, R t, const SDEVector& x, SDEVector& mu_out, SDEMatrix& sigma_out) {
     
-    { T::WIENER_DIM } -> std::convertible_to<unsigned int>;
-    { T::STATE_DIM } -> std::convertible_to<unsigned int>;
-    requires T::WIENER_DIM > 0;
-    requires T::STATE_DIM > 0;
     sde.drift(t, x, mu_out);       // Drift function must write to mu_out
     sde.diffusion(t, x, sigma_out); // Diffusion function must write to sigma_out
 
@@ -121,8 +117,7 @@ concept SDEModel = requires(const T& sde, R t, const SDEVector& x, SDEVector& mu
 template<typename T, typename R = traits::DataType::PolynomialField>
 concept SVSDEModel = SDEModel<T, R> && requires(const T& sde) {
     
-    requires T::WIENER_DIM >= 2;// At least two independent Wiener processes
-    requires T::STATE_DIM >= 2;// At least two independent Wiener processes
+
     { sde.get_correlation() } -> std::convertible_to<R>; // Correlation parameter (rho)
     { sde.get_kappa() } -> std::convertible_to<R>;       // Mean-reversion speed
     { sde.get_theta() } -> std::convertible_to<R>;       // Long-term variance/mean
@@ -191,11 +186,11 @@ public:
         if (dt < 0.0) throw std::invalid_argument("dt must be non-negative");
 
         if (dt == 0.0) {
-            dW_out.setZero(num_paths * SdeType::WIENER_DIM, num_steps);
+            dW_out.setZero(num_paths * sde_ref_.wiener_dim(), num_steps);
             return;
         }
 
-        const int num_wiener = SdeType::WIENER_DIM;
+        const int num_wiener = sde_ref_.wiener_dim();
         const R sqrt_dt = std::sqrt(dt);
 
 
@@ -232,7 +227,7 @@ public:
            const std::function<void(unsigned int, const SDEVector&)>& observer, 
            const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
             
-        if (sde_ref_.m_x0.size() != SdeType::STATE_DIM) 
+        if (sde_ref_.m_x0.size() != sde_ref_.state_dim()) 
             throw std::invalid_argument("initial_x must have STATE_DIM");
 
         if (num_steps <= 0 || t_end <= t_start)
@@ -241,12 +236,12 @@ public:
         R dt = (t_end - t_start) / num_steps;
 
         // Flattened state vector: num_paths * STATE_DIM
-        SDEVector current_x(num_paths * SdeType::STATE_DIM);
+        SDEVector current_x(num_paths * sde_ref_.state_dim());
 
         // initial_x is a column vector: [0.25, 100]
         SDEMatrix initial_states = sde_ref_.m_x0.transpose().replicate(num_paths, 1); 
         current_x = Eigen::Map<SDEVector>(initial_states.data(), initial_states.size());   
-        SDEVector next_x(num_paths * SdeType::STATE_DIM);
+        SDEVector next_x(num_paths * sde_ref_.state_dim());
 
         // dW is matrix: (num_paths * WIENER_DIM, num_steps)
         SDEMatrix dW;
@@ -254,12 +249,12 @@ public:
     
         if (dW_opt.has_value()) {
 
-            assert(dW_opt->rows() == num_paths * SdeType::WIENER_DIM && dW_opt->cols() == num_steps);
+            assert(dW_opt->rows() == num_paths * sde_ref_.wiener_dim() && dW_opt->cols() == num_steps);
             dW = dW_opt.value();
 
         } else {
 
-            dW.resize(num_paths * SdeType::WIENER_DIM, num_steps);
+            dW.resize(num_paths * sde_ref_.wiener_dim(), num_steps);
             generate_wiener_increments(dt, dW, num_steps, num_paths);
 
         }
@@ -288,7 +283,7 @@ public:
 
     SDEMatrix solve(R t_start, R t_end, int num_steps, int num_paths,
                     const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
-        SDEMatrix path_flat(num_paths * SdeType::STATE_DIM, num_steps + 1);
+        SDEMatrix path_flat(num_paths * sde_ref_.state_dim(), num_steps + 1);
         solve(t_start, t_end, num_steps, num_paths,
             [&path_flat](unsigned int idx, const SDEVector& x) { path_flat.col(idx) = x; },
             dW_opt);
@@ -326,8 +321,8 @@ void step(
     R t, const SDEVector& current_x, R dt, const SDEVector& dW_t,
     int num_paths, SDEVector& next_x
     ) const {
-        const int state_dim = SdeType::STATE_DIM;
-        const int wiener_dim = SdeType::WIENER_DIM;
+        const int state_dim = this->sde_ref_.state_dim();
+        const int wiener_dim = this->sde_ref_.wiener_dim();
 
         #pragma omp parallel
         {
@@ -388,8 +383,8 @@ public:
 
     void step(R t, const SDEVector& current_x, R dt, const SDEVector& dW_t, int num_paths, SDEVector& next_x) const {
 
-        const int state_dim = SdeType::STATE_DIM;
-        const int wiener_dim = SdeType::WIENER_DIM;
+        const int state_dim = this->sde_ref_.state_dim();
+        const int wiener_dim = this->sde_ref_.wiener_dim();
 
         #pragma omp parallel
         {
@@ -519,8 +514,8 @@ public:
 
 
             // Map to Eigen views
-            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_curr(current_x.data(), num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));        
-            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_next(next_x.data(), num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));    
+            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_curr(current_x.data(), num_paths,  Eigen::InnerStride<>(this->sde_ref_.state_dim()));        
+            Eigen::Map<const SDEArray, 0, Eigen::InnerStride<>> v_next(next_x.data(), num_paths,  Eigen::InnerStride<>(this->sde_ref_.state_dim()));    
     
             Eigen::Map<const SDEArray> dW0(dW_t.data(), num_paths);
             Eigen::Map<const SDEArray> dW1(dW_t.data() + num_paths, num_paths);
@@ -542,7 +537,7 @@ public:
 
 
             
-            Eigen::Map<SDEArray, 0, Eigen::InnerStride<>> x_next(next_x.data() + 1, num_paths,  Eigen::InnerStride<>(SdeType::STATE_DIM));   
+            Eigen::Map<SDEArray, 0, Eigen::InnerStride<>> x_next(next_x.data() + 1, num_paths,  Eigen::InnerStride<>(this->sde_ref_.state_dim()));   
       
             x_next += correction_ijk;
 

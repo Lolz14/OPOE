@@ -57,7 +57,6 @@ public:
      * @brief Constructs a MCOptionPricer instance.
      *
      * @param ttm Time to maturity.
-     * @param strike Strike price of the option.
      * @param rate Risk-free interest rate.
      * @param payoff Payoff function for the option.
      * @param sde_model Shared pointer to the SDE model used for path generation.
@@ -65,13 +64,13 @@ public:
      * @param num_paths Number of Monte Carlo paths to simulate (default: 10).
      * @param num_steps Number of time steps in each path (default: 3).
      */
-    MCOptionPricer(R ttm, R strike, R rate,
+    MCOptionPricer(R ttm, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model,
              SolverFunc solver_func,
              unsigned int num_paths = 10,
              unsigned int num_steps = 3)
-        : BaseOptionPricer<R>(ttm, strike, rate, std::move(payoff), std::move(sde_model)),
+        : BaseOptionPricer<R>(ttm, rate, std::move(payoff), std::move(sde_model)),
           solver_func_(std::move(solver_func)),
           num_paths_(num_paths),
           num_steps_(num_steps)

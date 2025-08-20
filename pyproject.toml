@@ -1,0 +1,47 @@
+[build-system]
+requires = [
+  "scikit-build-core>=0.10",
+  "pybind11>=2.11",
+  "numpy>=1.24",
+  "cmake>=3.25",
+  "ninja",
+]
+build-backend = "scikit_build_core.build"
+
+
+[project]
+name = "sdefin"
+version = "0.0.1"
+license = "MIT"
+description="A minimal example package (with pybind11)"
+authors = [
+  { name = "My Name", email = "me@email.com" },
+]
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Private :: Do Not Upload",
+]
+
+
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+log_cli_level = "INFO"
+filterwarnings = [
+  "error",
+  "ignore::pytest.PytestCacheWarning",
+]

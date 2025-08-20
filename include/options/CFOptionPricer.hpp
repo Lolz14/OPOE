@@ -42,16 +42,15 @@ public:
     /**
      * @brief Constructor for CFOptionPricer.
      * @param ttm Time to maturity in years.
-     * @param strike Strike price of the option.
      * @param rate Risk-free interest rate.
      * @param payoff Unique pointer to the option payoff object (Call or Put).
      * @param sde_model Shared pointer to the SDE model (should be GeometricBrownianMotionSDE).
      */
-    CFOptionPricer(R ttm, R strike, R rate,
+    CFOptionPricer(R ttm, R rate,
              std::unique_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model
              )
-        : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model))
+        : Base(ttm, rate, std::move(payoff), std::move(sde_model))
           
     {
         if (!std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)) {
@@ -62,7 +61,7 @@ public:
         volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_parameters().sigma;
         S0_ = S0;
 
-        d1_ = (std::log(S0 / Base::strike_) + (Base::rate_ + 0.5 * volatility_ * volatility_) * Base::ttm_) /
+        d1_ = (std::log(S0 / this->payoff_->getStrike()) + (Base::rate_ + 0.5 * volatility_ * volatility_) * Base::ttm_) /
               (volatility_ * std::sqrt(Base::ttm_));
         d2_ = d1_ - volatility_ * std::sqrt(Base::ttm_);
     }

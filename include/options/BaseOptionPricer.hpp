@@ -42,13 +42,12 @@ namespace options {
             /**
              * @brief Constructs a BaseOptionPricer instance.
              * @param ttm Time to maturity.
-             * @param strike Strike price of the option.
              * @param rate Risk-free interest rate.
              * @param payoff Payoff function for the option.
              * @param sde_model Shared pointer to the SDE model used for pricing.
              */
-            BaseOptionPricer(R ttm, R strike, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
-                : ttm_(ttm), strike_(strike), rate_(rate), payoff_(std::move(payoff)), sde_model_(sde_model) {}
+            BaseOptionPricer(R ttm, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
+                : ttm_(ttm), rate_(rate), payoff_(std::move(payoff)), sde_model_(sde_model) {}
 
             virtual ~BaseOptionPricer() = default;
 
@@ -75,16 +74,12 @@ namespace options {
             inline void set_ttm(R ttm) noexcept { ttm_ = ttm; }
             inline R get_ttm() const noexcept { return ttm_; }
 
-            inline void set_strike(R strike) noexcept { strike_ = strike; }
-            inline R get_strike() const noexcept { return strike_; }
-
             inline void set_rate(R rate) noexcept { rate_ = rate; }
             inline R get_rate() const noexcept { return rate_; }
 
         protected:
 
         R ttm_;
-        R strike_;
         R rate_;
         std::unique_ptr<IPayoff<R>> payoff_;
         std::shared_ptr<SDE::ISDEModel<R>> sde_model_;

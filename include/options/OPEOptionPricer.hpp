@@ -26,7 +26,7 @@
  *
  * @section Example
  * @code
- * auto pricer = options::OPEOptionPricer<>(ttm, strike, rate, payoff, sde_model, solver_func);
+ * auto pricer = options::OPEOptionPricer<>(ttm, rate, payoff, sde_model, solver_func);
  * double option_price = pricer.price();
  * @endcode
  *
@@ -89,7 +89,6 @@ public:
  * @brief Constructs an OPEOptionPricer instance.
  *
  * @param ttm Time to maturity.
- * @param strike Strike price of the option.
  * @param rate Risk-free interest rate.
  * @param payoff Payoff function for the option.
  * @param sde_model Shared pointer to the stochastic differential equation model.
@@ -103,13 +102,13 @@ public:
  * This constructor initializes the OPEOptionPricer with the provided parameters,
  * constructs the orthonormal polynomial basis, and prepares the density object for pricing.
  */
-    OPEOptionPricer(R ttm, R strike, R rate,
+    OPEOptionPricer(R ttm, R rate,
                     std::unique_ptr<IPayoff<R>> payoff,
-                    std::shared_ptr<SDE::GenericSVModelSDE<R>> sde_model,
+                    std::shared_ptr<SDE::ISDEModel<R>> sde_model,
                     SolverFunc solver_func,
                     traits::QuadratureMethod integrator_param = traits::QuadratureMethod::TanhSinh,
                     unsigned int num_paths = 10)
-        : Base(ttm, strike, rate, std::move(payoff), sde_model)
+        : Base(ttm, rate, std::move(payoff), sde_model)
         , num_paths_(num_paths)
         , solver_func_(solver_func)
         , density_object_(make_density_object(ttm, num_paths, PolynomialBaseDegree,
@@ -242,7 +241,7 @@ private:
                         unsigned int num_paths,
                         unsigned int poly_deg,
                         const SolverFunc& solver_func,
-                        const std::shared_ptr<SDE::GenericSVModelSDE<R>>& sde_model)
+                        const std::shared_ptr<SDE::ISDEModel<R>>& sde_model)
     {
         // Read quantization grid
         QuantizationGrid<R> grid =
@@ -262,14 +261,16 @@ private:
             paths.cols(),
             Eigen::OuterStride<>(2 * paths.outerStride())
         );
+        
+        auto* sde_model_ptr = dynamic_cast<SDE::GenericSVModelSDE<R>*>(sde_model.get());
+        if  (!sde_model_ptr){ 
+            throw std::runtime_error("The model is not a stochastic volatility model!");}
+        StoringVector mean = sde_model_ptr->M_T(ttm, ttm / poly_deg, vol_view, grid.coordinates);
+        StoringVector variance = sde_model_ptr->C_T(ttm, ttm / poly_deg, vol_view);
+    
 
-        // Compute mean and variance
-        StoringVector mean = sde_model->M_T(ttm, ttm / poly_deg, vol_view, grid.coordinates);
-        StoringVector variance = sde_model->C_T(ttm, ttm / poly_deg, vol_view);
 
-        std::cout << "Mean: " << mean.transpose() << std::endl;
-        std::cout << "Variance: " << variance.transpose() << std::endl;
-        std::cout << "Weights: " << grid.weights.transpose() << std::endl;
+
 
         // Build densities
         std::vector<DensityType> densities(mean.size());

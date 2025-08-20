@@ -53,15 +53,14 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
         /**
          * @brief Constructs an FFTOptionPricer instance.
          * @param ttm Time to maturity.
-         * @param strike Strike price of the option.
          * @param rate Risk-free interest rate.
          * @param payoff Payoff function for the option.
          * @param sde_model Shared pointer to the SDE model used for pricing.
          * @param Npow Power of 2 for the FFT grid size (default: 20).
          * @param A Scaling factor for the FFT grid (default: 1200).
          */
-        FFTOptionPricer(R ttm, R strike, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 10, unsigned int A = 10)
-        : Base(ttm, strike, rate, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {
+        FFTOptionPricer(R ttm, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 10, unsigned int A = 10)
+        : Base(ttm, rate, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {
             initialize_fft_grid();
         }
         
@@ -73,7 +72,7 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
          */
         R price() const override {
             update_characteristic_fn();
-            return interpolate_price(this->strike_);
+            return interpolate_price(this->payoff_->getStrike());
         }
 
         /**
@@ -204,7 +203,7 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
         R interpolate_price(R K) const {
             R result = spline_(K)(0);
             if (this->payoff_->type() == traits::OptionType::Put)
-                return result - this->sde_model_->get_x0() + K * std::exp(-this->rate_ * this->ttm_);
+                return result - std::exp(this->sde_model_->get_x0()) + K * std::exp(-this->rate_ * this->ttm_);
             return result;
         }
 

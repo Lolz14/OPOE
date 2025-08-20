@@ -66,7 +66,24 @@ static constexpr long key(int m, int n) noexcept {
 template<typename T = traits::DataType::PolynomialField>
 class ISDEModel {
 
-public:
+
+
+public: 
+        /**
+         * @brief Returns the dimension of the state vector.
+         * @return The number of state variables in the SDE model.
+         *
+         * This method provides the size of the state vector, which is essential for defining the model's structure.
+         */
+        virtual unsigned int state_dim() const = 0;
+
+        /**
+         * @brief Returns the dimension of the Wiener process.
+         * @return The number of independent Wiener processes in the SDE model.
+         *
+         * This method provides the size of the Wiener process vector, which is essential for stochastic simulations.
+         */
+        virtual unsigned int wiener_dim() const = 0;
         /**
          * @brief Virtual destructor for proper cleanup in derived classes.
          */
@@ -246,6 +263,9 @@ public:
     static constexpr unsigned int WIENER_DIM = 1;
     static constexpr unsigned int STATE_DIM = 1; 
 
+    unsigned int state_dim() const override { return STATE_DIM; }
+    unsigned int wiener_dim() const override { return WIENER_DIM;} 
+
     /** * @brief Parameters for the Geometric Brownian Motion SDE.
      * Contains the drift (mu) and volatility (sigma) parameters.
      */
@@ -347,6 +367,10 @@ public:
         this->params_.sigma = v0; // Set the initial variance (x(1))
     }
 
+    inline T get_mu() const noexcept {
+        return this->params_.mu; // Return the drift parameter (mu)
+    }
+
 };
 
 
@@ -378,6 +402,9 @@ public:
 
     static constexpr unsigned int WIENER_DIM = 2; // Two correlated Wiener processes
     static constexpr unsigned int STATE_DIM = 2; // Two state variables (log-price and variance)
+
+    unsigned int state_dim() const override { return STATE_DIM; }
+    unsigned int wiener_dim() const override { return WIENER_DIM;} 
     /**
      * @brief Parameters for the Generic Stochastic Volatility SDE.
      * Contains the drift (asset_drift_const), mean-reversion speed (sv_kappa), long-term mean (sv_theta),
@@ -1456,6 +1483,30 @@ public:
 
         return result;
     };
+
+    /**
+     * @brief Getters for the y_min parameter.
+     * Minimum bound for the variance process in the Jacobi model.
+     * It is useful for retrieving the lower bound without exposing the entire model parameters.
+     * 
+     * @return The minimum bounds for the variance process.
+     */
+    inline T get_y_min() const noexcept {
+        return y_min_;
+    };
+    
+    /**
+     * @brief Getters for the y_max parameter.
+     * This method provides access to the maximum bound for the variance process in the Jacobi model.
+     * It is useful for retrieving the upper bound without exposing the entire model parameters.
+     * 
+     * @return The maximum bound for the variance process.
+     */
+    inline T get_y_max() const noexcept {
+        return y_max_;
+    };
+
+
 
 };
 
