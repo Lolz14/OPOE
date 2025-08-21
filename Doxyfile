@@ -2656,3 +2656,10 @@ GENERATE_LEGEND        = YES
 # The default value is: YES.
 
 DOT_CLEANUP            = YES
+
+
+# Parse macros from pybind11
+PREDEFINED += PYBIND11_MODULE(name, variable)=void name()
+PREDEFINED += PYBIND11_EMBEDDED_MODULE(name, variable)=void name()
+PREDEFINED += PYBIND11_PLUGIN(name)=void name()
+PREDEFINED += PYBIND11_OBJECT_CASTER(...)

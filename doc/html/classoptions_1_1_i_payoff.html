@@ -100,6 +100,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9a11cd10b92564295e1757dacec008ac"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceoptions.html#ab58cae0110c4f2120c90ccd35ec52b40">StoringVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_i_payoff.html#a9a11cd10b92564295e1757dacec008ac">evaluate_from_log</a> (<a class="el" href="namespaceoptions.html#ab58cae0110c4f2120c90ccd35ec52b40">StoringVector</a> log_underlying_prices) const</td></tr>
 <tr class="memdesc:a9a11cd10b92564295e1757dacec008ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the payoff for a vector of final log-prices of the underlying.  <a href="classoptions_1_1_i_payoff.html#a9a11cd10b92564295e1757dacec008ac">More...</a><br /></td></tr>
 <tr class="separator:a9a11cd10b92564295e1757dacec008ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6980e1f8cdc534eca4c554352267355"><td class="memItemLeft" align="right" valign="top">virtual T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_i_payoff.html#ae6980e1f8cdc534eca4c554352267355">getStrike</a> () const =0</td></tr>
+<tr class="separator:ae6980e1f8cdc534eca4c554352267355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529a1c8f5fd26c76a42a114990af383f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_i_payoff.html#a529a1c8f5fd26c76a42a114990af383f">setStrike</a> (T strike_price)=0</td></tr>
+<tr class="memdesc:a529a1c8f5fd26c76a42a114990af383f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the strike price.  <a href="classoptions_1_1_i_payoff.html#a529a1c8f5fd26c76a42a114990af383f">More...</a><br /></td></tr>
+<tr class="separator:a529a1c8f5fd26c76a42a114990af383f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T = traits::DataType::PolynomialField&gt;<br />
@@ -327,6 +332,77 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The calculated payoff value. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_payoff_8hpp_source.html#l00084">84</a> of file <a class="el" href="_payoff_8hpp_source.html">Payoff.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6980e1f8cdc534eca4c554352267355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6980e1f8cdc534eca4c554352267355">&#9670;&nbsp;</a></span>getStrike()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual T <a class="el" href="classoptions_1_1_i_payoff.html">options::IPayoff</a>&lt; T &gt;::getStrike </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoptions_1_1_european_put_payoff.html#a96ecbc075eb0c405a349d8d99d53f06d">options::EuropeanPutPayoff&lt; T &gt;</a>, and <a class="el" href="classoptions_1_1_european_call_payoff.html#a311faf2d39d4e20bc789221ce1dfd448">options::EuropeanCallPayoff&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a529a1c8f5fd26c76a42a114990af383f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529a1c8f5fd26c76a42a114990af383f">&#9670;&nbsp;</a></span>setStrike()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classoptions_1_1_i_payoff.html">options::IPayoff</a>&lt; T &gt;::setStrike </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>strike_price</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the strike price. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">strike_price</td><td>The new strike price (K). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if the strike price is negative. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qagi_996',['QAGI',['../_o_p_o_e__traits_8hpp.html#ab0367a13ee21106fe79a88ab95cdb1d3a5c99fcac7be3a40f45e4d69c25233de4',1,'OPOE_traits.hpp']]]
+  ['milstein_1028',['Milstein',['../_o_p_o_e__traits_8hpp.html#a8b06041d7c1fb05f379714f4312306eca8a7584985a5073af6b756c50e97ba672',1,'OPOE_traits.hpp']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['horner_993',['Horner',['../_o_p_o_e__traits_8hpp.html#a6d9c836bc140f79e1c4988597da5dbfcae53bca3910340ff55667266b10427e5b',1,'OPOE_traits.hpp']]]
+  ['falling_1025',['Falling',['../_o_p_o_e__traits_8hpp.html#a96ed12655fd92755d02717a6a8b8125da0f57d5b441651c57eac9f91efaa5a75a',1,'OPOE_traits.hpp']]]
 ];

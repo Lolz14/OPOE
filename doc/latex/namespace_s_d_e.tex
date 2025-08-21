@@ -216,7 +216,7 @@ Concept for 1D SDEs supporting Milstein scheme, requiring derivative information
 
 
 
-Definition at line 140 of file SDE.\+hpp.
+Definition at line 135 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{namespace_s_d_e_a91be36c2e4764856ed53c7b27d8bdfe4}\label{namespace_s_d_e_a91be36c2e4764856ed53c7b27d8bdfe4}} 
 \index{SDE@{SDE}!Milstein2DSVSDEModel@{Milstein2DSVSDEModel}}
@@ -241,7 +241,7 @@ Concept for 2D Stochastic Volatility SDEs supporting Milstein scheme.
 
 
 
-Definition at line 152 of file SDE.\+hpp.
+Definition at line 147 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{namespace_s_d_e_ae2828cc094a2033e3b5468e314f85f42}\label{namespace_s_d_e_ae2828cc094a2033e3b5468e314f85f42}} 
 \index{SDE@{SDE}!SDEModel@{SDEModel}}
@@ -254,10 +254,6 @@ concept SDE\+::\+SDEModel}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{= \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}}(\textcolor{keyword}{const} T\& sde, R t, \textcolor{keyword}{const} \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}}\& x, \mbox{\hyperlink{namespace_s_d_e_a9aaa9d73e8adaeee0b0ff44596b8a329}{SDEVector}}\& mu\_out, \mbox{\hyperlink{namespace_s_d_e_ae94a1b42837a20b18d3fc2a63fee74cb}{SDEMatrix}}\& sigma\_out) \{}
 \DoxyCodeLine{    }
-\DoxyCodeLine{    \{ T::WIENER\_DIM \} -\/> std::convertible\_to<unsigned int>;}
-\DoxyCodeLine{    \{ T::STATE\_DIM \} -\/> std::convertible\_to<unsigned int>;}
-\DoxyCodeLine{    \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}} T::WIENER\_DIM > 0;}
-\DoxyCodeLine{    \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}} T::STATE\_DIM > 0;}
 \DoxyCodeLine{    sde.drift(t, x, mu\_out);       }
 \DoxyCodeLine{    sde.diffusion(t, x, sigma\_out); }
 \DoxyCodeLine{}
@@ -283,8 +279,7 @@ concept SDE\+::\+SVSDEModel}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{= SDEModel<T, R> \&\& \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}}(\textcolor{keyword}{const} T\& sde) \{}
 \DoxyCodeLine{    }
-\DoxyCodeLine{    \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}} T::WIENER\_DIM >= 2;}
-\DoxyCodeLine{    \mbox{\hyperlink{namespace_utils_a800eeaef44bff3535972432a44bb7f6a}{requires}} T::STATE\_DIM >= 2;}
+\DoxyCodeLine{}
 \DoxyCodeLine{    \{ sde.get\_correlation() \} -\/> std::convertible\_to<R>; }
 \DoxyCodeLine{    \{ sde.get\_kappa() \} -\/> std::convertible\_to<R>;       }
 \DoxyCodeLine{    \{ sde.get\_theta() \} -\/> std::convertible\_to<R>;       }
@@ -301,5 +296,5 @@ Concept for Stochastic Volatility (SV) \mbox{\hyperlink{namespace_s_d_e}{SDE}} m
 
 
 
-Definition at line 122 of file SDE.\+hpp.
+Definition at line 118 of file SDE.\+hpp.
 

@@ -96,6 +96,9 @@ $(function() {
 <li>get_correlation()
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a4793e231f5e1d4ce0f7139eacaddc661">SDE::GenericSVModelSDE&lt; T &gt;</a>
 </li>
+<li>get_drift()
+: <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a19d7c251605e45945012766f26de4141">SDE::GenericSVModelSDE&lt; T &gt;</a>
+</li>
 <li>get_input_functions()
 : <a class="el" href="classquadrature_1_1_projector.html#a48cb6791146c4c0be0e0de1a03b7e7c7">quadrature::Projector&lt; R, FuncTypes &gt;</a>
 </li>
@@ -105,15 +108,14 @@ $(function() {
 <li>get_kappa()
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#aa3d319eecf6d3883a8f692f08dd882f1">SDE::GenericSVModelSDE&lt; T &gt;</a>
 </li>
+<li>get_mu()
+: <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a6fc774b6a3b1af124c6d5f155d51e489">SDE::GeometricBrownianMotionSDE&lt; T &gt;</a>
+</li>
 <li>get_num_input_functions()
 : <a class="el" href="classquadrature_1_1_projector.html#ad99809fd5ae53fdc661b804c037d8aca">quadrature::Projector&lt; R, FuncTypes &gt;</a>
 </li>
 <li>get_p()
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a53d03e5b5c5d81a8623a0e6f03419f84">SDE::GenericSVModelSDE&lt; T &gt;</a>
-</li>
-<li>get_parameters()
-: <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#aac605f3f1f41e30fd79c1962e0e438d2">SDE::GenericSVModelSDE&lt; T &gt;</a>
-, <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a45e78df6fabd8c4e0b92ce0f4f27500c">SDE::GeometricBrownianMotionSDE&lt; T &gt;</a>
 </li>
 <li>get_q()
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#adc0902c8ae6d226e7dd9549dd38a650c">SDE::GenericSVModelSDE&lt; T &gt;</a>
@@ -131,9 +133,6 @@ $(function() {
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a7c97d33a76b62c69ea6fedb676e78604">SDE::GenericSVModelSDE&lt; T &gt;</a>
 , <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a61f8f71cb34c1737f05e189de559a5fd">SDE::GeometricBrownianMotionSDE&lt; T &gt;</a>
 , <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a1153abea1f0a2573f5be555d21a46931">SDE::ISDEModel&lt; T &gt;</a>
-</li>
-<li>get_strike()
-: <a class="el" href="classoptions_1_1_base_option_pricer.html#ac810c865cbbd1a4d4fa6a09eda75de42">options::BaseOptionPricer&lt; R &gt;</a>
 </li>
 <li>get_theta()
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a8793a62d9bff0381af016df5a07542bd">SDE::GenericSVModelSDE&lt; T &gt;</a>
@@ -158,6 +157,12 @@ $(function() {
 : <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a55adf783558391c5c07dcd63e93b8f95">SDE::GenericSVModelSDE&lt; T &gt;</a>
 , <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#ada4c5c00da8284f469143e01c420835c">SDE::GeometricBrownianMotionSDE&lt; T &gt;</a>
 , <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#ab9613f5b1f4f94b24f650a945597f2a7">SDE::ISDEModel&lt; T &gt;</a>
+</li>
+<li>get_y_max()
+: <a class="el" href="class_s_d_e_1_1_jacobi_model_s_d_e.html#a696f7c9980b4c2792c65857c7e24e5a9">SDE::JacobiModelSDE&lt; T &gt;</a>
+</li>
+<li>get_y_min()
+: <a class="el" href="class_s_d_e_1_1_jacobi_model_s_d_e.html#a8643ba77dec06d273e46ca1ea0b5bb77">SDE::JacobiModelSDE&lt; T &gt;</a>
 </li>
 <li>getA()
 : <a class="el" href="classstats_1_1_mixture_density.html#ab46d109f8a7715dd5acad0a8c15efb56">stats::MixtureDensity&lt; PolynomialBaseDegree, DensityType, R &gt;</a>
@@ -250,8 +255,9 @@ $(function() {
 : <a class="el" href="classstats_1_1_boost_base_density.html#ad54d16ea9dd4fd6b474beeadeaf007c3">stats::BoostBaseDensity&lt; BoostDist, R, ConstructorArgs &gt;</a>
 </li>
 <li>getStrike()
-: <a class="el" href="classoptions_1_1_european_call_payoff.html#a4d1d7a490ff1fc6ee413f8e3cb83fce2">options::EuropeanCallPayoff&lt; T &gt;</a>
-, <a class="el" href="classoptions_1_1_european_put_payoff.html#a5ea9e8c65a342fc1129087ef2200f9c2">options::EuropeanPutPayoff&lt; T &gt;</a>
+: <a class="el" href="classoptions_1_1_european_call_payoff.html#a311faf2d39d4e20bc789221ce1dfd448">options::EuropeanCallPayoff&lt; T &gt;</a>
+, <a class="el" href="classoptions_1_1_european_put_payoff.html#a96ecbc075eb0c405a349d8d99d53f06d">options::EuropeanPutPayoff&lt; T &gt;</a>
+, <a class="el" href="classoptions_1_1_i_payoff.html#ae6980e1f8cdc534eca4c554352267355">options::IPayoff&lt; T &gt;</a>
 </li>
 <li>getSupport()
 : <a class="el" href="classstats_1_1_mixture_density.html#a75ac307b4bd0da8aad338b351659d319">stats::MixtureDensity&lt; PolynomialBaseDegree, DensityType, R &gt;</a>

@@ -102,9 +102,9 @@ Collaboration diagram for options::FFTOptionPricer&lt; R &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a688b70e1c9ae750b39388c4ca695ba9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_f_f_t_option_pricer.html#a688b70e1c9ae750b39388c4ca695ba9e">FFTOptionPricer</a> (R ttm, R strike, R rate, std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model, unsigned int Npow=10, unsigned int A=10)</td></tr>
-<tr class="memdesc:a688b70e1c9ae750b39388c4ca695ba9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classoptions_1_1_f_f_t_option_pricer.html" title="FFTOptionPricer class for pricing options using Fast Fourier Transform (FFT).">FFTOptionPricer</a> instance.  <a href="classoptions_1_1_f_f_t_option_pricer.html#a688b70e1c9ae750b39388c4ca695ba9e">More...</a><br /></td></tr>
-<tr class="separator:a688b70e1c9ae750b39388c4ca695ba9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a979c62badd764748e1cfda88476124b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_f_f_t_option_pricer.html#a979c62badd764748e1cfda88476124b8">FFTOptionPricer</a> (R ttm, R rate, std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model, unsigned int Npow=10, unsigned int A=10)</td></tr>
+<tr class="memdesc:a979c62badd764748e1cfda88476124b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classoptions_1_1_f_f_t_option_pricer.html" title="FFTOptionPricer class for pricing options using Fast Fourier Transform (FFT).">FFTOptionPricer</a> instance.  <a href="classoptions_1_1_f_f_t_option_pricer.html#a979c62badd764748e1cfda88476124b8">More...</a><br /></td></tr>
+<tr class="separator:a979c62badd764748e1cfda88476124b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add0ba6794f2dbc06d6728054a0db9abc"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_f_f_t_option_pricer.html#add0ba6794f2dbc06d6728054a0db9abc">price</a> () const override</td></tr>
 <tr class="memdesc:add0ba6794f2dbc06d6728054a0db9abc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Price the option using FFT.  <a href="classoptions_1_1_f_f_t_option_pricer.html#add0ba6794f2dbc06d6728054a0db9abc">More...</a><br /></td></tr>
 <tr class="separator:add0ba6794f2dbc06d6728054a0db9abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,9 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0e5de6942aa1156f138dbcc7d543717a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the theta of the option using a bump-and-difference method.  <a href="classoptions_1_1_f_f_t_option_pricer.html#a0e5de6942aa1156f138dbcc7d543717a">More...</a><br /></td></tr>
 <tr class="separator:a0e5de6942aa1156f138dbcc7d543717a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classoptions_1_1_base_option_pricer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classoptions_1_1_base_option_pricer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classoptions_1_1_base_option_pricer.html">options::BaseOptionPricer&lt; traits::DataType::PolynomialField &gt;</a></td></tr>
-<tr class="memitem:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#ac9e677bbada0fc05d0fd06fe808af15f">BaseOptionPricer</a> (traits::DataType::PolynomialField ttm, traits::DataType::PolynomialField strike, traits::DataType::PolynomialField rate, std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; traits::DataType::PolynomialField &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; traits::DataType::PolynomialField &gt;&gt; sde_model)</td></tr>
-<tr class="memdesc:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a BaseOptionPricer instance.  <a href="classoptions_1_1_base_option_pricer.html#ac9e677bbada0fc05d0fd06fe808af15f">More...</a><br /></td></tr>
-<tr class="separator:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a44e3f1e044dba30d9db0486d3441af8e">BaseOptionPricer</a> (traits::DataType::PolynomialField ttm, traits::DataType::PolynomialField rate, std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; traits::DataType::PolynomialField &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; traits::DataType::PolynomialField &gt;&gt; sde_model)</td></tr>
+<tr class="memdesc:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a BaseOptionPricer instance.  <a href="classoptions_1_1_base_option_pricer.html#a44e3f1e044dba30d9db0486d3441af8e">More...</a><br /></td></tr>
+<tr class="separator:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aededc7b8e7d08b05af9fcc829475dcfd inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aededc7b8e7d08b05af9fcc829475dcfd">BaseOptionPricer</a> (const <a class="el" href="classoptions_1_1_base_option_pricer.html">BaseOptionPricer</a> &amp;other)</td></tr>
 <tr class="separator:aededc7b8e7d08b05af9fcc829475dcfd inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d8ba2b8bec95c048a66bb89a2710be8 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a1d8ba2b8bec95c048a66bb89a2710be8">BaseOptionPricer</a> (<a class="el" href="classoptions_1_1_base_option_pricer.html">BaseOptionPricer</a> &amp;&amp;) noexcept=default</td></tr>
@@ -141,10 +141,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6e59495dd1c89f2a77302bcd688c703c inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30aec90572c5de5f0f6bfa889a6ffb38 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a30aec90572c5de5f0f6bfa889a6ffb38">get_ttm</a> () const noexcept</td></tr>
 <tr class="separator:a30aec90572c5de5f0f6bfa889a6ffb38 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a623ede1372aa4ec7ce5675151e194936 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a623ede1372aa4ec7ce5675151e194936">set_strike</a> (traits::DataType::PolynomialField strike) noexcept</td></tr>
-<tr class="separator:a623ede1372aa4ec7ce5675151e194936 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac810c865cbbd1a4d4fa6a09eda75de42 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#ac810c865cbbd1a4d4fa6a09eda75de42">get_strike</a> () const noexcept</td></tr>
-<tr class="separator:ac810c865cbbd1a4d4fa6a09eda75de42 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeb691d1db0fa116009ffff2605d2d8f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aeeb691d1db0fa116009ffff2605d2d8f">set_rate</a> (traits::DataType::PolynomialField rate) noexcept</td></tr>
 <tr class="separator:aeeb691d1db0fa116009ffff2605d2d8f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a201377a13ea8f5328991e18587333616 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a201377a13ea8f5328991e18587333616">get_rate</a> () const noexcept</td></tr>
@@ -225,12 +221,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classoptions_1_1_base_option_pricer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classoptions_1_1_base_option_pricer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classoptions_1_1_base_option_pricer.html">options::BaseOptionPricer&lt; traits::DataType::PolynomialField &gt;</a></td></tr>
 <tr class="memitem:a00251f4c6c7dc2399fe2777b23c92543 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a00251f4c6c7dc2399fe2777b23c92543">ttm_</a></td></tr>
 <tr class="separator:a00251f4c6c7dc2399fe2777b23c92543 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa81fe68923f0295a4317b8952d83c919 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aa81fe68923f0295a4317b8952d83c919">strike_</a></td></tr>
-<tr class="separator:aa81fe68923f0295a4317b8952d83c919 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e7ecb28ce2f271f17d5a884af227e0a inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">traits::DataType::PolynomialField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a2e7ecb28ce2f271f17d5a884af227e0a">rate_</a></td></tr>
 <tr class="separator:a2e7ecb28ce2f271f17d5a884af227e0a inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5313edd80e81e905b52b6e46034fe04e inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; traits::DataType::PolynomialField &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a5313edd80e81e905b52b6e46034fe04e">payoff_</a></td></tr>
-<tr class="separator:a5313edd80e81e905b52b6e46034fe04e inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd7d64df8bf9160840ec5afff0a7e24 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; traits::DataType::PolynomialField &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a7dd7d64df8bf9160840ec5afff0a7e24">payoff_</a></td></tr>
+<tr class="separator:a7dd7d64df8bf9160840ec5afff0a7e24 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b800aec32c34061b0d1fcf2cb1cd6df inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; traits::DataType::PolynomialField &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a6b800aec32c34061b0d1fcf2cb1cd6df">sde_model_</a></td></tr>
 <tr class="separator:a6b800aec32c34061b0d1fcf2cb1cd6df inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -296,7 +290,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00212">212</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00211">211</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -322,13 +316,13 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00213">213</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00212">212</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a688b70e1c9ae750b39388c4ca695ba9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a688b70e1c9ae750b39388c4ca695ba9e">&#9670;&nbsp;</a></span>FFTOptionPricer()</h2>
+<a id="a979c62badd764748e1cfda88476124b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a979c62badd764748e1cfda88476124b8">&#9670;&nbsp;</a></span>FFTOptionPricer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -348,18 +342,12 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">R&#160;</td>
-          <td class="paramname"><em>strike</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">R&#160;</td>
           <td class="paramname"><em>rate</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt;&#160;</td>
           <td class="paramname"><em>payoff</em>, </td>
         </tr>
         <tr>
@@ -397,7 +385,6 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ttm</td><td>Time to maturity. </td></tr>
-    <tr><td class="paramname">strike</td><td>Strike price of the option. </td></tr>
     <tr><td class="paramname">rate</td><td>Risk-free interest rate. </td></tr>
     <tr><td class="paramname">payoff</td><td>Payoff function for the option. </td></tr>
     <tr><td class="paramname">sde_model</td><td>Shared pointer to the <a class="el" href="namespace_s_d_e.html">SDE</a> model used for pricing. </td></tr>
@@ -407,7 +394,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00063">63</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00062">62</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -502,7 +489,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Computes the delta of the option using a bump-and-difference method. </p>
 <p>This method perturbs the initial state of the <a class="el" href="namespace_s_d_e.html">SDE</a> model and calculates the change in option price. </p><dl class="section return"><dt>Returns</dt><dd>The computed delta value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00084">84</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00083">83</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -534,7 +521,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Computes the gamma of the option using a bump-and-difference method. </p>
 <p>This method perturbs the initial state of the <a class="el" href="namespace_s_d_e.html">SDE</a> model twice and calculates the second derivative of the option price. </p><dl class="section return"><dt>Returns</dt><dd>The computed gamma value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00097">97</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00096">96</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -564,7 +551,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00233">233</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00232">232</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -596,7 +583,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Initializes the FFT grid parameters. </p>
 <p>This method sets up the grid size, eta, and lambda based on the provided Npow and A parameters. It also initializes the complex vectors v_ and k_ used in the FFT computation. </p>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00153">153</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00152">152</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -635,7 +622,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The interpolated option price. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00204">204</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00203">203</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -669,7 +656,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="classoptions_1_1_base_option_pricer.html#a9ad12879e54f8abe2f0e3c3997cc0873">options::BaseOptionPricer&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00074">74</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00073">73</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -729,7 +716,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Computes the rho of the option using a bump-and-difference method. </p>
 <p>This method perturbs the risk-free interest rate and calculates the change in option price. </p><dl class="section return"><dt>Returns</dt><dd>The computed rho value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00122">122</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00121">121</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -817,7 +804,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Computes the theta of the option using a bump-and-difference method. </p>
 <p>This method perturbs the time to maturity and calculates the change in option price. </p><dl class="section return"><dt>Returns</dt><dd>The computed theta value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00136">136</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00135">135</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -849,7 +836,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Updates the characteristic function and computes the spline for option pricing. </p>
 <p>This method evaluates the characteristic function of the underlying asset using the <a class="el" href="namespace_s_d_e.html">SDE</a> model, computes the necessary terms for the FFT, and builds a spline for interpolating option prices. It is called before pricing the option to ensure the characteristic function is up-to-date. </p>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00170">170</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00169">169</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -881,7 +868,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <p>Computes the vega of the option using a bump-and-difference method. </p>
 <p>This method perturbs the volatility parameter of the <a class="el" href="namespace_s_d_e.html">SDE</a> model and calculates the change in option price. </p><dl class="section return"><dt>Returns</dt><dd>The computed vega value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00110">110</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00109">109</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -908,7 +895,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00250">250</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00249">249</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -934,7 +921,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00228">228</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00227">227</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -960,7 +947,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00247">247</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00246">246</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -987,10 +974,10 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">                <a class="code" href="classoptions_1_1_f_f_t_option_pricer.html#a5ea5c86e9f0b87d4025197d01564f5e0">setter</a>(original - <a class="code" href="classoptions_1_1_f_f_t_option_pricer.html#a273b84276ed7d4f4e78d14bb751278b7">bump</a>)</div>
-<div class="ttc" id="aclassoptions_1_1_f_f_t_option_pricer_html_a273b84276ed7d4f4e78d14bb751278b7"><div class="ttname"><a href="classoptions_1_1_f_f_t_option_pricer.html#a273b84276ed7d4f4e78d14bb751278b7">options::FFTOptionPricer::bump</a></div><div class="ttdeci">R bump</div><div class="ttdef"><b>Definition:</b> <a href="_f_f_t_option_pricer_8hpp_source.html#l00228">FFTOptionPricer.hpp:228</a></div></div>
+<div class="ttc" id="aclassoptions_1_1_f_f_t_option_pricer_html_a273b84276ed7d4f4e78d14bb751278b7"><div class="ttname"><a href="classoptions_1_1_f_f_t_option_pricer.html#a273b84276ed7d4f4e78d14bb751278b7">options::FFTOptionPricer::bump</a></div><div class="ttdeci">R bump</div><div class="ttdef"><b>Definition:</b> <a href="_f_f_t_option_pricer_8hpp_source.html#l00227">FFTOptionPricer.hpp:227</a></div></div>
 <div class="ttc" id="aclassoptions_1_1_f_f_t_option_pricer_html_a5ea5c86e9f0b87d4025197d01564f5e0"><div class="ttname"><a href="classoptions_1_1_f_f_t_option_pricer.html#a5ea5c86e9f0b87d4025197d01564f5e0">options::FFTOptionPricer::setter</a></div><div class="ttdeci">setter(original+bump)</div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00239">239</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00238">238</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1016,7 +1003,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00252">252</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00251">251</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1029,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00253">253</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00252">252</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1055,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00252">252</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00251">251</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1094,7 +1081,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00241">241</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00240">240</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1120,7 +1107,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00251">251</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00250">250</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1146,7 +1133,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00250">250</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00249">249</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1172,7 +1159,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00231">231</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00230">230</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1200,7 +1187,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">            R original = getter()</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00225">225</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00224">224</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1213,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00255">255</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00254">254</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1252,7 +1239,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00253">253</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00252">252</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1278,7 +1265,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00254">254</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00253">253</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1304,7 +1291,7 @@ template&lt;typename R  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00253">253</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_f_f_t_option_pricer_8hpp_source.html#l00252">252</a> of file <a class="el" href="_f_f_t_option_pricer_8hpp_source.html">FFTOptionPricer.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,9 +1,10 @@
 <map id="include/options/Payoff.hpp" name="include/options/Payoff.hpp">
-<area shape="rect" id="node1" title="Defines interfaces and concrete classes for option payoff evaluation in quantitative finance." alt="" coords="320,5,513,32"/>
-<area shape="rect" id="node2" href="$_base_option_pricer_8hpp.html" title="Defines the BaseOptionPricer class, an abstract base class for option pricing models." alt="" coords="317,80,517,121"/>
-<area shape="rect" id="node3" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFOptionPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="5,169,191,211"/>
-<area shape="rect" id="node4" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTOptionPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="215,169,405,211"/>
-<area shape="rect" id="node6" href="$_m_c_option_pricer_8hpp.html" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="430,169,619,211"/>
-<area shape="rect" id="node7" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="643,169,838,211"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="472,259,577,285"/>
+<area shape="rect" id="node1" title="Defines interfaces and concrete classes for option payoff evaluation in quantitative finance." alt="" coords="69,5,263,32"/>
+<area shape="rect" id="node2" href="$bindings_8cpp.html" title=" " alt="" coords="287,259,450,285"/>
+<area shape="rect" id="node3" href="$_base_option_pricer_8hpp.html" title="Defines the BaseOptionPricer class, an abstract base class for option pricing models." alt="" coords="239,80,439,121"/>
+<area shape="rect" id="node4" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFOptionPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="32,169,217,211"/>
+<area shape="rect" id="node5" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTOptionPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="461,169,652,211"/>
+<area shape="rect" id="node7" href="$_m_c_option_pricer_8hpp.html" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="677,169,866,211"/>
+<area shape="rect" id="node8" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="242,169,437,211"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="504,259,609,285"/>
 </map>

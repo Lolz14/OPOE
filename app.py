@@ -1,6 +1,6 @@
 # app.py
 import numpy as np
-import sdefin
+import opoe
 
 
 def main():
@@ -18,15 +18,15 @@ def main():
     # 2. Define payoff
     # ------------------------
     strike = 100.0
-    payoff = sdefin.EuropeanPutPayoff(strike)
-    payoff2 = sdefin.EuropeanCallPayoff(strike + 50)
-    payoff3 = sdefin.EuropeanCallPayoff(strike)
+    payoff = opoe.EuropeanPutPayoff(strike)
+    payoff2 = opoe.EuropeanCallPayoff(strike + 50)
+    payoff3 = opoe.EuropeanCallPayoff(strike)
  
 
 
-    heston = sdefin.HestonModel(0.04, 2, 0.10, 0.3, -0.7, x0)
-    geometric_brownian_motion = sdefin.GeometricBrownianMotionModel(0.05, 0.2, 4.6)
-    jacobi = sdefin.JacobiModel(0.04, 1.5, 0.09, 0.3, -0.7, 0.0, 1.0, x0)
+    heston = opoe.HestonModel(0.04, 2, 0.10, 0.3, -0.7, x0)
+    geometric_brownian_motion = opoe.GeometricBrownianMotionModel(0.05, 0.2, 4.6)
+    jacobi = opoe.JacobiModel(0.04, 1.5, 0.09, 0.3, -0.7, 0.0, 1.0, x0)
            
 
     # ------------------------
@@ -35,16 +35,16 @@ def main():
 
     # call the helper
     
-    fftpricer = sdefin.FFTOptionPricer(1, 0.05, payoff, heston, 5, 100)
+    fftpricer = opoe.CFOptionPricer(1, 0.05, payoff, geometric_brownian_motion)
     
     print("FFT Option price:", fftpricer.price())
             
     
-    OPEpricer = sdefin.OPEOptionPricerN7(1, 0.05, payoff, heston,  sdefin.SolverType.IJK, sdefin.QuadratureMethod.TanhSinh, 100)
+    OPEpricer = opoe.OPEOptionPricerN7(1, 0.05, payoff, heston,  opoe.SolverType.IJK, opoe.QuadratureMethod.TanhSinh, 100)
     
     print("Option price:", OPEpricer.price())
         
-    MC = sdefin.MCOptionPricer(1, 0.05, payoff, heston,   sdefin.SolverType.EulerMaruyama )
+    MC = opoe.MCOptionPricer(1, 0.05, payoff, heston,   opoe.SolverType.EulerMaruyama )
     
     
     print("MC price:", MC.price())

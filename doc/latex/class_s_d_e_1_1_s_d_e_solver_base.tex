@@ -11,8 +11,7 @@ Base class for \mbox{\hyperlink{namespace_s_d_e}{SDE}} solvers using CRTP for st
 
 
 
-Collaboration diagram for SDE\+::SDESolver\+Base$<$ Derived\+Solver, Sde\+Type, R $>$\+:
-\nopagebreak
+Collaboration diagram for SDE\+::SDESolver\+Base$<$ Derived\+Solver, Sde\+Type, R $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -65,7 +64,7 @@ Base class for \mbox{\hyperlink{namespace_s_d_e}{SDE}} solvers using CRTP for st
 \end{DoxyTemplParams}
 
 
-Definition at line 172 of file SDE.\+hpp.
+Definition at line 167 of file SDE.\+hpp.
 
 
 
@@ -79,7 +78,7 @@ Definition at line 172 of file SDE.\+hpp.
 
 
 
-Definition at line 174 of file SDE.\+hpp.
+Definition at line 169 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_aa8f53480de9a65dab6283c0aada58166}\label{class_s_d_e_1_1_s_d_e_solver_base_aa8f53480de9a65dab6283c0aada58166}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!````~SDESolverBase@{$\sim$SDESolverBase}}
@@ -100,7 +99,7 @@ Derived\+Solver\& \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDE\+::\+S
 
 
 
-Definition at line 303 of file SDE.\+hpp.
+Definition at line 298 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_af2ec4434ea741a41b041d0f3d56cdc18}\label{class_s_d_e_1_1_s_d_e_solver_base_af2ec4434ea741a41b041d0f3d56cdc18}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!derived@{derived}}
@@ -111,7 +110,7 @@ const Derived\+Solver\& \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDE\
 
 
 
-Definition at line 302 of file SDE.\+hpp.
+Definition at line 297 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_aa07eb8bb87253b03dc2f022cbb3f9a8d}\label{class_s_d_e_1_1_s_d_e_solver_base_aa07eb8bb87253b03dc2f022cbb3f9a8d}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!generate\_wiener\_increments@{generate\_wiener\_increments}}
@@ -142,7 +141,7 @@ Generates Wiener process increments for simulation.
 \end{DoxyExceptions}
 This method generates independent Wiener increments for each path and stores them in d\+W\+\_\+out. If dt is zero, it initializes d\+W\+\_\+out to zero. 
 
-Definition at line 190 of file SDE.\+hpp.
+Definition at line 185 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_ad1acd1534e820a70fb778e7994f192e1}\label{class_s_d_e_1_1_s_d_e_solver_base_ad1acd1534e820a70fb778e7994f192e1}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!solve@{solve}}
@@ -179,7 +178,7 @@ Solves the \mbox{\hyperlink{namespace_s_d_e}{SDE}} path and invokes an observer 
 \end{DoxyExceptions}
 This method simulates the \mbox{\hyperlink{namespace_s_d_e}{SDE}} over the specified time range and invokes the observer callback at each step with the current time and state vector. 
 
-Definition at line 231 of file SDE.\+hpp.
+Definition at line 226 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_ac2b11bfaea28e1beb31dad6163c4b73a}\label{class_s_d_e_1_1_s_d_e_solver_base_ac2b11bfaea28e1beb31dad6163c4b73a}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!solve@{solve}}
@@ -197,7 +196,7 @@ Vector of state vectors at each time step (size num\+\_\+steps + 1).
 \end{DoxyReturn}
 
 
-Definition at line 289 of file SDE.\+hpp.
+Definition at line 284 of file SDE.\+hpp.
 
 
 
@@ -211,7 +210,7 @@ std\+::mt19937\& \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDE\+::\+SD
 
 
 
-Definition at line 301 of file SDE.\+hpp.
+Definition at line 296 of file SDE.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_s_d_e_solver_base_a85044a8565c519b40037184d503fd2d4}\label{class_s_d_e_1_1_s_d_e_solver_base_a85044a8565c519b40037184d503fd2d4}} 
 \index{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$@{SDE::SDESolverBase$<$ DerivedSolver, SdeType, R $>$}!sde\_ref\_@{sde\_ref\_}}
@@ -222,7 +221,7 @@ const Sde\+Type\& \mbox{\hyperlink{class_s_d_e_1_1_s_d_e_solver_base}{SDE\+::\+S
 
 
 
-Definition at line 300 of file SDE.\+hpp.
+Definition at line 295 of file SDE.\+hpp.
 
 
 

@@ -15,16 +15,14 @@ Defines core type traits, enumerations, and data structures for the OPOE library
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$complex$>$}\newline
-Include dependency graph for OPOE\+\_\+traits.\+hpp\+:
-\nopagebreak
+Include dependency graph for OPOE\+\_\+traits.\+hpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{_o_p_o_e__traits_8hpp__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -68,7 +66,12 @@ enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a976bded296a67e09242af85291a63
 enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cc}{Quantization\+Procedure}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca1c8b97c83b0726216cd5dbc88a64b0ed}{Newton}}
 , \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a23239ce06a79e5103dfdf77c9299f9cca18404ae18ea5a0144a5dffc87cb03fc5}{CLVQ}}
  \}
-\begin{DoxyCompactList}\small\item\em Enumerates different quantization strategies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Enumerates different quantization strategies. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ec}{Solver\+Type}} \{ \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ecacc97648d67c8ba1867f8b4144bf168cd}{Euler\+Maruyama}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca8a7584985a5073af6b756c50e97ba672}{Milstein}}
+, \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca0ff67dd2d18ca510684cd2566afca300}{IJK}}
+ \}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -226,4 +229,28 @@ CLVQ&Competitive Learning Vector Quantization. \\
 
 
 Definition at line 131 of file OPOE\+\_\+traits.\+hpp.
+
+\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ec}\label{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ec}} 
+\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!SolverType@{SolverType}}
+\index{SolverType@{SolverType}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}
+\doxysubsubsection{\texorpdfstring{SolverType}{SolverType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ec}{Solver\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EulerMaruyama@{EulerMaruyama}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!EulerMaruyama@{EulerMaruyama}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ecacc97648d67c8ba1867f8b4144bf168cd}\label{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306ecacc97648d67c8ba1867f8b4144bf168cd}} 
+Euler\+Maruyama&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Milstein@{Milstein}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!Milstein@{Milstein}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca8a7584985a5073af6b756c50e97ba672}\label{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca8a7584985a5073af6b756c50e97ba672}} 
+Milstein&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IJK@{IJK}!OPOE\_traits.hpp@{OPOE\_traits.hpp}}\index{OPOE\_traits.hpp@{OPOE\_traits.hpp}!IJK@{IJK}}}\mbox{\Hypertarget{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca0ff67dd2d18ca510684cd2566afca300}\label{_o_p_o_e__traits_8hpp_a8b06041d7c1fb05f379714f4312306eca0ff67dd2d18ca510684cd2566afca300}} 
+IJK&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 142 of file OPOE\+\_\+traits.\+hpp.
 

@@ -11,8 +11,7 @@ Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for Euro
 
 
 
-Inheritance diagram for options\+::European\+Call\+Payoff$<$ T $>$\+:
-\nopagebreak
+Inheritance diagram for options\+::European\+Call\+Payoff$<$ T $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,8 +20,7 @@ Inheritance diagram for options\+::European\+Call\+Payoff$<$ T $>$\+:
 \end{figure}
 
 
-Collaboration diagram for options\+::European\+Call\+Payoff$<$ T $>$\+:
-\nopagebreak
+Collaboration diagram for options\+::European\+Call\+Payoff$<$ T $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -44,8 +42,10 @@ T \mbox{\hyperlink{classoptions_1_1_european_call_payoff_a861dd2200a03d8b21b5060
 \begin{DoxyCompactList}\small\item\em Evaluates the call payoff from log-\/price\+: max(exp(x\+\_\+\+T) -\/ K, 0). \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ T $>$ $>$ \mbox{\hyperlink{classoptions_1_1_european_call_payoff_aa928ad74b008a95274274b99c4c7f663}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Creates a copy of the \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{European\+Call\+Payoff}} object. \end{DoxyCompactList}\item 
-T \mbox{\hyperlink{classoptions_1_1_european_call_payoff_a4d1d7a490ff1fc6ee413f8e3cb83fce2}{get\+Strike}} () const noexcept
-\begin{DoxyCompactList}\small\item\em Gets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
+T \mbox{\hyperlink{classoptions_1_1_european_call_payoff_a311faf2d39d4e20bc789221ce1dfd448}{get\+Strike}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Gets the strike price. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classoptions_1_1_european_call_payoff_a09e8f33b0d8ebb32310c15cc61b3d58c}{set\+Strike}} (T strike\+\_\+price) override
+\begin{DoxyCompactList}\small\item\em Sets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -68,7 +68,7 @@ This class implements the payoff evaluation for European call options, defined a
 \end{DoxyTemplParams}
 
 
-Definition at line 112 of file Payoff.\+hpp.
+Definition at line 120 of file Payoff.\+hpp.
 
 
 
@@ -91,7 +91,7 @@ Constructor for European Call Payoff.
 \end{DoxyParams}
 
 
-Definition at line 121 of file Payoff.\+hpp.
+Definition at line 129 of file Payoff.\+hpp.
 
 
 
@@ -116,7 +116,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a5a67c274834ea11efe4824138
 
 
 
-Definition at line 170 of file Payoff.\+hpp.
+Definition at line 178 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a0391e3fe2afea97bb0dbaadfea671ed7}\label{classoptions_1_1_european_call_payoff_a0391e3fe2afea97bb0dbaadfea671ed7}} 
 \index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!evaluate@{evaluate}}
@@ -143,7 +143,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a0b8f287e9dbadb4741369092c
 
 
 
-Definition at line 149 of file Payoff.\+hpp.
+Definition at line 157 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a66fc68f4bb3bd599148f79efb0619b8c}\label{classoptions_1_1_european_call_payoff_a66fc68f4bb3bd599148f79efb0619b8c}} 
 \index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!evaluate@{evaluate}}
@@ -166,7 +166,7 @@ The calculated call payoff value.
 \end{DoxyReturn}
 
 
-Definition at line 140 of file Payoff.\+hpp.
+Definition at line 148 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a861dd2200a03d8b21b50608e0ad1cf43}\label{classoptions_1_1_european_call_payoff_a861dd2200a03d8b21b50608e0ad1cf43}} 
 \index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!evaluate\_from\_log@{evaluate\_from\_log}}
@@ -189,14 +189,14 @@ The calculated call payoff value.
 \end{DoxyReturn}
 
 
-Definition at line 162 of file Payoff.\+hpp.
+Definition at line 170 of file Payoff.\+hpp.
 
-\mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a4d1d7a490ff1fc6ee413f8e3cb83fce2}\label{classoptions_1_1_european_call_payoff_a4d1d7a490ff1fc6ee413f8e3cb83fce2}} 
+\mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a311faf2d39d4e20bc789221ce1dfd448}\label{classoptions_1_1_european_call_payoff_a311faf2d39d4e20bc789221ce1dfd448}} 
 \index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!getStrike@{getStrike}}
 \index{getStrike@{getStrike}!options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{getStrike()}{getStrike()}}
 {\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-T \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{options\+::\+European\+Call\+Payoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+T \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{options\+::\+European\+Call\+Payoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -207,7 +207,36 @@ The strike price (K).
 \end{DoxyReturn}
 
 
-Definition at line 179 of file Payoff.\+hpp.
+Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_ae6980e1f8cdc534eca4c554352267355}{options\+::\+IPayoff$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 187 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_call_payoff_a09e8f33b0d8ebb32310c15cc61b3d58c}\label{classoptions_1_1_european_call_payoff_a09e8f33b0d8ebb32310c15cc61b3d58c}} 
+\index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!setStrike@{setStrike}}
+\index{setStrike@{setStrike}!options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setStrike()}{setStrike()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{options\+::\+European\+Call\+Payoff}}$<$ T $>$\+::set\+Strike (\begin{DoxyParamCaption}\item[{T}]{strike\+\_\+price }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Sets the strike price. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strike\+\_\+price} & The new strike price (K). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if the strike price is negative. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 196 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_call_payoff_ab1262df02fd4e5f93fcb1a502bbe4b17}\label{classoptions_1_1_european_call_payoff_ab1262df02fd4e5f93fcb1a502bbe4b17}} 
 \index{options::EuropeanCallPayoff$<$ T $>$@{options::EuropeanCallPayoff$<$ T $>$}!type@{type}}
@@ -229,7 +258,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a25865d4e18089c2e6b45da21c
 
 
 
-Definition at line 131 of file Payoff.\+hpp.
+Definition at line 139 of file Payoff.\+hpp.
 
 
 
@@ -243,7 +272,7 @@ T \mbox{\hyperlink{classoptions_1_1_european_call_payoff}{options\+::\+European\
 
 
 
-Definition at line 114 of file Payoff.\+hpp.
+Definition at line 122 of file Payoff.\+hpp.
 
 
 

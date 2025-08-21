@@ -112,14 +112,16 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ab330029414bd4080761428765f209838"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ab330029414bd4080761428765f209838">state_dim</a> () const override</td></tr>
+<tr class="separator:ab330029414bd4080761428765f209838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a874b3febb0d914d969fd0df192533d31"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a874b3febb0d914d969fd0df192533d31">wiener_dim</a> () const override</td></tr>
+<tr class="separator:a874b3febb0d914d969fd0df192533d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abad0410217a20ce7e7b20f5a43f47380"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#abad0410217a20ce7e7b20f5a43f47380">GenericSVModelSDE</a> (const <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html">Parameters</a> &amp;params, const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> x0)</td></tr>
 <tr class="separator:abad0410217a20ce7e7b20f5a43f47380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0de4f48029a88a596218fd157292f1c7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a0de4f48029a88a596218fd157292f1c7">get_wiener_dimension</a> () const override</td></tr>
 <tr class="separator:a0de4f48029a88a596218fd157292f1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c97d33a76b62c69ea6fedb676e78604"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a7c97d33a76b62c69ea6fedb676e78604">get_state_dim</a> () const override</td></tr>
 <tr class="separator:a7c97d33a76b62c69ea6fedb676e78604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac605f3f1f41e30fd79c1962e0e438d2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#aac605f3f1f41e30fd79c1962e0e438d2">get_parameters</a> () const</td></tr>
-<tr class="separator:aac605f3f1f41e30fd79c1962e0e438d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cf6de1211d6fd1a48e9a629ed686774"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a1cf6de1211d6fd1a48e9a629ed686774">drift</a> ([[maybe_unused]] T t, const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;x, <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;mu_out) const override</td></tr>
 <tr class="separator:a1cf6de1211d6fd1a48e9a629ed686774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c885a6559d1869ba8b21ec12c7203e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a7c885a6559d1869ba8b21ec12c7203e2">diffusion</a> ([[maybe_unused]] T t, const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;x, <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a> &amp;sigma_out) const override</td></tr>
@@ -130,9 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a92ef90715271f414f8a69c82871ba69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2ad247fadfa65a3b5d4cb957c531b64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ae2ad247fadfa65a3b5d4cb957c531b64">diffusion_second_derivative_x</a> ([[maybe_unused]] T t, [[maybe_unused]] const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;x, <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a> &amp;deriv_out) const override</td></tr>
 <tr class="separator:ae2ad247fadfa65a3b5d4cb957c531b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af19f911c9c582e29b56a1da1c98d0a75"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs.html">SVPolyCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#af19f911c9c582e29b56a1da1c98d0a75">build_sv_polynomials</a> (const typename <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">GenericSVModelSDE</a>&lt; T &gt;::<a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html">Parameters</a> &amp;p, int N)</td></tr>
-<tr class="memdesc:af19f911c9c582e29b56a1da1c98d0a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the polynomial coefficients for the stochastic volatility model.  <a href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#af19f911c9c582e29b56a1da1c98d0a75">More...</a><br /></td></tr>
-<tr class="separator:af19f911c9c582e29b56a1da1c98d0a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7dff6fac908901f7cc9c2ba81b9610d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs.html">SVPolyCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#aa7dff6fac908901f7cc9c2ba81b9610d">build_sv_polynomials</a> (int N)</td></tr>
+<tr class="memdesc:aa7dff6fac908901f7cc9c2ba81b9610d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the polynomial coefficients for the stochastic volatility model.  <a href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#aa7dff6fac908901f7cc9c2ba81b9610d">More...</a><br /></td></tr>
+<tr class="separator:aa7dff6fac908901f7cc9c2ba81b9610d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada84734ca7be0157389c117ee2ea1e35"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ada84734ca7be0157389c117ee2ea1e35">generator_G</a> (std::vector&lt; std::pair&lt; int, int &gt;&gt; E, int N, T sigma) const</td></tr>
 <tr class="memdesc:ada84734ca7be0157389c117ee2ea1e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the generator matrix G for the stochastic volatility model.  <a href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ada84734ca7be0157389c117ee2ea1e35">More...</a><br /></td></tr>
 <tr class="separator:ada84734ca7be0157389c117ee2ea1e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +162,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8793a62d9bff0381af016df5a07542bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada37cf7bbead2a408c761c2e71b800f3"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ada37cf7bbead2a408c761c2e71b800f3">get_sigma_v</a> () const noexcept</td></tr>
 <tr class="separator:ada37cf7bbead2a408c761c2e71b800f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d7c251605e45945012766f26de4141"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#a19d7c251605e45945012766f26de4141">get_drift</a> () const noexcept</td></tr>
+<tr class="separator:a19d7c251605e45945012766f26de4141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6dfb49ef469e5682859a01364bd4f44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ad6dfb49ef469e5682859a01364bd4f44">M_T</a> (T ttm, T dt, const <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a> &amp;y_t, const <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a> &amp;w_t)</td></tr>
 <tr class="memdesc:ad6dfb49ef469e5682859a01364bd4f44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the Mean of the <a class="el" href="namespace_s_d_e.html">SDE</a> at time T by employing an IJK scheme combined with weighted Monte Carlo integration.  <a href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html#ad6dfb49ef469e5682859a01364bd4f44">More...</a><br /></td></tr>
 <tr class="separator:ad6dfb49ef469e5682859a01364bd4f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -234,7 +238,7 @@ class SDE::GenericSVModelSDE&lt; T &gt;</h3>
 </dl>
 <p>As defined in Fast strong approximation Monte-Carlo schemes for stochastic volatility models The model is the following: dS(t) = mu*S(t)*dt + V(t)^p * S(t) * dW(t) dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ(t) We employ Cholesky decomposition to handle the correlation between the two Wiener processes: dW = rho * dZ_uncorr + sqrt(1 - rho^2) * dW_uncorr dZ = dZ_uncorr So that, we get the following system of SDEs: dS(t) = mu*S(t)*dt + V(t)^p * S(t) * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr) dV(t) = kappa * (theta - V(t)) * dt + sigma * V(t)^q * dZ_uncorr where dZ_uncorr and dW_uncorr are two independent Wiener motions. Applying the Ito's lemma, we can derive the drift and diffusion terms for the SDEs. dX(t) (mu - V(t)^2p/2) * dt + V(t)^p * (rho*dZ_uncorr + sqrt(1 - rho^2)*dW_uncorr dY(t) = kappa * (theta - Y(t)) * dt + sigma * Y(t)^q * dZ_uncorr </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00374">374</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00388">388</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a25a8cc0b5be86ffaef790f4fa393f312"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a25a8cc0b5be86ffaef790f4fa393f312">&#9670;&nbsp;</a></span>Base</h2>
@@ -258,7 +262,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00375">375</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00389">389</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -299,13 +303,13 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00405">405</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00422">422</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af19f911c9c582e29b56a1da1c98d0a75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af19f911c9c582e29b56a1da1c98d0a75">&#9670;&nbsp;</a></span>build_sv_polynomials()</h2>
+<a id="aa7dff6fac908901f7cc9c2ba81b9610d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7dff6fac908901f7cc9c2ba81b9610d">&#9670;&nbsp;</a></span>build_sv_polynomials()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,19 +322,9 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
         <tr>
           <td class="memname">virtual <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs.html">SVPolyCoeffs</a> <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">SDE::GenericSVModelSDE</a>&lt; T &gt;::build_sv_polynomials </td>
           <td>(</td>
-          <td class="paramtype">const typename <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">GenericSVModelSDE</a>&lt; T &gt;::<a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html">Parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>p</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>N</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>N</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -343,14 +337,15 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <p>Builds the polynomial coefficients for the stochastic volatility model. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td><a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html" title="Parameters for the Generic Stochastic Volatility SDE.">Parameters</a> of the stochastic volatility model. </td></tr>
     <tr><td class="paramname">N</td><td>Number of polynomial coefficients to compute. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_s_v_poly_coeffs.html" title="Struct to hold polynomial coefficients for the stochastic volatility model.">SVPolyCoeffs</a> containing the polynomial coefficients for the drift and diffusion terms. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00572">572</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p>Reimplemented in <a class="el" href="class_s_d_e_1_1_jacobi_model_s_d_e.html#a1b3f9a32d9a3363eda5a65ae2f7b38ef">SDE::JacobiModelSDE&lt; T &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00579">579</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -407,7 +402,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The C_T term as an SDEVector. This method computes the C_T term for the <a class="el" href="namespace_s_d_e.html">SDE</a> at time T using the trapezoidal rule. It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters. The method assumes that y_t is a matrix with compatible dimensions. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00840">840</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00851">851</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -453,7 +448,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00471">471</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00486">486</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -499,7 +494,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00521">521</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00536">536</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -545,7 +540,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00535">535</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00544">544</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -591,7 +586,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00444">444</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00459">459</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -637,7 +632,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00515">515</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00530">530</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -688,7 +683,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The generator matrix G as an SDEMatrix.</dd></dl>
 <p>This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model. The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E. The resulting matrix G is used in polynomial expansion methods for solving the <a class="el" href="namespace_s_d_e.html">SDE</a>. This version of the method uses Kronecker products to build the generator matrix G based on the provided basis H, which can be also a mixture. </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00718">718</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00724">724</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -746,7 +741,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The generator matrix G as an SDEMatrix.</dd></dl>
 <p>This method constructs the generator matrix G based on the polynomial coefficients derived from the stochastic volatility model. The matrix is built using the coefficients for the drift and diffusion terms, and it is projected to a triangular form based on the basis functions defined in E. The resulting matrix G is used in polynomial expansion methods for solving the <a class="el" href="namespace_s_d_e.html">SDE</a>. This version of the method uses an approximation when it comes to mixture models, since the sigma parameter provided is approximated through moment matching and is not the actual volatility of the process. </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00634">634</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00640">640</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -775,7 +770,36 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00764">764</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00770">770</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a19d7c251605e45945012766f26de4141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d7c251605e45945012766f26de4141">&#9670;&nbsp;</a></span>get_drift()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">SDE::GenericSVModelSDE</a>&lt; T &gt;::get_drift </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00786">786</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -804,7 +828,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00768">768</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00774">774</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -836,36 +860,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <p>Getters for model parameters. </p>
 <p>These methods provide access to the model parameters used in the <a class="el" href="namespace_s_d_e.html">SDE</a>. They are useful for retrieving specific parameters without exposing the entire <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html" title="Parameters for the Generic Stochastic Volatility SDE.">Parameters</a> struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00756">756</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aac605f3f1f41e30fd79c1962e0e438d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac605f3f1f41e30fd79c1962e0e438d2">&#9670;&nbsp;</a></span>get_parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="struct_s_d_e_1_1_generic_s_v_model_s_d_e_1_1_parameters.html">Parameters</a>&amp; <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">SDE::GenericSVModelSDE</a>&lt; T &gt;::get_parameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00442">442</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00762">762</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -894,7 +889,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00760">760</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00766">766</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -923,7 +918,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00776">776</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00782">782</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -954,7 +949,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a1153abea1f0a2573f5be555d21a46931">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00440">440</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00457">457</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -983,7 +978,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00772">772</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00778">778</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1009,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a9457e9e498a703a1c9d20d7a19534a01">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00743">743</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00749">749</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1045,7 +1040,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a551c9ac6e5ebfc11845209e256d6e8bf">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00438">438</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00455">455</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1071,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#ab9613f5b1f4f94b24f650a945597f2a7">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00733">733</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00739">739</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1141,7 +1136,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The mean of the <a class="el" href="namespace_s_d_e.html">SDE</a> at time T as an SDEVector.</dd></dl>
 <p>This method computes the mean of the <a class="el" href="namespace_s_d_e.html">SDE</a> at time T using a combination of trapezoidal rule for integration and stochastic integral for the Wiener increments. It handles the correlation between the asset and volatility processes and applies the appropriate transformations based on the model parameters. The method assumes that y_t and w_t are matrices with compatible dimensions. </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00793">793</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00804">804</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1171,7 +1166,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00747">747</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00753">753</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1196,69 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00738">738</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00744">744</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab330029414bd4080761428765f209838"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab330029414bd4080761428765f209838">&#9670;&nbsp;</a></span>state_dim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">SDE::GenericSVModelSDE</a>&lt; T &gt;::state_dim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a16d8477b7074c85b9d0ee887b57c679c">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00396">396</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a874b3febb0d914d969fd0df192533d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a874b3febb0d914d969fd0df192533d31">&#9670;&nbsp;</a></span>wiener_dim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_s_d_e_1_1_generic_s_v_model_s_d_e.html">SDE::GenericSVModelSDE</a>&lt; T &gt;::wiener_dim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a3d269a335ce735d99ad56d4d70ccc7f6">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00397">397</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1285,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00401">401</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00418">418</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1254,7 +1311,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00380">380</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00394">394</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -1280,7 +1337,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00379">379</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00393">393</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>

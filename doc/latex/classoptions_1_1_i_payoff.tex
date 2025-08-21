@@ -25,7 +25,11 @@ virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IP
 virtual T \mbox{\hyperlink{classoptions_1_1_i_payoff_a93ffdac8a5e50d0a57125d369b364398}{evaluate\+\_\+from\+\_\+log}} (T log\+\_\+underlying\+\_\+price) const
 \begin{DoxyCompactList}\small\item\em Evaluates the payoff for a given final log-\/price of the underlying. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}} \mbox{\hyperlink{classoptions_1_1_i_payoff_a9a11cd10b92564295e1757dacec008ac}{evaluate\+\_\+from\+\_\+log}} (\mbox{\hyperlink{namespaceoptions_ab58cae0110c4f2120c90ccd35ec52b40}{Storing\+Vector}} log\+\_\+underlying\+\_\+prices) const
-\begin{DoxyCompactList}\small\item\em Evaluates the payoff for a vector of final log-\/prices of the underlying. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Evaluates the payoff for a vector of final log-\/prices of the underlying. \end{DoxyCompactList}\item 
+virtual T \mbox{\hyperlink{classoptions_1_1_i_payoff_ae6980e1f8cdc534eca4c554352267355}{get\+Strike}} () const =0
+\item 
+virtual void \mbox{\hyperlink{classoptions_1_1_i_payoff_a529a1c8f5fd26c76a42a114990af383f}{set\+Strike}} (T strike\+\_\+price)=0
+\begin{DoxyCompactList}\small\item\em Sets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -164,6 +168,38 @@ The calculated payoff value.
 
 Definition at line 84 of file Payoff.\+hpp.
 
+\mbox{\Hypertarget{classoptions_1_1_i_payoff_ae6980e1f8cdc534eca4c554352267355}\label{classoptions_1_1_i_payoff_ae6980e1f8cdc534eca4c554352267355}} 
+\index{options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}!getStrike@{getStrike}}
+\index{getStrike@{getStrike}!options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getStrike()}{getStrike()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual T \mbox{\hyperlink{classoptions_1_1_i_payoff}{options\+::\+IPayoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a96ecbc075eb0c405a349d8d99d53f06d}{options\+::\+European\+Put\+Payoff$<$ T $>$}}, and \mbox{\hyperlink{classoptions_1_1_european_call_payoff_a311faf2d39d4e20bc789221ce1dfd448}{options\+::\+European\+Call\+Payoff$<$ T $>$}}.
+
+\mbox{\Hypertarget{classoptions_1_1_i_payoff_a529a1c8f5fd26c76a42a114990af383f}\label{classoptions_1_1_i_payoff_a529a1c8f5fd26c76a42a114990af383f}} 
+\index{options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}!setStrike@{setStrike}}
+\index{setStrike@{setStrike}!options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setStrike()}{setStrike()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual void \mbox{\hyperlink{classoptions_1_1_i_payoff}{options\+::\+IPayoff}}$<$ T $>$\+::set\+Strike (\begin{DoxyParamCaption}\item[{T}]{strike\+\_\+price }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Sets the strike price. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strike\+\_\+price} & The new strike price (K). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if the strike price is negative. \\
+\hline
+\end{DoxyExceptions}
 \mbox{\Hypertarget{classoptions_1_1_i_payoff_a25865d4e18089c2e6b45da21c13149ab}\label{classoptions_1_1_i_payoff_a25865d4e18089c2e6b45da21c13149ab}} 
 \index{options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}!type@{type}}
 \index{type@{type}!options::IPayoff$<$ T $>$@{options::IPayoff$<$ T $>$}}

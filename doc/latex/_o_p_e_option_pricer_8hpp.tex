@@ -19,20 +19,18 @@ Defines the OPEOption\+Pricer class for pricing options using Orthogonal Polynom
 {\ttfamily \#include $<$utility$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$execution$>$}\newline
-Include dependency graph for OPEOption\+Pricer.\+hpp\+:
-\nopagebreak
+Include dependency graph for OPEOption\+Pricer.\+hpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{_o_p_e_option_pricer_8hpp__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=226pt]{_o_p_e_option_pricer_8hpp__dep__incl}
+\includegraphics[width=300pt]{_o_p_e_option_pricer_8hpp__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsection*{Namespaces}
@@ -66,7 +64,7 @@ Dependencies\+:
 Instantiate OPEOption\+Pricer with the desired template parameters, provide the required \mbox{\hyperlink{namespace_s_d_e}{SDE}} model, payoff, and solver function. Call the price() method to compute the discounted expected payoff.\hypertarget{_o_p_e_option_pricer_8hpp_Example}{}\doxysubsection{Example}\label{_o_p_e_option_pricer_8hpp_Example}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto} pricer = options::OPEOptionPricer<>(ttm, strike, rate, payoff, sde\_model, solver\_func);}
+\DoxyCodeLine{\textcolor{keyword}{auto} pricer = options::OPEOptionPricer<>(ttm, rate, payoff, sde\_model, solver\_type);}
 \DoxyCodeLine{\textcolor{keywordtype}{double} option\_price = pricer.price();}
 
 \end{DoxyCode}

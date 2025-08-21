@@ -573,7 +573,6 @@ public:
 
     /**
      * @brief Builds the polynomial coefficients for the stochastic volatility model.
-     * @param p Parameters of the stochastic volatility model.
      * @param N Number of polynomial coefficients to compute.
      * @return SVPolyCoeffs containing the polynomial coefficients for the drift and diffusion terms.
      */

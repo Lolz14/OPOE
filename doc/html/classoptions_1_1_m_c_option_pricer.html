@@ -104,21 +104,21 @@ Public Types</h2></td></tr>
 <tr class="separator:a8cff426c951db2be79049a1f9e3e0112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a951fa727fa24f23e73776632931065e3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a951fa727fa24f23e73776632931065e3">StoringMatrix</a> = traits::DataType::StoringMatrix</td></tr>
 <tr class="separator:a951fa727fa24f23e73776632931065e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae62822f619c0be719ef11dd4273d97ea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a> = std::function&lt; <a class="el" href="classoptions_1_1_m_c_option_pricer.html#a951fa727fa24f23e73776632931065e3">StoringMatrix</a>(R, R, int, int, const std::optional&lt; <a class="el" href="classoptions_1_1_m_c_option_pricer.html#a951fa727fa24f23e73776632931065e3">StoringMatrix</a> &gt; &amp;dW_opt)&gt;</td></tr>
-<tr class="separator:ae62822f619c0be719ef11dd4273d97ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16ec52558ae5c07ee2e1e85d60aaacd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a> = traits::SolverType</td></tr>
+<tr class="separator:ad16ec52558ae5c07ee2e1e85d60aaacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7a86754e4410aefe2b63526b9aa026e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a7a86754e4410aefe2b63526b9aa026e4">MCOptionPricer</a> (R ttm, R strike, R rate, std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model, <a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a> solver_func, unsigned int num_paths=10, unsigned int num_steps=3)</td></tr>
-<tr class="memdesc:a7a86754e4410aefe2b63526b9aa026e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classoptions_1_1_m_c_option_pricer.html" title="Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation.">MCOptionPricer</a> instance.  <a href="classoptions_1_1_m_c_option_pricer.html#a7a86754e4410aefe2b63526b9aa026e4">More...</a><br /></td></tr>
-<tr class="separator:a7a86754e4410aefe2b63526b9aa026e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dcedcc41eff588ea892661714d7253f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a7dcedcc41eff588ea892661714d7253f">MCOptionPricer</a> (R ttm, R rate, std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model, <a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a> solver_type, unsigned int num_paths=10, unsigned int num_steps=3)</td></tr>
+<tr class="memdesc:a7dcedcc41eff588ea892661714d7253f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classoptions_1_1_m_c_option_pricer.html" title="Monte Carlo Option Pricer class for pricing options using Monte Carlo simulation.">MCOptionPricer</a> instance.  <a href="classoptions_1_1_m_c_option_pricer.html#a7dcedcc41eff588ea892661714d7253f">More...</a><br /></td></tr>
+<tr class="separator:a7dcedcc41eff588ea892661714d7253f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0627815bdbfe43b59dea9904897e911"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ab0627815bdbfe43b59dea9904897e911">price</a> () const override</td></tr>
 <tr class="memdesc:ab0627815bdbfe43b59dea9904897e911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prices the option using Monte Carlo simulation.  <a href="classoptions_1_1_m_c_option_pricer.html#ab0627815bdbfe43b59dea9904897e911">More...</a><br /></td></tr>
 <tr class="separator:ab0627815bdbfe43b59dea9904897e911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classoptions_1_1_base_option_pricer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classoptions_1_1_base_option_pricer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classoptions_1_1_base_option_pricer.html">options::BaseOptionPricer&lt; R &gt;</a></td></tr>
-<tr class="memitem:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#ac9e677bbada0fc05d0fd06fe808af15f">BaseOptionPricer</a> (R ttm, R strike, R rate, std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model)</td></tr>
-<tr class="memdesc:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a BaseOptionPricer instance.  <a href="classoptions_1_1_base_option_pricer.html#ac9e677bbada0fc05d0fd06fe808af15f">More...</a><br /></td></tr>
-<tr class="separator:ac9e677bbada0fc05d0fd06fe808af15f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a44e3f1e044dba30d9db0486d3441af8e">BaseOptionPricer</a> (R ttm, R rate, std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt; payoff, std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt;&gt; sde_model)</td></tr>
+<tr class="memdesc:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a BaseOptionPricer instance.  <a href="classoptions_1_1_base_option_pricer.html#a44e3f1e044dba30d9db0486d3441af8e">More...</a><br /></td></tr>
+<tr class="separator:a44e3f1e044dba30d9db0486d3441af8e inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aededc7b8e7d08b05af9fcc829475dcfd inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aededc7b8e7d08b05af9fcc829475dcfd">BaseOptionPricer</a> (const <a class="el" href="classoptions_1_1_base_option_pricer.html">BaseOptionPricer</a> &amp;other)</td></tr>
 <tr class="separator:aededc7b8e7d08b05af9fcc829475dcfd inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d8ba2b8bec95c048a66bb89a2710be8 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a1d8ba2b8bec95c048a66bb89a2710be8">BaseOptionPricer</a> (<a class="el" href="classoptions_1_1_base_option_pricer.html">BaseOptionPricer</a> &amp;&amp;) noexcept=default</td></tr>
@@ -133,10 +133,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6e59495dd1c89f2a77302bcd688c703c inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30aec90572c5de5f0f6bfa889a6ffb38 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a30aec90572c5de5f0f6bfa889a6ffb38">get_ttm</a> () const noexcept</td></tr>
 <tr class="separator:a30aec90572c5de5f0f6bfa889a6ffb38 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a623ede1372aa4ec7ce5675151e194936 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a623ede1372aa4ec7ce5675151e194936">set_strike</a> (R strike) noexcept</td></tr>
-<tr class="separator:a623ede1372aa4ec7ce5675151e194936 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac810c865cbbd1a4d4fa6a09eda75de42 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#ac810c865cbbd1a4d4fa6a09eda75de42">get_strike</a> () const noexcept</td></tr>
-<tr class="separator:ac810c865cbbd1a4d4fa6a09eda75de42 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeb691d1db0fa116009ffff2605d2d8f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aeeb691d1db0fa116009ffff2605d2d8f">set_rate</a> (R rate) noexcept</td></tr>
 <tr class="separator:aeeb691d1db0fa116009ffff2605d2d8f inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a201377a13ea8f5328991e18587333616 inherit pub_methods_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a201377a13ea8f5328991e18587333616">get_rate</a> () const noexcept</td></tr>
@@ -144,8 +140,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aad05d6d8f28a1eaa94319df1d40f2461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#aad05d6d8f28a1eaa94319df1d40f2461">solver_func_</a></td></tr>
-<tr class="separator:aad05d6d8f28a1eaa94319df1d40f2461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36355b223a8feec679db281e5288154d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a36355b223a8feec679db281e5288154d">solver_type_</a></td></tr>
+<tr class="separator:a36355b223a8feec679db281e5288154d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dec2f098cc6d50e3d48e9e7006cb8b5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a2dec2f098cc6d50e3d48e9e7006cb8b5">num_paths_</a></td></tr>
 <tr class="separator:a2dec2f098cc6d50e3d48e9e7006cb8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5036fea87903128129d20750eecf14a9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#a5036fea87903128129d20750eecf14a9">num_steps_</a></td></tr>
@@ -156,12 +152,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classoptions_1_1_base_option_pricer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classoptions_1_1_base_option_pricer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classoptions_1_1_base_option_pricer.html">options::BaseOptionPricer&lt; R &gt;</a></td></tr>
 <tr class="memitem:a00251f4c6c7dc2399fe2777b23c92543 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a00251f4c6c7dc2399fe2777b23c92543">ttm_</a></td></tr>
 <tr class="separator:a00251f4c6c7dc2399fe2777b23c92543 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa81fe68923f0295a4317b8952d83c919 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#aa81fe68923f0295a4317b8952d83c919">strike_</a></td></tr>
-<tr class="separator:aa81fe68923f0295a4317b8952d83c919 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e7ecb28ce2f271f17d5a884af227e0a inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a2e7ecb28ce2f271f17d5a884af227e0a">rate_</a></td></tr>
 <tr class="separator:a2e7ecb28ce2f271f17d5a884af227e0a inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5313edd80e81e905b52b6e46034fe04e inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a5313edd80e81e905b52b6e46034fe04e">payoff_</a></td></tr>
-<tr class="separator:a5313edd80e81e905b52b6e46034fe04e inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd7d64df8bf9160840ec5afff0a7e24 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a7dd7d64df8bf9160840ec5afff0a7e24">payoff_</a></td></tr>
+<tr class="separator:a7dd7d64df8bf9160840ec5afff0a7e24 inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b800aec32c34061b0d1fcf2cb1cd6df inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel</a>&lt; R &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptions_1_1_base_option_pricer.html#a6b800aec32c34061b0d1fcf2cb1cd6df">sde_model_</a></td></tr>
 <tr class="separator:a6b800aec32c34061b0d1fcf2cb1cd6df inherit pro_attribs_classoptions_1_1_base_option_pricer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -180,8 +174,8 @@ class options::MCOptionPricer&lt; R &gt;</h3>
 
 <p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00047">47</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae62822f619c0be719ef11dd4273d97ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae62822f619c0be719ef11dd4273d97ea">&#9670;&nbsp;</a></span>SolverFunc</h2>
+<a id="ad16ec52558ae5c07ee2e1e85d60aaacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16ec52558ae5c07ee2e1e85d60aaacd">&#9670;&nbsp;</a></span>SolverType</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,12 +183,12 @@ class options::MCOptionPricer&lt; R &gt;</h3>
 template&lt;typename R &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classoptions_1_1_m_c_option_pricer.html">options::MCOptionPricer</a>&lt; R &gt;::<a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a> =  std::function&lt;<a class="el" href="classoptions_1_1_m_c_option_pricer.html#a951fa727fa24f23e73776632931065e3">StoringMatrix</a>( R, R, int, int, const std::optional&lt;<a class="el" href="classoptions_1_1_m_c_option_pricer.html#a951fa727fa24f23e73776632931065e3">StoringMatrix</a>&gt;&amp; dW_opt)&gt;</td>
+          <td class="memname">using <a class="el" href="classoptions_1_1_m_c_option_pricer.html">options::MCOptionPricer</a>&lt; R &gt;::<a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a> =  traits::SolverType</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00053">53</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00051">51</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -235,8 +229,8 @@ template&lt;typename R &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7a86754e4410aefe2b63526b9aa026e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a86754e4410aefe2b63526b9aa026e4">&#9670;&nbsp;</a></span>MCOptionPricer()</h2>
+<a id="a7dcedcc41eff588ea892661714d7253f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dcedcc41eff588ea892661714d7253f">&#9670;&nbsp;</a></span>MCOptionPricer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,18 +250,12 @@ template&lt;typename R &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">R&#160;</td>
-          <td class="paramname"><em>strike</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">R&#160;</td>
           <td class="paramname"><em>rate</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classoptions_1_1_i_payoff.html">IPayoff</a>&lt; R &gt;&gt;&#160;</td>
           <td class="paramname"><em>payoff</em>, </td>
         </tr>
         <tr>
@@ -279,8 +267,8 @@ template&lt;typename R &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a>&#160;</td>
-          <td class="paramname"><em>solver_func</em>, </td>
+          <td class="paramtype"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a>&#160;</td>
+          <td class="paramname"><em>solver_type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -311,18 +299,17 @@ template&lt;typename R &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ttm</td><td>Time to maturity. </td></tr>
-    <tr><td class="paramname">strike</td><td>Strike price of the option. </td></tr>
     <tr><td class="paramname">rate</td><td>Risk-free interest rate. </td></tr>
     <tr><td class="paramname">payoff</td><td>Payoff function for the option. </td></tr>
     <tr><td class="paramname">sde_model</td><td>Shared pointer to the <a class="el" href="namespace_s_d_e.html">SDE</a> model used for path generation. </td></tr>
-    <tr><td class="paramname">solver_func</td><td>Function to solve the <a class="el" href="namespace_s_d_e.html">SDE</a> and generate paths. </td></tr>
+    <tr><td class="paramname">solver_type</td><td>Enum indicating the solver type. </td></tr>
     <tr><td class="paramname">num_paths</td><td>Number of Monte Carlo paths to simulate (default: 10). </td></tr>
     <tr><td class="paramname">num_steps</td><td>Number of time steps in each path (default: 3). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00068">68</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00065">65</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -357,7 +344,7 @@ template&lt;typename R &gt; </div>
 
 <p>Implements <a class="el" href="classoptions_1_1_base_option_pricer.html#a9ad12879e54f8abe2f0e3c3997cc0873">options::BaseOptionPricer&lt; R &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00088">88</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00085">85</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -384,7 +371,7 @@ template&lt;typename R &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00117">117</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00134">134</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
@@ -410,12 +397,12 @@ template&lt;typename R &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00118">118</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00135">135</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aad05d6d8f28a1eaa94319df1d40f2461"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad05d6d8f28a1eaa94319df1d40f2461">&#9670;&nbsp;</a></span>solver_func_</h2>
+<a id="a36355b223a8feec679db281e5288154d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36355b223a8feec679db281e5288154d">&#9670;&nbsp;</a></span>solver_type_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,7 +413,7 @@ template&lt;typename R &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ae62822f619c0be719ef11dd4273d97ea">SolverFunc</a> <a class="el" href="classoptions_1_1_m_c_option_pricer.html">options::MCOptionPricer</a>&lt; R &gt;::solver_func_</td>
+          <td class="memname"><a class="el" href="classoptions_1_1_m_c_option_pricer.html#ad16ec52558ae5c07ee2e1e85d60aaacd">SolverType</a> <a class="el" href="classoptions_1_1_m_c_option_pricer.html">options::MCOptionPricer</a>&lt; R &gt;::solver_type_</td>
         </tr>
       </table>
   </td>
@@ -436,7 +423,7 @@ template&lt;typename R &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00116">116</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_m_c_option_pricer_8hpp_source.html#l00133">133</a> of file <a class="el" href="_m_c_option_pricer_8hpp_source.html">MCOptionPricer.hpp</a>.</p>
 
 </div>
 </div>

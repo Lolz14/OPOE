@@ -108,6 +108,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad74dd38444a03ed50e11a79c219cb984"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#ad74dd38444a03ed50e11a79c219cb984">state_dim</a> () const override</td></tr>
+<tr class="separator:ad74dd38444a03ed50e11a79c219cb984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a2b8302e626b711c8cadbdcfaa5e6d9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a9a2b8302e626b711c8cadbdcfaa5e6d9">wiener_dim</a> () const override</td></tr>
+<tr class="separator:a9a2b8302e626b711c8cadbdcfaa5e6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a895e562fea1f8f647dcd8502c69eb822"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a895e562fea1f8f647dcd8502c69eb822">GeometricBrownianMotionSDE</a> (T mu, T sigma, T x0)</td></tr>
 <tr class="memdesc:a895e562fea1f8f647dcd8502c69eb822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometric Brownian Motion <a class="el" href="namespace_s_d_e.html">SDE</a> constructor.  <a href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a895e562fea1f8f647dcd8502c69eb822">More...</a><br /></td></tr>
 <tr class="separator:a895e562fea1f8f647dcd8502c69eb822"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,10 +121,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9d0a954e8a5e586b38205ac7c147deb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61f8f71cb34c1737f05e189de559a5fd"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a61f8f71cb34c1737f05e189de559a5fd">get_state_dim</a> () const override</td></tr>
 <tr class="separator:a61f8f71cb34c1737f05e189de559a5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45e78df6fabd8c4e0b92ce0f4f27500c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters.html">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a45e78df6fabd8c4e0b92ce0f4f27500c">get_parameters</a> () const</td></tr>
-<tr class="separator:a45e78df6fabd8c4e0b92ce0f4f27500c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4a5ba02690c97ae24b6bb44436ac8d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#aa4a5ba02690c97ae24b6bb44436ac8d2">set_parameters</a> (const <a class="el" href="struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters.html">Parameters</a> &amp;params)</td></tr>
-<tr class="separator:aa4a5ba02690c97ae24b6bb44436ac8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7da0a29bea52ab708caf72a09844ec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#ac7da0a29bea52ab708caf72a09844ec4">drift</a> ([[maybe_unused]] T t, [[maybe_unused]] const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;x, <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;mu_out) const override</td></tr>
 <tr class="separator:ac7da0a29bea52ab708caf72a09844ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af036b36d3f2c523fab7c5faf6a3f931f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#af036b36d3f2c523fab7c5faf6a3f931f">diffusion</a> ([[maybe_unused]] T t, [[maybe_unused]] const <a class="el" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a> &amp;x, <a class="el" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a> &amp;sigma_out) const override</td></tr>
@@ -141,6 +141,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6f3b01349e93aadb69298185f8f72bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8939bc10e39ff9a58f08499f9bbc398c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a8939bc10e39ff9a58f08499f9bbc398c">set_v0</a> (const T &amp;v0) noexcept override</td></tr>
 <tr class="separator:a8939bc10e39ff9a58f08499f9bbc398c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc774b6a3b1af124c6d5f155d51e489"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html#a6fc774b6a3b1af124c6d5f155d51e489">get_mu</a> () const noexcept</td></tr>
+<tr class="separator:a6fc774b6a3b1af124c6d5f155d51e489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_s_d_e_1_1_i_s_d_e_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_s_d_e_1_1_i_s_d_e_model')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a></td></tr>
 <tr class="memitem:af66b306deb6bac448f38f100a4fbd081 inherit pub_methods_class_s_d_e_1_1_i_s_d_e_model"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#af66b306deb6bac448f38f100a4fbd081">~ISDEModel</a> ()=default</td></tr>
 <tr class="memdesc:af66b306deb6bac448f38f100a4fbd081 inherit pub_methods_class_s_d_e_1_1_i_s_d_e_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup in derived classes.  <a href="class_s_d_e_1_1_i_s_d_e_model.html#af66b306deb6bac448f38f100a4fbd081">More...</a><br /></td></tr>
@@ -201,7 +203,7 @@ class SDE::GeometricBrownianMotionSDE&lt; T &gt;</h3>
 </dl>
 <p>This model represents the classic Geometric Brownian Motion, commonly used for modeling stock prices. It includes methods for drift, diffusion, and characteristic function calculations. </p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00242">242</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00259">259</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a895e562fea1f8f647dcd8502c69eb822"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a895e562fea1f8f647dcd8502c69eb822">&#9670;&nbsp;</a></span>GeometricBrownianMotionSDE()</h2>
@@ -261,7 +263,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00270">270</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00290">290</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -308,7 +310,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00325">325</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00335">335</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -339,7 +341,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a895061a11ba9e75fad70dee76c9d39ca">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00279">279</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00299">299</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +387,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00304">304</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00314">314</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -431,7 +433,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00315">315</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00325">325</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -477,7 +479,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00319">319</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00329">329</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -523,7 +525,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00297">297</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00307">307</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -569,12 +571,12 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00311">311</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00321">321</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a45e78df6fabd8c4e0b92ce0f4f27500c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45e78df6fabd8c4e0b92ce0f4f27500c">&#9670;&nbsp;</a></span>get_parameters()</h2>
+<a id="a6fc774b6a3b1af124c6d5f155d51e489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc774b6a3b1af124c6d5f155d51e489">&#9670;&nbsp;</a></span>get_mu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -585,7 +587,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters.html">Parameters</a>&amp; <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html">SDE::GeometricBrownianMotionSDE</a>&lt; T &gt;::get_parameters </td>
+          <td class="memname">T <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html">SDE::GeometricBrownianMotionSDE</a>&lt; T &gt;::get_mu </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -593,12 +595,12 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00287">287</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00360">360</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -629,7 +631,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a1153abea1f0a2573f5be555d21a46931">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00285">285</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00305">305</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -660,7 +662,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a9457e9e498a703a1c9d20d7a19534a01">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00342">342</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00352">352</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -691,7 +693,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a551c9ac6e5ebfc11845209e256d6e8bf">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00283">283</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00303">303</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -722,37 +724,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#ab9613f5b1f4f94b24f650a945597f2a7">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00332">332</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa4a5ba02690c97ae24b6bb44436ac8d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a5ba02690c97ae24b6bb44436ac8d2">&#9670;&nbsp;</a></span>set_parameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html">SDE::GeometricBrownianMotionSDE</a>&lt; T &gt;::set_parameters </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters.html">Parameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>params</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00289">289</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00342">342</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -782,7 +754,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00346">346</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00356">356</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -812,7 +784,69 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00337">337</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00347">347</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad74dd38444a03ed50e11a79c219cb984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad74dd38444a03ed50e11a79c219cb984">&#9670;&nbsp;</a></span>state_dim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html">SDE::GeometricBrownianMotionSDE</a>&lt; T &gt;::state_dim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a16d8477b7074c85b9d0ee887b57c679c">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00266">266</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9a2b8302e626b711c8cadbdcfaa5e6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a2b8302e626b711c8cadbdcfaa5e6d9">&#9670;&nbsp;</a></span>wiener_dim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_s_d_e_1_1_geometric_brownian_motion_s_d_e.html">SDE::GeometricBrownianMotionSDE</a>&lt; T &gt;::wiener_dim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_s_d_e_1_1_i_s_d_e_model.html#a3d269a335ce735d99ad56d4d70ccc7f6">SDE::ISDEModel&lt; traits::DataType::PolynomialField &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00267">267</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -839,7 +873,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00259">259</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00279">279</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -865,7 +899,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00247">247</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00264">264</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>
@@ -891,7 +925,7 @@ template&lt;typename T  = traits::DataType::PolynomialField&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00246">246</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fin_models_8hpp_source.html#l00263">263</a> of file <a class="el" href="_fin_models_8hpp_source.html">FinModels.hpp</a>.</p>
 
 </div>
 </div>

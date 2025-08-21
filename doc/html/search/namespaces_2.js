@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quadrature_580',['quadrature',['../namespacequadrature.html',1,'']]]
+  ['polynomials_597',['polynomials',['../namespacepolynomials.html',1,'']]]
 ];

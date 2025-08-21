@@ -1,15 +1,16 @@
 <map id="include/utils/Utils.hpp" name="include/utils/Utils.hpp">
-<area shape="rect" id="node1" title="Utility functions and templates for polynomial operations, random sampling, and vector/matrix computa..." alt="" coords="681,5,844,32"/>
-<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="44,348,238,389"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="518,437,623,464"/>
-<area shape="rect" id="node4" href="$_polynomials_8hpp.html" title="Defines the polynomials::Polynomial template class and related polynomial operations." alt="" coords="122,80,275,121"/>
-<area shape="rect" id="node7" href="$_s_d_e_8hpp.html" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="685,87,840,114"/>
-<area shape="rect" id="node13" href="$_quantization_8hpp.html" title="Implements quantization algorithms for vector quantization, including Newton&#39;s method (1D) and Compet..." alt="" coords="1003,87,1223,114"/>
-<area shape="rect" id="node5" href="$_orthogonal_polynomials_8hpp.html" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="58,169,264,211"/>
-<area shape="rect" id="node6" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="44,266,278,293"/>
-<area shape="rect" id="node8" href="$_m_c_option_pricer_8hpp.html" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="688,348,877,389"/>
-<area shape="rect" id="node9" href="$_fin_models_8hpp.html" title="Stochastic Differential Equation (SDE) models for financial applications." alt="" coords="733,177,928,203"/>
-<area shape="rect" id="node10" href="$_base_option_pricer_8hpp.html" title="Defines the BaseOptionPricer class, an abstract base class for option pricing models." alt="" coords="458,259,658,300"/>
-<area shape="rect" id="node11" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFOptionPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="478,348,663,389"/>
-<area shape="rect" id="node12" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTOptionPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="263,348,454,389"/>
+<area shape="rect" id="node1" title="Utility functions and templates for polynomial operations, random sampling, and vector/matrix computa..." alt="" coords="799,5,961,32"/>
+<area shape="rect" id="node2" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="716,348,911,389"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="693,437,798,464"/>
+<area shape="rect" id="node5" href="$_polynomials_8hpp.html" title="Defines the polynomials::Polynomial template class and related polynomial operations." alt="" coords="803,80,957,121"/>
+<area shape="rect" id="node8" href="$_s_d_e_8hpp.html" title="Stochastic Differential Equation (SDE) solver framework with support for multiple numerical schemes." alt="" coords="375,87,529,114"/>
+<area shape="rect" id="node14" href="$_quantization_8hpp.html" title="Implements quantization algorithms for vector quantization, including Newton&#39;s method (1D) and Compet..." alt="" coords="1091,87,1311,114"/>
+<area shape="rect" id="node3" href="$bindings_8cpp.html" title=" " alt="" coords="148,437,311,464"/>
+<area shape="rect" id="node6" href="$_orthogonal_polynomials_8hpp.html" title="Defines a generic CRTP&#45;based framework for orthogonal polynomials and their specializations." alt="" coords="777,169,983,211"/>
+<area shape="rect" id="node7" href="$_mixture_density_8hpp.html" title="Defines the MixtureDensity class template for representing and manipulating mixtures of probability d..." alt="" coords="731,266,965,293"/>
+<area shape="rect" id="node9" href="$_m_c_option_pricer_8hpp.html" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="27,348,216,389"/>
+<area shape="rect" id="node10" href="$_fin_models_8hpp.html" title="Stochastic Differential Equation (SDE) models for financial applications." alt="" coords="355,177,549,203"/>
+<area shape="rect" id="node11" href="$_base_option_pricer_8hpp.html" title="Defines the BaseOptionPricer class, an abstract base class for option pricing models." alt="" coords="352,259,552,300"/>
+<area shape="rect" id="node12" href="$_c_f_option_pricer_8hpp.html" title="Defines the CFOptionPricer class for closed&#45;form (Black&#45;Scholes) option pricing." alt="" coords="455,348,641,389"/>
+<area shape="rect" id="node13" href="$_f_f_t_option_pricer_8hpp.html" title="Defines the FFTOptionPricer class for option pricing using the Fast Fourier Transform (FFT) method." alt="" coords="241,348,431,389"/>
 </map>

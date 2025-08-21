@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['normaldensity_963',['NormalDensity',['../namespacestats.html#aba57969e7366158195ee641ed7e901df',1,'stats']]]
+  ['matrix_991',['Matrix',['../bindings_8cpp.html#a40a7ee62f62650ddf12f2b64be495262',1,'bindings.cpp']]]
 ];

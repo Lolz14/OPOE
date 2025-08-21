@@ -12,7 +12,7 @@ Base class for option pricing.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}{Base\+Option\+Pricer}} (R ttm, R strike, R rate, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model)
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer_a44e3f1e044dba30d9db0486d3441af8e}{Base\+Option\+Pricer}} (R ttm, R rate, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model)
 \begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} instance. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}{$\sim$\+Base\+Option\+Pricer}} ()=default
 \item 
@@ -30,10 +30,6 @@ void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302
 \item 
 R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}{get\+\_\+ttm}} () const noexcept
 \item 
-void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}{set\+\_\+strike}} (R strike) noexcept
-\item 
-R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}{get\+\_\+strike}} () const noexcept
-\item 
 void \mbox{\hyperlink{classoptions_1_1_base_option_pricer_aeeb691d1db0fa116009ffff2605d2d8f}{set\+\_\+rate}} (R rate) noexcept
 \item 
 R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a201377a13ea8f5328991e18587333616}{get\+\_\+rate}} () const noexcept
@@ -43,11 +39,9 @@ R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a201377a13ea8f5328991e185
 \item 
 R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}{ttm\+\_\+}}
 \item 
-R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}{strike\+\_\+}}
-\item 
 R \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}{rate\+\_\+}}
 \item 
-std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}{payoff\+\_\+}}
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a7dd7d64df8bf9160840ec5afff0a7e24}{payoff\+\_\+}}
 \item 
 std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}{sde\+\_\+model\+\_\+}}
 \end{DoxyCompactItemize}
@@ -64,19 +58,19 @@ This class provides a common interface for option pricing methods. It holds the 
 {\em R} & The floating-\/point type used for calculations (default\+: traits\+::\+Data\+Type\+::\+Polynomial\+Field).\\
 \hline
 \end{DoxyTemplParams}
-This class is designed to be inherited by specific option pricers like FFTPricer, MCPricer, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-\/free rate. It also holds a unique pointer to the payoff function, which can be evaluated by derived classes. 
+This class is designed to be inherited by specific option pricers like FFTPricer, MCPricer, etc. It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-\/free rate. It also holds a shared pointer to the payoff function, which can be evaluated by derived classes. 
 
 Definition at line 38 of file Base\+Option\+Pricer.\+hpp.
 
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}\label{classoptions_1_1_base_option_pricer_ac9e677bbada0fc05d0fd06fe808af15f}} 
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a44e3f1e044dba30d9db0486d3441af8e}\label{classoptions_1_1_base_option_pricer_a44e3f1e044dba30d9db0486d3441af8e}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!BaseOptionPricer@{BaseOptionPricer}}
 \index{BaseOptionPricer@{BaseOptionPricer}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
 \doxysubsubsection{\texorpdfstring{BaseOptionPricer()}{BaseOptionPricer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{strike,  }\item[{R}]{rate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{rate,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -85,8 +79,6 @@ Constructs a \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\
 
 \begin{DoxyParams}{Parameters}
 {\em ttm} & Time to maturity. \\
-\hline
-{\em strike} & Strike price of the option. \\
 \hline
 {\em rate} & Risk-\/free interest rate. \\
 \hline
@@ -97,7 +89,7 @@ Constructs a \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{Base\+Option\
 \end{DoxyParams}
 
 
-Definition at line 50 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 49 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}\label{classoptions_1_1_base_option_pricer_a7b65a90fcc783233707c25fcdc34a0da}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!````~BaseOptionPricer@{$\sim$BaseOptionPricer}}
@@ -115,7 +107,7 @@ virtual \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\
 
 
 
-Definition at line 56 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 55 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a1d8ba2b8bec95c048a66bb89a2710be8}\label{classoptions_1_1_base_option_pricer_a1d8ba2b8bec95c048a66bb89a2710be8}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!BaseOptionPricer@{BaseOptionPricer}}
@@ -136,18 +128,7 @@ R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Optio
 
 
 
-Definition at line 82 of file Base\+Option\+Pricer.\+hpp.
-
-\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}\label{classoptions_1_1_base_option_pricer_ac810c865cbbd1a4d4fa6a09eda75de42}} 
-\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!get\_strike@{get\_strike}}
-\index{get\_strike@{get\_strike}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
-\doxysubsubsection{\texorpdfstring{get\_strike()}{get\_strike()}}
-{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::get\+\_\+strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
-
-
-
-Definition at line 79 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 78 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}\label{classoptions_1_1_base_option_pricer_a30aec90572c5de5f0f6bfa889a6ffb38}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!get\_ttm@{get\_ttm}}
@@ -158,7 +139,7 @@ R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Optio
 
 
 
-Definition at line 76 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 75 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a28b608d20734f8f71d563adef538c3b3}\label{classoptions_1_1_base_option_pricer_a28b608d20734f8f71d563adef538c3b3}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!operator=@{operator=}}
@@ -176,7 +157,7 @@ Definition at line 76 of file Base\+Option\+Pricer.\+hpp.
 
 
 
-Definition at line 60 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 59 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}\label{classoptions_1_1_base_option_pricer_a9ad12879e54f8abe2f0e3c3997cc0873}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!price@{price}}
@@ -198,18 +179,7 @@ void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Op
 
 
 
-Definition at line 81 of file Base\+Option\+Pricer.\+hpp.
-
-\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}\label{classoptions_1_1_base_option_pricer_a623ede1372aa4ec7ce5675151e194936}} 
-\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_strike@{set\_strike}}
-\index{set\_strike@{set\_strike}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
-\doxysubsubsection{\texorpdfstring{set\_strike()}{set\_strike()}}
-{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::set\+\_\+strike (\begin{DoxyParamCaption}\item[{R}]{strike }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
-
-
-
-Definition at line 78 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 77 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302bcd688c703c}\label{classoptions_1_1_base_option_pricer_a6e59495dd1c89f2a77302bcd688c703c}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!set\_ttm@{set\_ttm}}
@@ -220,21 +190,21 @@ void \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Op
 
 
 
-Definition at line 75 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 74 of file Base\+Option\+Pricer.\+hpp.
 
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}\label{classoptions_1_1_base_option_pricer_a5313edd80e81e905b52b6e46034fe04e}} 
+\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a7dd7d64df8bf9160840ec5afff0a7e24}\label{classoptions_1_1_base_option_pricer_a7dd7d64df8bf9160840ec5afff0a7e24}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!payoff\_@{payoff\_}}
 \index{payoff\_@{payoff\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
 \doxysubsubsection{\texorpdfstring{payoff\_}{payoff\_}}
 {\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$R$>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::payoff\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$R$>$ $>$ \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::payoff\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Definition at line 89 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 84 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}\label{classoptions_1_1_base_option_pricer_a2e7ecb28ce2f271f17d5a884af227e0a}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!rate\_@{rate\_}}
@@ -245,7 +215,7 @@ R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Optio
 
 
 
-Definition at line 88 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 83 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}\label{classoptions_1_1_base_option_pricer_a6b800aec32c34061b0d1fcf2cb1cd6df}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!sde\_model\_@{sde\_model\_}}
@@ -256,18 +226,7 @@ std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::
 
 
 
-Definition at line 90 of file Base\+Option\+Pricer.\+hpp.
-
-\mbox{\Hypertarget{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}\label{classoptions_1_1_base_option_pricer_aa81fe68923f0295a4317b8952d83c919}} 
-\index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!strike\_@{strike\_}}
-\index{strike\_@{strike\_}!options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}}
-\doxysubsubsection{\texorpdfstring{strike\_}{strike\_}}
-{\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Option\+Pricer}}$<$ R $>$\+::strike\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-Definition at line 87 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 85 of file Base\+Option\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}\label{classoptions_1_1_base_option_pricer_a00251f4c6c7dc2399fe2777b23c92543}} 
 \index{options::BaseOptionPricer$<$ R $>$@{options::BaseOptionPricer$<$ R $>$}!ttm\_@{ttm\_}}
@@ -278,7 +237,7 @@ R \mbox{\hyperlink{classoptions_1_1_base_option_pricer}{options\+::\+Base\+Optio
 
 
 
-Definition at line 86 of file Base\+Option\+Pricer.\+hpp.
+Definition at line 82 of file Base\+Option\+Pricer.\+hpp.
 
 
 

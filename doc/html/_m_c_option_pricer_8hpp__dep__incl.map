@@ -1,4 +1,5 @@
 <map id="include/options/MCOptionPricer.hpp" name="include/options/MCOptionPricer.hpp">
-<area shape="rect" id="node1" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="5,5,195,47"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="47,95,153,121"/>
+<area shape="rect" id="node1" title="Defines the MCOptionPricer class for Monte Carlo option pricing." alt="" coords="71,5,260,47"/>
+<area shape="rect" id="node2" href="$bindings_8cpp.html" title=" " alt="" coords="5,95,168,121"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="193,95,298,121"/>
 </map>

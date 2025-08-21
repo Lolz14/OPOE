@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['quadraturetype_968',['QuadratureType',['../namespacequadrature.html#aa41733c0a881b7a9119131a496c33f38',1,'quadrature']]],
-  ['quantizationprocedure_969',['QuantizationProcedure',['../namespacestats.html#a21575c8abdf444ef417939c6d5dbf018',1,'stats']]],
-  ['quantizergrid_970',['QuantizerGrid',['../namespacestats.html#a85770edc239c1c8c5bd5029a48749014',1,'stats']]]
+  ['parameters_993',['Parameters',['../class_s_d_e_1_1_heston_model_s_d_e.html#a3cd56ceca940ff913eb2d51774339fb2',1,'SDE::HestonModelSDE::Parameters()'],['../class_s_d_e_1_1_stein_stein_model_s_d_e.html#a3e1fc994d42b28e2f42ad5eaa01d0e92',1,'SDE::SteinSteinModelSDE::Parameters()'],['../class_s_d_e_1_1_hull_white_model_s_d_e.html#a75e3971fc44cf1db6b9734aaa772ad5e',1,'SDE::HullWhiteModelSDE::Parameters()'],['../class_s_d_e_1_1_jacobi_model_s_d_e.html#a38cee54ac65bb8c7bbe9b355830b4213',1,'SDE::JacobiModelSDE::Parameters()']]],
+  ['polynomial_994',['Polynomial',['../namespacestats.html#aaacf7ce6a573dd7a36fef376a0f421d6',1,'stats']]],
+  ['polynomialfield_995',['PolynomialField',['../struct_data_type.html#ae89a7655ecc7a49644efa2aca38031f1',1,'DataType']]],
+  ['polytype_996',['PolyType',['../classpolynomials_1_1_orthogonal_polynomial_base.html#ad28fd38656ac72472b0415dc3d745ab2',1,'polynomials::OrthogonalPolynomialBase::PolyType()'],['../structstats_1_1_density_to_poly_traits_3_01_normal_density_00_01_n_00_01_r_01_4.html#a5a1f46ad49db740f22dca93a4902b0b8',1,'stats::DensityToPolyTraits&lt; NormalDensity, N, R &gt;::PolyType()'],['../structstats_1_1_density_to_poly_traits_3_01_beta_density_00_01_n_00_01_r_01_4.html#a0fe559b87486929f0b7e5f08f1381270',1,'stats::DensityToPolyTraits&lt; BetaDensity, N, R &gt;::PolyType()'],['../structstats_1_1_density_to_poly_traits_3_01_gamma_density_00_01_n_00_01_r_01_4.html#a17c28d6f4ee0fc1310e2964e27481dc7',1,'stats::DensityToPolyTraits&lt; GammaDensity, N, R &gt;::PolyType()'],['../classstats_1_1_mixture_density.html#a7fc30e845258258b9a205e34d7815d51',1,'stats::MixtureDensity::PolyType()']]]
 ];

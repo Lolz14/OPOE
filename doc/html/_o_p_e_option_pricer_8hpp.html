@@ -150,8 +150,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_o_p_e_option_pricer_8hpp__dep__incl.png" border="0" usemap="#ainclude_2options_2_o_p_e_option_pricer_8hppdep" alt=""/></div>
 <map name="ainclude_2options_2_o_p_e_option_pricer_8hppdep" id="ainclude_2options_2_o_p_e_option_pricer_8hppdep">
-<area shape="rect" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="5,5,200,47"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="50,95,155,121"/>
+<area shape="rect" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="68,5,263,47"/>
+<area shape="rect" href="bindings_8cpp.html" title=" " alt="" coords="5,95,168,121"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="193,95,298,121"/>
 </map>
 </div>
 </div>
@@ -186,7 +187,7 @@ Usage</h1>
 <p>Instantiate OPEOptionPricer with the desired template parameters, provide the required <a class="el" href="namespace_s_d_e.html">SDE</a> model, payoff, and solver function. Call the price() method to compute the discounted expected payoff.</p>
 <h1><a class="anchor" id="Example"></a>
 Example</h1>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> pricer = options::OPEOptionPricer&lt;&gt;(ttm, strike, rate, payoff, sde_model, solver_func);</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> pricer = options::OPEOptionPricer&lt;&gt;(ttm, rate, payoff, sde_model, solver_type);</div>
 <div class="line"><span class="keywordtype">double</span> option_price = pricer.price();</div>
 </div><!-- fragment --><dl class="section see"><dt>See also</dt><dd>BaseOptionPricer </dd>
 <dd>

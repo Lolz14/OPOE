@@ -58,7 +58,7 @@ public:
         }
 
         const R S0 = std::exp(this->sde_model_->m_x0(0));
-        volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_parameters().sigma;
+        volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_v0();
         S0_ = S0;
 
         d1_ = (std::log(S0 / this->payoff_->getStrike()) + (Base::rate_ + 0.5 * volatility_ * volatility_) * Base::ttm_) /
@@ -73,15 +73,14 @@ public:
      * @return The computed option price.
      */
     R price() const override {
-        const R K = Base::strike_;
         const R r = Base::rate_;
         const R T = Base::ttm_;
         const R S = S0_;
 
         if (dynamic_cast<const EuropeanCallPayoff<R>*>(Base::payoff_.get())) {
-            return S * normal_.cdf(d1_) - K * std::exp(-r * T) * normal_.cdf(d2_);
+            return S * normal_.cdf(d1_) - this->payoff_->getStrike() * std::exp(-r * T) * normal_.cdf(d2_);
         } else if (dynamic_cast<const EuropeanPutPayoff<R>*>(Base::payoff_.get())) {
-            return K * std::exp(-r * T) * normal_.cdf(-d2_) - S * normal_.cdf(-d1_);
+            return this->payoff_->getStrike() * std::exp(-r * T) * normal_.cdf(-d2_) - S * normal_.cdf(-d1_);
         } else {
             throw std::logic_error("Unsupported payoff type for CFOptionPricer.");
         }

@@ -12,6 +12,10 @@ Base interface for all \mbox{\hyperlink{namespace_s_d_e}{SDE}} models.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+virtual unsigned int \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a16d8477b7074c85b9d0ee887b57c679c}{state\+\_\+dim}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns the dimension of the state vector. \end{DoxyCompactList}\item 
+virtual unsigned int \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a3d269a335ce735d99ad56d4d70ccc7f6}{wiener\+\_\+dim}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns the dimension of the Wiener process. \end{DoxyCompactList}\item 
 virtual \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_af66b306deb6bac448f38f100a4fbd081}{$\sim$\+ISDEModel}} ()=default
 \begin{DoxyCompactList}\small\item\em Virtual destructor for proper cleanup in derived classes. \end{DoxyCompactList}\item 
 virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{ISDEModel}}$<$ T $>$ $>$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}{clone}} () const =0
@@ -101,7 +105,7 @@ Computes the characteristic function of the \mbox{\hyperlink{namespace_s_d_e}{SD
 \end{DoxyParams}
 The characteristic function is used in Fourier-\/based method. 
 
-Definition at line 154 of file Fin\+Models.\+hpp.
+Definition at line 171 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}\label{class_s_d_e_1_1_i_s_d_e_model_a895061a11ba9e75fad70dee76c9d39ca}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!clone@{clone}}
@@ -163,7 +167,7 @@ Computes the derivative of the diffusion term with respect to the state vector.
 \end{DoxyParams}
 This method is used in higher-\/order numerical schemes that require knowledge of how the diffusion changes with respect to the state. 
 
-Definition at line 126 of file Fin\+Models.\+hpp.
+Definition at line 143 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a4ac9a8478920aa5d76e0b1558b07f1ba}\label{class_s_d_e_1_1_i_s_d_e_model_a4ac9a8478920aa5d76e0b1558b07f1ba}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!diffusion\_second\_derivative\_x@{diffusion\_second\_derivative\_x}}
@@ -187,7 +191,7 @@ Computes the second derivative of the diffusion term with respect to the state v
 \end{DoxyParams}
 This method is used in advanced numerical schemes that require knowledge of how the diffusion changes with respect to the state. 
 
-Definition at line 140 of file Fin\+Models.\+hpp.
+Definition at line 157 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a79276059842ed17d5b71a431f9faa22c}\label{class_s_d_e_1_1_i_s_d_e_model_a79276059842ed17d5b71a431f9faa22c}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!drift@{drift}}
@@ -231,7 +235,7 @@ Computes the derivative of the drift term with respect to the state vector.
 \end{DoxyParams}
 This method is used in higher-\/order numerical schemes that require knowledge of how the drift changes with respect to the state. 
 
-Definition at line 114 of file Fin\+Models.\+hpp.
+Definition at line 131 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a1153abea1f0a2573f5be555d21a46931}\label{class_s_d_e_1_1_i_s_d_e_model_a1153abea1f0a2573f5be555d21a46931}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!get\_state\_dim@{get\_state\_dim}}
@@ -271,7 +275,7 @@ Reimplemented in \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a932bf
 
 
 
-Definition at line 193 of file Fin\+Models.\+hpp.
+Definition at line 210 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a551c9ac6e5ebfc11845209e256d6e8bf}\label{class_s_d_e_1_1_i_s_d_e_model_a551c9ac6e5ebfc11845209e256d6e8bf}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!get\_wiener\_dimension@{get\_wiener\_dimension}}
@@ -311,7 +315,7 @@ Reimplemented in \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_
 
 
 
-Definition at line 167 of file Fin\+Models.\+hpp.
+Definition at line 184 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a154224cf774d061450211a1c67b38608}\label{class_s_d_e_1_1_i_s_d_e_model_a154224cf774d061450211a1c67b38608}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!set\_v0@{set\_v0}}
@@ -331,7 +335,7 @@ Sets the initial volatility (v0) of the \mbox{\hyperlink{namespace_s_d_e}{SDE}}.
 \end{DoxyParams}
 This method allows setting the initial volatility, which can be useful for simulations or recalibrations. 
 
-Definition at line 207 of file Fin\+Models.\+hpp.
+Definition at line 224 of file Fin\+Models.\+hpp.
 
 \mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a8eaa8bb41e9ad85d1676601fa0cf3b3f}\label{class_s_d_e_1_1_i_s_d_e_model_a8eaa8bb41e9ad85d1676601fa0cf3b3f}} 
 \index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!set\_x0@{set\_x0}}
@@ -351,7 +355,43 @@ Sets the initial state vector of the \mbox{\hyperlink{namespace_s_d_e}{SDE}}.
 \end{DoxyParams}
 This method allows setting the initial state, which can be useful for simulations or recalibrations. 
 
-Definition at line 180 of file Fin\+Models.\+hpp.
+Definition at line 197 of file Fin\+Models.\+hpp.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a16d8477b7074c85b9d0ee887b57c679c}\label{class_s_d_e_1_1_i_s_d_e_model_a16d8477b7074c85b9d0ee887b57c679c}} 
+\index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!state\_dim@{state\_dim}}
+\index{state\_dim@{state\_dim}!SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{state\_dim()}{state\_dim()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual unsigned int \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ T $>$\+::state\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns the dimension of the state vector. 
+
+\begin{DoxyReturn}{Returns}
+The number of state variables in the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model.
+\end{DoxyReturn}
+This method provides the size of the state vector, which is essential for defining the model\textquotesingle{}s structure. 
+
+Implemented in \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ab330029414bd4080761428765f209838}{SDE\+::\+Generic\+SVModel\+SDE$<$ T $>$}}, \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_ab330029414bd4080761428765f209838}{SDE\+::\+Generic\+SVModel\+SDE$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}, and \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_ad74dd38444a03ed50e11a79c219cb984}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE$<$ T $>$}}.
+
+\mbox{\Hypertarget{class_s_d_e_1_1_i_s_d_e_model_a3d269a335ce735d99ad56d4d70ccc7f6}\label{class_s_d_e_1_1_i_s_d_e_model_a3d269a335ce735d99ad56d4d70ccc7f6}} 
+\index{SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}!wiener\_dim@{wiener\_dim}}
+\index{wiener\_dim@{wiener\_dim}!SDE::ISDEModel$<$ T $>$@{SDE::ISDEModel$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{wiener\_dim()}{wiener\_dim()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+virtual unsigned int \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ T $>$\+::wiener\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns the dimension of the Wiener process. 
+
+\begin{DoxyReturn}{Returns}
+The number of independent Wiener processes in the \mbox{\hyperlink{namespace_s_d_e}{SDE}} model.
+\end{DoxyReturn}
+This method provides the size of the Wiener process vector, which is essential for stochastic simulations. 
+
+Implemented in \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a874b3febb0d914d969fd0df192533d31}{SDE\+::\+Generic\+SVModel\+SDE$<$ T $>$}}, \mbox{\hyperlink{class_s_d_e_1_1_generic_s_v_model_s_d_e_a874b3febb0d914d969fd0df192533d31}{SDE\+::\+Generic\+SVModel\+SDE$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}, and \mbox{\hyperlink{class_s_d_e_1_1_geometric_brownian_motion_s_d_e_a9a2b8302e626b711c8cadbdcfaa5e6d9}{SDE\+::\+Geometric\+Brownian\+Motion\+SDE$<$ T $>$}}.
 
 
 
@@ -365,7 +405,7 @@ Definition at line 180 of file Fin\+Models.\+hpp.
 
 
 
-Definition at line 230 of file Fin\+Models.\+hpp.
+Definition at line 247 of file Fin\+Models.\+hpp.
 
 
 

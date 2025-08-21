@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['falling_992',['Falling',['../_o_p_o_e__traits_8hpp.html#a96ed12655fd92755d02717a6a8b8125da0f57d5b441651c57eac9f91efaa5a75a',1,'OPOE_traits.hpp']]]
+  ['eulermaruyama_1024',['EulerMaruyama',['../_o_p_o_e__traits_8hpp.html#a8b06041d7c1fb05f379714f4312306ecacc97648d67c8ba1867f8b4144bf168cd',1,'OPOE_traits.hpp']]]
 ];

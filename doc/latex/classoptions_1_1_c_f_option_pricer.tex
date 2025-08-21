@@ -11,8 +11,7 @@
 
 
 
-Inheritance diagram for options\+::CFOption\+Pricer$<$ R $>$\+:
-\nopagebreak
+Inheritance diagram for options\+::CFOption\+Pricer$<$ R $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,8 +20,7 @@ Inheritance diagram for options\+::CFOption\+Pricer$<$ R $>$\+:
 \end{figure}
 
 
-Collaboration diagram for options\+::CFOption\+Pricer$<$ R $>$\+:
-\nopagebreak
+Collaboration diagram for options\+::CFOption\+Pricer$<$ R $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -32,7 +30,7 @@ Collaboration diagram for options\+::CFOption\+Pricer$<$ R $>$\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer_a3a2f1730511589b7156dede990b1d2d4}{CFOption\+Pricer}} (R ttm, R strike, R rate, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model)
+\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer_aea0ae36ec31120fbbafa17f2fcd5732b}{CFOption\+Pricer}} (R ttm, R rate, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$ payoff, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$ sde\+\_\+model)
 \begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+Pricer}}. \end{DoxyCompactList}\item 
 R \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer_aa726ef001b13af1864179dfe28ed6cf8}{price}} () const override
 \begin{DoxyCompactList}\small\item\em Prices the option using the Black-\/\+Scholes formula. \end{DoxyCompactList}\item 
@@ -104,12 +102,12 @@ Definition at line 39 of file CFOption\+Pricer.\+hpp.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_a3a2f1730511589b7156dede990b1d2d4}\label{classoptions_1_1_c_f_option_pricer_a3a2f1730511589b7156dede990b1d2d4}} 
+\mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_aea0ae36ec31120fbbafa17f2fcd5732b}\label{classoptions_1_1_c_f_option_pricer_aea0ae36ec31120fbbafa17f2fcd5732b}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!CFOptionPricer@{CFOptionPricer}}
 \index{CFOptionPricer@{CFOptionPricer}!options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}}
 \doxysubsubsection{\texorpdfstring{CFOptionPricer()}{CFOptionPricer()}}
 {\footnotesize\ttfamily template$<$typename R  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{strike,  }\item[{R}]{rate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pricer}}$<$ R $>$\+::\mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+Pricer}} (\begin{DoxyParamCaption}\item[{R}]{ttm,  }\item[{R}]{rate,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ R $>$$>$}]{payoff,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_s_d_e_1_1_i_s_d_e_model}{SDE\+::\+ISDEModel}}$<$ R $>$$>$}]{sde\+\_\+model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -118,8 +116,6 @@ Constructor for \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+P
 
 \begin{DoxyParams}{Parameters}
 {\em ttm} & Time to maturity in years. \\
-\hline
-{\em strike} & Strike price of the option. \\
 \hline
 {\em rate} & Risk-\/free interest rate. \\
 \hline
@@ -130,7 +126,7 @@ Constructor for \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{CFOption\+P
 \end{DoxyParams}
 
 
-Definition at line 50 of file CFOption\+Pricer.\+hpp.
+Definition at line 49 of file CFOption\+Pricer.\+hpp.
 
 
 
@@ -151,7 +147,7 @@ The computed delta value.
 \end{DoxyReturn}
 
 
-Definition at line 96 of file CFOption\+Pricer.\+hpp.
+Definition at line 95 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_ae2f31b412383aa36102ffa9b0b64e924}\label{classoptions_1_1_c_f_option_pricer_ae2f31b412383aa36102ffa9b0b64e924}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!gamma@{gamma}}
@@ -169,7 +165,7 @@ The computed gamma value.
 \end{DoxyReturn}
 
 
-Definition at line 111 of file CFOption\+Pricer.\+hpp.
+Definition at line 110 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_aa726ef001b13af1864179dfe28ed6cf8}\label{classoptions_1_1_c_f_option_pricer_aa726ef001b13af1864179dfe28ed6cf8}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!price@{price}}
@@ -191,7 +187,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_base_option_pricer_a9ad12879e54f8ab
 
 
 
-Definition at line 76 of file CFOption\+Pricer.\+hpp.
+Definition at line 75 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_ad9317c2cd5eaccd5dca5c3dd0cc32de8}\label{classoptions_1_1_c_f_option_pricer_ad9317c2cd5eaccd5dca5c3dd0cc32de8}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!rho@{rho}}
@@ -209,7 +205,7 @@ The computed rho value.
 \end{DoxyReturn}
 
 
-Definition at line 153 of file CFOption\+Pricer.\+hpp.
+Definition at line 152 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_a0ee7fa97da12eca9812ef574cf267ff2}\label{classoptions_1_1_c_f_option_pricer_a0ee7fa97da12eca9812ef574cf267ff2}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!theta@{theta}}
@@ -227,7 +223,7 @@ The computed theta value.
 \end{DoxyReturn}
 
 
-Definition at line 129 of file CFOption\+Pricer.\+hpp.
+Definition at line 128 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_a036b81140ff1d54397db83a54fc8933b}\label{classoptions_1_1_c_f_option_pricer_a036b81140ff1d54397db83a54fc8933b}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!vega@{vega}}
@@ -245,7 +241,7 @@ The computed vega value.
 \end{DoxyReturn}
 
 
-Definition at line 120 of file CFOption\+Pricer.\+hpp.
+Definition at line 119 of file CFOption\+Pricer.\+hpp.
 
 
 
@@ -259,7 +255,7 @@ R \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pr
 
 
 
-Definition at line 169 of file CFOption\+Pricer.\+hpp.
+Definition at line 168 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_acf54c0bf495df04a9610c194aaa7d89c}\label{classoptions_1_1_c_f_option_pricer_acf54c0bf495df04a9610c194aaa7d89c}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!d2\_@{d2\_}}
@@ -270,7 +266,7 @@ R \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pr
 
 
 
-Definition at line 169 of file CFOption\+Pricer.\+hpp.
+Definition at line 168 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_ad6a8b786653ae5123803975b63dcc115}\label{classoptions_1_1_c_f_option_pricer_ad6a8b786653ae5123803975b63dcc115}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!normal\_@{normal\_}}
@@ -281,7 +277,7 @@ auto \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\
 
 
 
-Definition at line 171 of file CFOption\+Pricer.\+hpp.
+Definition at line 170 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_a53d2359c80b0573b3e0b2011022480fe}\label{classoptions_1_1_c_f_option_pricer_a53d2359c80b0573b3e0b2011022480fe}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!S0\_@{S0\_}}
@@ -292,7 +288,7 @@ R \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pr
 
 
 
-Definition at line 170 of file CFOption\+Pricer.\+hpp.
+Definition at line 169 of file CFOption\+Pricer.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_c_f_option_pricer_a2dc20d3acd3ec2cc70bfe15b067f9517}\label{classoptions_1_1_c_f_option_pricer_a2dc20d3acd3ec2cc70bfe15b067f9517}} 
 \index{options::CFOptionPricer$<$ R $>$@{options::CFOptionPricer$<$ R $>$}!volatility\_@{volatility\_}}
@@ -303,7 +299,7 @@ R \mbox{\hyperlink{classoptions_1_1_c_f_option_pricer}{options\+::\+CFOption\+Pr
 
 
 
-Definition at line 168 of file CFOption\+Pricer.\+hpp.
+Definition at line 167 of file CFOption\+Pricer.\+hpp.
 
 
 

@@ -11,8 +11,7 @@ Specialization of \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}} for Euro
 
 
 
-Inheritance diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:
-\nopagebreak
+Inheritance diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,8 +20,7 @@ Inheritance diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:
 \end{figure}
 
 
-Collaboration diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:
-\nopagebreak
+Collaboration diagram for options\+::European\+Put\+Payoff$<$ T $>$\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -44,8 +42,10 @@ T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e
 \begin{DoxyCompactList}\small\item\em Evaluates the put payoff from log-\/price\+: max(K -\/ exp(x\+\_\+\+T), 0). \end{DoxyCompactList}\item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classoptions_1_1_i_payoff}{IPayoff}}$<$ T $>$ $>$ \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a5856fbe8d62685bce229a8fcd45b2342}{clone}} () const override
 \begin{DoxyCompactList}\small\item\em Creates a copy of the \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{European\+Put\+Payoff}} object. \end{DoxyCompactList}\item 
-T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}{get\+Strike}} () const noexcept
-\begin{DoxyCompactList}\small\item\em Gets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a96ecbc075eb0c405a349d8d99d53f06d}{get\+Strike}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Gets the strike price. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classoptions_1_1_european_put_payoff_a208b918e32108fc69a1080a73371a03d}{set\+Strike}} (T strike\+\_\+price) override
+\begin{DoxyCompactList}\small\item\em Sets the strike price. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -68,7 +68,7 @@ This class implements the payoff evaluation for European put options, defined as
 \end{DoxyTemplParams}
 
 
-Definition at line 195 of file Payoff.\+hpp.
+Definition at line 215 of file Payoff.\+hpp.
 
 
 
@@ -91,7 +91,7 @@ Constructor for European Put Payoff.
 \end{DoxyParams}
 
 
-Definition at line 204 of file Payoff.\+hpp.
+Definition at line 224 of file Payoff.\+hpp.
 
 
 
@@ -116,7 +116,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a5a67c274834ea11efe4824138
 
 
 
-Definition at line 253 of file Payoff.\+hpp.
+Definition at line 273 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a4a36c460824e5de7bbc9189f9af33d02}\label{classoptions_1_1_european_put_payoff_a4a36c460824e5de7bbc9189f9af33d02}} 
 \index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate@{evaluate}}
@@ -143,7 +143,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a0b8f287e9dbadb4741369092c
 
 
 
-Definition at line 232 of file Payoff.\+hpp.
+Definition at line 252 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a59c01408f257d50faa2a7cdfd55d474e}\label{classoptions_1_1_european_put_payoff_a59c01408f257d50faa2a7cdfd55d474e}} 
 \index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate@{evaluate}}
@@ -166,7 +166,7 @@ The calculated put payoff value.
 \end{DoxyReturn}
 
 
-Definition at line 223 of file Payoff.\+hpp.
+Definition at line 243 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e0c80bbecf}\label{classoptions_1_1_european_put_payoff_ac5b159b8386046bed12f18e0c80bbecf}} 
 \index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!evaluate\_from\_log@{evaluate\_from\_log}}
@@ -189,14 +189,14 @@ The calculated put payoff value.
 \end{DoxyReturn}
 
 
-Definition at line 244 of file Payoff.\+hpp.
+Definition at line 264 of file Payoff.\+hpp.
 
-\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}\label{classoptions_1_1_european_put_payoff_a5ea9e8c65a342fc1129087ef2200f9c2}} 
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a96ecbc075eb0c405a349d8d99d53f06d}\label{classoptions_1_1_european_put_payoff_a96ecbc075eb0c405a349d8d99d53f06d}} 
 \index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!getStrike@{getStrike}}
 \index{getStrike@{getStrike}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{getStrike()}{getStrike()}}
 {\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
-T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::get\+Strike (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -207,7 +207,36 @@ The strike price (K).
 \end{DoxyReturn}
 
 
-Definition at line 261 of file Payoff.\+hpp.
+Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_ae6980e1f8cdc534eca4c554352267355}{options\+::\+IPayoff$<$ traits\+::\+Data\+Type\+::\+Polynomial\+Field $>$}}.
+
+
+
+Definition at line 281 of file Payoff.\+hpp.
+
+\mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a208b918e32108fc69a1080a73371a03d}\label{classoptions_1_1_european_put_payoff_a208b918e32108fc69a1080a73371a03d}} 
+\index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!setStrike@{setStrike}}
+\index{setStrike@{setStrike}!options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setStrike()}{setStrike()}}
+{\footnotesize\ttfamily template$<$typename T  = traits\+::\+Data\+Type\+::\+Polynomial\+Field$>$ \\
+void \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+Put\+Payoff}}$<$ T $>$\+::set\+Strike (\begin{DoxyParamCaption}\item[{T}]{strike\+\_\+price }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Sets the strike price. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strike\+\_\+price} & The new strike price (K). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if the strike price is negative. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 290 of file Payoff.\+hpp.
 
 \mbox{\Hypertarget{classoptions_1_1_european_put_payoff_a1042cb8e9f29016ae19fb7ab73950728}\label{classoptions_1_1_european_put_payoff_a1042cb8e9f29016ae19fb7ab73950728}} 
 \index{options::EuropeanPutPayoff$<$ T $>$@{options::EuropeanPutPayoff$<$ T $>$}!type@{type}}
@@ -229,7 +258,7 @@ Implements \mbox{\hyperlink{classoptions_1_1_i_payoff_a25865d4e18089c2e6b45da21c
 
 
 
-Definition at line 214 of file Payoff.\+hpp.
+Definition at line 234 of file Payoff.\+hpp.
 
 
 
@@ -243,7 +272,7 @@ T \mbox{\hyperlink{classoptions_1_1_european_put_payoff}{options\+::\+European\+
 
 
 
-Definition at line 197 of file Payoff.\+hpp.
+Definition at line 217 of file Payoff.\+hpp.
 
 
 

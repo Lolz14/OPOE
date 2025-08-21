@@ -416,7 +416,7 @@ template&lt;typename T , typename R  = traits::DataType::PolynomialField&gt; </d
 </div><!-- fragment -->
 <p>Concept for 1D SDEs supporting Milstein scheme, requiring derivative information. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00140">140</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00135">135</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
 
 </div>
 </div>
@@ -443,7 +443,7 @@ template&lt;typename T , typename R  = traits::DataType::PolynomialField&gt; </d
 </div><!-- fragment -->
 <p>Concept for 2D Stochastic Volatility SDEs supporting Milstein scheme. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00152">152</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00147">147</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
 
 </div>
 </div>
@@ -462,10 +462,6 @@ template&lt;typename T , typename R  = traits::DataType::PolynomialField&gt; </d
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a>(<span class="keyword">const</span> T&amp; sde, R t, <span class="keyword">const</span> <a class="code" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a>&amp; x, <a class="code" href="namespace_s_d_e.html#a9aaa9d73e8adaeee0b0ff44596b8a329">SDEVector</a>&amp; mu_out, <a class="code" href="namespace_s_d_e.html#ae94a1b42837a20b18d3fc2a63fee74cb">SDEMatrix</a>&amp; sigma_out) {</div>
 <div class="line">    </div>
-<div class="line">    { T::WIENER_DIM } -&gt; std::convertible_to&lt;unsigned int&gt;;</div>
-<div class="line">    { T::STATE_DIM } -&gt; std::convertible_to&lt;unsigned int&gt;;</div>
-<div class="line">    <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a> T::WIENER_DIM &gt; 0;</div>
-<div class="line">    <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a> T::STATE_DIM &gt; 0;</div>
 <div class="line">    sde.drift(t, x, mu_out);       </div>
 <div class="line">    sde.diffusion(t, x, sigma_out); </div>
 <div class="line"> </div>
@@ -493,8 +489,7 @@ template&lt;typename T , typename R  = traits::DataType::PolynomialField&gt; </d
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= SDEModel&lt;T, R&gt; &amp;&amp; <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a>(<span class="keyword">const</span> T&amp; sde) {</div>
 <div class="line">    </div>
-<div class="line">    <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a> T::WIENER_DIM &gt;= 2;</div>
-<div class="line">    <a class="code" href="namespace_utils.html#a800eeaef44bff3535972432a44bb7f6a">requires</a> T::STATE_DIM &gt;= 2;</div>
+<div class="line"> </div>
 <div class="line">    { sde.get_correlation() } -&gt; std::convertible_to&lt;R&gt;; </div>
 <div class="line">    { sde.get_kappa() } -&gt; std::convertible_to&lt;R&gt;;       </div>
 <div class="line">    { sde.get_theta() } -&gt; std::convertible_to&lt;R&gt;;       </div>
@@ -506,7 +501,7 @@ template&lt;typename T , typename R  = traits::DataType::PolynomialField&gt; </d
 </div><!-- fragment -->
 <p>Concept for Stochastic Volatility (SV) <a class="el" href="namespace_s_d_e.html">SDE</a> models, extending SDEModel with SV-specific parameters. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00122">122</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_d_e_8hpp_source.html#l00118">118</a> of file <a class="el" href="_s_d_e_8hpp_source.html">SDE.hpp</a>.</p>
 
 </div>
 </div>
