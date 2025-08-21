@@ -3,7 +3,6 @@ import numpy as np
 import sdefin
 
 
-# Put does not work
 def main():
     # ------------------------
     # 1. Define model parameters
