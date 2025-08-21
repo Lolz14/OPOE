@@ -59,7 +59,7 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
          * @param Npow Power of 2 for the FFT grid size (default: 20).
          * @param A Scaling factor for the FFT grid (default: 1200).
          */
-        FFTOptionPricer(R ttm, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 10, unsigned int A = 10)
+        FFTOptionPricer(R ttm, R rate, std::shared_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 10, unsigned int A = 10)
         : Base(ttm, rate, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {
             initialize_fft_grid();
         }

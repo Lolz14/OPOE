@@ -47,7 +47,7 @@ public:
      * @param sde_model Shared pointer to the SDE model (should be GeometricBrownianMotionSDE).
      */
     CFOptionPricer(R ttm, R rate,
-             std::unique_ptr<IPayoff<R>> payoff,
+             std::shared_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model
              )
         : Base(ttm, rate, std::move(payoff), std::move(sde_model))

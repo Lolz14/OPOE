@@ -26,7 +26,7 @@
  *
  * @section Example
  * @code
- * auto pricer = options::OPEOptionPricer<>(ttm, rate, payoff, sde_model, solver_func);
+ * auto pricer = options::OPEOptionPricer<>(ttm, rate, payoff, sde_model, solver_type);
  * double option_price = pricer.price();
  * @endcode
  *
@@ -75,9 +75,9 @@ class OPEOptionPricer : public BaseOptionPricer<R> {
 
     using StoringVector = traits::DataType::StoringVector;
     using StoringMatrix = traits::DataType::StoringMatrix;
-    using Array = traits::DataType::StoringArray;
-    using SolverFunc = std::function<StoringMatrix(
-        R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
+    using Array = traits::DataType::StoringArray;    
+    using SolverType = traits::SolverType;
+
 
     using Base = BaseOptionPricer<R>;
 
@@ -92,7 +92,7 @@ public:
  * @param rate Risk-free interest rate.
  * @param payoff Payoff function for the option.
  * @param sde_model Shared pointer to the stochastic differential equation model.
- * @param solver_func Function to solve the SDE, returning a matrix.
+ * @param solver_type Enum that represents the solver type.
  * @param integrator_param Quadrature method for integration (default: TanhSinh).
  * @param num_paths Number of paths for simulation (default: 10).
  *
@@ -103,16 +103,16 @@ public:
  * constructs the orthonormal polynomial basis, and prepares the density object for pricing.
  */
     OPEOptionPricer(R ttm, R rate,
-                    std::unique_ptr<IPayoff<R>> payoff,
+                    std::shared_ptr<IPayoff<R>> payoff,
                     std::shared_ptr<SDE::ISDEModel<R>> sde_model,
-                    SolverFunc solver_func,
+                    SolverType solver_type,
                     traits::QuadratureMethod integrator_param = traits::QuadratureMethod::TanhSinh,
                     unsigned int num_paths = 10)
         : Base(ttm, rate, std::move(payoff), sde_model)
         , num_paths_(num_paths)
-        , solver_func_(solver_func)
+        , solver_type_(solver_type)
         , density_object_(make_density_object(ttm, num_paths, PolynomialBaseDegree,
-                                              solver_func_, sde_model))
+                                              solver_type_, sde_model))
         , integrator_(integrator_param)
                                             
     {
@@ -160,12 +160,6 @@ public:
         // 3. Compute all l_n in one shot: l = h_vals^T * expGT * S
         StoringVector l_values = (h_vals.transpose() * expGT * S).transpose();
 
-        // Optional: debug output
-        std::cout << "Hmatrix:\n" << H << "\n";
-        std::cout << "h_vals: " << h_vals.transpose() << "\n";
-        std::cout << "l_values: " << l_values.transpose() << "\n";
-
-        
         // 4. Get integration domain 
         //stats::DensityInterval<R> support = this->density_object_.getSupport();
 
@@ -192,29 +186,43 @@ public:
             
             }
 
+            std::shared_ptr<IPayoff<R>> eq_payoff;
 
-            // Full term: Payoff(log_x) * (Σ ℓ_n H_n(log_x)) * w(log_x)
-            return  auxiliary_density_value * this->payoff_->evaluate_from_log(log_spot_price)*this->density_object_.pdf(log_spot_price);
+            if (this->payoff_->type() == traits::OptionType::Put) {
+                eq_payoff = std::make_shared<EuropeanCallPayoff<R>>(this->payoff_->getStrike());
+            } else {
+                eq_payoff = this->payoff_->clone();
+            }
+
+            // Inside integrand
+            return auxiliary_density_value * eq_payoff->evaluate_from_log(log_spot_price) * this->density_object_.pdf(log_spot_price);
+
 
         };
 
-
+        
         // 5. Perform numerical integration using the member integrator_
         R expected_value_at_maturity = this->integrator_.integrate(
             full_integrand_function,
-            mean - 8*stddev, // Assuming this is the lower bound
-            mean + 8*stddev // Assuming this is the upper bound
+            mean - 12*stddev, // Assuming this is the lower bound
+            mean + 12*stddev // Assuming this is the upper bound
         );
 
     
         // 6. Discount the expected value back to today
-        return std::exp(-this->rate_ * this->ttm_) * expected_value_at_maturity;
+        R call_price = std::exp(-this->rate_ * this->ttm_) * expected_value_at_maturity;
+
+        if (this->payoff_->type() == traits::OptionType::Put) {
+            return call_price - std::exp(this->sde_model_->get_x0()) + std::exp(-this->rate_ * this->ttm_) * this->payoff_->getStrike();
+        } else {
+            return call_price;
+        }
 
     }
 
 private:
     unsigned int num_paths_;
-    SolverFunc solver_func_;
+    SolverType solver_type_;
     stats::MixtureDensity<PolynomialBaseDegree, DensityType, R> density_object_;
     quadrature::QuadratureRuleHolder<R> integrator_;
 
@@ -229,7 +237,7 @@ private:
      * @param ttm Time to maturity.
      * @param num_paths Number of paths for simulation.
      * @param poly_deg Degree of the polynomial basis.
-     * @param solver_func Function to solve the SDE and return paths.
+     * @param solver_type Enum representing the solver type.
      * @param sde_model Shared pointer to the stochastic differential equation model.
      * @return A stats::MixtureDensity object containing the computed densities.
      * @throws std::runtime_error if the quantization grid cannot be read or if the solver function fails.
@@ -240,7 +248,7 @@ private:
     make_density_object(R ttm,
                         unsigned int num_paths,
                         unsigned int poly_deg,
-                        const SolverFunc& solver_func,
+                        SolverType solver_type,
                         const std::shared_ptr<SDE::ISDEModel<R>>& sde_model)
     {
         // Read quantization grid
@@ -251,8 +259,27 @@ private:
         StoringMatrix dw(grid.coordinates.rows() * 2, grid.coordinates.cols()); 
         dw << grid.coordinates, grid.coordinates;
 
+        StoringMatrix paths;
+
         // Solve for paths
-        auto paths = solver_func(0.0, ttm, poly_deg, num_paths, std::optional<StoringMatrix>(dw));
+        switch (solver_type) {
+            case SolverType::EulerMaruyama:
+                paths = SDE::EulerMaruyamaSolver<SDE::ISDEModel<R>, R>(*sde_model).solve(0.0, ttm, poly_deg, num_paths, std::optional<StoringMatrix>(dw));
+                break;
+
+            case SolverType::Milstein:
+                paths = SDE::MilsteinSolver<SDE::ISDEModel<R>, R>(*sde_model)
+                                .solve(0.0, ttm, poly_deg, num_paths, std::optional<StoringMatrix>(dw));
+                break;
+            
+            case SolverType::IJK:
+                paths = SDE::InterpolatedKahlJackelSolver<SDE::ISDEModel<R>, R>(*sde_model)
+                                .solve(0.0, ttm, poly_deg, num_paths, std::optional<StoringMatrix>(dw));
+                break;
+
+            default:
+                throw std::runtime_error("Unknown solver type");
+        }
 
         // Map vol_view
         Eigen::Map<const StoringMatrix, 0, Eigen::OuterStride<>> vol_view(

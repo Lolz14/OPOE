@@ -99,30 +99,20 @@ void bind_OPEOptionPricer(py::module& m, const std::string& class_name) {
     py::class_<OPEType, std::shared_ptr<OPEType>>(m, class_name.c_str())
         .def(py::init(
             [](Real ttm, Real rate,
-               std::unique_ptr<options::IPayoff<Real>> payoff,
+               std::shared_ptr<options::IPayoff<Real>> payoff,
                std::shared_ptr<SDE::ISDEModel<Real>> model,
-               py::function solver_fn,
+               traits::SolverType solver_type = traits::SolverType::EulerMaruyama,
                traits::QuadratureMethod integrator = traits::QuadratureMethod::TanhSinh,
                unsigned int num_paths = 10) 
             {
-                using SolverFunc = std::function<Matrix(Real, Real, int, int, const std::optional<Matrix>&)>;
-
-                SolverFunc solver_lambda = [solver_fn](Real t0, Real ttm, int n_steps, int n_paths,
-                                                      const std::optional<Matrix>& dW_opt) -> Matrix {
-                    py::gil_scoped_acquire gil;
-                    py::object arg5 = dW_opt ? py::cast(*dW_opt) : py::none();
-                    py::object ret  = solver_fn(t0, ttm, n_steps, n_paths, arg5);
-                    return ret.cast<Matrix>();
-                };
-
                 return std::make_shared<OPEType>(
                     ttm, rate,
                     std::move(payoff), model,
-                    solver_lambda, integrator, num_paths
+                    solver_type, integrator, num_paths
                 );
             }),
             py::arg("ttm"), py::arg("rate"),
-            py::arg("payoff"), py::arg("model"), py::arg("solver_fn"),
+            py::arg("payoff"), py::arg("model"), py::arg("solver_type") = traits::SolverType::EulerMaruyama,
             py::arg("integrator") = traits::QuadratureMethod::TanhSinh,
             py::arg("num_paths") = 10)
         .def("price", &OPEType::price);
@@ -137,6 +127,19 @@ void bind_OPEOptionPricer(py::module& m, const std::string& class_name) {
 
 PYBIND11_MODULE(sdefin, m) {
     m.doc() = "Stochastic vol SDE models, solvers, and option pricers (pybind11)";
+
+    // ----- Enums -----
+
+    py::enum_<traits::QuadratureMethod>(m, "QuadratureMethod")
+    .value("TanhSinh", traits::QuadratureMethod::TanhSinh)
+    .value("QAGI", traits::QuadratureMethod::QAGI) 
+    .export_values();
+
+     py::enum_<traits::SolverType>(m, "SolverType")
+    .value("EulerMaruyama", traits::SolverType::EulerMaruyama)
+    .value("Milstein", traits::SolverType::Milstein) 
+    .value("IJK", traits::SolverType::IJK)
+    .export_values();
 
     //----- Models -----
 
@@ -154,25 +157,25 @@ PYBIND11_MODULE(sdefin, m) {
     bind_solver<SDE::InterpolatedKahlJackelSolver<SDE::ISDEModel<Real>, Real>>(m, "InterpolatedKahlJackelSolver");
 
     // ----- Payoffs -----
-    py::class_<options::IPayoff<Real>, py::smart_holder>(m, "IPayoff");
+    // Base payoff interface
+    py::class_<options::IPayoff<Real>, std::shared_ptr<options::IPayoff<Real>>>(m, "IPayoff");
 
-    py::class_<options::EuropeanCallPayoff<Real>, options::IPayoff<Real>, py::smart_holder>(m, "EuropeanCallPayoff")      
+    // European call
+    py::class_<options::EuropeanCallPayoff<Real>, options::IPayoff<Real>, std::shared_ptr<options::EuropeanCallPayoff<Real>>>(m, "EuropeanCallPayoff")
     .def(py::init<Real>(), py::arg("K"))
-    .def("evaluate",py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate, py::const_),
-    py::arg("S_T"))
-    .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate_from_log, py::const_),
-    py::arg("log_S_T"))
+    .def("evaluate", py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate, py::const_), py::arg("S_T"))
+    .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T"))
     .def("get_strike", &options::EuropeanCallPayoff<Real>::getStrike)
     .def("set_strike", &options::EuropeanCallPayoff<Real>::setStrike, py::arg("K"));
-      
-    py::class_<options::EuropeanPutPayoff<Real>, options::IPayoff<Real>, py::smart_holder>(m, "EuropeanPutPayoff")      
+
+    // European put
+    py::class_<options::EuropeanPutPayoff<Real>, options::IPayoff<Real>, std::shared_ptr<options::EuropeanPutPayoff<Real>>>(m, "EuropeanPutPayoff")
     .def(py::init<Real>(), py::arg("K"))
-    .def("evaluate",py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate, py::const_),
-    py::arg("S_T"))
-    .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate_from_log, py::const_),
-    py::arg("log_S_T"))
+    .def("evaluate", py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate, py::const_), py::arg("S_T"))
+    .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T"))
     .def("get_strike", &options::EuropeanPutPayoff<Real>::getStrike)
     .def("set_strike", &options::EuropeanPutPayoff<Real>::setStrike, py::arg("K"));
+
 
     // ----- Pricers -----
 
@@ -180,36 +183,26 @@ PYBIND11_MODULE(sdefin, m) {
     py::class_<options::MCOptionPricer<Real>, std::shared_ptr<options::MCOptionPricer<Real>>>(m, "MCOptionPricer")
     .def(py::init(
     [](Real ttm, Real rate,
-        std::unique_ptr<options::IPayoff<Real>> payoff,
+        std::shared_ptr<options::IPayoff<Real>> payoff,
         std::shared_ptr<SDE::ISDEModel<Real>> model,
-        py::function solver_fn,
+        traits::SolverType solver_type = traits::SolverType::EulerMaruyama,
         int num_paths, int num_steps) {
-
-        using SolverFunc = std::function<Matrix(Real, Real, int, int, const std::optional<Matrix>&)>;
-
-        SolverFunc solver_lambda = [solver_fn](Real t0, Real ttm, int n_steps, int n_paths,
-                                              const std::optional<Matrix>& dW_opt) -> Matrix {
-            py::gil_scoped_acquire gil;
-            py::object arg5 = dW_opt ? py::cast(*dW_opt) : py::none();
-            py::object ret  = solver_fn(t0, ttm, n_steps, n_paths, arg5);
-            return ret.cast<Matrix>();
-        };
 
         return std::make_shared<options::MCOptionPricer<Real>>(
             ttm, rate,
             std::move(payoff), model,
-            solver_lambda, num_paths, num_steps
+            solver_type, num_paths, num_steps
         );
     }),
     py::arg("ttm"), py::arg("rate"),
-    py::arg("payoff"), py::arg("model"), py::arg("solver_fn"),
+    py::arg("payoff"), py::arg("model"), py::arg("solver_type") = traits::SolverType::EulerMaruyama,
     py::arg("num_paths") = 10000, py::arg("num_steps") = 100)
     .def("price", &options::MCOptionPricer<Real>::price);
 
     // FFT Option Pricer Binding
     py::class_<options::FFTOptionPricer<Real>, std::shared_ptr<options::FFTOptionPricer<Real>>>(m, "FFTOptionPricer")
     .def(py::init([](Real ttm, Real rate,
-                     std::unique_ptr<options::IPayoff<Real>> payoff,
+                     std::shared_ptr<options::IPayoff<Real>> payoff,
                      std::shared_ptr<SDE::ISDEModel<Real>> sde_model,
                      unsigned int Npow, unsigned int A) {
         return std::make_shared<options::FFTOptionPricer<Real>>(
@@ -222,10 +215,7 @@ PYBIND11_MODULE(sdefin, m) {
     .def("price", &options::FFTOptionPricer<Real>::price);
 
 
-    py::enum_<traits::QuadratureMethod>(m, "QuadratureMethod")
-    .value("TanhSinh", traits::QuadratureMethod::TanhSinh)
-    .value("QAGI", traits::QuadratureMethod::QAGI) // add all your methods here
-    .export_values();
+ 
 
  
     bind_OPEOptionPricer<3>(m, "OPEOptionPricerN3"); 

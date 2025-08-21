@@ -48,10 +48,8 @@ class MCOptionPricer : public BaseOptionPricer<R> {
 public:
     using StoringVector = traits::DataType::StoringVector;
     using StoringMatrix = traits::DataType::StoringMatrix;
+    using SolverType = traits::SolverType;
 
-    
-    using SolverFunc = std::function<StoringMatrix(
-    R, R, int, int, const std::optional<StoringMatrix>& dW_opt)>;
     
     /**
      * @brief Constructs a MCOptionPricer instance.
@@ -60,18 +58,18 @@ public:
      * @param rate Risk-free interest rate.
      * @param payoff Payoff function for the option.
      * @param sde_model Shared pointer to the SDE model used for path generation.
-     * @param solver_func Function to solve the SDE and generate paths.
+     * @param solver_type Enum indicating the solver type.
      * @param num_paths Number of Monte Carlo paths to simulate (default: 10).
      * @param num_steps Number of time steps in each path (default: 3).
      */
     MCOptionPricer(R ttm, R rate,
-             std::unique_ptr<IPayoff<R>> payoff,
+             std::shared_ptr<IPayoff<R>> payoff,
              std::shared_ptr<SDE::ISDEModel<R>> sde_model,
-             SolverFunc solver_func,
+             SolverType solver_type,
              unsigned int num_paths = 10,
              unsigned int num_steps = 3)
         : BaseOptionPricer<R>(ttm, rate, std::move(payoff), std::move(sde_model)),
-          solver_func_(std::move(solver_func)),
+          solver_type_(solver_type),
           num_paths_(num_paths),
           num_steps_(num_steps)
     {}
@@ -86,7 +84,27 @@ public:
      */
     R price() const override {
 
-        auto all_paths = solver_func_(0.0, this->ttm_, num_steps_, num_paths_, std::nullopt);
+        StoringMatrix all_paths;
+
+        switch (solver_type_) {
+            case SolverType::EulerMaruyama:
+                all_paths = SDE::EulerMaruyamaSolver<SDE::ISDEModel<R>, R>(*this->sde_model_)
+                                .solve(0.0, this->ttm_, num_steps_, num_paths_, std::nullopt);
+                break;
+
+            case SolverType::Milstein:
+                all_paths = SDE::MilsteinSolver<SDE::ISDEModel<R>, R>(*this->sde_model_)
+                                .solve(0.0, this->ttm_, num_steps_, num_paths_, std::nullopt);
+                break;
+
+            case SolverType::IJK:
+                all_paths = SDE::InterpolatedKahlJackelSolver<SDE::ISDEModel<R>, R>(*this->sde_model_)
+                                .solve(0.0, this->ttm_, num_steps_, num_paths_, std::nullopt);
+                break;
+
+            default:
+                throw std::runtime_error("Unknown solver type");
+        }
 
         int state_dim = this->sde_model_->get_state_dim();
         StoringVector terminal_column = all_paths.col(num_steps_);
@@ -112,7 +130,7 @@ public:
     }
 
 private:
-    SolverFunc solver_func_;
+    SolverType solver_type_;
     unsigned int num_paths_;
     unsigned int num_steps_;
 };

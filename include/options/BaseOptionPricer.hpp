@@ -32,7 +32,7 @@ namespace options {
      * 
      * This class is designed to be inherited by specific option pricers like FFTPricer, MCPricer, etc.
      * It provides a common interface for setting and getting option parameters like time to maturity, strike price, and risk-free rate.
-     * It also holds a unique pointer to the payoff function, which can be evaluated by derived classes.
+     * It also holds a shared pointer to the payoff function, which can be evaluated by derived classes.
      */
     template <typename R = traits::DataType::PolynomialField>
     class BaseOptionPricer {
@@ -46,8 +46,8 @@ namespace options {
              * @param payoff Payoff function for the option.
              * @param sde_model Shared pointer to the SDE model used for pricing.
              */
-            BaseOptionPricer(R ttm, R rate, std::unique_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
-                : ttm_(ttm), rate_(rate), payoff_(std::move(payoff)), sde_model_(sde_model) {}
+            BaseOptionPricer(R ttm, R rate, std::shared_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model)
+                : ttm_(ttm), rate_(rate), payoff_(payoff), sde_model_(sde_model) {}
 
             virtual ~BaseOptionPricer() = default;
 
@@ -81,7 +81,7 @@ namespace options {
 
         R ttm_;
         R rate_;
-        std::unique_ptr<IPayoff<R>> payoff_;
+        std::shared_ptr<IPayoff<R>> payoff_;
         std::shared_ptr<SDE::ISDEModel<R>> sde_model_;
 
     };

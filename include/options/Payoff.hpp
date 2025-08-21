@@ -184,7 +184,7 @@ public:
      * @brief Gets the strike price.
      * @return The strike price (K).
      */
-    T getStrike() const noexcept {
+    T getStrike() const noexcept override {
         return strike_price_;
     }
 
@@ -193,7 +193,7 @@ public:
      * @param strike_price The new strike price (K).
      * @throws std::invalid_argument if the strike price is negative.
      */
-    void setStrike(T strike_price) {
+    void setStrike(T strike_price) override {
         if (strike_price < static_cast<T>(0.0)) {
             throw std::invalid_argument("Strike price cannot be negative.");
         }
@@ -278,7 +278,7 @@ public:
      * @brief Gets the strike price.
      * @return The strike price (K).
      */
-    T getStrike() const noexcept{
+    T getStrike() const noexcept override {
         return strike_price_;
     }
 
@@ -287,7 +287,7 @@ public:
      * @param strike_price The new strike price (K).
      * @throws std::invalid_argument if the strike price is negative.
      */
-    void setStrike(T strike_price) {
+    void setStrike(T strike_price) override {
         if (strike_price < static_cast<T>(0.0)) {
             throw std::invalid_argument("Strike price cannot be negative.");
         }

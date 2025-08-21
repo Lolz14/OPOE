@@ -38,16 +38,14 @@ int main() {
     auto hull_model = std::make_shared<HestonModelSDE<R>>(0.04, 2.0, 0.10, 0.3, -0.7, x0);
 
 
-    OPEOptionPricer<R, N> ope_pricer(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, 
-    [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDEMatrix>& dW_opt) {
-        return EulerMaruyamaSolver<HestonModelSDE<R>, R> (*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);});
+    OPEOptionPricer<R, N> ope_pricer(1.0, 0.05, std::make_unique<EuropeanPutPayoff<R>>(100.0), hull_model, 
+    traits::SolverType::EulerMaruyama);
 
     std::cout << "Option Price OPE: " << ope_pricer.price() << std::endl;
 
-    std::cout << "Option Price FFT: " << FFTOptionPricer<R>(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model).price() << std::endl;
+    std::cout << "Option Price FFT: " << FFTOptionPricer<R>(1.0, 0.05, std::make_unique<EuropeanPutPayoff<R>>(100.0), hull_model).price() << std::endl;
 
-    std::cout << "Option Price MC: " << MCOptionPricer<R>(1.0, 100.0, 0.05, std::make_unique<EuropeanCallPayoff<R>>(100.0), hull_model, [hull_model](R t0, R ttm, int num_steps, int num_paths, const std::optional<SDEMatrix>& dW_opt) {
-        return EulerMaruyamaSolver<HestonModelSDE<R>, R> (*hull_model).solve(t0, ttm, num_steps, num_paths, dW_opt);}, 1000, 100 ).price() << std::endl;
+    std::cout << "Option Price MC: " << MCOptionPricer<R>(1.0, 0.05, std::make_unique<EuropeanPutPayoff<R>>(100.0), hull_model, traits::SolverType::EulerMaruyama, 1000, 100 ).price() << std::endl;
 
 
    

@@ -134,6 +134,17 @@ enum class QuantizationProcedure
     CLVQ    ///< Competitive Learning Vector Quantization.
 };
 
+/**
+ * @enum
+ * @brief Enumerates the different solvers. 
+ */
+ 
+enum class SolverType {
+    EulerMaruyama,
+    Milstein,
+    IJK
+};
+
 
 
 } // namespace traits

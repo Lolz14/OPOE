@@ -290,7 +290,7 @@ public:
     GeometricBrownianMotionSDE(T mu, T sigma, T x0) : params_(Parameters{mu, sigma}) {
         this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
 
-        if (params_.sigma < 0.0) {
+        if (this->get_v0() < 0.0) {
             throw std::invalid_argument("Volatility cannot be negative.");
         }
 
@@ -304,27 +304,17 @@ public:
 
     unsigned int get_state_dim() const override { return STATE_DIM;}
 
-    const Parameters& get_parameters() const { return params_; }
-
-    void set_parameters(const Parameters& params) {
-        params_ = params;
-        if (params_.sigma < 0.0) { 
-            std::invalid_argument("Volatility cannot be negative.");
-        }
-
-    }
-
     inline void drift([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& mu_out) const override {
 
         // Drift of X_t is mu
-        mu_out = (params_.mu - params_.sigma * params_.sigma * static_cast<T>(0.5)) * SDEVector::Ones(STATE_DIM);
+        mu_out = (this->get_mu() - this->get_v0() * this->get_v0() * static_cast<T>(0.5)) * SDEVector::Ones(STATE_DIM);
 
     }
 
     inline void diffusion([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& sigma_out) const override {
 
         // Diffusion of X_t is sigma
-        sigma_out = params_.sigma * SDEMatrix::Identity(STATE_DIM, WIENER_DIM);
+        sigma_out = this->get_v0() * SDEMatrix::Identity(STATE_DIM, WIENER_DIM);
 
     }
 
@@ -344,7 +334,7 @@ public:
 
     inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
         // Verificare se post x. array in parentesi vada mu. DEVO VEDERE OVUNQUE
-        charact_out = t * ( (-params_.sigma * params_.sigma * x.array().square()) * static_cast<T>(0.5) + ImaginaryUnit<> * x.array() * ( - params_.sigma * params_.sigma * static_cast<T>(0.5)));
+        charact_out = t * ( (-this->get_v0() * this->get_v0() * x.array().square()) * static_cast<T>(0.5) + ImaginaryUnit<> * x.array() * ( - this->get_v0() * this->get_v0() * static_cast<T>(0.5)));
 
         charact_out = charact_out.array().exp();
     }
@@ -435,28 +425,28 @@ public:
 
         // Parameter validation
 
-        if (params_.sv_theta <= 0.0) {
+        if (this->get_theta() <= 0.0) {
              throw std::invalid_argument("Long-term variance theta must be positive.");
         }
 
-        if (params_.sv_kappa < 0.0) { 
+        if (this->get_kappa() < 0.0) { 
             // Usually kappa > 0 for mean reversion.
             std::cerr << "Warning: Mean-reversion kappa is negative or zero.\n";
 
         }
 
-        if (params_.correlation < -1.0 || params_.correlation > 1.0) {
+        if (this->get_correlation() < -1.0 || this->get_correlation() > 1.0) {
             throw std::invalid_argument("Correlation rho must be between -1 and 1.");
         }
 
-        if (params_.sv_sigma <= 0.0 && params_.sv_vol_exponent > 0) { 
+        if (this->get_sigma_v() <= 0.0 && this->get_q() > 0) { 
              throw std::invalid_argument("Volatility of stochastic factor (sv_sigma) must be positive if it has an impact.");
         }
 
          // Feller condition check
 
-        if (params_.sv_vol_exponent == 0.5 && params_.sv_kappa > 0 && params_.sv_theta > 0) { 
-            if (2.0 * params_.sv_kappa * params_.sv_theta < params_.sv_sigma * params_.sv_sigma) {
+        if (this->get_q() == 0.5 && this->get_kappa() > 0 && this->get_theta() > 0) { 
+            if (2.0 * this->get_kappa() * this->get_theta() < this->get_sigma_v() * this->get_sigma_v()) {
                 std::cerr << "Warning: Feller condition (2*kappa*theta >= sigma_v^2) may not be satisfied; x(0) might become negative if it represents variance.\n";
             }
         }
@@ -466,32 +456,30 @@ public:
     
     unsigned int get_state_dim() const override { return STATE_DIM;}
 
-    const Parameters& get_parameters() const { return params_; }
-
     inline void drift([[maybe_unused]] T t, const SDEVector& x, SDEVector& mu_out) const override 
     {
         T asset_vol_term_squared;
 
-        if (params_.asset_vol_exponent == static_cast<T>(0.5)) {
+        if (this->get_p() == static_cast<T>(0.5)) {
 
             asset_vol_term_squared = x(0);
 
-        } else if (params_.asset_vol_exponent == static_cast<T>(1.0)) {
+        } else if (this->get_p() == static_cast<T>(1.0)) {
 
             asset_vol_term_squared = x(0) * x(0);
 
         } else {
 
-            // General case: std::pow(x(1), 2.0 * params_.asset_vol_exponent)
-            asset_vol_term_squared = std::pow(x(0), static_cast<T>(2.0) * params_.asset_vol_exponent);
+            // General case: std::pow(x(1), 2.0 * this->get_p())
+            asset_vol_term_squared = std::pow(x(0), static_cast<T>(2.0) * this->get_p());
 
         }
 
         // Drift for x(0): the stochastic volatility factor (e.g. CIR process or OU)
-        mu_out(0) = params_.sv_kappa * (params_.sv_theta - x(0));
+        mu_out(0) = this->get_kappa() * (this->get_theta() - x(0));
 
         // Drift for x(1): log-price
-        mu_out(1) = params_.asset_drift_const - static_cast<T>(0.5) * asset_vol_term_squared;
+        mu_out(1) = this->get_drift() - static_cast<T>(0.5) * asset_vol_term_squared;
 
     }
 
@@ -501,59 +489,53 @@ public:
 
         // Calculate factor_p = sv_factor^p
         T factor_p;
-        if (params_.asset_vol_exponent == static_cast<T>(0.5)) {
+        if (this->get_p() == static_cast<T>(0.5)) {
             factor_p = std::sqrt(sv_factor);
         } 
-        else if (params_.asset_vol_exponent == static_cast<T>(1.0)) {
+        else if (this->get_p() == static_cast<T>(1.0)) {
             factor_p = sv_factor;
         } 
         else {
-            factor_p = std::pow(sv_factor, params_.asset_vol_exponent);
+            factor_p = std::pow(sv_factor, this->get_p());
         }
 
         // Calculate factor_q = sv_factor^q
         T factor_q;
 
-        if (params_.sv_vol_exponent == static_cast<T>(0.0)) {
+        if (this->get_q() == static_cast<T>(0.0)) {
             factor_q = static_cast<T>(1.0); // For q=0, x^0 = 1
         } 
-        else if (params_.sv_vol_exponent == static_cast<T>(0.5)) {
+        else if (this->get_q() == static_cast<T>(0.5)) {
             factor_q = std::sqrt(sv_factor);
         }
-        else if (params_.sv_vol_exponent == static_cast<T>(1.0)) {
+        else if (this->get_q() == static_cast<T>(1.0)) {
             factor_q = sv_factor;
         } 
         else {
-            factor_q = std::pow(sv_factor, params_.sv_vol_exponent);
+            factor_q = std::pow(sv_factor, this->get_q());
         } 
 
 
         // Row 0: volatility diffusion components
         sigma_out(0, 1) = 0.0;                 // Component for dW_uncorr
-        sigma_out(0, 0) = params_.sv_sigma * factor_q; // Component for dZ
+        sigma_out(0, 0) = this->get_sigma_v() * factor_q; // Component for dZ
 
         // Row 1: Log Price diffusion components
-        sigma_out(1, 1) = std::sqrt(1 - params_.correlation*params_.correlation) * factor_p ; // Corresponds to dW_uncorr
-        sigma_out(1, 0) = params_.correlation * factor_p;      // Corresponds to dZ_uncorr
+        sigma_out(1, 1) = std::sqrt(1 - this->get_correlation()*this->get_correlation()) * factor_p ; // Corresponds to dW_uncorr
+        sigma_out(1, 0) = this->get_correlation() * factor_p;      // Corresponds to dZ_uncorr
 
 
     }
     
     inline void drift_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEVector& deriv_out) const override {
         // Derivative of drift w.r.t. x(0) and x(1)
-        deriv_out(0) = params_.sv_kappa; // Derivative of drift w.r.t. x(0)
+        deriv_out(0) = this->get_kappa(); // Derivative of drift w.r.t. x(0)
         deriv_out(1) = 0.0;
         }
     
     inline void diffusion_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
 
-        // deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * std::pow(x(0), params_.sv_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ
 
-        //deriv_out(0, 1) = 0.0; // Derivative of diffusion w.r.t. x(0) for dW_uncorr
-
-        //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * std::pow(x(0), params_.asset_vol_exponent - 1.0); // Derivative of diffusion w.r.t. x(0) for dZ_unc
-
-        //deriv_out(1, 1) = 0.0;
 
         deriv_out.setZero();
 
@@ -562,8 +544,7 @@ public:
     inline void diffusion_second_derivative_x([[maybe_unused]] T t, [[maybe_unused]] const SDEVector& x, SDEMatrix& deriv_out) const override {
         // For GenericSVModel, the second derivative of diffusion is zero
         deriv_out.setZero();
-        //deriv_out(0, 0) = params_.sv_sigma * params_.sv_vol_exponent * (params_.sv_vol_exponent - 1.0) * std::pow(x(0), params_.sv_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ
-        //deriv_out(1, 0) = params_.correlation * params_.asset_vol_exponent * (params_.asset_vol_exponent - 1.0) * std::pow(x(0), params_.asset_vol_exponent - 2.0); // Second derivative of diffusion w.r.t. x(0) for dZ_unc
+      
     }
 
     /**
@@ -597,16 +578,15 @@ public:
      * @return SVPolyCoeffs containing the polynomial coefficients for the drift and diffusion terms.
      */
     virtual SVPolyCoeffs build_sv_polynomials(
-        const typename GenericSVModelSDE<T>::Parameters& p, 
         int N
     ) {
         SVPolyCoeffs out;
 
         // b_x(v) = μ - 0.5 v^(2p)
         out.bx = SDEVector::Zero(N);
-        out.bx[0] = p.asset_drift_const;
+        out.bx[0] = this->get_drift();
         {
-            int exp = static_cast<int>(2 * p.asset_vol_exponent);
+            int exp = static_cast<int>(2 * this->get_p());
             if (exp < N)
                 out.bx[exp] = out.bx[exp] - T(0.5);
         }
@@ -614,31 +594,31 @@ public:
         // a_xx(v) = v^(2p)
         out.axx = SDEVector::Zero(N);
         {
-            int exp = static_cast<int>(2 * p.asset_vol_exponent);
+            int exp = static_cast<int>(2 * this->get_p());
             if (exp < N)
                 out.axx[exp] = T(1.0);
         }
 
         // b_v(v) = κ θ - κ v
         out.bv = SDEVector::Zero(N);
-        out.bv[0] = p.sv_kappa * p.sv_theta;
+        out.bv[0] = this->get_kappa() * this->get_theta();
         if (1 < N)
-            out.bv[1] = -p.sv_kappa;
+            out.bv[1] = -this->get_kappa();
 
         // a_xv(v) = ρ σ v^(p+q)
         out.axv = SDEVector::Zero(N);
         {
-            int exp = static_cast<int>(p.asset_vol_exponent + p.sv_vol_exponent);
+            int exp = static_cast<int>(this->get_p() + this->get_q());
             if (exp < N)
-                out.axv[exp] = p.correlation * p.sv_sigma;
+                out.axv[exp] = this->get_correlation() * this->get_sigma_v();
         }
 
         // a_vv(v) = σ² v^(2q)
         out.avv = SDEVector::Zero(N);
         {
-            int exp = static_cast<int>(2 * p.sv_vol_exponent);
+            int exp = static_cast<int>(2 * this->get_q());
             if (exp < N)
-                out.avv[exp] = p.sv_sigma * p.sv_sigma;
+                out.avv[exp] = this->get_sigma_v() * this->get_sigma_v();
         }
 
         return out;
@@ -672,13 +652,13 @@ public:
 
         SDEMatrix G = SDEMatrix::Zero(M, M);
 
-        const auto q = params_.sv_vol_exponent;
-        const auto p = params_.asset_vol_exponent;
-        const auto kappa = params_.sv_kappa;
-        const auto theta = params_.sv_theta;
-        const auto rho = params_.correlation;
-        const auto r = params_.asset_drift_const;
-        const auto sigma_v = params_.sv_sigma;
+        const auto q = this->get_q();
+        const auto p = this->get_p();
+        const auto kappa = this->get_kappa();
+        const auto theta = this->get_theta();
+        const auto rho = this->get_correlation();
+        const auto r = this->get_drift();
+        const auto sigma_v = this->get_sigma_v();
 
         auto add_entry = [&](int row_m, int row_n, int col, T value) {
             if (row_m < 0 || row_n < 0) return;
@@ -746,7 +726,7 @@ public:
 
         auto const N = static_cast<int>(H.rows());
 
-        auto coeffs = build_sv_polynomials(this->params_, N);
+        auto coeffs = build_sv_polynomials(N);
 
         auto G = Utils::build_G_full(H, coeffs.bx, coeffs.axx, coeffs.bv, coeffs.axv, coeffs.avv, N);
 
@@ -804,6 +784,11 @@ public:
         return params_.sv_sigma; // Volatility of the variance process
     }
 
+    inline T get_drift() const noexcept {
+        return params_.asset_drift_const; // Constant drift term of log-price
+    }
+
+
     /**
      * @brief Computes the Mean of the SDE at time T by employing an IJK scheme combined with weighted Monte Carlo integration.
      * @param ttm Time to maturity.
@@ -829,8 +814,8 @@ public:
         const auto& w_mat = w_t.matrix();
 
         // Precompute powers
-        auto y_t_asset = y_mat.array().pow(params_.asset_vol_exponent).matrix();
-        auto y_t_vol   = y_mat.array().pow(params_.sv_vol_exponent).matrix();
+        auto y_t_asset = y_mat.array().pow(this->get_p()).matrix();
+        auto y_t_vol   = y_mat.array().pow(this->get_q()).matrix();
 
         // 1. Trapezoidal rule
         auto trap_block1 = y_t_asset.array().square().block(0, 0, k, n - 1);
@@ -838,17 +823,17 @@ public:
         auto trap = -static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).rowwise().sum();
 
         // 2. Vanilla stochastic integral
-        auto stoch = params_.correlation * y_t_asset.block(0, 1, k, n - 1).cwiseProduct(w_t).rowwise().sum();
+        auto stoch = this->get_correlation() * y_t_asset.block(0, 1, k, n - 1).cwiseProduct(w_t).rowwise().sum();
 
         // 3. IJK term
         auto w_sq_minus_dt = w_mat.array().square() - dt;
-        auto ijk = params_.correlation * static_cast<T>(0.5) * params_.sv_sigma
+        auto ijk = this->get_correlation() * static_cast<T>(0.5) * this->get_sigma_v()
                 * y_t_vol.block(0, 1, k, n - 1).cwiseProduct(w_sq_minus_dt.matrix()).rowwise().sum();
 
 
         // Final result
         auto result = get_x0()
-                    + params_.asset_drift_const * ttm
+                    + this->get_drift() * ttm
                     + trap.array() + stoch.array() + ijk.array();
 
         return result;
@@ -873,7 +858,7 @@ public:
         const auto& y_mat = y_t.matrix();
 
         // Precompute powers
-        auto y_t_asset = y_mat.array().pow(2 * params_.asset_vol_exponent).matrix();
+        auto y_t_asset = y_mat.array().pow(2 * this->get_p()).matrix();
 
         // 1. Trapezoidal rule
         auto trap_block1 = y_t_asset.block(0, 0, k, n - 1);
@@ -881,7 +866,7 @@ public:
         auto trap = static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).rowwise().sum();
 
         // Final result
-        auto result = (1 - params_.correlation*params_.correlation) * trap.array();
+        auto result = (1 - this->get_correlation()*this->get_correlation()) * trap.array();
 
         return result;
     };
@@ -922,16 +907,16 @@ public:
     inline void characteristic_fn(T t, const SDEComplexVector& x, SDEComplexVector& charact_out) const override{
 
             // Step 1: gamma
-        SDEComplexVector d = ((Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()).square()
-                            + Base::params_.sv_sigma * Base::params_.sv_sigma * (x.array() * (x.array() + ImaginaryUnit<>))).matrix();
+        SDEComplexVector d = ((this->get_kappa() - ImaginaryUnit<> * this->get_correlation() * this->get_sigma_v() * x.array()).square()
+                            + this->get_sigma_v() * this->get_sigma_v() * (x.array() * (x.array() + ImaginaryUnit<>))).matrix();
         SDEComplexVector gamma = d.array().sqrt().matrix();
 
                 // Step 2: A (exp1 + exp2)
 
-        SDEComplexVector exp1 = gamma.array() + Base::params_.sv_kappa - ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array();
-        SDEComplexVector exp2 = gamma.array() - Base::params_.sv_kappa + ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array();
-        SDEComplexVector A = (Base::params_.sv_kappa * Base::params_.sv_theta / (Base::params_.sv_sigma * Base::params_.sv_sigma)) * ((Base::params_.sv_kappa - gamma.array() -
-                            ImaginaryUnit<> * Base::params_.correlation * Base::params_.sv_sigma * x.array()) * t - 2 *((exp1.array() + exp2.array() * (-gamma.array() * t).exp())/
+        SDEComplexVector exp1 = gamma.array() + this->get_kappa() - ImaginaryUnit<> * this->get_correlation() * this->get_sigma_v() * x.array();
+        SDEComplexVector exp2 = gamma.array() - this->get_kappa() + ImaginaryUnit<> * this->get_correlation() * this->get_sigma_v() * x.array();
+        SDEComplexVector A = (this->get_kappa() * this->get_theta() / (this->get_sigma_v() * this->get_sigma_v())) * ((this->get_kappa() - gamma.array() -
+                            ImaginaryUnit<> * this->get_correlation() * this->get_sigma_v() * x.array()) * t - 2 *((exp1.array() + exp2.array() * (-gamma.array() * t).exp())/
                             (exp1.array() + exp2.array())).log()).matrix();
 
 
@@ -944,9 +929,9 @@ public:
         const T one = T(1.0);
         const T two = T(2.0);
 
-        const auto& kappa = Base::params_.sv_kappa;
-        const auto& rho = Base::params_.correlation;
-        const auto& sigma = Base::params_.sv_sigma;
+        const auto& kappa = this->get_kappa();
+        const auto& rho = this->get_correlation();
+        const auto& sigma = this->get_sigma_v();
 
         auto i_x = ImaginaryUnit<> * x_arr;
         auto x_sq = x_arr.square();
@@ -1204,7 +1189,7 @@ public:
     : Base(Parameters{asset_drift_const, sv_kappa, sv_theta, sv_sigma, correlation, static_cast<T>(1.0), static_cast<T>(1.0)}, x0),
       y_min_(y_min),y_max_(y_max)
         {
-        if (Base::params_.correlation < -1.0 || Base::params_.correlation > 1.0) {
+        if (this->get_correlation() < -1.0 || this->get_correlation() > 1.0) {
             throw std::invalid_argument("JacobiModelSDE: Rho must be between -1 and 1.");
         }
 
@@ -1212,16 +1197,16 @@ public:
             throw std::invalid_argument("JacobiModelSDE: Invalid y_min/y_max. y_min >= 0 and y_max > y_min required.");
         }
 
-        if (Base::params_.sv_theta < y_min_ || Base::params_.sv_theta > y_max_) {
+        if (this->get_theta() < y_min_ || this->get_theta() > y_max_) {
              std::cerr << "Warning: JacobiModelSDE: Theta is outside variance bounds [y_min, y_max].\n";
         }
 
 
-        if (Base::params_.sv_sigma <= 0) {
+        if (this->get_sigma_v() <= 0) {
             throw std::invalid_argument("JacobiModelSDE: Sigma (vol of vol factor) must be positive.");
         }
 
-        if (Base::params_.sv_kappa < 0) {
+        if (this->get_kappa() < 0) {
              std::cerr << "Warning: JacobiModelSDE: Kappa (mean reversion speed) is negative.\n";
         }
 
@@ -1249,11 +1234,11 @@ public:
 
 
         // Drift for X_t (log-price)
-        mu_out(1) = Base::params_.asset_drift_const  - Y_t * static_cast<T>(0.5);
+        mu_out(1) = this->get_drift()  - Y_t * static_cast<T>(0.5);
 
 
         // Drift for Y_t
-        mu_out(0) = Base::params_.sv_kappa * (Base::params_.sv_theta - Y_t);
+        mu_out(0) = this->get_kappa() * (this->get_theta() - Y_t);
 
     }
 
@@ -1266,7 +1251,7 @@ public:
         T sqrt_q_y = (q_y > 0.0) ? std::sqrt(q_y) : 0.0;
 
 
-        T Y_minus_rho_sq_Q = Y_t - Base::params_.correlation * Base::params_.correlation * q_y;
+        T Y_minus_rho_sq_Q = Y_t - this->get_correlation() * this->get_correlation() * q_y;
         T sqrt_Y_minus_rho_sq_Q = (Y_minus_rho_sq_Q > 0.0) ? std::sqrt(Y_minus_rho_sq_Q) : 0.0;
         
         // dY_t = ... + sigma*sqrt(Q(Y_t))dW_1t
@@ -1277,19 +1262,18 @@ public:
         
         // Row 0: variance (Y_t) diffusion coefficients for dW1, dW2
 
-        sigma_out(0, 0) = Base::params_.sv_sigma * sqrt_q_y;
+        sigma_out(0, 0) = this->get_sigma_v() * sqrt_q_y;
         sigma_out(0, 1) = 0.0;
 
         // Row 1: log-price (X_t) diffusion coefficients for dW1, dW2
 
-        sigma_out(1, 0) = Base::params_.correlation * sqrt_q_y;
+        sigma_out(1, 0) = this->get_correlation() * sqrt_q_y;
         sigma_out(1, 1) = sqrt_Y_minus_rho_sq_Q;
 
 
     }
 
     typename Base::SVPolyCoeffs build_sv_polynomials(
-        const typename JacobiModelSDE::Parameters& p, 
         int N) override
         {
         typename Base::SVPolyCoeffs out;
@@ -1300,7 +1284,7 @@ public:
 
         // b_x(v) = μ - 0.5 v
         out.bx = SDEVector::Zero(N);
-        out.bx[0] = p.asset_drift_const;
+        out.bx[0] = this->get_drift();
         {
             if (1 < N)
                 out.bx[1] = out.bx[1]  - T(0.5);
@@ -1315,12 +1299,12 @@ public:
 
         // b_v(v) = κ θ - κ v
         out.bv = SDEVector::Zero(N);
-        out.bv[0] = p.sv_kappa * p.sv_theta;
+        out.bv[0] = this->get_kappa() * this->get_theta();
         if (1 < N)
-            out.bv[1] = -p.sv_kappa;
+            out.bv[1] = -this->get_kappa();
 
         // a_xv(v) = ρ σ Q(v)
-        out.axv = SDEVector::Constant(N, p.correlation * p.sv_sigma);
+        out.axv = SDEVector::Constant(N, this->get_correlation() * this->get_sigma_v());
         {
             out.axv[0] *= -vmin * vmax / C; // Adjust for the constant term
             if (1 < N)
@@ -1330,7 +1314,7 @@ public:
  
         }
         // a_vv(v) = σ² Q(v)
-        out.avv = SDEVector::Constant(N, p.sv_sigma * p.sv_sigma);
+        out.avv = SDEVector::Constant(N, this->get_sigma_v() * this->get_sigma_v());
         {
             out.avv[0] *= -vmin * vmax / C; // Adjust for the constant term
             if (1 < N)
@@ -1360,11 +1344,11 @@ public:
         const T C = q_denominator_sq_;
         const T vmin = y_min_;
         const T vmax = y_max_;
-        const T kappa = Base::params_.sv_kappa;
-        const T theta = Base::params_.sv_theta;
-        const T r = Base::params_.asset_drift_const;
-        const T sigma_v = Base::params_.sv_sigma;
-        const T rho = Base::params_.correlation;
+        const T kappa = this->get_kappa();
+        const T theta = this->get_theta();
+        const T r = this->get_drift();
+        const T sigma_v = this->get_sigma_v();
+        const T rho = this->get_correlation();
 
         auto add_entry = [&](int row_m, int row_n, int col, T value) {
             if (row_m < 0 || row_n < 0) return;
@@ -1439,16 +1423,16 @@ public:
             auto trap = -static_cast<T>(0.25) * dt * (trap_block1 + trap_block2).rowwise().sum();
 
             // 2. Vanilla stochastic integral
-            auto stoch = Base::params_.correlation * y_t_vol.block(0, 0, k, n - 1).cwiseProduct(w_t).rowwise().sum();
+            auto stoch = this->get_correlation() * y_t_vol.block(0, 0, k, n - 1).cwiseProduct(w_t).rowwise().sum();
 
             // 3. IJK term
             auto w_sq_minus_dt = w_mat.array().square() - dt;
-            auto ijk = Base::params_.correlation * static_cast<T>(0.5) * Base::params_.sv_sigma
+            auto ijk = this->get_correlation() * static_cast<T>(0.5) * this->get_sigma_v()
                     * y_t_vol.block(0, 0, k, n - 1).cwiseProduct(w_sq_minus_dt.matrix()).rowwise().sum();
 
             // Final result
             auto result = Base::get_x0()
-                        + Base::params_.asset_drift_const * ttm
+                        + this->get_drift() * ttm
                         + trap.array() + stoch.array() + ijk.array();
 
             return result;
@@ -1463,7 +1447,7 @@ public:
 
 
         // Precompute powers
-        auto y_t_asset = (y_mat - Base::params_.correlation * Base::params_.correlation * Q_func(y_mat).matrix()).eval(); // Use Q_func for variance process
+        auto y_t_asset = (y_mat - this->get_correlation() * this->get_correlation() * Q_func(y_mat).matrix()).eval(); // Use Q_func for variance process
 
         std::cout << "y_t_asset:\n" << Q_func(y_mat) << std::endl;
 
