@@ -158,10 +158,9 @@ public:
         }
     
         // P₀(x) is implicitly zero.
-        // P₁(x) = 1 (coefficient of x⁰ is 1)
         if (N + 1 > 0) {
-            polynomials[1].get_coeff()(0) = 1.0/std::sqrt(recurrence_coeffs.beta_0(0.0));
-            //polynomials[1].get_coeff()(0) = 1.0;
+            //polynomials[1].get_coeff()(0) = 1.0/std::sqrt(recurrence_coeffs.beta_0(0.0));
+            polynomials[1].get_coeff()(0) = 1.0;
         }
         H.col(0) = polynomials[1].get_coeff();
 
@@ -198,8 +197,6 @@ public:
             const auto& P_k_coeffs = polynomials[k].get_coeff();
             const auto& P_km1_coeffs = polynomials[k - 1].get_coeff();
     
-            // --- Calculation using Eigen's vectorized operations ---
-            // P_kp1 = (x * P_k) - alpha_km1 * P_k - beta_km1 * P_km1
     
             // 1. Compute x * P_k (results in higher degree, store temporarily)
             P_kp1_coeffs.setZero(); // Clear previous iteration's result
@@ -211,8 +208,6 @@ public:
             P_kp1_coeffs -= alpha_km1 * P_k_coeffs;
     
             // 3. Subtract beta_km1 * P_{k-1}
-            // P_kp1_coeffs -= beta_km1 * P_km1_coeffs;
-
             P_kp1_coeffs -= std::sqrt(beta_km1) * P_km1_coeffs;
             P_kp1_coeffs /= std::sqrt(beta_kp1); // Normalize by sqrt(beta_k)
             // --- End of Eigen calculation ---
@@ -255,6 +250,20 @@ public:
      * @throws std::out_of_range if degree > N
      */
     const PolyType& getPolynomial(unsigned int degree) const {
+        if (degree > N) {
+            throw std::out_of_range("Requested degree exceeds max polynomial degree.");
+        }
+        return polynomials[degree + 1];
+    }
+    
+    /**
+     * @brief Retrieve the polynomial of given degree to modify the underlying.
+     * 
+     * @param degree Degree of polynomial
+     * @return Non-const reference to polynomial
+     * @throws std::out_of_range if degree > N
+     */
+    PolyType& getPolynomial(unsigned int degree) {
         if (degree > N) {
             throw std::out_of_range("Requested degree exceeds max polynomial degree.");
         }
@@ -385,7 +394,7 @@ private:
 public:
     using Base = OrthogonalPolynomialBase<HermitePolynomial<N, R>, N, R, HermiteMu<R>, HermiteSigma<R>>;
 
-    HermitePolynomial(R mu = 0, R sigma = M_SQRT2)
+    HermitePolynomial(R mu = 0, R sigma = 1)
         : Base(
             [mu, sigma](R x) { return 1/(sigma*std::sqrt(M_PI*2)) * std::exp(-std::pow(x-mu, 2)/(2*sigma*sigma)); }, // Weight function
             RecurrenceCoefficients<R>{

@@ -18,8 +18,7 @@ def main():
     # 2. Define payoff
     # ------------------------
     strike = 100.0
-    payoff = opoe.EuropeanPutPayoff(strike)
-    payoff2 = opoe.EuropeanCallPayoff(strike + 50)
+    payoff = opoe.EuropeanCallPayoff(strike)
     payoff3 = opoe.EuropeanCallPayoff(strike)
  
 
@@ -35,16 +34,14 @@ def main():
 
     # call the helper
     
-    fftpricer = opoe.CFOptionPricer(1, 0.05, payoff, geometric_brownian_motion)
-    
-    print("FFT Option price:", fftpricer.price())
+
             
     
-    OPEpricer = opoe.OPEOptionPricerN7(1, 0.05, payoff, heston,  opoe.SolverType.IJK, opoe.QuadratureMethod.TanhSinh, 100)
+    OPEpricer = opoe.OPEOptionPricerN5(1, 0.05, payoff3, heston, 5, opoe.OPEMethod.Direct)
     
     print("Option price:", OPEpricer.price())
         
-    MC = opoe.MCOptionPricer(1, 0.05, payoff, heston,   opoe.SolverType.EulerMaruyama )
+    MC = opoe.FFTOptionPricer(1, 0.05, payoff3, heston, 10, 1000)
     
     
     print("MC price:", MC.price())

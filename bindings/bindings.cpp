@@ -293,18 +293,22 @@ void bind_OPEOptionPricer(py::module& m, const std::string& class_name) {
             [](Real ttm, Real rate,
                std::shared_ptr<options::IPayoff<Real>> payoff,
                std::shared_ptr<SDE::ISDEModel<Real>> model,
+                unsigned int K,
+               traits::OPEMethod solving_param = traits::OPEMethod::Integration,
                traits::SolverType solver_type = traits::SolverType::EulerMaruyama,
                traits::QuadratureMethod integrator = traits::QuadratureMethod::TanhSinh,
                unsigned int num_paths = 10) 
             {
                 return std::make_shared<OPEType>(
                     ttm, rate,
-                    std::move(payoff), model,
-                    solver_type, integrator, num_paths
+                    std::move(payoff), model, K, 
+                    solving_param, solver_type, integrator, num_paths
                 );
             }),
             py::arg("ttm"), py::arg("rate"),
-            py::arg("payoff"), py::arg("model"), py::arg("solver_type") = traits::SolverType::EulerMaruyama,
+            py::arg("payoff"), py::arg("model"), py::arg("K"),
+            py::arg("solving_param") = traits::OPEMethod::Integration,
+            py::arg("solver_type") = traits::SolverType::EulerMaruyama,
             py::arg("integrator") = traits::QuadratureMethod::TanhSinh,
             py::arg("num_paths") = 10)
         .def("price", &OPEType::price);
@@ -349,6 +353,20 @@ PYBIND11_MODULE(opoe, m) {
     .value("EulerMaruyama", traits::SolverType::EulerMaruyama)
     .value("Milstein", traits::SolverType::Milstein) 
     .value("IJK", traits::SolverType::IJK)
+    .export_values();
+
+        /**
+     * @brief Enum containing Method type.
+     *
+     * This enum defines the solving method for OPEPricer.
+     *
+     * ### Values
+     * - `OPEMethod.Integration` : integrates the payoff wrt approximated mixture density.
+     * - `OPEMethod.Direct` : uses payoff projection computed via recursion schemes, when available.
+     */
+    py::enum_<traits::OPEMethod>(m, "OPEMethod")
+    .value("Direct", traits::OPEMethod::Direct)
+    .value("Integration", traits::OPEMethod::Integration) 
     .export_values();
 
     //----- Models -----
@@ -497,6 +515,10 @@ PYBIND11_MODULE(opoe, m) {
     bind_OPEOptionPricer<7>(m, "OPEOptionPricerN7"); 
     bind_OPEOptionPricer<9>(m, "OPEOptionPricerN9"); 
     bind_OPEOptionPricer<10>(m, "OPEOptionPricerN10"); 
+    bind_OPEOptionPricer<15>(m, "OPEOptionPricerN15"); 
+    bind_OPEOptionPricer<20>(m, "OPEOptionPricerN20"); 
+    bind_OPEOptionPricer<25>(m, "OPEOptionPricerN25"); 
+    bind_OPEOptionPricer<30>(m, "OPEOptionPricerN30"); 
 
     /**
      * @brief Closed Formula (CF) Option Pricer.

@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classoptions_1_1_base_option_pricer.html" title=" " alt="" coords="5,16,227,72"/>
-<area shape="rect" id="node2" href="$classoptions_1_1_c_f_option_pricer.html" title="CFOptionPricer class for pricing options using the Black&#45;Scholes model." alt="" coords="277,5,492,32"/>
-<area shape="rect" id="node3" href="$classoptions_1_1_f_f_t_option_pricer.html" title="FFTOptionPricer class for pricing options using Fast Fourier Transform (FFT)." alt="" coords="275,56,495,83"/>
-</map>

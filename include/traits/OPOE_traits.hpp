@@ -135,7 +135,7 @@ enum class QuantizationProcedure
 };
 
 /**
- * @enum
+ * @enum SolverType
  * @brief Enumerates the different solvers. 
  */
  
@@ -145,6 +145,15 @@ enum class SolverType {
     IJK
 };
 
+
+/**
+ * @enum OPEMethod
+ * @brief Enumerates the two different ways of computing option prices with OPE
+ */
+enum class OPEMethod {
+    Direct,
+    Integration
+};
 
 
 } // namespace traits

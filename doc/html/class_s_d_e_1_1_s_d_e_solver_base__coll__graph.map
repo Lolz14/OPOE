@@ -1,4 +1,0 @@
-<map id="SDE::SDESolverBase&lt; DerivedSolver, SdeType, R &gt;" name="SDE::SDESolverBase&lt; DerivedSolver, SdeType, R &gt;">
-<area shape="rect" id="node1" title="Base class for SDE solvers using CRTP for static polymorphism." alt="" coords="5,95,228,136"/>
-<area shape="rect" id="node2" title=" " alt="" coords="79,5,155,32"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,144,73"/>
-<area shape="rect" id="node2" href="$classpolynomials_1_1_domain_error.html" title="Base class for all domain&#45;related exceptions." alt="" coords="192,46,384,73"/>
-<area shape="rect" id="node3" href="$classpolynomials_1_1_evaluation_domain_error.html" title="Exception for evaluation input errors." alt="" coords="432,5,663,47"/>
-<area shape="rect" id="node4" href="$classpolynomials_1_1_parameter_domain_error.html" title="Exception for parameter validation errors." alt="" coords="433,71,661,112"/>
-</map>

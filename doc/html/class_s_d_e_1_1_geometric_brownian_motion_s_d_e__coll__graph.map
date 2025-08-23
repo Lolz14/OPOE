@@ -1,5 +1,0 @@
-<map id="SDE::GeometricBrownianMotionSDE&lt; T &gt;" name="SDE::GeometricBrownianMotionSDE&lt; T &gt;">
-<area shape="rect" id="node1" title="Geometric Brownian Motion SDE model." alt="" coords="345,39,576,80"/>
-<area shape="rect" id="node2" href="$class_s_d_e_1_1_i_s_d_e_model.html" title=" " alt="" coords="11,5,230,47"/>
-<area shape="rect" id="node3" href="$struct_s_d_e_1_1_geometric_brownian_motion_s_d_e_1_1_parameters.html" title="Parameters for the Geometric Brownian Motion SDE. Contains the drift (mu) and volatility (sigma) para..." alt="" coords="5,71,236,112"/>
-</map>

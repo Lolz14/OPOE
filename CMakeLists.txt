@@ -2,18 +2,14 @@ cmake_minimum_required(VERSION 3.18...4.0)
 
 project(opoe VERSION 0.1.0 LANGUAGES CXX)
 
-# C++ standard (portable)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Default to Release for single-config generators (Ninja/Makefiles)
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
 endif()
 
-# Avoid forcing -O3 flags; use generator defaults for Release across compilers.
-# If you still want O3 in Release, uncomment:
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
   add_compile_options($<$<CONFIG:Release>:-O3>)
 elseif(MSVC)
@@ -24,38 +20,34 @@ elseif(MSVC)
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 find_package(pybind11 CONFIG REQUIRED)
 
-# OpenMP (optional; used if present)
+# OpenMP 
 find_package(OpenMP QUIET)
 
-# Optional header-only/math libs (enable if your code uses them)
 # Eigen3
 find_package(Eigen3 3.3 QUIET NO_MODULE)
 
-# Armadillo (templated headers + thin lib; optional)
+# Armadillo 
 find_package(Armadillo QUIET)
 
-# Boost headers (for things like boost::math, header-only)
+# Boost headers
 find_package(Boost QUIET)
 
-# FFTW3 and GSL (required based on your original link line)
-# Prefer CMake package configs; fall back to pkg-config if needed.
+# FFTW3 and GSL 
 find_package(PkgConfig QUIET)
 
 # GSL
-# Try CMake config first (provides GSL::gsl and optionally GSL::gslcblas)
 find_package(GSL CONFIG QUIET)
 if(NOT TARGET GSL::gsl)
   if(PKG_CONFIG_FOUND)
     pkg_check_modules(PC_GSL REQUIRED IMPORTED_TARGET gsl)
     add_library(GSL::gsl INTERFACE IMPORTED)
-    target_link_libraries(GSL::gsl INTERFACE PkgConfig::PC_GSL) # usually includes gsl and gslcblas
+    target_link_libraries(GSL::gsl INTERFACE PkgConfig::PC_GSL) 
   else()
     message(FATAL_ERROR "GSL not found. Install GSL (e.g., apt/brew/vcpkg/conda) or ensure pkg-config is available.")
   endif()
 endif()
 
 # FFTW3 (double-precision)
-# Try CMake config first (FFTW3::fftw3)
 find_package(FFTW3 CONFIG QUIET)
 if(NOT TARGET FFTW3::fftw3)
   if(PKG_CONFIG_FOUND)
@@ -70,7 +62,6 @@ endif()
 # Build the Python extension module
 pybind11_add_module(opoe MODULE bindings/bindings.cpp WITH_SOABI)
 
-# Visibility (helps Python extension size/ABI)
 set_target_properties(opoe PROPERTIES
   CXX_VISIBILITY_PRESET hidden
   VISIBILITY_INLINES_HIDDEN ON
@@ -90,11 +81,11 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
         /usr/include
         /usr/include/x86_64-linux-gnu
     )
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin") # macOS
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin") 
     target_include_directories(opoe PRIVATE
         /usr/include
-        /opt/homebrew/include  # Homebrew default
-        /usr/local/include     # Intel mac default
+        /opt/homebrew/include  
+        /usr/local/include    
     )
 elseif(WIN32)
     target_include_directories(opoe PRIVATE
@@ -104,7 +95,7 @@ elseif(WIN32)
 endif()
 
 
-# Link against imported targets only (portable)
+# Link against imported targets only
 target_link_libraries(opoe
   PRIVATE
     pybind11::headers
@@ -112,12 +103,10 @@ target_link_libraries(opoe
     GSL::gsl
 )
 
-# Link GSL CBLAS only if the target exists (some configs include it transitively)
 if(TARGET GSL::gslcblas)
   target_link_libraries(opoe PRIVATE GSL::gslcblas)
 endif()
 
-# Optional dependencies: link to propagate include dirs if found
 if(TARGET Eigen3::Eigen)
   target_link_libraries(opoe PRIVATE Eigen3::Eigen)
 endif()
@@ -139,10 +128,8 @@ if(OpenMP_CXX_FOUND)
   target_link_libraries(opoe PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
-# Version macro for your sources
 target_compile_definitions(opoe PRIVATE VERSION_INFO="${PROJECT_VERSION}")
 
-# Install into Python site-packages (for scikit-build or plain CMake)
 include(GNUInstallDirs)
 if(DEFINED SKBUILD_PLATLIB_DIR)
   set(_PY_INSTALL_DIR "${SKBUILD_PLATLIB_DIR}")
@@ -155,6 +142,6 @@ endif()
 install(
   TARGETS opoe
   LIBRARY DESTINATION "${_PY_INSTALL_DIR}"
-  RUNTIME DESTINATION "${_PY_INSTALL_DIR}"  # Windows .pyd
-  ARCHIVE DESTINATION "${_PY_INSTALL_DIR}"  # edge cases
+  RUNTIME DESTINATION "${_PY_INSTALL_DIR}"  
+  ARCHIVE DESTINATION "${_PY_INSTALL_DIR}"  
 )

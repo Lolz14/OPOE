@@ -1,9 +1,0 @@
-<map id="include/quadrature/QuadratureRuleAbstract.hpp" name="include/quadrature/QuadratureRuleAbstract.hpp">
-<area shape="rect" id="node1" title="Defines the abstract interface for numerical quadrature rules." alt="" coords="60,5,271,47"/>
-<area shape="rect" id="node2" href="$_quadrature_wrappers_8hpp.html" title="Provides wrapper classes for different quadrature (numerical integration) backends." alt="" coords="71,95,260,136"/>
-<area shape="rect" id="node3" href="$_quadrature_rule_holder_8hpp.html" title="Defines the QuadratureRuleHolder class, a type&#45;erased holder for various quadrature rule implementati..." alt="" coords="66,184,265,225"/>
-<area shape="rect" id="node4" href="$_o_p_e_option_pricer_8hpp.html" title="Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE)." alt="" coords="68,363,263,404"/>
-<area shape="rect" id="node7" href="$_projector_8hpp.html" title="Defines the Projector class template for weighted integration of products of functions using quadratu..." alt="" coords="148,273,292,315"/>
-<area shape="rect" id="node5" href="$bindings_8cpp.html" title=" " alt="" coords="5,452,168,479"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="193,452,298,479"/>
-</map>

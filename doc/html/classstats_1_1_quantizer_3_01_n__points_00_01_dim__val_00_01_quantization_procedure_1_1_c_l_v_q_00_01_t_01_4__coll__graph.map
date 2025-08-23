@@ -1,4 +1,0 @@
-<map id="stats::Quantizer&lt; N_points, Dim_val, QuantizationProcedure::CLVQ, T &gt;" name="stats::Quantizer&lt; N_points, Dim_val, QuantizationProcedure::CLVQ, T &gt;">
-<area shape="rect" id="node1" title="Specialization of Quantizer using the Competitive Learning Vector Quantization (CLVQ) algorithm." alt="" coords="5,95,228,151"/>
-<area shape="rect" id="node2" href="$classstats_1_1_quantizer_base.html" title=" " alt="" coords="23,5,210,47"/>
-</map>

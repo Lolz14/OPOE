@@ -1,5 +1,0 @@
-<map id="polynomials::EvaluationDomainError" name="polynomials::EvaluationDomainError">
-<area shape="rect" id="node1" title="Exception for evaluation input errors." alt="" coords="5,155,236,196"/>
-<area shape="rect" id="node2" href="$classpolynomials_1_1_domain_error.html" title="Base class for all domain&#45;related exceptions." alt="" coords="25,80,217,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="51,5,190,32"/>
-</map>
