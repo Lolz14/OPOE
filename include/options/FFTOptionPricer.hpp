@@ -201,7 +201,7 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
          * @return The interpolated option price.
          */
         R interpolate_price(R K) const {
-            R result = spline_(K)(0);
+            R result = spline_(K)(0)* std::exp(-this->rate_ * this->ttm_);
             if (this->payoff_->type() == traits::OptionType::Put)
                 return result - std::exp(this->sde_model_->get_x0()) + K * std::exp(-this->rate_ * this->ttm_);
             return result;

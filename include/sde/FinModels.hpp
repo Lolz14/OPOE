@@ -354,7 +354,7 @@ public:
     }
 
     inline void set_v0(const T& v0) noexcept override{
-        this->params_.sigma = v0; // Set the initial variance (x(1))
+        this->params_.sigma = v0; // Set sigma
     }
 
     inline T get_mu() const noexcept {
@@ -1448,16 +1448,9 @@ public:
         // Precompute powers
         auto y_t_asset = (y_mat - this->get_correlation() * this->get_correlation() * Q_func(y_mat).matrix()).eval(); // Use Q_func for variance process
 
-        std::cout << "y_t_asset:\n" << Q_func(y_mat) << std::endl;
-
         // 1. Trapezoidal rule
         auto trap_block1 = y_t_asset.block(0, 0, k, n - 1);
         auto trap_block2 = y_t_asset.block(0, 1, k, n - 1);
-        std::cout << "n = " << n << ", k = " << k << "\n";
-        std::cout << "trap_block1:\n" << trap_block1 << "\n";
-        std::cout << "trap_block2:\n" << trap_block2 << "\n";
-
-
 
         auto trap = static_cast<T>(0.5) * dt * (trap_block1 + trap_block2).rowwise().sum();
 

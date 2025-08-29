@@ -53,7 +53,8 @@ public:
     
     /**
      * @brief Constructs a MCOptionPricer instance.
-     *
+     *This method generates paths of the underlying asset using the provided SDE model.
+
      * @param ttm Time to maturity.
      * @param rate Risk-free interest rate.
      * @param payoff Payoff function for the option.
@@ -72,18 +73,7 @@ public:
           solver_type_(solver_type),
           num_paths_(num_paths),
           num_steps_(num_steps)
-    {}
-
-
-    /**
-     * @brief Prices the option using Monte Carlo simulation.
-     * This method generates paths of the underlying asset using the provided SDE model,
-     * evaluates the payoff at maturity, and returns the expected discounted payoff.
-     * @return The computed option price.
-     * 
-     */
-    R price() const override {
-
+    {
         StoringMatrix all_paths;
 
         switch (solver_type_) {
@@ -108,22 +98,35 @@ public:
 
         int state_dim = this->sde_model_->get_state_dim();
         StoringVector terminal_column = all_paths.col(num_steps_);
-
-        StoringVector terminal_logS(num_paths_);
+        terminal_logS_.resize(num_paths_);
 
         if (state_dim == 1) {
-            terminal_logS = terminal_column;
+            terminal_logS_ = terminal_column;
         } else {
-            terminal_logS = Eigen::Map<const StoringVector, 0, Eigen::InnerStride<>>(
+            terminal_logS_ = Eigen::Map<const StoringVector, 0, Eigen::InnerStride<>>(
                 terminal_column.data() + 1,
                 num_paths_,
                 Eigen::InnerStride<>(state_dim)
             );
+     
         }
 
+    }
 
 
-        auto payoffs = this->payoff_->evaluate_from_log(terminal_logS);
+    /**
+     * @brief Prices the option using Monte Carlo simulation.
+     * Evaluates the payoff at maturity, and returns the expected discounted payoff.
+     * @return The computed option price.
+     * 
+     */
+    R price() const override {
+
+
+
+
+
+        auto payoffs = this->payoff_->evaluate_from_log(this->terminal_logS_);
 
 
         return std::exp(-this->rate_ * this->ttm_) * payoffs.mean();
@@ -131,6 +134,7 @@ public:
 
 private:
     SolverType solver_type_;
+    StoringVector terminal_logS_;
     unsigned int num_paths_;
     unsigned int num_steps_;
 };

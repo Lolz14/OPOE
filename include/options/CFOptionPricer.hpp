@@ -57,7 +57,7 @@ public:
             throw std::logic_error("CFOptionPricer is only valid for the Black-Scholes (GBM) model.");
         }
 
-        const R S0 = std::exp(this->sde_model_->m_x0(0));
+        const R S0 = std::exp(this->sde_model_->get_x0());
         volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_v0();
         S0_ = S0;
 

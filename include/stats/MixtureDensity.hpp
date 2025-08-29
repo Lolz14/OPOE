@@ -18,7 +18,7 @@
  *   - Prevention of copy semantics for safety, with move semantics enabled.
  *
  * @note
- * - Requires C++17 or later for features such as std::variant, std::apply, and fold expressions.
+ * - Requires C++17 or later for features such as std::apply, and fold expressions.
  * - Relies on Eigen for matrix and vector operations, and OpenMP for parallelization.
  * - Assumes that DensityType classes provide methods: pdf(x), cdf(x), getMu(), getSigma(), getAlpha(), getBeta(), getShape(), getScale(), getDomain(), getDistribution(), and getConstructorParameters().
  * - The polynomial basis construction is tailored to the type of each component via DensityToPolyTraits specializations.
@@ -40,7 +40,6 @@
 
 
 #include <vector>
-#include <variant>
 #include <numeric>      
 #include <stdexcept>
 #include <limits>
@@ -73,12 +72,7 @@ using BetaDensity   = decltype(stats::make_beta_density(1.0, 1.0));
  */
 template <unsigned int N, typename R = traits::DataType::PolynomialField>
 using Polynomial = polynomials::Polynomial<N, R>;
-
-/// @brief A variant type that can hold any supported Boost density type.
-using DensityVariant = std::variant<
-        NormalDensity,
-        GammaDensity,
-        BetaDensity>;  
+ 
 /**
  * @brief Traits class mapping a Density type to its associated orthogonal polynomial type.
  * 

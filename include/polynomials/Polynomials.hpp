@@ -4,13 +4,13 @@
  *
  * This header provides a generic, fixed-degree polynomial class template with support for
  * various arithmetic operations, evaluation methods, and utilities. The implementation
- * leverages Eigen/Armadillo for efficient array operations and supports both Horner's
+ * leverages Eigen for efficient array operations and supports both Horner's
  * and direct evaluation methods. Additional features include conversion to std::function,
  * pretty-printing, and compile-time degree information.
  *
  * 
  * Dependencies:
- * - Armadillo/Eigen for array operations.
+ * - Eigen for array operations.
  * - C++17 or later (C++20 for comparison operators).
  * - Custom traits and utility headers.
  * 
@@ -48,7 +48,6 @@
 #include <utility>
 #include <ranges>
 #include <cmath>
-#include <armadillo>
 #include <functional>
 #include "../traits/OPOE_traits.hpp"
 #include "../utils/Utils.hpp"
@@ -348,9 +347,6 @@ auto operator*(Polynomial<LDegree, R> const &left, Polynomial<RDegree, R> const 
 
     // Perform FFT-based multiplication
     res.get_coeff() = Utils::fftMultiply(left.get_coeff(), right.get_coeff());
-
-    // Logging or debugging mechanism can be added here if needed
-    // std::cout << "Multiplication result: " << res << std::endl;
 
     return res;
 }

@@ -192,6 +192,8 @@ void bind_model<SDE::GeometricBrownianMotionSDE<Real>>(py::module_& m, const cha
         .def("get_x0", py::overload_cast<>(&SDE::GeometricBrownianMotionSDE<Real>::get_x0, py::const_))
         .def("get_sigma", py::overload_cast<>(&SDE::GeometricBrownianMotionSDE<Real>::get_v0, py::const_))
         .def("get_mu", py::overload_cast<>(&SDE::GeometricBrownianMotionSDE<Real>::get_mu, py::const_))
+        .def("set_x0", &SDE::GeometricBrownianMotionSDE<Real>::set_x0)
+        .def("set_sigma", &SDE::GeometricBrownianMotionSDE<Real>::set_v0)
         .def("state_dim", &SDE::GeometricBrownianMotionSDE<Real>::state_dim)
         .def("wiener_dim", &SDE::GeometricBrownianMotionSDE<Real>::wiener_dim);
 }
@@ -407,6 +409,8 @@ PYBIND11_MODULE(opoe, m) {
     .def(py::init<Real>(), py::arg("K"))
     .def("evaluate", py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate, py::const_), py::arg("S_T"))
     .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanCallPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T"))
+    .def("evaluate", py::overload_cast<options::StoringVector>(&options::EuropeanCallPayoff<Real>::evaluate, py::const_), py::arg("S_T_vec"))
+    .def("evaluate_from_log", py::overload_cast<options::StoringVector>(&options::EuropeanCallPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T_vec"))
     .def("get_strike", &options::EuropeanCallPayoff<Real>::getStrike)
     .def("set_strike", &options::EuropeanCallPayoff<Real>::setStrike, py::arg("K"));
 
@@ -420,6 +424,8 @@ PYBIND11_MODULE(opoe, m) {
     .def(py::init<Real>(), py::arg("K"))
     .def("evaluate", py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate, py::const_), py::arg("S_T"))
     .def("evaluate_from_log", py::overload_cast<Real>(&options::EuropeanPutPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T"))
+    .def("evaluate", py::overload_cast<options::StoringVector>(&options::EuropeanPutPayoff<Real>::evaluate, py::const_), py::arg("S_T_vec"))
+    .def("evaluate_from_log", py::overload_cast<options::StoringVector>(&options::EuropeanPutPayoff<Real>::evaluate_from_log, py::const_), py::arg("log_S_T_vec"))
     .def("get_strike", &options::EuropeanPutPayoff<Real>::getStrike)
     .def("set_strike", &options::EuropeanPutPayoff<Real>::setStrike, py::arg("K"));
 

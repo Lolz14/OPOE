@@ -75,7 +75,6 @@ public:
      */
     virtual std::unique_ptr<IPayoff<T>> clone() const = 0;
 
-    // Optional: Add a method to evaluate based on log-price if frequently needed
     /**
      * @brief Evaluates the payoff for a given final log-price of the underlying.
      * @param log_underlying_price The final log-price (x_T = ln(S_T)) of the underlying asset.
@@ -171,6 +170,18 @@ public:
          return std::max(std::exp(log_underlying_price) - strike_price_, static_cast<T>(0.0));
     }
 
+         /**
+     * @brief Evaluates the call payoff from a vector of log-prices: max(exp(x_T) - K, 0).
+     * @param log_underlying_price The final log-price vector (x_T = ln(S_T)) of the underlying asset.
+     * @return The calculated call payoff vector.
+     */
+    StoringVector evaluate_from_log(StoringVector log_underlying_prices) const override {
+        // Vectorized evaluation in log-space: max(K - exp(logS), 0)
+        return (log_underlying_prices.array().exp() - strike_price_)
+                .cwiseMax(static_cast<T>(0.0));
+    }
+
+
     /**
      * @brief Creates a copy of the EuropeanCallPayoff object.
      * @return A std::unique_ptr to the new IPayoff object.
@@ -262,8 +273,20 @@ public:
      * @return The calculated put payoff value.
      */
     T evaluate_from_log(T log_underlying_price) const override {
-         return std::max(std::log(strike_price_) - log_underlying_price, static_cast<T>(0.0));
+         return std::max(strike_price_ - std::exp(log_underlying_price), static_cast<T>(0.0));
     }
+
+    
+    /**
+     * @brief Evaluates the put payoff from a vector of log-prices: max(K - exp(x_T), 0).
+     * @param log_underlying_price The final log-price vector (x_T = ln(S_T)) of the underlying asset.
+     * @return The calculated put payoff vector.
+     */
+    StoringVector evaluate_from_log(StoringVector log_underlying_prices) const override {
+    // Vectorized evaluation in log-space: max(K - exp(logS), 0)
+    return (strike_price_ - log_underlying_prices.array().exp())
+            .cwiseMax(static_cast<T>(0.0));
+}
 
 
     /**

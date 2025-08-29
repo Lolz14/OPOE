@@ -188,10 +188,7 @@ public:
             mean + 12 * stddev
         );
 
-        // --- Discount result
-        option_price = std::exp(-this->rate_ * this->ttm_) * expected_value;
-
-        return adjustPutCall(option_price);
+        return std::exp(-this->rate_ * this->ttm_) * adjustPutCall(expected_value);
     }
 
     

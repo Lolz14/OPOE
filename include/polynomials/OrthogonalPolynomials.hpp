@@ -562,7 +562,7 @@ public:
 
 
 
-};// namespace OPOE
+};// namespace polynomials
 
 #endif // HH_ORTHOGONAL_POLYNOMIALS_HH
 
