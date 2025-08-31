@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 # opoe — Option Pricing with Orthogonal Expansions
 
 A C++20 library with Python bindings for fast and accurate option pricing via Orthogonal Polynomial Expansions (OPE), alongside FFT-, Monte Carlo-, and closed‑form methods.
@@ -10,7 +11,7 @@ A C++20 library with Python bindings for fast and accurate option pricing via Or
 
 - **How**:
   1. Choose w(x): a single Gaussian or, more robustly, a finite Gaussian mixture approximating the log-price density.
-  2. Build the orthonormal basis via a stable three-term recurrence derived from mixture components.
+  2. Build the orthonormal basis (ONB) via a stable three-term recurrence derived from mixture components.
   3. Compute model moments ℓn using the polynomial property (matrix exponential of the generator acting on a polynomial basis).
   4. Compute payoff projections fn either (i) in closed form for standard payoffs and Gaussian components (Direct method) or (ii) with 1D quadrature against w (Integration method).
   5. Form the truncated price π(N) = Σn=0..N fn ℓn and discount/adjust (e.g., put–call parity).
@@ -23,12 +24,23 @@ Key highlights:
 ## Features
 
 - C++20 core with modular namespaces: polynomials, stats (densities/mixtures), quadrature (Boost tanh–sinh, GSL), sde (GBM, Heston, Stein–Stein, Hull–White, Jacobi), options (CF/MC/FFT/OPE pricers).
-- Python extension module via pybind11 and scikit-build-core for seamless use in notebooks and pipelines.
+- Python extension module via pybind11 and scikit-build-core.
 - Multiple pricing engines:
   - Closed-form (Black–Scholes)
   - Monte Carlo (Euler–Maruyama, Milstein, IJK)
   - FFT (Carr–Madan)
   - OPE (Direct and Integration)
+  - 
+## Roadmap
+
+This project is under active development. Planned features and refinements include:
+- Extended payoff support (barrier, Asian, lookback options)
+- GPU acceleration for moment computation
+- Cross-platform prebuilt binaries (PyPI/Conda)
+- Calibration module for each pricer
+- Data retrieval via API
+
+Contributions, suggestions, and collaborations are very welcome!
 
 ## Prerequisites
 
@@ -115,11 +127,15 @@ pip install .
 # or dev
 # pip install -e .
 ```
-
-Notes:
 - If GSL/FFTW are installed in nonstandard locations, set `CMAKE_PREFIX_PATH` or ensure `pkg-config` can find them. 
 - On Windows with vcpkg, using `CMAKE_TOOLCHAIN_FILE` is essential so CMake resolves dependencies correctly.
-- Using MSVC compiler is still cumbersome with C++20. Moreover, Eigen 3.4 issues are raised when compiling with MSVC C++20 code [Issues Link](https://gitlab.com/libeigen/eigen/-/issues?label_name=3.4). For this reason, it is *strongly recommended* to use WSL and roll back to Linux installation guide.
+
+### Known Issues ###:
+- MSVC with C++20 can fail when compiling Eigen (see [Eigen issues](https://gitlab.com/libeigen/eigen/-/issues?label_name=3.4)).
+  Workarounds:
+  - Use WSL + GCC/Clang (recommended)
+  - Downgrade to C++17 on MSVC
+
   
 ## Quick start (Python)
 
