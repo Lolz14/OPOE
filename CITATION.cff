@@ -1,7 +1,9 @@
-@misc{opoe,
-  author = {Saverio Lorenzo Lefosse},
-  title = {PPCforAutoregressiveOperator},
-  year = {2025},
-  url = {https://github.com/Lolz14/OPOE},
-  
-}
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Lefosse
+    given-names: Saverio Lorenzo
+title: "PPCforAutoregressiveOperator"
+version: "0.0.1"
+date-released: 2025-01-01
+url: "https://github.com/Lolz14/OPOE"
