@@ -130,11 +130,11 @@ pip install .
 - If GSL/FFTW are installed in nonstandard locations, set `CMAKE_PREFIX_PATH` or ensure `pkg-config` can find them. 
 - On Windows with vcpkg, using `CMAKE_TOOLCHAIN_FILE` is essential so CMake resolves dependencies correctly.
 
-### Known Issues ###:
+### Known Issues:
 - MSVC with C++20 can fail when compiling Eigen (see [Eigen issues](https://gitlab.com/libeigen/eigen/-/issues?label_name=3.4)).
   Workarounds:
   - Use WSL + GCC/Clang (recommended)
-  - Downgrade to C++17 on MSVC
+  - Downgrade to C++17 on MSVC (requires strong code refactoring, eliminating every C++20 feature used in the code)
 
   
 ## Quick start (Python)
