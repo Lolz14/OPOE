@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 authors:
   - family-names: Lefosse
     given-names: Saverio Lorenzo
-title: "PPCforAutoregressiveOperator"
+title: "OPOE"
 version: "0.0.1"
-date-released: 2025-01-01
+date-released: 2025-08-31
 url: "https://github.com/Lolz14/OPOE"
