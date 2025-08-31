@@ -15,7 +15,7 @@ build-backend = "scikit_build_core.build"
 name = "opoe"
 version = "0.0.1"
 license = "MIT"
-description="A minimal example package (with pybind11)"
+description="Option pricing library with Orthogonal Expansion method"
 authors = [
   { name = "Saverio Lorenzo Lefosse" },
 ]
