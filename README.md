@@ -66,9 +66,7 @@ You can install via pip from the project root (editable or regular). Ensure the 
 ```bash
 # System toolchain and libs
 sudo apt-get update
-sudo apt-get install -y build-essential cmake ninja-build pkg-config \
-    python3-dev python3-venv \
-    libfftw3-dev libgsl-dev libeigen3-dev libboost-dev
+sudo apt-get install -y build-essential cmake ninja-build pkg-config python3-dev python3-venv libfftw3-dev libgsl-dev libeigen3-dev libboost-dev
 
 # Optional: OpenMP (usually included with GCC)
 # sudo apt-get install -y libomp-dev
@@ -87,8 +85,7 @@ pip install .
 xcode-select --install
 
 # Core libs
-brew install cmake ninja pkg-config \
-    fftw gsl eigen boost
+brew install cmake ninja pkg-config fftw gsl eigen boost
 
 # Python build deps
 python -m venv .venv && source .venv/bin/activate
