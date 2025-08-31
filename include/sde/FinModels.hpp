@@ -1,40 +1,36 @@
 /**
  * @file FinModels.hpp
- * @brief Stochastic Differential Equation (SDE) models for financial applications.
+ * @brief Stochastic Differential Equation (SDE) financial models interface and implementations.
  *
- * This header defines a set of classes and interfaces for modeling various stochastic processes
- * commonly used in mathematical finance, such as Geometric Brownian Motion, Heston, Stein-Stein,
- * Hull-White, and Jacobi models. These models are implemented as SDEs and provide interfaces for
- * drift, diffusion, and their derivatives, as well as characteristic functions and generator matrices.
+ * This header defines a flexible and extensible framework for modeling various financial SDEs,
+ * including Geometric Brownian Motion, Heston, Stein-Stein, Hull-White, Jacobi, and generic
+ * stochastic volatility models. The framework provides:
+ * 
+ * - A base interface (`ISDEModel`) for SDE models, supporting drift, diffusion, derivatives,
+ *   characteristic functions, observer pattern, and parameter management.
+ * - Concrete implementations for popular models, each with parameter validation, analytic
+ *   characteristic functions (where available), and support for advanced numerical schemes.
+ * - Utility methods for polynomial expansion, generator matrix construction, and moment calculations.
+ * - Observer pattern for parameter/state change notifications.
+ * 
+ * Template parameter `T` allows for custom numeric types (default: traits::DataType::PolynomialField).
+ * 
+ * Models included:
+ *   - GeometricBrownianMotionSDE: Classic Black-Scholes log-price process.
+ *   - GenericSVModelSDE: Flexible stochastic volatility model with arbitrary exponents and correlation.
+ *   - HestonModelSDE: Stochastic volatility with CIR variance process (p=q=0.5).
+ *   - SteinSteinModelSDE: Stochastic volatility with OU variance process (p=1, q=0).
+ *   - HullWhiteModelSDE: Stochastic volatility with p=1, q=1 (used in interest rate modeling).
+ *   - JacobiModelSDE: Bounded-variance process with polynomial expansion support.
  *
- * Main Components:
- * - ISDEModel: Abstract base class for SDE models, defining the interface for drift, diffusion,
- *   their derivatives, characteristic functions, and initial state management.
- * - GeometricBrownianMotionSDE: Implements the classic GBM model for asset prices.
- * - GenericSVModelSDE: Generic stochastic volatility model supporting flexible exponents for volatility.
- * - HestonModelSDE: Specialization of GenericSVModelSDE for the Heston model (square-root volatility).
- * - SteinSteinModelSDE: Specialization for the Stein-Stein model (OU volatility).
- * - HullWhiteModelSDE: Specialization for the Hull-White model (linear volatility).
- * - JacobiModelSDE: Specialization for the Jacobi model, with bounded variance process.
- *
- * Features:
- * - Support for both real and complex-valued state vectors and matrices.
- * - Calculation of drift, diffusion, and their derivatives for use in numerical schemes.
- * - Characteristic function computation for Fourier-based pricing methods.
- * - Construction of generator matrices for polynomial expansion methods.
- * - Parameter validation and error handling for model consistency.
- *
- * Template Parameter:
- * - T: Numeric type (default: traits::DataType::PolynomialField), allowing for flexibility in precision.
- *
- * Usage:
- * - Instantiate a model class with appropriate parameters and initial state.
- * - Use the drift and diffusion methods for simulation or numerical solution of SDEs.
- * - Use the characteristic function for pricing or calibration tasks.
- * - Use generator_G for polynomial expansion or spectral methods.
- *
- * Dependencies:
- * - SDE.hpp: Base definitions for SDE vectors and matrices.
+ * All models support:
+ *   - Drift and diffusion computation.
+ *   - Derivatives for higher-order schemes.
+ *   - Initial state and volatility getters/setters.
+ *   - Observer registration/removal.
+ *   - Cloning for polymorphic copying.
+ *   - Generator matrix construction for polynomial expansion methods.
+ *   - (Where applicable) analytic characteristic function computation.
  *
  */
 #ifndef FINMODELS_HPP
@@ -45,6 +41,7 @@
 #include <iostream>     // For std::cerr
 #include <complex>
 #include <memory>
+#include <unordered_map>
 namespace SDE{
 
 template <typename T = traits::DataType::PolynomialField>
@@ -53,7 +50,8 @@ constexpr std::complex<T> ImaginaryUnit{T(0), T(1)};
 using SDEVector = SDE::SDEVector; 
 using SDEComplexVector = SDE::SDEComplexVector; 
 using SDEMatrix = SDE::SDEMatrix; 
-
+using Callback = std::function<void()>;
+using ObserverId = std::size_t;
 
 static constexpr long key(int m, int n) noexcept {
         return (static_cast<long>(m) << 32) | static_cast<unsigned int>(n);
@@ -65,10 +63,7 @@ static constexpr long key(int m, int n) noexcept {
  */
 template<typename T = traits::DataType::PolynomialField>
 class ISDEModel {
-
-
-
-public: 
+    public: 
         /**
          * @brief Returns the dimension of the state vector.
          * @return The number of state variables in the SDE model.
@@ -88,6 +83,33 @@ public:
          * @brief Virtual destructor for proper cleanup in derived classes.
          */
         virtual ~ISDEModel() = default; 
+
+        /**
+         * @brief Register a new observer callback.
+         *
+         * Each observer is assigned a unique ID so it can be removed later.
+         * The callback will be invoked whenever `notify_observers()` is called.
+         *
+         * @param cb The callback function to be stored.
+         * @return ObserverId A unique identifier for the registered observer.
+         */
+        ObserverId add_observer(Callback cb) {
+        ObserverId id = next_id_++;
+        observers_[id] = std::move(cb);
+        return id;
+        }
+
+        /**
+         * @brief Remove an observer callback by its ID.
+         *
+         * If the ID does not exist, nothing happens.
+         *
+         * @param id The unique identifier of the observer to remove.
+         */
+        void remove_observer(ObserverId id) {
+            observers_.erase(id);
+        }
+
         
         /**
          * @brief Clones the SDE model.
@@ -244,7 +266,28 @@ public:
          */
         virtual unsigned int get_state_dim() const = 0;
 
+    protected:
+
+        /**
+         * @brief Notify all registered observers of a state change.
+         *
+         * This function iterates over all stored callbacks and executes them.
+         * It should be called whenever the internal state or parameters
+         * of the object change (e.g., in setters).
+         */
+        void notify_observers() {
+            // Iterate through all observers and invoke their callbacks
+            for (auto& [id, cb] : observers_) {
+                cb();   // Call the registered observer
+            }
+        }
+
         SDEVector m_x0; // Initial state vector, can be used in characteristic functions or other calculations
+
+
+    private:
+        std::unordered_map<ObserverId, Callback> observers_;
+        ObserverId next_id_ = 0;
 
 };
 
@@ -339,27 +382,68 @@ public:
         charact_out = charact_out.array().exp();
     }
 
+    /**
+     * @brief Get the initial asset state x0.
+     * @return The initial state (first component of the state vector).
+     */
     inline T get_x0() const override {
-        // Return the initial state vector
+        // Return the first element of the initial state vector
         return this->m_x0(0);
     }
 
+    /**
+     * @brief Set the initial asset state x0.
+     * 
+     * @param x0 The new initial state value (must be non-negative).
+     * @throws std::domain_error if x0 < 0.
+     */
     inline void set_x0(const T& x0) override {
-        // Set the initial state vector
+        if (x0 < T(0)) 
+            throw std::domain_error("X0 must be >= 0");
+        // Assign a constant vector of size STATE_DIM with value x0
         this->m_x0 = SDEVector::Constant(STATE_DIM, x0);
+        this->notify_observers();
     }
 
-    inline T get_v0() const noexcept override{
-        return this->params_.sigma; // Return the initial variance (x(1))
+    /**
+     * @brief Get the initial volatility parameter v0 (σ).
+     * @return The volatility parameter σ.
+     */
+    inline T get_v0() const noexcept override {
+        return this->params_.sigma; // Return σ
     }
 
-    inline void set_v0(const T& v0) noexcept override{
-        this->params_.sigma = v0; // Set sigma
+    /**
+     * @brief Set the initial volatility parameter v0 (σ).
+     * 
+     * @param v0 The volatility value (must be strictly positive).
+     * @throws std::domain_error if v0 <= 0.
+     */
+    inline void set_v0(const T& v0) noexcept override {
+        if (v0 <= T(0)) 
+            throw std::domain_error("Sigma must be > 0");
+        this->params_.sigma = v0; // Update σ
+        this->notify_observers();
     }
 
+    /**
+     * @brief Get the drift parameter μ of the SDE.
+     * @return The drift μ.
+     */
     inline T get_mu() const noexcept {
-        return this->params_.mu; // Return the drift parameter (mu)
+        return this->params_.mu;
     }
+
+    /**
+     * @brief Set the drift parameter μ of the SDE.
+     * 
+     * @param mu The drift parameter.
+     */
+    inline void set_mu(T mu) noexcept {
+        this->params_.mu = mu;
+        this->notify_observers();
+    }
+
 
 };
 
@@ -431,7 +515,7 @@ public:
 
         if (this->get_kappa() < 0.0) { 
             // Usually kappa > 0 for mean reversion.
-            std::cerr << "Warning: Mean-reversion kappa is negative or zero.\n";
+            throw std::invalid_argument("Mean reversion kappa must be greater or equal than 0.");
 
         }
 
@@ -736,56 +820,105 @@ public:
     }
 
 
-    inline T get_x0() const noexcept override  {
-        // Return the initial state vector
+    /**
+     * @brief Get the initial asset state x0.
+     * 
+     * @return The second component of the state vector (x0).
+     */
+    inline T get_x0() const noexcept override {
         return this->m_x0(1);
     }
 
-    inline void set_x0(const T& x0) noexcept override  {
-        // Set the initial state vector
+    /**
+     * @brief Set the initial asset state x0.
+     * 
+     * @param x0 New initial asset value (must be >= 0).
+     * @throws std::domain_error if x0 < 0.
+     */
+    inline void set_x0(const T& x0) noexcept override {
+        if (x0 < T(0)) 
+            throw std::domain_error("X0 must be >= 0");
         this->m_x0(1) = x0;
-    }
-
-    inline T get_v0() const noexcept override{
-        return this->m_x0(0); // Return the initial variance (x(1))
-    }
-
-    inline void set_v0(const T& v0) noexcept override{
-        this->m_x0(0) = v0; // Set the initial variance (x(1))
+        this->notify_observers();
     }
 
     /**
-     * @brief Getters for model parameters.
-     * These methods provide access to the model parameters used in the SDE.
-     * They are useful for retrieving specific parameters without exposing the entire Parameters struct.
+     * @brief Get the initial variance v0.
+     * 
+     * @return The first component of the state vector (variance).
      */
-    inline T get_p() const noexcept {
-        return params_.asset_vol_exponent; // p in the model
+    inline T get_v0() const noexcept override {
+        return this->m_x0(0);
     }
 
-    inline T get_q() const noexcept {
-        return params_.sv_vol_exponent; // q in the model
+    /**
+     * @brief Set the initial variance v0.
+     * 
+     * @param v0 New variance value (must be >= 0).
+     * @throws std::domain_error if v0 < 0.
+     */
+    inline void set_v0(const T& v0) noexcept override {
+        if (v0 < T(0)) 
+            throw std::domain_error("V0 must be >= 0");
+        this->m_x0(0) = v0;
+        this->notify_observers();
     }
 
-    inline T get_correlation() const noexcept {
-        return params_.correlation; // Correlation between the two Wiener processes
+    /**
+     * @name Parameter Getters
+     * @brief Accessors for the model parameters.
+     * These allow retrieving model coefficients without exposing the full Parameters struct.
+     */
+    ///@{
+    inline T get_p() const noexcept { return params_.asset_vol_exponent; } ///< Exponent for asset volatility term
+    inline T get_q() const noexcept { return params_.sv_vol_exponent; }    ///< Exponent for stochastic volatility term
+    inline T get_correlation() const noexcept { return params_.correlation; } ///< Correlation between Brownian motions
+    inline T get_kappa() const noexcept { return params_.sv_kappa; }       ///< Mean reversion speed of variance
+    inline T get_theta() const noexcept { return params_.sv_theta; }       ///< Long-term mean of variance
+    inline T get_sigma_v() const noexcept { return params_.sv_sigma; }     ///< Volatility of variance
+    inline T get_drift() const noexcept { return params_.asset_drift_const; } ///< Constant drift of the log-price
+    ///@}
+
+    /**
+     * @name Parameter Setters
+     * @brief Mutators with domain validation. Each setter triggers observer notifications.
+     */
+    ///@{
+    inline void set_correlation(T rho) noexcept {
+        if (rho < T(-1) || rho > T(1)) 
+            throw std::domain_error("Correlation must be in [-1, 1]");
+        params_.correlation = rho;
+        this->notify_observers();
     }
 
-    inline T get_kappa() const noexcept {
-        return params_.sv_kappa; // Mean reversion speed for the variance process
+    inline void set_kappa(T kappa) noexcept {
+        if (kappa < T(0)) 
+            throw std::domain_error("kappa must be >= 0");
+        params_.sv_kappa = kappa;
+        this->notify_observers();
     }
 
-    inline T get_theta() const noexcept {
-        return params_.sv_theta; // Long-term mean for the variance process
+    inline void set_theta(T theta) noexcept {
+        if (theta <= T(0)) 
+            throw std::domain_error("Theta must be > 0");
+        params_.sv_theta = theta;
+        this->notify_observers();
     }
 
-    inline T get_sigma_v() const noexcept {
-        return params_.sv_sigma; // Volatility of the variance process
+    inline void set_sigma_v(T sigma) noexcept {
+        if (sigma <= T(0)) 
+            throw std::domain_error("Volatility of volatility must be > 0");
+        params_.sv_sigma = sigma;
+        this->notify_observers();
     }
 
-    inline T get_drift() const noexcept {
-        return params_.asset_drift_const; // Constant drift term of log-price
+    inline void set_drift(T mu) noexcept {
+        // Drift can be any real number, so no domain check
+        params_.asset_drift_const = mu;
+        this->notify_observers();
     }
+    ///@}
+
 
 
     /**
@@ -1209,6 +1342,22 @@ public:
              std::cerr << "Warning: JacobiModelSDE: Kappa (mean reversion speed) is negative.\n";
         }
 
+        recompute_denominator();
+
+    }
+
+    /**
+     * @brief Recompute the squared denominator term used in Q(y).
+     *
+     * This method ensures numerical stability when calculating:
+     *    q_denominator_sq_ = (sqrt(y_max) - sqrt(y_min))^2
+     *
+     * - If y_max is very close to y_min, the denominator tends to zero,
+     *   which can make Q(y) ill-conditioned.
+     * - To avoid division by zero, we fallback to q_denominator_sq_ = 1.0
+     *   and print a warning to std::cerr.
+     */
+    inline void recompute_denominator() {
         T sqrt_ymax = std::sqrt(y_max_);
         T sqrt_ymin = std::sqrt(y_min_);
 
@@ -1223,7 +1372,6 @@ public:
             q_denominator_sq_ = (sqrt_ymax - sqrt_ymin) * (sqrt_ymax - sqrt_ymin);
 
         }
-
     }
 
 
@@ -1482,6 +1630,54 @@ public:
         return y_max_;
     };
 
+
+    /**
+     * @brief Set the lower boundary (y_min) of the variance process.
+     *
+     * Domain restrictions:
+     *   - y_min must be non-negative (>= 0).
+     *   - y_min must be strictly less than y_max.
+     *
+     * After updating, the cached denominator for Q(y) is recomputed
+     * and observers are notified of the parameter change.
+     *
+     * @param ymin New lower boundary for the variance process.
+     * @throws std::domain_error if constraints are violated.
+     */
+    inline void set_y_min(T ymin) noexcept {
+        if (ymin >= y_max_) 
+            throw std::domain_error("y_min must be < y_max");
+        if (ymin < T(0)) 
+            throw std::domain_error("y_min must be >= 0");
+
+        y_min_ = ymin;
+        recompute_denominator();
+        this->notify_observers();
+    }
+
+    /**
+     * @brief Set the upper boundary (y_max) of the variance process.
+     *
+     * Domain restrictions:
+     *   - y_max must be strictly greater than y_min.
+     *   - y_max must be non-negative (>= 0).
+     *
+     * After updating, the cached denominator for Q(y) is recomputed
+     * and observers are notified of the parameter change.
+     *
+     * @param ymax New upper boundary for the variance process.
+     * @throws std::domain_error if constraints are violated.
+     */
+    inline void set_y_max(T ymax) noexcept {
+        if (ymax <= y_min_) 
+            throw std::domain_error("y_max must be > y_min");
+        if (ymax < T(0)) 
+            throw std::domain_error("y_max must be >= 0");
+
+        y_max_ = ymax;
+        recompute_denominator();
+        this->notify_observers();
+    }
 
 
 };

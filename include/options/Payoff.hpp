@@ -172,7 +172,7 @@ public:
 
          /**
      * @brief Evaluates the call payoff from a vector of log-prices: max(exp(x_T) - K, 0).
-     * @param log_underlying_price The final log-price vector (x_T = ln(S_T)) of the underlying asset.
+     * @param log_underlying_prices The final log-price vector (x_T = ln(S_T)) of the underlying asset.
      * @return The calculated call payoff vector.
      */
     StoringVector evaluate_from_log(StoringVector log_underlying_prices) const override {
@@ -279,7 +279,7 @@ public:
     
     /**
      * @brief Evaluates the put payoff from a vector of log-prices: max(K - exp(x_T), 0).
-     * @param log_underlying_price The final log-price vector (x_T = ln(S_T)) of the underlying asset.
+     * @param log_underlying_prices The final log-price vector (x_T = ln(S_T)) of the underlying asset.
      * @return The calculated put payoff vector.
      */
     StoringVector evaluate_from_log(StoringVector log_underlying_prices) const override {

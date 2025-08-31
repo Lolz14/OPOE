@@ -1,20 +1,18 @@
 /**
  * @file CFOptionPricer.hpp
- * @brief Defines the CFOptionPricer class for closed-form (Black-Scholes) option pricing.
+ * @brief Defines the CFOptionPricer class for closed-form (Black-Scholes) pricing of European options.
  *
- * This header provides the implementation of the CFOptionPricer class, which computes the price and Greeks
- * of European options using the Black-Scholes model. The class supports both call and put payoffs,
- * and requires the underlying SDE model to be a Geometric Brownian Motion (GBM).
+ * This header provides the implementation of the CFOptionPricer class template, which specializes in
+ * pricing European call and put options using the Black-Scholes closed-form solution. The class supports
+ * calculation of the option price as well as the main Greeks (delta, gamma, vega, theta, rho).
  *
- * Key Features:
- * - Pricing of European call and put options using the Black-Scholes closed-form solution.
- * - Calculation of option Greeks: delta, gamma, vega, theta, and rho.
- * - Type-safe construction, ensuring only GBM models are accepted.
- * - Template parameter for floating-point precision.
- *
- * Dependencies:
- * - BaseOptionPricer: Abstract base class for option pricers.
- * - DensityBase: Provides normal density and cumulative distribution functions.
+ * @details
+ * - The pricer requires a payoff object (call or put), a risk-free rate, time to maturity, and a stochastic
+ *   differential equation (SDE) model, which must be a Geometric Brownian Motion (GBM) model.
+ * - The class checks at construction that the SDE model is compatible (GBM).
+ * - The price and Greeks are computed using the standard Black-Scholes formulas, with internal caching
+ *   of intermediate variables (d1, d2, volatility, S0) for efficiency.
+ * - Throws std::logic_error if used with unsupported payoff types or SDE models.
  *
  */
 #ifndef CF_OPTION_PRICER_HPP
@@ -56,15 +54,11 @@ public:
         if (!std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)) {
             throw std::logic_error("CFOptionPricer is only valid for the Black-Scholes (GBM) model.");
         }
-
-        const R S0 = std::exp(this->sde_model_->get_x0());
-        volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_v0();
-        S0_ = S0;
-
-        d1_ = (std::log(S0 / this->payoff_->getStrike()) + (Base::rate_ + 0.5 * volatility_ * volatility_) * Base::ttm_) /
-              (volatility_ * std::sqrt(Base::ttm_));
-        d2_ = d1_ - volatility_ * std::sqrt(Base::ttm_);
+        
+        recompute();
+        
     }
+
 
     /**
      * @brief Prices the option using the Black-Scholes formula.
@@ -73,6 +67,7 @@ public:
      * @return The computed option price.
      */
     R price() const override {
+        this->ensure_recomputed();
         const R r = Base::rate_;
         const R T = Base::ttm_;
         const R S = S0_;
@@ -92,6 +87,8 @@ public:
      * @return The computed delta value.
      */
     R delta() const {
+        this->ensure_recomputed();
+
         if (dynamic_cast<const EuropeanCallPayoff<R>*>(Base::payoff_.get())) {
             return normal_.cdf(d1_);
         } else if (dynamic_cast<const EuropeanPutPayoff<R>*>(Base::payoff_.get())) {
@@ -107,6 +104,8 @@ public:
      * @return The computed gamma value.
      */
     R gamma() const {
+        this->ensure_recomputed();
+
         return normal_.pdf(d1_) / (S0_ * volatility_ * std::sqrt(Base::ttm_));
     }
 
@@ -116,6 +115,7 @@ public:
      * @return The computed vega value.
      */
     R vega() const {
+        this->ensure_recomputed();
         return S0_ * normal_.pdf(d1_) * std::sqrt(Base::ttm_);
     }
 
@@ -125,6 +125,8 @@ public:
      * @return The computed theta value.
      */
     R theta() const {
+        this->ensure_recomputed();
+
         const R K = Base::strike_;
         const R r = Base::rate_;
         const R T = Base::ttm_;
@@ -149,6 +151,8 @@ public:
      * @return The computed rho value.
      */
     R rho() const {
+        this->ensure_recomputed();
+
         const R K = Base::strike_;
         const R r = Base::rate_;
         const R T = Base::ttm_;
@@ -163,10 +167,41 @@ public:
     }
 
 private:
-    R volatility_;
-    R d1_, d2_;
-    R S0_;
+    mutable R volatility_;
+    mutable R d1_, d2_;
+    mutable R S0_;
     static inline auto normal_ = stats::make_normal_density<R>(0.0, 1.0);
+
+    /**
+     * @brief Recompute intermediate variables required for option pricing.
+     *
+     * This method updates all necessary internal variables for the
+     * Black-Scholes closed-form pricing formula, including:
+     * - Initial asset price `S0_` (from the SDE model)
+     * - Volatility `volatility_` (from the Geometric Brownian Motion SDE)
+     * - d1 and d2 terms used in the cumulative normal distribution functions
+     *
+     * Workflow:
+     * 1. Retrieve the initial asset price from the SDE (`S0 = exp(x0)`).
+     * 2. Retrieve the volatility from the SDE model (assumes `GeometricBrownianMotionSDE`).
+     * 3. Compute d1 and d2 according to the Black-Scholes formulas:
+     *    - d1 = [ln(S0 / K) + (r + 0.5 * sigma^2) * T] / (sigma * sqrt(T))
+     *    - d2 = d1 - sigma * sqrt(T)
+     *
+     * @note This method must be called before computing the option price or Greeks.
+     *       It overwrites mutable members `S0_`, `volatility_`, `d1_`, and `d2_`.
+     * @throws std::bad_cast If the underlying SDE model is not a GeometricBrownianMotionSDE.
+     */
+    void recompute() const override {
+        const R S0 = std::exp(this->sde_model_->get_x0());
+        volatility_ = std::dynamic_pointer_cast<SDE::GeometricBrownianMotionSDE<R>>(Base::sde_model_)->get_v0();
+        S0_ = S0;
+
+        d1_ = (std::log(S0 / this->payoff_->getStrike()) + (Base::rate_ + 0.5 * volatility_ * volatility_) * Base::ttm_) /
+              (volatility_ * std::sqrt(Base::ttm_));
+        d2_ = d1_ - volatility_ * std::sqrt(Base::ttm_);
+    }
+
 };
 
 } // namespace options

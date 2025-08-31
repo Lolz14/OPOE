@@ -47,8 +47,6 @@
     - Shared pointers are used for memory management and Python interoperability.
     - The bindings are designed to be extensible for additional models, solvers, and pricer types.
 
-    Author: [Your Name or Organization]
-    License: [Appropriate License]
 */
 #include <pybind11/pybind11.h>
 #include <pybind11/eigen.h>
@@ -106,38 +104,34 @@ void bind_solver(py::module_ &m, const char *name) {
 }
 
 /**
- * @brief Helper function to expose an SDE model class to Python via pybind11.
+ * @brief Bind a generic stochastic volatility (SV) model to Python via pybind11.
  *
- * This function registers a model class in the given pybind11 module, binding
- * its constructor and common getter methods that are expected to be present
- * in all SDE models.
+ * This template function wraps a C++ SDE model (`ModelT`) so it can be used in Python.
+ * It exposes the constructor, common getters, and setters for model parameters, 
+ * as well as utility methods like `state_dim` and `wiener_dim`.
  *
- * @tparam ModelT   The concrete model class to bind. It must derive from
- *                  `SDE::ISDEModel<Real>` and implement the listed methods.
- * @param m         The pybind11 module where the class will be registered.
- * @param py_name   The name of the model class in the Python module.
+ * @tparam ModelT The specific SDE model type (e.g., HestonModelSDE, JacobiModelSDE).
+ * @param m The Python module where the class should be added.
+ * @param py_name The name of the Python class to expose.
  *
- * ### Bound constructor
- * - `__init__(v0: Real, kappa: Real, theta: Real, sigma: Real, rho: Real, x0: Vector)`  
- *   Creates a model with the specified parameters:
- *   - `v0` : Initial variance  
- *   - `kappa` : Mean-reversion speed  
- *   - `theta` : Long-term variance level  
- *   - `sigma` : Volatility of variance  
- *   - `rho` : Correlation between Brownian motions  
- *   - `x0` : Initial state vector
+ * @details
+ * The binding includes:
+ * - Constructor:
+ *   - Accepts initial variance `v0`, mean reversion `kappa`, long-term variance `theta`,
+ *     volatility of variance `sigma`, correlation `rho`, and initial log-price `x0`.
+ * - Getters (read-only access to model parameters):
+ *   - `get_x0()`, `get_v0()`, `get_kappa()`, `get_theta()`, `get_sigma_v()`, `get_correlation()`
+ * - Setters (allows modification of model parameters from Python):
+ *   - `set_correlation(rho)`, `set_kappa(kappa)`, `set_theta(theta)`, `set_sigma_v(sigma)`, `set_drift(mu)`, 'set_v0(v0)', 'set_x0(x0)'
+ *     - Each setter calls `notify_observers()` internally to update dependent calculations.
+ * - Utility methods:
+ *   - `state_dim()` – returns the dimension of the state vector.
+ *   - `wiener_dim()` – returns the dimension of the Wiener process.
  *
- * ### Bound methods
- * - `get_x0() -> Vector` : Returns the initial state vector.  
- * - `get_v0() -> Real` : Returns the initial variance.  
- * - `get_kappa() -> Real` : Returns the mean-reversion speed.  
- * - `get_theta() -> Real` : Returns the long-term variance level.  
- * - `get_sigma_v() -> Real` : Returns the volatility of variance.  
- * - `get_correlation() -> Real` : Returns the correlation coefficient.  
- * - `state_dim() -> int` : Returns the state space dimension.  
- * - `wiener_dim() -> int` : Returns the Wiener process dimension.
- *
- * @note All bound methods must be implemented by the concrete `ModelT`.
+ * @note
+ * The setters use lambda functions to ensure proper type conversions and allow for
+ * additional logic (e.g., domain checks) in C++ to be enforced when called from Python.
+ * 
  */
 template <typename ModelT>
 void bind_model(py::module_& m, const char* py_name) {
@@ -153,35 +147,52 @@ void bind_model(py::module_& m, const char* py_name) {
         .def("get_theta", py::overload_cast<>(&ModelT::get_theta, py::const_))
         .def("get_sigma_v", py::overload_cast<>(&ModelT::get_sigma_v, py::const_))
         .def("get_correlation", py::overload_cast<>(&ModelT::get_correlation, py::const_))
+        // Setters
+        .def("set_x0", [](ModelT &self, Real x0) { self.set_x0(x0); })
+        .def("set_v0", [](ModelT &self, Real v0) { self.set_v0(v0); })
+        .def("set_correlation", [](ModelT &self, Real rho) { self.set_correlation(rho); })
+        .def("set_kappa", [](ModelT &self, Real kappa) { self.set_kappa(kappa); })
+        .def("set_theta", [](ModelT &self, Real theta) { self.set_theta(theta); })
+        .def("set_sigma_v", [](ModelT &self, Real sigma) { self.set_sigma_v(sigma); })
+        .def("set_drift", [](ModelT &self, Real mu) { self.set_drift(mu); })
         .def("state_dim", &ModelT::state_dim)
         .def("wiener_dim", &ModelT::wiener_dim);
 }
 
 
 /**
- * @brief Bind the Geometric Brownian Motion (GBM) SDE model to Python.
+ * @brief Bind the Geometric Brownian Motion (GBM) model to Python via pybind11.
  *
- * This specialization of `bind_model` exposes the 
- * `SDE::GeometricBrownianMotionSDE<Real>` class to Python using pybind11.
+ * This specialization wraps the `SDE::GeometricBrownianMotionSDE` class so it can be used
+ * from Python. It exposes the constructor, getters, setters, and utility functions for
+ * state and Wiener process dimensions.
  *
- * @param m        The pybind11 module where the class will be registered.
- * @param py_name  The name of the model class in the Python module.
+ * @param m The Python module where the class should be added.
+ * @param py_name The name of the Python class to expose.
  *
- * ### Bound constructor
- * - `__init__(mu: Real, sigma: Real, x0: Real)`  
- *   Constructs a GBM model with:
- *   - `mu` : Drift parameter  
- *   - `sigma` : Volatility parameter  
- *   - `x0` : Initial state  
+ * @details
+ * The binding includes:
+ * - Constructor:
+ *   - `__init__(mu, sigma, x0)` where:
+ *     - `mu` is the drift of the asset.
+ *     - `sigma` is the volatility of the asset.
+ *     - `x0` is the initial value of the log-price.
+ * - Getters (read-only access to model parameters):
+ *   - `get_x0()` – returns the initial state.
+ *   - `get_sigma()` – returns the volatility parameter.
+ *   - `get_mu()` – returns the drift parameter.
+ * - Setters (modify parameters from Python):
+ *   - `set_x0(x0)` – sets the initial state.
+ *   - `set_sigma(sigma)` – sets the volatility.
+ *   - `set_mu(mu)` – sets the drift.
+ * - Utility methods:
+ *   - `state_dim()` – returns the dimension of the state vector.
+ *   - `wiener_dim()` – returns the dimension of the Wiener process.
  *
- * ### Bound methods
- * - `get_x0() -> Real` : Returns the initial state.  
- * - `get_sigma() -> Real` : Returns the volatility parameter.  
- * - `get_mu() -> Real` : Returns the drift parameter.  
- * - `state_dim() -> int` : Returns the state space dimension (typically 1).  
- * - `wiener_dim() -> int` : Returns the Wiener process dimension (typically 1).
+ * @note
+ * The GBM model is simpler than general stochastic volatility models, so no domain checks
+ * or observer notifications are required for the setters.
  *
- * @note This is a specialization of the `bind_model` template for the GBM SDE.
  */
 template <>
 void bind_model<SDE::GeometricBrownianMotionSDE<Real>>(py::module_& m, const char* py_name) {
@@ -194,45 +205,63 @@ void bind_model<SDE::GeometricBrownianMotionSDE<Real>>(py::module_& m, const cha
         .def("get_mu", py::overload_cast<>(&SDE::GeometricBrownianMotionSDE<Real>::get_mu, py::const_))
         .def("set_x0", &SDE::GeometricBrownianMotionSDE<Real>::set_x0)
         .def("set_sigma", &SDE::GeometricBrownianMotionSDE<Real>::set_v0)
+        .def("set_mu", &SDE::GeometricBrownianMotionSDE<Real>::set_mu)
         .def("state_dim", &SDE::GeometricBrownianMotionSDE<Real>::state_dim)
         .def("wiener_dim", &SDE::GeometricBrownianMotionSDE<Real>::wiener_dim);
 }
 
 /**
- * @brief Bind the Jacobi SDE model to Python.
+ * @brief Bind the Jacobi Stochastic Volatility (SV) model to Python via pybind11.
  *
- * This specialization of `bind_model` exposes the 
- * `SDE::JacobiModelSDE<Real>` class to Python using pybind11.
+ * This specialization wraps the `SDE::JacobiModelSDE` class so it can be used from Python.
+ * It exposes the constructor, getters, setters, and utility functions for state and Wiener
+ * process dimensions.
  *
- * @param m        The pybind11 module where the class will be registered.
- * @param py_name  The name of the model class in the Python module.
+ * @param m The Python module where the class should be added.
+ * @param py_name The name of the Python class to expose.
  *
- * ### Bound constructor
- * - `__init__(v0: Real, kappa: Real, theta: Real, sigma: Real, rho: Real, 
- *             y_min: Real, y_max: Real, x0: Vector)`  
- *   Constructs a Jacobi SDE model with parameters:
- *   - `v0` : Initial variance  
- *   - `kappa` : Mean-reversion speed  
- *   - `theta` : Long-term mean  
- *   - `sigma` : Volatility of volatility  
- *   - `rho` : Correlation between Wiener processes  
- *   - `y_min` : Lower bound for the state variable  
- *   - `y_max` : Upper bound for the state variable  
- *   - `x0` : Initial state vector  
+ * @details
+ * The binding includes:
+ * 
+ * - Constructor:
+ *   - `__init__(v0, kappa, theta, sigma, rho, y_min, y_max, x0)` where:
+ *     - `v0` is the initial variance.
+ *     - `kappa` is the mean reversion speed of the variance process.
+ *     - `theta` is the long-term mean of the variance process.
+ *     - `sigma` is the volatility of volatility (SV process volatility).
+ *     - `rho` is the correlation between the asset and variance Wiener processes.
+ *     - `y_min` is the lower bound for the variance process.
+ *     - `y_max` is the upper bound for the variance process.
+ *     - `x0` is the initial asset state.
  *
- * ### Bound methods
- * - `get_x0() -> Vector` : Returns the initial state.  
- * - `get_v0() -> Real` : Returns the initial variance.  
- * - `get_kappa() -> Real` : Returns the mean-reversion speed.  
- * - `get_theta() -> Real` : Returns the long-term mean.  
- * - `get_sigma_v() -> Real` : Returns the volatility of volatility.  
- * - `get_correlation() -> Real` : Returns the correlation parameter.  
- * - `get_y_min() -> Real` : Returns the lower bound for the state variable.  
- * - `get_y_max() -> Real` : Returns the upper bound for the state variable.  
- * - `state_dim() -> int` : Returns the dimension of the state space.  
- * - `wiener_dim() -> int` : Returns the dimension of the Wiener process.  
+ * - Getters (read-only access to model parameters):
+ *   - `get_x0()` – initial asset value.
+ *   - `get_v0()` – initial variance.
+ *   - `get_kappa()` – mean reversion speed.
+ *   - `get_theta()` – long-term mean.
+ *   - `get_sigma_v()` – volatility of the variance process.
+ *   - `get_correlation()` – correlation parameter.
+ *   - `get_y_min()` – lower variance bound.
+ *   - `get_y_max()` – upper variance bound.
  *
- * @note This is a specialization of `bind_model` for the Jacobi SDE.
+ * - Setters (update parameters from Python with domain checks and notifications):
+ *   - `set_x0(x0)` – sets initial asset state.
+ *   - `set_v0(v0)` – sets initial variance.
+ *   - `set_kappa(kappa)` – sets mean reversion speed.
+ *   - `set_theta(theta)` – sets long-term mean.
+ *   - `set_sigma_v(sigma)` – sets volatility of variance process.
+ *   - `set_correlation(rho)` – sets correlation.
+ *   - `set_y_min(ymin)` – sets lower variance bound (must be positive and < y_max).
+ *   - `set_y_max(ymax)` – sets upper variance bound (must be > y_min and positive).
+ *
+ * - Utility methods:
+ *   - `state_dim()` – dimension of the state vector.
+ *   - `wiener_dim()` – dimension of the Wiener process.
+ *
+ * @note
+ * Setters perform domain checks and trigger observer notifications if the value is updated.
+ * Python users must provide values satisfying these constraints to avoid `std::domain_error`.
+ *
  */
 template <>
 void bind_model<SDE::JacobiModelSDE<Real>>(py::module_& m, const char* py_name) {
@@ -251,6 +280,15 @@ void bind_model<SDE::JacobiModelSDE<Real>>(py::module_& m, const char* py_name) 
         .def("get_correlation", py::overload_cast<>(&SDE::JacobiModelSDE<Real>::get_correlation, py::const_))
         .def("get_y_min", py::overload_cast<>(&SDE::JacobiModelSDE<Real>::get_y_min, py::const_))
         .def("get_y_max", py::overload_cast<>(&SDE::JacobiModelSDE<Real>::get_y_max, py::const_))
+        // Setters
+        .def("set_x0", &SDE::JacobiModelSDE<Real>::set_x0)
+        .def("set_v0", &SDE::JacobiModelSDE<Real>::set_v0)
+        .def("set_kappa", &SDE::JacobiModelSDE<Real>::set_kappa, py::arg("kappa"))
+        .def("set_theta", &SDE::JacobiModelSDE<Real>::set_theta, py::arg("theta"))
+        .def("set_sigma_v", &SDE::JacobiModelSDE<Real>::set_sigma_v, py::arg("sigma"))
+        .def("set_correlation", &SDE::JacobiModelSDE<Real>::set_correlation, py::arg("rho"))
+        .def("set_y_min", &SDE::JacobiModelSDE<Real>::set_y_min, py::arg("y_min"))
+        .def("set_y_max", &SDE::JacobiModelSDE<Real>::set_y_max, py::arg("y_max"))
         .def("state_dim", &SDE::JacobiModelSDE<Real>::state_dim)
         .def("wiener_dim", &SDE::JacobiModelSDE<Real>::wiener_dim);
 }

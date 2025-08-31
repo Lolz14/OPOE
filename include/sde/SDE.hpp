@@ -227,9 +227,6 @@ public:
            const std::function<void(unsigned int, const SDEVector&)>& observer, 
            const std::optional<SDEMatrix>& dW_opt = std::nullopt) const {
             
-        if (sde_ref_.m_x0.size() != sde_ref_.state_dim()) 
-            throw std::invalid_argument("initial_x must have STATE_DIM");
-
         if (num_steps <= 0 || t_end <= t_start)
             throw std::invalid_argument("Invalid time range or num_steps");
 
@@ -237,9 +234,26 @@ public:
 
         // Flattened state vector: num_paths * STATE_DIM
         SDEVector current_x(num_paths * sde_ref_.state_dim());
+        SDEVector init;
 
-        // initial_x is a column vector: [0.25, 100]
-        SDEMatrix initial_states = sde_ref_.m_x0.transpose().replicate(num_paths, 1); 
+        if (sde_ref_.state_dim() == 1) {
+            // 1D model (e.g., GBM)
+            init.resize(1);
+            init(0) = sde_ref_.get_x0();
+
+        } else if (sde_ref_.state_dim() == 2) {
+            // 2D model (e.g., Heston: [v0, x0])
+            init.resize(2);
+            init(0) = sde_ref_.get_v0();
+            init(1) = sde_ref_.get_x0();
+
+        } else {
+            throw std::invalid_argument("Solver supports state dim<=2 in current version.");
+        }
+
+        // initial_x is a column vector, e.g. [0.25, 100]
+        SDEMatrix initial_states = init.transpose().replicate(num_paths, 1);
+
         current_x = Eigen::Map<SDEVector>(initial_states.data(), initial_states.size());   
         SDEVector next_x(num_paths * sde_ref_.state_dim());
 

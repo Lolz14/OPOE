@@ -1,32 +1,35 @@
+
 /**
  * @file OPEOptionPricer.hpp
  * @brief Defines the OPEOptionPricer class for pricing options using Orthogonal Polynomial Expansion (OPE).
  *
- * This header provides the implementation of the OPEOptionPricer class template, which inherits from BaseOptionPricer.
- * The class uses orthogonal polynomial expansions and mixture densities to efficiently price options under stochastic volatility models.
- * It supports flexible polynomial bases, customizable quadrature integration, and leverages quantization grids for path discretization.
+ * This header provides the implementation of the OPEOptionPricer template class, which enables efficient and flexible
+ * pricing of European options under stochastic volatility models using orthogonal polynomial expansions and mixture densities.
+ * The class supports both direct projection and numerical integration methods for computing expected payoffs, and is highly
+ * configurable in terms of polynomial basis degree, quadrature rules, and SDE solver types.
+ *
+ * Key Features:
+ * - Construction of orthonormal polynomial bases for density expansions.
+ * - Support for Gaussian mixture densities derived from quantization grids and SDE path simulations.
+ * - Efficient computation of option prices via direct projection or quadrature-based integration.
+ * - Modular design with support for various SDE solvers and payoff types.
+ * - Robust error handling and parameter validation.
+ *
+ * Template Parameters:
+ * @tparam R Floating-point type for calculations (default: traits::DataType::PolynomialField).
+ * @tparam PolynomialBaseDegree Degree of the polynomial basis (must be >= 2).
  *
  * Dependencies:
- * - BaseOptionPricer.hpp: Base class for option pricing.
- * - SDE.hpp: Interface for stochastic differential equation models.
- * - Utils.hpp: Utility functions for enumerating polynomial bases and other operations.
- * - MixtureDensity.hpp: For handling mixture densities in polynomial expansions.
- * - QuadratureRuleHolder.hpp: For configurable quadrature integration methods.
- * 
- * @section Features
- * - Constructs an orthonormal polynomial basis for the expansion.
- * - Computes the generator matrix and propagates it via matrix exponentiation.
- * - Integrates the expected payoff using a configurable quadrature rule.
- * - Supports custom SDE solvers and stochastic volatility models.
- * - Outputs intermediate results and integrand values for debugging and analysis.
+ * - Eigen (for matrix operations and exponentials)
+ * - Boost (for normal distributions)
+ * - Project-specific utilities for SDE models, payoffs, quadrature, and statistics.
  *
- * @section Usage
- * Instantiate OPEOptionPricer with the desired template parameters, provide the required SDE model, payoff, and solver function.
- * Call the price() method to compute the discounted expected payoff.
+ * Usage:
+ *   Instantiate OPEOptionPricer with desired parameters and call price() to compute the option price.
  *
- * @see BaseOptionPricer
- * @see stats::MixtureDensity
- * @see quadrature::QuadratureRuleHolder
+ * Example:
+ *   options::OPEOptionPricer<> pricer(ttm, rate, payoff, sde_model, K);
+ *   double price = pricer.price();
  */
 #ifndef OPTION_PRICER_HPP
 #define OPTION_PRICER_HPP
@@ -108,14 +111,13 @@ public:
         , K_(K)
         , num_paths_(num_paths)
         , solver_type_(solver_type)
-        , density_object_(make_density_object(ttm, num_paths, K,
-                                              solver_type_, sde_model))
+        , density_object_(make_density_object(ttm, num_paths, K, solver_type_, sde_model))
         , integrator_(integrator_param)
         , solving_param_(solving_param)
                                             
     {
-        density_object_.constructOrthonormalBasis();
-        density_object_.constructQProjectionMatrix();    
+        density_object_.constructOrthonormalBasis(); 
+        density_object_.constructQProjectionMatrix();
     }
 
     /**
@@ -132,6 +134,10 @@ public:
      * @return The computed option price (call or put).
      */
     R price() const override {
+
+        // Ensure that if a parameter has been changed, the density objects gets reinstantiated
+        this->ensure_recomputed();
+
         // Storage for final option price
         R option_price = static_cast<R>(0);
 
@@ -196,10 +202,34 @@ private:
     unsigned int K_;
     unsigned int num_paths_;
     SolverType solver_type_;
-    stats::MixtureDensity<PolynomialBaseDegree, DensityType, R> density_object_;
+    mutable stats::MixtureDensity<PolynomialBaseDegree, DensityType, R> density_object_;
     quadrature::QuadratureRuleHolder<R> integrator_;
     traits::OPEMethod solving_param_;
 
+        /**
+     * @brief Recompute the OPE density object and its associated basis/projection matrices.
+     *
+     * This method rebuilds the density object using the current model parameters and
+     * solver configuration. It then constructs the orthonormal polynomial basis
+     * and the Q-projection matrix, which are required for the option pricing routines.
+     *
+     * Implementation details:
+     *   - Uses `make_density_object` with current time-to-maturity, strike,
+     *     number of paths, solver type, and SDE model.
+     *   - Calls `constructOrthonormalBasis()` to build the polynomial basis.
+     *   - Calls `constructQProjectionMatrix()` to precompute projection coefficients.
+     * 
+     *This is a potentially expensive operation and should only be called
+     *       when parameters have changed (see observer pattern).
+     */
+    void recompute() const override{
+        density_object_ = make_density_object(
+            this->ttm_, num_paths_, K_,
+            solver_type_, this->sde_model_
+        );
+        density_object_.constructOrthonormalBasis();
+        density_object_.constructQProjectionMatrix();
+    }
     /**
      * @brief Constructs the mixture density object used in OPEOptionPricer.
      *

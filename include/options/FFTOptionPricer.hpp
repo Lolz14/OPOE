@@ -1,18 +1,31 @@
 /**
  * @file FFTOptionPricer.hpp
- * @brief Defines the FFTOptionPricer class for option pricing using the Fast Fourier Transform (FFT) method.
+ * @brief Defines the FFTOptionPricer class for pricing options using the Fast Fourier Transform (FFT) method.
  *
  * This header provides the FFTOptionPricer class template, which implements option pricing via FFT,
- * leveraging the characteristic function of the underlying asset's SDE model. The class supports
- * flexible polynomial bases, configurable FFT grid parameters, and provides methods for pricing
- * and computing option Greeks (delta, gamma, vega, rho, theta) using bump-and-difference techniques.
- * 
+ * leveraging the characteristic function of the underlying asset's stochastic process. The class supports
+ * flexible polynomial bases, configurable quadrature rules, and spline interpolation for efficient and accurate
+ * computation of option prices and Greeks (delta, gamma, vega, rho, theta).
+ *
+ * Key Features:
+ * - FFT-based option pricing using characteristic functions.
+ * - Support for arbitrary payoff functions and SDE models.
+ * - Efficient computation of option Greeks via bump-and-difference methods.
+ * - Spline interpolation for smooth price evaluation across strikes.
+ * - Configurable FFT grid parameters for accuracy and performance tuning.
+ *
+ * Template Parameters:
+ * - R: Floating-point type used for calculations (default: traits::DataType::PolynomialField).
+ *
  * Dependencies:
- * - Eigen library for matrix operations.
- * - BaseOptionPricer.hpp: Base class for option pricing.
- * - ISDEModel.hpp: Interface for stochastic differential equation models.
- * - FFTW.hpp: Utility for Fast Fourier Transform operations.
- * 
+ * - Eigen (for arrays and splines)
+ * - FFTW (for FFT computations)
+ * - BaseOptionPricer (base class for option pricers)
+ * - SDE model and payoff interfaces
+ *
+ * Usage:
+ * Instantiate FFTOptionPricer with the desired types and parameters, then use the price() and Greeks methods
+ * to evaluate option prices and sensitivities.
  */
 #ifndef FFT_OPTION_PRICER_HPP
 #define FFT_OPTION_PRICER_HPP
@@ -62,16 +75,17 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
         FFTOptionPricer(R ttm, R rate, std::shared_ptr<IPayoff<R>> payoff, std::shared_ptr<SDE::ISDEModel<R>> sde_model, unsigned int Npow = 10, unsigned int A = 10)
         : Base(ttm, rate, std::move(payoff), std::move(sde_model)), Npow_(Npow), A_(A) {
             initialize_fft_grid();
+            recompute();
         }
         
         /**
          * @brief Price the option using FFT.
          * This method computes the option price by evaluating the characteristic function of the underlying asset
-         * and applying the FFT to obtain the expected payoff.
+         * and applying the FFT to obtain the expected payoff. If the sde model was subject to changes, it calls the recompute function.
          * @return The computed option price.
          */
         R price() const override {
-            update_characteristic_fn();
+            this->ensure_recomputed();
             return interpolate_price(this->payoff_->getStrike());
         }
 
@@ -166,7 +180,7 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
          * computes the necessary terms for the FFT, and builds a spline for interpolating option prices.
          * It is called before pricing the option to ensure the characteristic function is up-to-date.
          */
-        void update_characteristic_fn() const {
+        void recompute() const override {
             ComplexStoringVector res(N_);
             this->sde_model_->characteristic_fn(this->ttm_, v_ - SDE::ImaginaryUnit<R>, res);
 
@@ -222,7 +236,8 @@ class FFTOptionPricer : public BaseOptionPricer<R> {
          */
         R bump_and_diff(Getter getter, Setter setter, bool log_spot = false, bool second = false) const
         requires GetterFunction<Getter, R> && SetterFunction<Setter, R>
-        {
+        {            
+            this->ensure_recomputed();
             R original = getter();
             R bump = log_spot ? bump_size_ / std::exp(original) : bump_size_;
 
