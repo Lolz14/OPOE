@@ -30,7 +30,7 @@ Key highlights:
   - Monte Carlo (Euler–Maruyama, Milstein, IJK)
   - FFT (Carr–Madan)
   - OPE (Direct and Integration)
-  - 
+    
 ## Roadmap
 
 This project is under active development. Planned features and refinements include:
