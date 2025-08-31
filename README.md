@@ -63,7 +63,6 @@ sudo apt-get install -y build-essential cmake ninja-build pkg-config \
 
 # Python build deps (in a venv is recommended)
 python3 -m venv .venv && source .venv/bin/activate
-pip install -U pip
 pip install .
 # or for dev
 # pip install -e .
@@ -81,7 +80,6 @@ brew install cmake ninja pkg-config \
 
 # Python build deps
 python -m venv .venv && source .venv/bin/activate
-pip install -U pip
 pip install .
 # or dev
 # pip install -e .
@@ -102,11 +100,9 @@ C:\vcpkg\vcpkg.exe install gsl fftw3 eigen3 boost --triplet x64-windows
 # Build with pip, pointing to vcpkg toolchain
 python -m venv .venv
 .\.venv\Scripts\activate
-pip install -U pip
-set CMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
-pip install -v .
+pip install -v . --config-settings=cmake.define.CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
 # or dev
-# pip install -v -e .
+# pip install -v -e . --config-settings=cmake.define.CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
 
 Option B — conda (cross‑platform)
