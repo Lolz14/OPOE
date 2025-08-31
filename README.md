@@ -117,9 +117,10 @@ pip install .
 ```
 
 Notes:
-- If GSL/FFTW are installed in nonstandard locations, set `CMAKE_PREFIX_PATH` or ensure `pkg-config` can find them.
+- If GSL/FFTW are installed in nonstandard locations, set `CMAKE_PREFIX_PATH` or ensure `pkg-config` can find them. 
 - On Windows with vcpkg, using `CMAKE_TOOLCHAIN_FILE` is essential so CMake resolves dependencies correctly.
-
+- Using MSVC compiler is still cumbersome with C++20. Moreover, Eigen 3.4 issues are raised when compiling with MSVC C++20 code [Issues Link](https://gitlab.com/libeigen/eigen/-/issues?label_name=3.4). For this reason, it is *strongly recommended* to use WSL and roll back to Linux installation guide.
+  
 ## Quick start (Python)
 
 The bindings expose models, payoffs, and pricers with a uniform interface:
@@ -159,7 +160,7 @@ Tip:
 ## Testing
 By running the command below:
 ```bash
-python3 app.py
+python app.py #python3 when on Linux 
 ```
 
 A test-run example will be run showcasing capabilities of the library and comparing the OPE method to others.
