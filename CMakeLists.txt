@@ -26,9 +26,6 @@ find_package(OpenMP QUIET)
 # Eigen3
 find_package(Eigen3 3.3 QUIET NO_MODULE)
 
-# Armadillo 
-find_package(Armadillo QUIET)
-
 # Boost headers
 find_package(Boost QUIET)
 
@@ -109,10 +106,6 @@ endif()
 
 if(TARGET Eigen3::Eigen)
   target_link_libraries(opoe PRIVATE Eigen3::Eigen)
-endif()
-
-if(TARGET armadillo)
-  target_link_libraries(opoe PRIVATE armadillo)
 endif()
 
 if(Boost_FOUND)
